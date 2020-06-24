@@ -8,7 +8,7 @@ public class MemberDTO {
 	private String m_pw;
 	private String m_name;
 	private Date m_date;
-	private String m_Email;
+	private String m_email;
 	
 	
 	public String getM_id() {
@@ -35,11 +35,11 @@ public class MemberDTO {
 	public void setM_date(Date m_date) {
 		this.m_date = m_date;
 	}
-	public String getM_Email() {
-		return m_Email;
+	public String getM_email() {
+		return m_email;
 	}
-	public void setM_Email(String m_Email) {
-		this.m_Email = m_Email;
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 	
 	
