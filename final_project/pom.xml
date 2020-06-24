@@ -116,6 +116,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
+		
 		  <!-- mybatis -->
 		<dependency>
 		   <groupId>org.mybatis</groupId>
@@ -127,12 +128,14 @@
 		   <artifactId>mybatis</artifactId>
 		   <version>3.2.3</version>
 		</dependency>
+		
 		   <!-- JDBC Template -->
 		 <dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>4.1.4.RELEASE</version>
 		 </dependency>
+		
 		 <!-- JSON -->
 		 <dependency>
 		   <groupId>com.fasterxml.jackson.core</groupId>
@@ -145,6 +148,26 @@
 		   <version>2.4</version>
 		   <classifier>jdk15</classifier>
 		</dependency>
+		
+		<!-- 메일 전송 -->
+   			 <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+	 	<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
