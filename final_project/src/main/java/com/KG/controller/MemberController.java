@@ -116,23 +116,7 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping(value = "overlapId" , produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public String chk_id(String m_id, Model model) throws JsonProcessingException {
-		System.out.println("h1");
-		
-//		model.addAttribute("m_id" , m_id);
-//		
-//		memberService = (MemberChkIdServiceImpl)AC.ac.getBean("memberChkIdServiceImpl");
-//		
-//		boolean flag = memberService.execute_Boo(model);
-		
-		if(true) {
-			return "member/gkgk";
-		}
-		
-		return "member/email11";
-	}
+
 	
 	
 }

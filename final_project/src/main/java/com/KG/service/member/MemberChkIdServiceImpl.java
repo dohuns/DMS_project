@@ -20,9 +20,12 @@ public class MemberChkIdServiceImpl implements MemberService{
 		
 		String m_id = (String)map.get("m_id");
 		
-		dao.chk_id(m_id);
+		String id = dao.chk_id(m_id);
+		if(id == null) {
+			return false;
+		}
 		
-		return false;
+		return true;
 	}
 
 	@Override
