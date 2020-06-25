@@ -6,15 +6,19 @@ import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KG.dto.MemberDTO;
+import com.KG.service.member.MemberServiceLogin_ck;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -23,6 +27,9 @@ public class MemberController {
 	@Inject    //서비스를 호출하기 위해서 의존성을 주입
     JavaMailSender mailSender;     //메일 서비스를 사용하기 위해 의존성을 주입함.
     
+	@Autowired
+	MemberServiceLogin_ck memberservice;
+	
 	@RequestMapping("/")
 	public String Home() {
 		return "home";
@@ -61,6 +68,47 @@ public class MemberController {
         
         response_email.setContentType("text/html; charset=UTF-8");
         return strJson;
+    }
+    
+    @RequestMapping("login")
+    public String login() {
+    	return "login/login";
+    }
+    
+    @RequestMapping("login_Ck")
+    public String login_Ck(Model model , HttpSession session, MemberDTO dto) {
+    	model.addAttribute("session",session);
+    	model.addAttribute("dto",dto);
+    	System.out.println(dto);
+    	try {
+			memberservice.execute_Str(model);
+		} catch (Exception e) {
+		}
+    	return "redirect:main";
+    }
+    @RequestMapping("main")
+    public String main() {
+    	return "login/main";
+    }
+
+    @RequestMapping("findId")
+	public String findId() {
+		return "login/findId";
+	}
+    
+    @RequestMapping("findId_ck")
+	public String findId_ck() {
+		return "login/findId";
+	}
+
+    @RequestMapping("findPw")
+    public String findPw() {
+    	return "login/findPw";
+    }
+
+    @RequestMapping("findPw_ck")
+    public String findPw_ck() {
+    	return "login/findPw";
     }
     
 }
