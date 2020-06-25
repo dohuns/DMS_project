@@ -14,11 +14,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.KG.service.member.MemberChkIdServiceImpl;
 import com.KG.service.member.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class MemberController {
@@ -28,12 +34,12 @@ public class MemberController {
 	MemberService memberService;
 	
 	
-	@RequestMapping("member/email")
+	@RequestMapping("email")
 	public String email() {
 		return "member/email";
 	}
 	
-	@PostMapping("member/email_certify")
+	@PostMapping("email_certify")
 	public String certify(HttpServletResponse response,
 			HttpServletRequest request , 
 			Model model) throws IOException {
@@ -71,23 +77,17 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		model.addAttribute("dice" , dice);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		pw.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
 		pw.flush();
-		
 		return "member/certify_page";
 	}
 	
-	@RequestMapping("member/certify_page")
-	public String certify_page() {
-		return "member/certify_page";
-	}
 	
-	@PostMapping("member/chk_certification/{dice}")
+	@PostMapping("chk_certification/{dice}")
 	public String chk_certification(@PathVariable String dice ,
 			String certificationNum , 
 			HttpServletResponse response, 
@@ -105,24 +105,33 @@ public class MemberController {
 			PrintWriter pw = response.getWriter();
 			pw.println("<script>alert('인증번호가 일치했습니다. 회원가입 페이지로 넘어갑니다.');</script>");
 			pw.flush();
+			System.out.println("맞았당!");
 			return "member/regist";
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter pw = response.getWriter();
+			System.out.println("틀렸당!");
 			pw.println("<script>alert('인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.');</script>");
-			return "member/certify_page";
+			return "redirect:chk_certification/{dice}";
 		}
 	}
 	
-	@RequestMapping("member/regist")
-	public String regist() {
-		return "member/regist";
-	}
-	
-	@RequestMapping("/member/chk_certification/chk_reigst")
-	public String aa() {
-		System.out.println("h2");
-		return "member/regist";
+	@GetMapping(value = "overlapId" , produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String chk_id(String m_id, Model model) throws JsonProcessingException {
+		System.out.println("h1");
+		
+//		model.addAttribute("m_id" , m_id);
+//		
+//		memberService = (MemberChkIdServiceImpl)AC.ac.getBean("memberChkIdServiceImpl");
+//		
+//		boolean flag = memberService.execute_Boo(model);
+		
+		if(true) {
+			return "member/gkgk";
+		}
+		
+		return "member/email11";
 	}
 	
 	

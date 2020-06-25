@@ -11,28 +11,29 @@
 
 <script>
 	function chk_id() {
-		alert("할이11");
-		console.log("안녕");
 		var id = $("#m_id").val();
-		var data = {m_id : id};
+// 		var form = {m_id : id};
+// 		alert(data + "," + id);
+		
 		$.ajax({
-			url:"chk_id",
+			url:"overlapId",
 			type:"GET",
-			data:data,
+			data:"m_id="+id,
 			success:function(arg) {
-				if(arg) {
-					$("#label_id").text("사용가능한 ID입니다.");
-					$("#label_id").css({
-						"color":"blue"
-					})
-					$("#m_id").attr("readonly",true);
-					$("btn_chk_id").attr("disabled","disabled");
-				} else {
-					$("#label_id").text("중복 된 ID입니다.");
-					$("#label_id").css({
-						"color":"red"
-					})
-				}
+				alert(arg);
+// 				if(arg) {
+// 					$("#label_id").text("사용가능한 ID입니다.");
+// 					$("#label_id").css({
+// 						"color":"blue"
+// 					})
+// 					$("#m_id").attr("readonly",true);
+// 					$("btn_chk_id").attr("disabled","disabled");
+// 				} else {
+// 					$("#label_id").text("중복 된 ID입니다.");
+// 					$("#label_id").css({
+// 						"color":"red"
+// 					})
+// 				}
 			},
 			error:function(){
 				alert("실패!!")
@@ -47,7 +48,7 @@
 			<h1>회원가입 페이지</h1>
 		</div>
 		<div style="width:500px;">
-			<form action="chk_reigst" method="POST">
+			<form action="chk_reigst1" method="POST">
 				<table>
 					<!-- 아이디 -->
 					<tr>
@@ -58,7 +59,7 @@
 							<input type="text" name="m_id" id="m_id" placeholder="아이디를 입력해주세요" class="form-control">
 						</td>
 						<td>
-							<button onclick="chk_id()" id="btn_chk_id"class="btn btn-info">중복확인</button>
+							<button type="button" onclick="chk_id()" id="btn_chk_id"class="btn btn-info">중복확인</button>
 						</td>
 					</tr>
 					<tr>
@@ -123,7 +124,7 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="button" class="btn btn-info" >회원가입</button>
+							<button type="button" onclick="test()" class="btn btn-info" >회원가입</button>
 						</td>
 					</tr>					
 				</table>
