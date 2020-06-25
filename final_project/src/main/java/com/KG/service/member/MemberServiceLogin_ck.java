@@ -28,10 +28,6 @@ public class MemberServiceLogin_ck implements MemberService{
 		Map<String, Object> map = model.asMap();
 		MemberDTO dto = (MemberDTO)map.get("dto");
 		HttpSession session = (HttpSession)map.get("session");
-		System.out.println("dao id"+dao.loginck(dto).getM_id());
-		System.out.println("dao pw"+dao.loginck(dto).getM_pw());
-		System.out.println("dto id"+dto.getM_id());
-		System.out.println("dto pw"+dto.getM_pw());
 		if (dao.loginck(dto).getM_id().equals(dto.getM_id())&&dao.loginck(dto).getM_pw().equals(dto.getM_pw())) {
 			session.setAttribute("m_id", dto.getM_id());
 		} else {

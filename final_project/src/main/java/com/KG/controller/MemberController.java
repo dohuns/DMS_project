@@ -79,7 +79,6 @@ public class MemberController {
     public String login_Ck(Model model , HttpSession session, MemberDTO dto) {
     	model.addAttribute("session",session);
     	model.addAttribute("dto",dto);
-    	System.out.println(dto);
     	try {
     		ser = (MemberServiceLogin_ck)AC.ac.getBean("memberServiceLogin_ck");
     		ser.execute_Str(model);
