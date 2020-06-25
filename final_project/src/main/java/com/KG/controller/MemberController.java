@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KG.dto.MemberDTO;
+import com.KG.service.member.MemberService;
 import com.KG.service.member.MemberServiceLogin_ck;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,9 +27,8 @@ public class MemberController {
 	
 	@Inject    //서비스를 호출하기 위해서 의존성을 주입
     JavaMailSender mailSender;     //메일 서비스를 사용하기 위해 의존성을 주입함.
-    
-	@Autowired
-	MemberServiceLogin_ck memberservice;
+    @Autowired
+	MemberService ser;
 	
 	@RequestMapping("/")
 	public String Home() {
@@ -81,7 +81,8 @@ public class MemberController {
     	model.addAttribute("dto",dto);
     	System.out.println(dto);
     	try {
-			memberservice.execute_Str(model);
+    		ser = (MemberServiceLogin_ck)AC.ac.getBean("memberServiceLogin_ck");
+    		ser.execute_Str(model);
 		} catch (Exception e) {
 		}
     	return "redirect:main";
