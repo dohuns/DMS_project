@@ -7,14 +7,16 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.KG.service.member.MemberService;
 
@@ -26,25 +28,25 @@ public class MemberController {
 	MemberService memberService;
 	
 	
-	@RequestMapping("member/eamil")
+	@RequestMapping("member/email")
 	public String email() {
 		return "member/email";
 	}
 	
 	@PostMapping("member/email_certify")
-	public ModelAndView certify(HttpServletResponse response,
-			HttpServletRequest request, String e_mail) throws IOException {
+	public String certify(HttpServletResponse response,
+			HttpServletRequest request , 
+			Model model) throws IOException {
 		
 		Random random = new Random();
 		int dice = random.nextInt(4589362) + 49311; // 이메일로 받을 인증코드 난수
 		
 		String fromMail = "gkgk586@gmail.com"; // 보내는 사람 이메일
 		String tomail = request.getParameter("e_mail"); // 받는 사람 이메일
+		HttpSession session = request.getSession();
+		session.setAttribute("email", tomail);
 		String title = "회원가입 인증 이메일 입니다"; // 이메일 제목
-		
-		System.out.println("tomail : " + tomail);
-		System.out.println("mailSender : " + mailSender);
-		
+
 		String content = //이메일 내용
 		System.getProperty("line.separator") + // 한줄씩 간격을 주는 코드
 		System.getProperty("line.separator") +
@@ -70,22 +72,58 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/certify_page");
-		mv.addObject("dice" , dice);
-		System.out.println("mv : " + mv);
+		model.addAttribute("dice" , dice);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		pw.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
 		pw.flush();
 		
-		return mv;
+		return "member/certify_page";
 	}
 	
 	@RequestMapping("member/certify_page")
 	public String certify_page() {
 		return "member/certify_page";
 	}
+	
+	@PostMapping("member/chk_certification/{dice}")
+	public String chk_certification(@PathVariable String dice ,
+			String certificationNum , 
+			HttpServletResponse response, 
+			Model model,
+			HttpSession session) throws IOException {
+		
+		System.out.println("입력 값 : " + certificationNum);
+		System.out.println("인증 번호 : " + dice);
+		
+		if(certificationNum.equals(dice)) {
+			String email = (String)session.getAttribute("email");
+			model.addAttribute("email" , email);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			pw.println("<script>alert('인증번호가 일치했습니다. 회원가입 페이지로 넘어갑니다.');</script>");
+			pw.flush();
+			return "member/regist";
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			pw.println("<script>alert('인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.');</script>");
+			return "member/certify_page";
+		}
+	}
+	
+	@RequestMapping("member/regist")
+	public String regist() {
+		return "member/regist";
+	}
+	
+	@RequestMapping("/member/chk_certification/chk_reigst")
+	public String aa() {
+		System.out.println("h2");
+		return "member/regist";
+	}
+	
 	
 }
