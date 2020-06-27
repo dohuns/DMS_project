@@ -6,4 +6,13 @@
 	<select id="loginck" resultType="memberdto">
 		select * from memberList where m_id = #{m_id}
 	</select>
+	<select id="findId" resultType="memberdto">
+		select * from memberList where m_name = #{m_name} and m_email = #{m_email}
+	</select>
+	<select id="findPw" resultType="memberdto">
+		select * from memberList where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
+	</select>
+	<update id="findPw_change" parameterType="memberdto">
+		update memberList set m_pw = #{m_pw} where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
+	</update>
 </mapper>

@@ -21,5 +21,32 @@ public class MemberDAO {
 		}
 		return null;
 	}
+
+	public MemberDTO findId(MemberDTO dto) {
+		try {
+			return sqlSession.selectOne(namepasce + ".findId", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+	public MemberDTO findPw(MemberDTO dto) {
+		try {
+			return sqlSession.selectOne(namepasce + ".findPw", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public int findPw_change(MemberDTO dto) {
+		try {
+			return sqlSession.update(namepasce + ".findPw_change", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

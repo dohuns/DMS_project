@@ -5,13 +5,75 @@
 <head>
 <meta charset="UTF-8">
 <title>findPw</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	var num = null;	//인증번호
+	var num_ck = null;
+	function send() {
+	var id = $("#m_id").val();
+	var name = $("#m_name").val();
+	var email = $("#m_email").val();
+		var user = {
+			m_id : id,
+			m_name : name,
+			m_email : email
+		}
+		console.log(email);
+
+		$.ajax({
+			url : "./findPw_ck",
+			type : "POST",
+			data : user,
+			success : function(data) {
+				console.log(data)
+				$("#m_id").attr("readonly", true)
+				$("#m_name").attr("readonly", true)
+				$("#m_email").attr("readonly", true)
+				$.ajax({
+					url : "./findPw_send",
+					type : "POST",
+					data : user,
+					success : function(data) {
+						num = data
+						console.log(data)
+					},
+					error : function() {
+						alert("실패")
+					}
+				});
+				alert("인증번호를 발송하였습니다")
+			},
+			error : function() {
+				alert("회원 정보를 확인해주세요")
+			}
+		});
+	}
+	function user_ck() {
+		if (num == $("#number").val()) {
+			alert("인증되었습니다")
+			$("#number").attr("readonly", true)
+			num_ck = "success"
+		} else {
+			alert("인증번호를 확인해주세요")
+		}
+	}
+	function next() {
+		var id = $("#m_id").val();
+		var name = $("#m_name").val();
+		var email = $("#m_email").val();
+		if (num_ck == "success") {
+			location.href="findPw_end?m_id="+id+"&m_name="+name+"&m_email="+email
+		} else {
+			alert("이메일 인증을 해주세요")
+		}
+	}
+</script>
 </head>
 <body>
-<form action="findPw_Ck">
-	<input type="text" name="m_id" placeholder="아이디"><br>
-	<input type="text" name="m_name" placeholder="이름"><br>
-	<input type="text" name="m_email" placeholder="가입 이메일 주소"><br>
-	<input type="submit" value="비밀번호 찾기">
-</form>
+	<input type="text" id="m_id" placeholder="아이디"><br>
+	<input type="text" id="m_name" placeholder="이름"><br>
+	<input type="text" id="m_email" placeholder="가입 이메일 주소"><button onclick="send()">인증번호 전송</button><br>
+	<input type="text" id="number" placeholder="인증번호"><button onclick="user_ck()">인증번호 확인</button><br>
+	<button onclick="next()">비밀번호 찾기</button>
 </body>
 </html>
