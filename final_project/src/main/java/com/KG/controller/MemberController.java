@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.KG.service.member.MemberChkIdServiceImpl;
+import com.KG.dto.MemberDTO;
+import com.KG.service.member.MemChkIdServImpl;
+import com.KG.service.member.MemChkRegistServImpl;
 import com.KG.service.member.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +33,7 @@ public class MemberController {
 
 	@Autowired
 	JavaMailSender mailSender;
-	MemberService memberService;
+	MemberService memServ;
 	
 	
 	@RequestMapping("email")
@@ -114,6 +116,17 @@ public class MemberController {
 			pw.println("<script>alert('인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.');</script>");
 			return "redirect:chk_certification/{dice}";
 		}
+	}
+	
+	@PostMapping("chk_reigst") 
+	public String chk_reigst(Model model , MemberDTO dto) {
+		model.addAttribute("dto" , dto);
+		
+		memServ = (MemChkRegistServImpl)AC.ac.getBean("memChkRegistServImpl");
+		
+		memServ.execute_Boo(model);
+		
+		return "redirect:login";
 	}
 	
 

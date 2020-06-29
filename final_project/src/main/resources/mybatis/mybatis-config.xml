@@ -5,6 +5,6 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
    <typeAliases>
-
+   		<typeAlias alias="memberdto" type="com.KG.dto.MemberDTO"/>
    </typeAliases>
 </configuration>

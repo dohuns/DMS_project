@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import com.KG.dao.MemberDAO;
 
 @Service
-public class MemberChkIdServiceImpl implements MemberService{
+public class MemChkIdServImpl implements MemberService{
 	
 	@Autowired
 	MemberDAO dao;

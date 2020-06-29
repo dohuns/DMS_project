@@ -56,7 +56,7 @@
 	
 	//비밀번호 확인 체크
 	function pwSameChk() {
-		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val()) {
+		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val() && $("#label_pw").text() == "") {
 			$("#label_Rpw").text("일치~");
 			$("#label_Rpw").css({
 				"color":"blue"
@@ -71,14 +71,33 @@
 	
 	//회원가입 버튼 활성화 
 	function buttonAble() {
-		if($("#m_id").val() != "" && $("#m_pw").val() != "" && $("m_Rpw").val() != "" 
-				&& $("#m_name").val() != "" && $("#m_date").val() != "" ) {
+		if($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != "" && $("m_Rpw").val() != "" 
+				&& $("#m_name").val() != "" && $("#m_date").val() != "" && $("#label_pw").text() == "") {
 
 			$("#btn-regist").prop("disabled" , false);
 			
 		} else {
+			console.log($("#label_id").text())
+			console.log($("#label_pw").text())
+			console.log($("#m_date").val())
 			
 			$("#btn-regist").prop("disabled" , true);
+		}
+	}
+	
+	// 비밀번호 입력 조합 설정
+	function pwPattern() {
+		var pattern1 = /[0-9]/;
+		var pattern2 = /[a-zA-Z]/;
+		var pattern3 = /[~!@\#$%<>^&*]/
+		
+		var pw = $("#m_pw").val();
+		if(!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) 
+				) {
+			$("#label_pw").text("영문+숫자+특수문자 8자리 이상으로 입력해주세요!!")
+			$("#label_pw").css({
+				"color":"red"
+			});
 		}
 	}
 	
@@ -91,6 +110,7 @@
 		chk_blank("m_pw" , "label_pw" , "비밀번호");
 		pwSameChk();
 		buttonAble();
+		pwPattern();
 	}
 	function chkRpw() {
 		chk_blank("m_Rpw" , "label_Rpw" , "비밀번호 확인");
@@ -116,7 +136,7 @@
 			<h1>회원가입 페이지</h1>
 		</div>
 		<div style="width:500px;">
-			<form action="chk_reigst1" method="POST">
+			<form action="../chk_reigst" method="POST">
 				<table>
 					<!-- 아이디 -->
 					<tr>

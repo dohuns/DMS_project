@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.KG.service.member.MemberChkIdServiceImpl;
+import com.KG.dto.MemberDTO;
+import com.KG.service.member.MemChkRegistServImpl;
+import com.KG.service.member.MemChkIdServImpl;
 import com.KG.service.member.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,17 +17,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MemberRestController {
 
 	
-	MemberService memberService;
+	MemberService memServ;
 	
 	@GetMapping(value = "overlapId" , produces = "application/json; charset=UTF-8")
 	public String chk_id(String m_id, Model model) throws JsonProcessingException {
-		System.out.println("h1");
 		
 		model.addAttribute("m_id" , m_id);
 		
-		memberService = (MemberChkIdServiceImpl)AC.ac.getBean("memberChkIdServiceImpl");
+		memServ = (MemChkIdServImpl)AC.ac.getBean("memChkIdServImpl");
 		
-		boolean flag = memberService.execute_Boo(model);
+		boolean flag = memServ.execute_Boo(model);
 		
 		if(flag) {
 			return "true";
@@ -33,5 +34,8 @@ public class MemberRestController {
 		
 		return "false";
 	}
+	 
 
+	
+	
 }
