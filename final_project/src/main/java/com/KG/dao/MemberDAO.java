@@ -6,12 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import com.KG.dto.MemberDTO;
 
-
 @Repository
 public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	public static final String namepasce = "com.care.mybatis.myMapper";
+	public static final String namepasce = "com.KG.mybatis.myMapper";
+
+	public String chk_id(String m_id) {
+		return sqlSession.selectOne(namepasce + ".chk_id", m_id);
+	}
 
 	public MemberDTO loginck(MemberDTO dto) {
 		try {
@@ -30,7 +33,7 @@ public class MemberDAO {
 		}
 		return null;
 	}
-	
+
 	public MemberDTO findPw(MemberDTO dto) {
 		try {
 			return sqlSession.selectOne(namepasce + ".findPw", dto);
@@ -39,7 +42,7 @@ public class MemberDAO {
 		}
 		return null;
 	}
-	
+
 	public int findPw_change(MemberDTO dto) {
 		try {
 			return sqlSession.update(namepasce + ".findPw_change", dto);

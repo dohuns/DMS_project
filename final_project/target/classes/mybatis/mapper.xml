@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.care.mybatis.myMapper">
+<mapper namespace="com.KG.mybatis.myMapper">
+<select id="chk_id" resultType="String">
+		SELECT m_id FROM memberList WHERE m_id=#{m_id}
+	</select>
 	<select id="loginck" resultType="memberdto">
 		select * from memberList where m_id = #{m_id}
 	</select>
