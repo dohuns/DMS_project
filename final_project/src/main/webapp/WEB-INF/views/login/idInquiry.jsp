@@ -27,7 +27,7 @@
 				$("#m_name").attr("readonly", true)
 				$("#m_email").attr("readonly", true)
 				$.ajax({
-					url : "./findId_send",
+					url : "./send",
 					type : "POST",
 					data : user,
 					success : function(data) {

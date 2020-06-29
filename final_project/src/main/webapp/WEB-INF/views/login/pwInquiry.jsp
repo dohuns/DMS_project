@@ -30,7 +30,7 @@
 				$("#m_name").attr("readonly", true)
 				$("#m_email").attr("readonly", true)
 				$.ajax({
-					url : "./findPw_send",
+					url : "./send",
 					type : "POST",
 					data : user,
 					success : function(data) {

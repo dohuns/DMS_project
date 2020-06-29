@@ -52,35 +52,6 @@ public class MemberRestController {
 		return strJson;
 	}
 
-	@RequestMapping(value = "findId_send", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	@ResponseBody
-	public int findId_send(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response_email)
-			throws Exception {
-
-		Random r = new Random();
-		int dice = r.nextInt(4589362) + 49311; // 이메일로 받는 인증코드 부분 (난수)
-
-		String setfrom = "zlt02141@gamil.com";
-		String tomail = memberDTO.getM_email(); // 받는 사람 이메일
-		String title = "회원가입 인증 이메일 입니다."; // 제목
-		String content = " 인증번호는 " + dice + " 입니다. ";
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-
-			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-			messageHelper.setTo(tomail); // 받는사람 이메일
-			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-			messageHelper.setText(content); // 메일 내용
-
-			mailSender.send(message);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		response_email.setContentType("text/html; charset=UTF-8");
-		return dice;
-	}
 
 //	비밀번호 찾기 인증번호
 	@RequestMapping(value = "findPw_ck", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
@@ -104,7 +75,7 @@ public class MemberRestController {
 		return strJson;
 	}
 
-	@RequestMapping(value = "findPw_send", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	@RequestMapping(value = "send", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public int findPw_send(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response_email)
 			throws Exception {
