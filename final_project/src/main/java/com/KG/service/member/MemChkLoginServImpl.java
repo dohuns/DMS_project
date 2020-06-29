@@ -12,10 +12,10 @@ import com.KG.dao.MemberDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class MemberServiceLogin_ck implements MemberService {
+public class MemChkLoginServImpl implements MemberService {
 
 	@Autowired
-	private MemberDAO dao;
+	private MemberDAO memberDAO;
 
 	@Override
 	public boolean execute_Boo(Model model) {
@@ -25,10 +25,10 @@ public class MemberServiceLogin_ck implements MemberService {
 	@Override
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();
-		MemberDTO dto = (MemberDTO) map.get("dto");
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
 		HttpSession session = (HttpSession) map.get("session");
-		if (dao.loginck(dto).getM_id().equals(dto.getM_id()) && dao.loginck(dto).getM_pw().equals(dto.getM_pw())) {
-			session.setAttribute("m_id", dto.getM_id());
+		if (memberDAO.loginck(memberDTO).getM_id().equals(memberDTO.getM_id()) && memberDAO.loginck(memberDTO).getM_pw().equals(memberDTO.getM_pw())) {
+			session.setAttribute("m_id", memberDTO.getM_id());
 		} else {
 			System.out.println("실패");
 		}

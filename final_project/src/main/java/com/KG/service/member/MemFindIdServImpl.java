@@ -7,30 +7,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.MemberDAO;
+import com.KG.dto.MemberDTO;
 
 @Service
-public class MemberChkIdServiceImpl implements MemberService{
-	
+public class MemFindIdServImpl implements MemberService {
+
 	@Autowired
-	MemberDAO dao;
-	
+	private MemberDAO memberDAO;
+
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		
-		String m_id = (String)map.get("m_id");
-		
-		String id = dao.chk_id(m_id);
-		if(id == null) {
-			return false;
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
+		if (memberDAO.findId(memberDTO) != null) {
+			return true;
 		}
-		
-		return true;
+		return false;
 	}
 
 	@Override
 	public String execute_Str(Model model) {
-		return null;
+		Map<String, Object> map = model.asMap();
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
+		model.addAttribute("m_id",memberDAO.findId(memberDTO).getM_id());
+		return memberDAO.findId(memberDTO).getM_id();
 	}
 
 	@Override

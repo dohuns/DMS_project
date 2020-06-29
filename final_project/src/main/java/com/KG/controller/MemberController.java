@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.MemberDTO;
 import com.KG.service.member.MemberService;
-import com.KG.service.member.MemberServiceFindId_ck;
-import com.KG.service.member.MemberServiceFindPw_ck;
-import com.KG.service.member.MemberServiceLogin_ck;
+import com.KG.service.member.MemFindIdServImpl;
+import com.KG.service.member.MemFindPwServImpl;
+import com.KG.service.member.MemChkLoginServImpl;
 
 @Controller
 public class MemberController {
 	@Autowired
 	JavaMailSender mailSender;
-	MemberService ser;
+	MemberService memServ;
 
-	@RequestMapping("/")
+	@RequestMapping("home")
 	public String Home() {
 		return "home";
 	}
@@ -43,70 +43,64 @@ public class MemberController {
 
 //	로그인 확인
 	@RequestMapping("login_Ck")
-	public String login_Ck(Model model, HttpSession session, MemberDTO dto) {
+	public String login_Ck(Model model, HttpSession session, MemberDTO memberDTO) {
 		model.addAttribute("session", session);
-		model.addAttribute("dto", dto);
+		model.addAttribute("memberDTO", memberDTO);
 		try {
-			ser = (MemberServiceLogin_ck) AC.ac.getBean("memberServiceLogin_ck");
-			ser.execute_Str(model);
+			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
+			memServ.execute_Str(model);
 		} catch (Exception e) {
 		}
-		return "redirect:main";
-	}
-
-//	메인
-	@RequestMapping("main")
-	public String main() {
-		return "login/main";
+		return "redirect:home";
 	}
 
 //	아이디 찾기
-	@RequestMapping("findId")
-	public String findId() {
-		return "login/findId";
+	@RequestMapping("idInquiry")
+	public String idInquiry() {
+		return "login/idInquiry";
 	}
 
-	@RequestMapping("findId_end")
-	public String findId_end(Model model, MemberDTO dto) {
-		model.addAttribute("dto", dto);
+	@RequestMapping("idInquiryChk")
+	public String idInquiryChk(Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
 		try {
-			ser = (MemberServiceFindId_ck) AC.ac.getBean("memberServiceFindId_ck");
-			ser.execute_Str(model);
+			memServ = (MemFindIdServImpl) AC.ac.getBean("memFindIdServImpl");
+			memServ.execute_Str(model);
 		} catch (Exception e) {
 		}
-		return "login/findId_end";
+		return "login/idInquiryChk";
 	}
 
-	@RequestMapping("findPw")
-	public String findPw() {
-		return "login/findPw";
+	@RequestMapping("pwInquiry")
+	public String pwInquiry() {
+		return "login/pwInquiry";
 	}
 
-	@RequestMapping("findPw_end")
-	public String findPw_end(Model model, MemberDTO dto) {
-		model.addAttribute("dto", dto);
+	@RequestMapping("pwInquiryChk")
+	public String findPw_end(Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
 		try {
-			ser = (MemberServiceFindPw_ck) AC.ac.getBean("memberServiceFindPw_ck");
-			ser.execute_Str(model);
+			memServ = (MemFindPwServImpl) AC.ac.getBean("memFindPwServImpl");
+			memServ.execute_Str(model);
 		} catch (Exception e) {
 		}
-		return "login/findPw_end";
+		return "login/pwInquiryChk";
 	}
 
 	@RequestMapping("findPw_end_save")
-	public String findPw_end_save(Model model, MemberDTO dto) {
-		model.addAttribute("dto", dto);
+	public String findPw_end_save(Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
 		try {
-			ser = (MemberServiceFindPw_ck) AC.ac.getBean("memberServiceFindPw_ck");
-			ser.execute_Int(model);
+			memServ = (MemFindPwServImpl) AC.ac.getBean("memFindPwServImpl");
+			memServ.execute_Int(model);
 		} catch (Exception e) {
 		}
 		return "login/login";
 	}
 
-	@RequestMapping("email")
-	public String email() {
-		return "member/email";
+	@RequestMapping("regist_email")
+	public String regist_email() {
+		return "member/regist_email";
 	}
 
 	@PostMapping("email_certify")
@@ -147,7 +141,7 @@ public class MemberController {
 		PrintWriter pw = response.getWriter();
 		pw.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
 		pw.flush();
-		return "member/certify_page";
+		return "member/regist_emailChk";
 	}
 
 	@PostMapping("chk_certification/{dice}")

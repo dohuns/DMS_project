@@ -9,16 +9,16 @@ import org.springframework.ui.Model;
 import com.KG.dao.MemberDAO;
 import com.KG.dto.MemberDTO;
 @Service
-public class MemberServiceFindPw_ck implements MemberService{
+public class MemFindPwServImpl implements MemberService{
 
 	@Autowired
-	private MemberDAO dao;
+	private MemberDAO memberDAO;
 
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		MemberDTO dto = (MemberDTO) map.get("dto");
-		if (dao.findPw(dto) != null) {
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
+		if (memberDAO.findPw(memberDTO) != null) {
 			return true;
 		}
 		return false;
@@ -27,15 +27,15 @@ public class MemberServiceFindPw_ck implements MemberService{
 	@Override
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();
-		MemberDTO dto = (MemberDTO) map.get("dto");
-		return dao.findId(dto).getM_id();
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
+		return memberDAO.findId(memberDTO).getM_id();
 	}
 
 	@Override
 	public int execute_Int(Model model) {
 		Map<String, Object> map = model.asMap();
-		MemberDTO dto = (MemberDTO) map.get("dto");
-		return dao.findPw_change(dto);
+		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
+		return memberDAO.findPw_change(memberDTO);
 	}
 
 }

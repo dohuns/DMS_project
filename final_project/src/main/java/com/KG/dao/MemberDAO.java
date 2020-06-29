@@ -16,36 +16,36 @@ public class MemberDAO {
 		return sqlSession.selectOne(namepasce + ".chk_id", m_id);
 	}
 
-	public MemberDTO loginck(MemberDTO dto) {
+	public MemberDTO loginck(MemberDTO memberDTO) {
 		try {
-			return sqlSession.selectOne(namepasce + ".loginck", dto);
+			return sqlSession.selectOne(namepasce + ".loginck", memberDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public MemberDTO findId(MemberDTO dto) {
+	public MemberDTO findId(MemberDTO memberDTO) {
 		try {
-			return sqlSession.selectOne(namepasce + ".findId", dto);
+			return sqlSession.selectOne(namepasce + ".findId", memberDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public MemberDTO findPw(MemberDTO dto) {
+	public MemberDTO findPw(MemberDTO memberDTO) {
 		try {
-			return sqlSession.selectOne(namepasce + ".findPw", dto);
+			return sqlSession.selectOne(namepasce + ".findPw", memberDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public int findPw_change(MemberDTO dto) {
+	public int findPw_change(MemberDTO memberDTO) {
 		try {
-			return sqlSession.update(namepasce + ".findPw_change", dto);
+			return sqlSession.update(namepasce + ".findPw_change", memberDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
