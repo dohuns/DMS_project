@@ -22,6 +22,7 @@ public class MemChkLoginServImpl implements MemberService {
 		return false;
 	}
 
+//	로그인 확인 및 세션 생성
 	@Override
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();

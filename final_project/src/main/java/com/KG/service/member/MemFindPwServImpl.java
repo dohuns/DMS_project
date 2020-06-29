@@ -14,6 +14,7 @@ public class MemFindPwServImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
 
+//	비밀번호 찾기 페이지 회원정보 확인
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -24,6 +25,7 @@ public class MemFindPwServImpl implements MemberService{
 		return false;
 	}
 
+//	비밀번호 찾기 시 아이디 값 확인
 	@Override
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -31,6 +33,7 @@ public class MemFindPwServImpl implements MemberService{
 		return memberDAO.findId(memberDTO).getM_id();
 	}
 
+//	새로운 비밀번호 저장
 	@Override
 	public int execute_Int(Model model) {
 		Map<String, Object> map = model.asMap();

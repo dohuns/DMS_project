@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>findId_end</title>
+<title>idInquiryChk</title>
 </head>
 <body>
 회원님의 아이디 : ${m_id }

@@ -30,6 +30,7 @@ public class MemberController {
 	JavaMailSender mailSender;
 	MemberService memServ;
 
+//	메인페이지
 	@RequestMapping("home")
 	public String Home() {
 		return "home";
@@ -41,7 +42,7 @@ public class MemberController {
 		return "login/login";
 	}
 
-//	로그인 확인
+//	로그인 확인 후 세션 생성
 	@RequestMapping("login_Ck")
 	public String login_Ck(Model model, HttpSession session, MemberDTO memberDTO) {
 		model.addAttribute("session", session);
@@ -54,12 +55,13 @@ public class MemberController {
 		return "redirect:home";
 	}
 
-//	아이디 찾기
+//	아이디 찾기 페이지
 	@RequestMapping("idInquiry")
 	public String idInquiry() {
 		return "login/idInquiry";
 	}
 
+//	아이디 찾기 결과창
 	@RequestMapping("idInquiryChk")
 	public String idInquiryChk(Model model, MemberDTO memberDTO) {
 		model.addAttribute("memberDTO", memberDTO);
@@ -71,11 +73,13 @@ public class MemberController {
 		return "login/idInquiryChk";
 	}
 
+//	비밀번호 찾기 페이지
 	@RequestMapping("pwInquiry")
 	public String pwInquiry() {
 		return "login/pwInquiry";
 	}
 
+//	새로운 비밀번호 설정창
 	@RequestMapping("pwInquiryChk")
 	public String findPw_end(Model model, MemberDTO memberDTO) {
 		model.addAttribute("memberDTO", memberDTO);
@@ -87,6 +91,7 @@ public class MemberController {
 		return "login/pwInquiryChk";
 	}
 
+//	새로운 비밀번호 저장 후 로그인 페이지 이동
 	@RequestMapping("findPw_end_save")
 	public String findPw_end_save(Model model, MemberDTO memberDTO) {
 		model.addAttribute("memberDTO", memberDTO);

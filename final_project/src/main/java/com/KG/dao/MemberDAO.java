@@ -16,6 +16,7 @@ public class MemberDAO {
 		return sqlSession.selectOne(namepasce + ".chk_id", m_id);
 	}
 
+//	로그인 확인
 	public MemberDTO loginck(MemberDTO memberDTO) {
 		try {
 			return sqlSession.selectOne(namepasce + ".loginck", memberDTO);
@@ -25,6 +26,7 @@ public class MemberDAO {
 		return null;
 	}
 
+//	아이디 찾기 사용자 확인
 	public MemberDTO findId(MemberDTO memberDTO) {
 		try {
 			return sqlSession.selectOne(namepasce + ".findId", memberDTO);
@@ -34,6 +36,7 @@ public class MemberDAO {
 		return null;
 	}
 
+//	비밀번호 찾기 사용자 확인
 	public MemberDTO findPw(MemberDTO memberDTO) {
 		try {
 			return sqlSession.selectOne(namepasce + ".findPw", memberDTO);
@@ -43,6 +46,7 @@ public class MemberDAO {
 		return null;
 	}
 
+//	비밀번호 변경
 	public int findPw_change(MemberDTO memberDTO) {
 		try {
 			return sqlSession.update(namepasce + ".findPw_change", memberDTO);

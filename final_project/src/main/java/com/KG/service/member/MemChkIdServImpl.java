@@ -14,17 +14,15 @@ public class MemChkIdServImpl implements MemberService{
 	@Autowired
 	MemberDAO memberDAO;
 	
+	
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		
 		String m_id = (String)map.get("m_id");
-		
 		String id = memberDAO.chk_id(m_id);
 		if(id == null) {
 			return false;
 		}
-		
 		return true;
 	}
 

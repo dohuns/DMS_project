@@ -2,11 +2,11 @@ package com.KG.controller;
 
 import java.util.Random;
 
-import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.Model;
@@ -26,11 +26,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class MemberRestController {
-	@Inject // 서비스를 호출하기 위해서 의존성을 주입
+	@Autowired
 	JavaMailSender mailSender; // 메일 서비스를 사용하기 위해 의존성을 주입함.
 	MemberService memServ;
 
-//	아이디 찾기 인증번호
+//	아이디 찾기 페이지 회원정보 확인 후 이메일 전송
 	@RequestMapping(value = "findId_ck", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String findId_ck(Model model, MemberDTO memberDTO) throws JsonProcessingException {
@@ -53,7 +53,7 @@ public class MemberRestController {
 	}
 
 
-//	비밀번호 찾기 인증번호
+//	비밀번호 찾기 페이지 회원정보 확인 후 이메일 전송
 	@RequestMapping(value = "findPw_ck", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String findPw_ck(Model model, MemberDTO memberDTO) throws JsonProcessingException {
@@ -75,6 +75,7 @@ public class MemberRestController {
 		return strJson;
 	}
 
+//	이메일 발송
 	@RequestMapping(value = "send", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public int findPw_send(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response_email)

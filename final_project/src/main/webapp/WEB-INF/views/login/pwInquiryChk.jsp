@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>findId_end</title>
+<title>pwInquiryChk</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-function pw_ck() {
+function pw_ck() {	//새로운 아이디 입력시 값 비교
 	var pw1 = $("#m_pw").val();
 	var pw2 = $("#m_pw_ck").val();
 	if (pw1 == pw2) {

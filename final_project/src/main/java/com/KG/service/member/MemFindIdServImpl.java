@@ -15,6 +15,7 @@ public class MemFindIdServImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
+//	아이디 찾기 페이지 회원정보 확인
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -25,6 +26,7 @@ public class MemFindIdServImpl implements MemberService {
 		return false;
 	}
 
+//	아이디 찾기 후 아이디값 리턴
 	@Override
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();
