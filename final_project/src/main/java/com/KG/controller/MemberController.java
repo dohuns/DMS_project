@@ -37,6 +37,12 @@ public class MemberController {
 	public String Home() {
 		return "home";
 	}
+	
+//	메인페이지
+	@RequestMapping("home")
+	public String domisu() {
+		return "home";
+	}
 
 //	로그인페이지
 	@RequestMapping("login")

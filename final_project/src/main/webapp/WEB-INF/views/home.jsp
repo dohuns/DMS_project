@@ -10,5 +10,6 @@
 <body>
    <c:import url="default/header.jsp" />
    <c:import url="default/main.jsp" />
+   <button onclick="location.href='write'">글작성</button>
 </body>
 </html>
