@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>DOMISU 영화예매</title>
+   <meta charset="UTF-8">
+   <title>DOMISU 영화 예매</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+   <c:import url="default/header.jsp" />
+   <c:import url="default/main.jsp" />
 </body>
 </html>
