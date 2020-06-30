@@ -55,5 +55,9 @@ public class MemberDAO {
 		}
 		return 0;
 	}
+	
+	public int addMember(MemberDTO memberDTO) {
+		return sqlSession.insert(namepasce+".addMember",memberDTO);
+	}
 
 }

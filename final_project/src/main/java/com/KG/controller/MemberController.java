@@ -23,6 +23,7 @@ import com.KG.service.member.MemberService;
 import com.KG.service.member.MemFindIdServImpl;
 import com.KG.service.member.MemFindPwServImpl;
 import com.KG.service.member.MemChkLoginServImpl;
+import com.KG.service.member.MemChkRegistServImpl;
 
 @Controller
 public class MemberController {
@@ -173,5 +174,17 @@ public class MemberController {
 			pw.println("<script>alert('인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.');</script>");
 			return "redirect:chk_certification/{dice}";
 		}
+	}
+	
+//	회원가입
+	@PostMapping("chk_reigst") 
+	public String chk_reigst(Model model , MemberDTO memberDTO) {
+		model.addAttribute("memberDTO" , memberDTO);
+		
+		memServ = (MemChkRegistServImpl)AC.ac.getBean("memChkRegistServImpl");
+		
+		memServ.execute_Boo(model);
+		
+		return "redirect:login";
 	}
 }
