@@ -31,10 +31,16 @@ public class MemberController {
 	@Autowired
 	JavaMailSender mailSender;
 	MemberService memServ;
-
+	
 //	메인페이지
 	@RequestMapping("/")
 	public String Home() {
+		return "home";
+	}
+
+//	메인페이지
+	@RequestMapping("home")
+	public String Home2() {
 		return "home";
 	}
 
@@ -59,10 +65,12 @@ public class MemberController {
 		model.addAttribute("memberDTO", memberDTO);
 		try {
 			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
-			memServ.execute_Str(model);
+			if (memServ.execute_Str(model).equals("성공")) {
+				return "redirect:/";
+			}
 		} catch (Exception e) {
 		}
-		return "redirect:/";
+		return "login/login";
 	}
 
 //	아이디 찾기 페이지

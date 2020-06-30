@@ -32,8 +32,9 @@ public class MemChkLoginServImpl implements MemberService {
 			session.setAttribute("m_id", memberDTO.getM_id());
 		} else {
 			System.out.println("실패");
+			return "실패";
 		}
-		return null;
+		return "성공";
 	}
 
 	@Override
