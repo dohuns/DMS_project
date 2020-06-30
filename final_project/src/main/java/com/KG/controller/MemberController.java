@@ -35,6 +35,10 @@ public class MemberController {
 	JavaMailSender mailSender;
 	MemberService memServ;
 	
+	@RequestMapping("test")
+	public String test() {
+		return "test";
+	}
 	
 	@RequestMapping("email")
 	public String email() {
