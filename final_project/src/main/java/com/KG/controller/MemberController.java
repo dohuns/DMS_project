@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +43,15 @@ public class MemberController {
 	public String login() {
 		return "login/login";
 	}
-
+	
+	// 로그아웃
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	
 //	로그인 확인 후 세션 생성
 	@RequestMapping("login_Ck")
 	public String login_Ck(Model model, HttpSession session, MemberDTO memberDTO) {
@@ -53,7 +62,7 @@ public class MemberController {
 			memServ.execute_Str(model);
 		} catch (Exception e) {
 		}
-		return "redirect:home";
+		return "redirect:/";
 	}
 
 //	아이디 찾기 페이지
@@ -187,4 +196,5 @@ public class MemberController {
 		
 		return "redirect:login";
 	}
+	
 }
