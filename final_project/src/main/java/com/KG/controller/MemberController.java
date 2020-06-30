@@ -32,7 +32,7 @@ public class MemberController {
 	MemberService memServ;
 
 //	메인페이지
-	@RequestMapping("home")
+	@RequestMapping("/")
 	public String Home() {
 		return "home";
 	}
