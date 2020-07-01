@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AC implements ApplicationContextAware {
 
-	public static ApplicationContext ac;
-	
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		ac = applicationContext;
-	}
+   public static ApplicationContext ac;
+   
+   @Override
+   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+      ac = applicationContext;
+   }
 
 }

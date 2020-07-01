@@ -8,18 +8,56 @@ import com.KG.dto.MemberDTO;
 
 @Repository
 public class MemberDAO {
-	
-	private final String namespace="com.KG.mybatis.myMapper";
-	
 	@Autowired
-	SqlSession session;
-	
+	private SqlSession sqlSession;
+	public static final String namepasce = "com.KG.mybatis.myMapper";
+
 	public String chk_id(String m_id) {
-		return session.selectOne(namespace+".chkId",m_id);
+		return sqlSession.selectOne(namepasce + ".chk_id", m_id);
+	}
+
+//	로그인 확인
+	public MemberDTO loginck(MemberDTO memberDTO) {
+		try {
+			return sqlSession.selectOne(namepasce + ".loginck", memberDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+//	아이디 찾기 사용자 확인
+	public MemberDTO findId(MemberDTO memberDTO) {
+		try {
+			return sqlSession.selectOne(namepasce + ".findId", memberDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+//	비밀번호 찾기 사용자 확인
+	public MemberDTO findPw(MemberDTO memberDTO) {
+		try {
+			return sqlSession.selectOne(namepasce + ".findPw", memberDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+//	비밀번호 변경
+	public int findPw_change(MemberDTO memberDTO) {
+		try {
+			return sqlSession.update(namepasce + ".findPw_change", memberDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
-	public int addMember(MemberDTO dto) {
-		return session.insert(namespace+".addMember",dto);
+	public int addMember(MemberDTO memberDTO) {
+		return sqlSession.insert(namepasce+".addMember",memberDTO);
 	}
 
 }

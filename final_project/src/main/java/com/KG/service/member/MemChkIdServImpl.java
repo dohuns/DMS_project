@@ -12,19 +12,17 @@ import com.KG.dao.MemberDAO;
 public class MemChkIdServImpl implements MemberService{
 	
 	@Autowired
-	MemberDAO dao;
+	MemberDAO memberDAO;
+	
 	
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		
 		String m_id = (String)map.get("m_id");
-		
-		String id = dao.chk_id(m_id);
+		String id = memberDAO.chk_id(m_id);
 		if(id == null) {
 			return false;
 		}
-		
 		return true;
 	}
 

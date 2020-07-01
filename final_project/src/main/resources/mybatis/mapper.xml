@@ -3,12 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.KG.mybatis.myMapper">
-	
-	<select id="chkId" resultType="String">
+<select id="chk_id" resultType="String">
 		SELECT m_id FROM memberList WHERE m_id=#{m_id}
 	</select>
-	
-	<insert id="addMember" parameterType="memberdto">
+	<select id="loginck" resultType="memberDTO">
+		select * from memberList where m_id = #{m_id}
+	</select>
+	<select id="findId" resultType="memberDTO">
+		select * from memberList where m_name = #{m_name} and m_email = #{m_email}
+	</select>
+	<select id="findPw" resultType="memberDTO">
+		select * from memberList where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
+	</select>
+	<update id="findPw_change" parameterType="memberDTO">
+		update memberList set m_pw = #{m_pw} where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
+	</update>
+	<insert id="addMember" parameterType="memberDTO">
 		INSERT INTO memberList values(#{m_id} , #{m_pw} , #{m_name} , #{m_date} , #{m_email})
 	</insert>
 </mapper>
