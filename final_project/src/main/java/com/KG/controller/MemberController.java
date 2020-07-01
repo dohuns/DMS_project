@@ -156,7 +156,7 @@ public class MemberController {
 		pw.flush();
 		return "member/regist_emailChk";
 	}
-
+	// 입력한 인증번호가 맞는지 확인 후 맞으면 회원가입 아니면 이 페이지로
 	@PostMapping("chk_certification/{dice}")
 	public String chk_certification(@PathVariable String dice, String certificationNum, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
