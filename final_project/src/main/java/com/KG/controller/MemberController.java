@@ -112,7 +112,7 @@ public class MemberController {
 		}
 		return "login/login";
 	}
-	// 회원가입 시 이메일 입력 페이지
+	// 회원가입 시 이메일 인증페이지 
 	@RequestMapping("regist_email")
 	public String regist_email() {
 		return "member/regist_email";
@@ -124,7 +124,7 @@ public class MemberController {
 		Random random = new Random();
 		int dice = random.nextInt(4589362) + 49311; // 이메일로 받을 인증코드 난수
 
-		String tomail = request.getParameter("e_mail"); // 받는 사람 이메일
+		String tomail = request.getParameter("m_email"); // 받는 사람 이메일
 		HttpSession session = request.getSession();
 		session.setAttribute("email", tomail);
 		String title = "회원가입 인증 이메일 입니다"; // 이메일 제목
