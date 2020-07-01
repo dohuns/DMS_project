@@ -112,19 +112,18 @@ public class MemberController {
 		}
 		return "login/login";
 	}
-
+	// 회원가입 시 이메일 인증페이지 
 	@RequestMapping("regist_email")
 	public String regist_email() {
 		return "member/regist_email";
 	}
-
+	// 인증번호 입력 페이지
 	@PostMapping("email_certify")
 	public String certify(HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
 
 		Random random = new Random();
 		int dice = random.nextInt(4589362) + 49311; // 이메일로 받을 인증코드 난수
 
-		String fromMail = "gkgk586@gmail.com"; // 보내는 사람 이메일
 		String tomail = request.getParameter("e_mail"); // 받는 사람 이메일
 		HttpSession session = request.getSession();
 		session.setAttribute("email", tomail);
@@ -141,7 +140,6 @@ public class MemberController {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-			messageHelper.setFrom(fromMail); // 보내는 사람 생략x
 			messageHelper.setTo(tomail); // 받는사람
 			messageHelper.setSubject(title); // 메일 제목 생략o
 			messageHelper.setText(content); // 메일 내용
@@ -163,8 +161,6 @@ public class MemberController {
 	public String chk_certification(@PathVariable String dice, String certificationNum, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
 
-		System.out.println("입력 값 : " + certificationNum);
-		System.out.println("인증 번호 : " + dice);
 
 		if (certificationNum.equals(dice)) {
 			String email = (String) session.getAttribute("email");
@@ -174,12 +170,10 @@ public class MemberController {
 			PrintWriter pw = response.getWriter();
 			pw.println("<script>alert('인증번호가 일치했습니다. 회원가입 페이지로 넘어갑니다.');</script>");
 			pw.flush();
-			System.out.println("맞았당!");
 			return "member/regist";
 		} else {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter pw = response.getWriter();
-			System.out.println("틀렸당!");
 			pw.println("<script>alert('인증번호가 일치하지 않습니다. 인증번호를 다시 입력해주세요.');</script>");
 			return "redirect:chk_certification/{dice}";
 		}
