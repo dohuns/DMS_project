@@ -13,11 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.MemberDTO;
+import com.KG.service.member.MemChkEmailServImpl;
 import com.KG.service.member.MemChkIdServImpl;
+import com.KG.service.member.MemChkNickServImpl;
 import com.KG.service.member.MemberService;
 import com.KG.service.member.MemFindIdServImpl;
 import com.KG.service.member.MemFindPwServImpl;
@@ -84,7 +87,6 @@ public class MemberRestController {
 		Random r = new Random();
 		int dice = r.nextInt(4589362) + 49311; // 이메일로 받는 인증코드 부분 (난수)
 
-		String setfrom = "zlt02141@gamil.com";
 		String tomail = memberDTO.getM_email(); // 받는 사람 이메일
 		String title = "회원가입 인증 이메일 입니다."; // 제목
 		String content = " 인증번호는 " + dice + " 입니다. ";
@@ -92,7 +94,6 @@ public class MemberRestController {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
 			messageHelper.setTo(tomail); // 받는사람 이메일
 			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
 			messageHelper.setText(content); // 메일 내용
@@ -105,10 +106,9 @@ public class MemberRestController {
 		response_email.setContentType("text/html; charset=UTF-8");
 		return dice;
 	}
-
+	// 회원가입 페이지에서 아이디 중복체크
 	@GetMapping(value = "overlapId", produces = "application/json; charset=UTF-8")
 	public String chk_id(String m_id, Model model) throws JsonProcessingException {
-		System.out.println("h1");
 
 		model.addAttribute("m_id", m_id);
 
@@ -119,7 +119,38 @@ public class MemberRestController {
 		if (flag) {
 			return "true";
 		}
-
+		return "false";
+	}
+	
+	// 이메일 중복 체크
+	@GetMapping(value = "chkEmail", produces = "application/json; charset=UTF-8")
+	public String chkEmail(@RequestParam("m_email") String m_email, Model model) {
+		System.out.println("중복체크당");
+		System.out.println("con mail : " + m_email);
+		model.addAttribute("m_email" , m_email);
+		
+		memServ = (MemChkEmailServImpl)AC.ac.getBean("memChkEmailServImpl");
+		
+		boolean flag = memServ.execute_Boo(model);
+		System.out.println("flag : " + flag);
+		if(flag) {
+			return "true";
+		}
+		return "false";
+	}
+	
+	// 닉네임 중복 체크
+	@GetMapping(value = "overlapNick" , produces = "application/json; charset=UTF-8")
+	public String overlapNick(String m_nick , Model model) {
+		
+		model.addAttribute("m_nick" , m_nick);
+		
+		memServ = (MemChkNickServImpl)AC.ac.getBean("memChkNickServImpl");
+		boolean flag = memServ.execute_Boo(model);
+		System.out.println("con result : " + flag);
+		if(flag) {
+			return "true";
+		}
 		return "false";
 	}
 }

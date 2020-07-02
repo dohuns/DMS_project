@@ -65,15 +65,9 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
-						<li><a href="#">영화</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">예매 <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">빠른 예매</a></li>
-								<li><a href="#">상영 시간표</a></li>
-							</ul>
-						</li>
-						<li><a href="#">극장</a></li>
+						<li><a href="movie">영화</a></li>
+						<li><a href="#">게임</a></li>
+						<li><a href="#">고양이</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>
