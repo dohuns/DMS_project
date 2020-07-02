@@ -21,7 +21,6 @@ public class MemChkNickServImpl implements MemberService{
 		String m_nick = (String)map.get("m_nick");
 		
 		String result = memberDAO.chkNick(m_nick);
-		System.out.println("dao 결과 : " + result );
 		if(result == null) {
 			return true;
 		}

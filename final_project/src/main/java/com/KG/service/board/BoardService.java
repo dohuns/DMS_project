@@ -1,8 +1,8 @@
-package com.KG.service.movie;
+package com.KG.service.board;
 
 import org.springframework.ui.Model;
 
-public interface MovieService {
+public interface BoardService {
 	
 	public boolean execute(Model model);
 

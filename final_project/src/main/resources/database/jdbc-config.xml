@@ -9,6 +9,7 @@
    <property name="username" value="dms" />
    <property name="password" value="1234" />
 </bean>
+	<!-- member sqlSession -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
       <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
@@ -16,6 +17,16 @@
    </bean>
    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+   </bean> 
+   
+<!--    Movie sqlSession -->
+   <bean id="sqlSessionFactoryMovie" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+      <property name="mapperLocations" value="classpath:mybatis/MovieMapper.xml" />      
+   </bean>
+   <bean id="sqlSessionMovie" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryMovie"></constructor-arg>
    </bean> 
 
 </beans>
