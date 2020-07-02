@@ -152,133 +152,56 @@
 
 	<!-- 고객센터 STYLE -->
 	<style>
-		.text-primary {
-/* 			color: #242156; */
+		.panel-primary>.panel-heading {
 			color: #fff;
-		}
-
-		.font-weight-bold {
-			font-weight: 700;
-		}
-
-		.m-0 {
-			margin: 0;
-		}
-
-		h6, .h6 {
-			font-size: 1rem;
-		}
-
-		.card {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			min-width: 0;
-			word-wrap: break-word;
-			background-color: #fff;
-			background-clip: border-box;
-			border: 1px solid #e3e6f0;
-			border-radius: 0.35rem;
-			margin: 20px auto;
-		}
-
-		.card-header {
-			padding: 0.75rem 1.25rem;
-			margin-bottom: 0;
 			background-color: #242156;
-			border-bottom: 1px solid #e3e6f0;
+			border-color: #242156;
 		}
 
-		.shadow {
-			box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+		.panel-tabs {
+			position: relative;
+			bottom: 30px;
+			clear: both;
+			border-bottom: 1px solid transparent;
 		}
 
-		.display-flex {
-			display: flex;
+		.panel-tabs>li {
+			float: left;
+			margin-bottom: -1px;
 		}
 
-		.align-center {
-			align-items: center;
-		}
-
-		.ml-auto {
-			margin-left: auto !important;
-		}
-
-		.form-control {
-			display: block;
-			width: 100%;
-			height: calc(1.5em + 0.75rem + 2px);
-			padding: 0.375rem 0.75rem;
-			font-size: 1rem;
-			font-weight: 400;
-			line-height: 1.5;
-			color: #6e707e;
-			background-color: #fff;
-			background-clip: padding-box;
-			border: 1px solid #d1d3e2;
-			border-radius: 0.35rem;
-			transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-		}
-
-		.btn {
-			display: inline-block;
-			font-weight: 400;
-			color: #858796;
-			text-align: center;
-			vertical-align: middle;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-			background-color: transparent;
+		.panel-tabs>li>a {
+			margin-right: 2px;
+			margin-top: 4px;
+			line-height: .85;
 			border: 1px solid transparent;
-			padding: 0.375rem 0.75rem;
-			font-size: 1rem;
-			line-height: 1.5;
-			border-radius: 0.35rem;
-			transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-				border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+			border-radius: 4px 4px 0 0;
+			color: #ffffff;
 		}
 
-		.btn-primary {
+		.panel-tabs>li>a:hover {
+			border-color: transparent;
+			color: #ffffff;
+			background-color: transparent;
+		}
+
+		.panel-tabs>li.active>a:hover,
+		.panel-tabs>li.active>a:focus,
+		.panel-tabs>li.active>a:visited {
 			color: #fff;
-			background-color: #4e73df;
-			border-color: #4e73df;
+			cursor: default;
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+			background-color: rgba(255, 255, 255, .23);
+			border-bottom-color: transparent;
 		}
 
-		.card-body {
-			flex: 1 1 auto;
-			padding: 1.25rem;
+		.nav>li>a:hover, .nav>li>a:focus {
+			text-decoration: none;
+			background-color: rgba(255, 255, 255, .23);
 		}
 
-		.table-responsive {
-			display: block;
-			width: 100%;
-			overflow-x: auto;
-		}
-
-		.table-responsive>.table-bordered {
-			border: 0;
-		}
-
-		.table-bordered th, .table-bordered td {
-			border: 1px solid #e3e6f0;
-		}
-
-		.table thead th {
-			vertical-align: middle;
-			border-bottom: 2px solid #e3e6f0;
-		}
-
-		.table-bordered thead th, .table-bordered thead td {
-			border-bottom-width: 2px;
-		}
-
-		.table-bordered thead th {
-			background: #E1E0F3;
-			color: #242156;
-		}
 	</style>
 </head>
 <body>
@@ -341,43 +264,50 @@
 			</ul>
 		</div>
 	</section>
-
+	<br>
 	<!-- 고객센터 / DMS 정보 출력 -->
 	<section>
 		<div class="container">
-			<div class="card shadow mb-4">
-				<div class="card-header py-3">
-					<div class="display-flex align-center">
-						<h4 class="m-0 font-weight-bold text-primary">공지사항</h4>
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table table-bordered" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th width="20%">작성자</th>
-									<th width="50%">제목</th>
-									<th width="20%">작성일</th>
-									<th width="10%">조회수</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">공지사항</h3>
+							<span class="pull-right">
+								<ul class="nav panel-tabs">
+									<li class="active"><a href="#tab1" data-toggle="tab">점검</a></li>
+									<li><a href="#tab2" data-toggle="tab">기타</a></li>
+								</ul>
+							</span>
+						</div>
+						<div class="panel-body">
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab1">
+									<table border="1">
 										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td> 테스트 </td>
+											<td> 테스트 </td>
 										</tr>
-									</c:when>
-									<c:otherwise>
-										<td colspan="4">작성된 게시글이 없습니다.</td>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
+										<tr>
+											<td> 테스트 </td>
+											<td> 테스트 </td>
+										</tr>
+									</table>
+								</div>
+								<div class="tab-pane" id="tab2">
+									<table border="1">
+										<tr>
+											<td> 테스트2</td>
+											<td> 테스트2 </td>
+										</tr>
+										<tr>
+											<td> 테스트2 </td>
+											<td> 테스트2 </td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
