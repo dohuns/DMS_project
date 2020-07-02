@@ -71,16 +71,19 @@ $(function(){
 	// 비밀번호 최대 자리수 제한
 	$("#m_pw").on('keyup' , function() {
 		if($(this).val().length > 16) {
-			$(this).val().substring(0,16);
+			$("#label_pw").text("비밀번호는 16자 이하로 작성해주세요")
+			$("#label_pw").css({
+				"color":"red"
+			});
+			$(this).val($(this).val().substring(0,16));
 		}
 	});
 	$("#m_pw_ck").on('keyup' , function() {
 		if($(this).val().length > 16) {
-			$(this).val().substring(0,16);
+			$(this).val($(this).val().substring(0,16));
 		}
 	});
-	
-}
+});
 </script>
 </head>
 <body>

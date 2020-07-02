@@ -158,19 +158,34 @@
 		// 아이디 제한
 		$("#m_id").on('keyup' , function() {
 			if($(this).val().length > 16) {
-				$(this).val().substring(0,16);
+				console.log("아이디")
+				$("#label_id").text("아이디는 16자 이하로 작성해주세요")
+				$("#label_id").css({
+					"color":"red"
+				});
+				$(this).val($(this).val().substring(0,16));
 			}
 		});
 		// 닉네임 제한
 		$("#m_nick").on('keyup' , function() {
-			if($(this).val().lenghth > 8) {
-				$(this).val().substring(0,8);
+			if($(this).val().length > 8) {
+				console.log("닉네임")
+				$("#label_nick").text("닉네임은 8자 이하로 작성해주세요")
+				$("#label_nick").css({
+					"color":"red"
+				});
+				$(this).val($(this).val().substring(0,8));
 			}
 		});
 		// 이름 제한
 		$("#m_name").on('keyup' , function() {
 			if($(this).val().length > 6) {
-				$(this).val().substring(0,6);
+				$(this).val($(this).val().substring(0,6));
+				console.log("이름")
+				$("#label_name").text("이름은 6자 이하로 작성해주세요")
+				$("#label_name").css({
+					"color":"red"
+				});
 			}
 		});
 	});
@@ -181,111 +196,113 @@
 </head>
 <body>
 	<div class="container">
-		<div>
-			<h1>회원가입 페이지</h1>
-		</div>
-		<div style="width:500px;">
+		<div style="width:1000px;">
+			<div align="center">
+				<h1>회원가입 페이지</h1>
+			</div>
 			<form action="../chk_reigst" method="POST">
-				<table>
-					<!-- 아이디 -->
-					<tr>
-						<td><strong>아이디</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="m_id" id="m_id" 
-							placeholder="아이디를 입력해주세요" class="form-control" onblur="chkId()">
-						</td>
-						<td>
-							<button type="button" onclick="chk_id()" id="btn_chk_id"class="btn btn-info">중복확인</button>
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_id"></label></td>
-					</tr>
-					<!-- 비밀번호 -->
-					<tr>
-						<td><strong>비밀번호</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type=password name="m_pw" id="m_pw" 
-							placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkPw()">
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_pw"></label></td>
-					</tr>
-					<!-- 비밀번호 확인 -->
-					<tr>
-						<td><strong>비밀번호 확인</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="password" id="m_Rpw" 
-							placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkRpw()">
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_Rpw"></label></td>
-					</tr>
-					<!-- 이름 -->
-					<tr>
-						<td><strong>이름</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="m_name" id="m_name" 
-							placeholder="이름을 입력해주세요" class="form-control" onblur="chkName()">
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_name"></label></td>
-					</tr>
-					<!-- 닉네임 -->
-					<tr>
-						<td><strong>닉네임</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="m_nick" id="m_nick" 
-							placeholder="닉네임을 입력해주세요" class="form-control" onblur="chkNick()">
-						</td>
-						<td>
-							<button type="button" onclick="chk_nick()" id="btn_chk_nick"class="btn btn-info">중복확인</button>
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_nick"></label></td>
-					</tr>
-					<!-- 생년월일 -->
-					<tr>
-						<td><strong>생년월일</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="date" name="m_birth" id="m_date" 
-							class="form-control" onblur="chkDate()">
-						</td>
-					</tr>
-					<tr>
-						<td><label id="label_date"></label></td>
-					</tr>
-					<!-- 이메일 -->
-					<tr>
-						<td><strong>이메일</strong></td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="m_email" value="${email}" readonly class="form-control">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button type="submit" id="btn-regist"class="btn btn-info" disabled>회원가입</button>
-						</td>
-					</tr>					
-				</table>
+				<div align="center">
+					<table style="width:550px; padding: 20px; border-width: 500px;">
+						<!-- 아이디 -->
+						<tr>
+							<td><strong>아이디</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" name="m_id" id="m_id" 
+								placeholder="아이디를 입력해주세요" class="form-control" onblur="chkId()">
+							</td>
+							<td style="padding-left: 10px;">
+								<button type="button" onclick="chk_id()" id="btn_chk_id"class="btn btn-info">중복확인</button>
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_id"></label></td>
+						</tr>
+						<!-- 비밀번호 -->
+						<tr>
+							<td><strong>비밀번호</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type=password name="m_pw" id="m_pw" 
+								placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkPw()">
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_pw"></label></td>
+						</tr>
+						<!-- 비밀번호 확인 -->
+						<tr>
+							<td><strong>비밀번호 확인</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="password" id="m_Rpw" 
+								placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkRpw()">
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_Rpw"></label></td>
+						</tr>
+						<!-- 이름 -->
+						<tr>
+							<td><strong>이름</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" name="m_name" id="m_name" 
+								placeholder="이름을 입력해주세요" class="form-control" onblur="chkName()">
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_name"></label></td>
+						</tr>
+						<!-- 닉네임 -->
+						<tr>
+							<td><strong>닉네임</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" name="m_nick" id="m_nick" 
+								placeholder="닉네임을 입력해주세요" class="form-control" onblur="chkNick()">
+							</td>
+							<td style="padding-left: 10px;">
+								<button type="button" onclick="chk_nick()" id="btn_chk_nick"class="btn btn-info">중복확인</button>
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_nick"></label></td>
+						</tr>
+						<!-- 생년월일 -->
+						<tr>
+							<td><strong>생년월일</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="date" name="m_birth" id="m_date" 
+								class="form-control" onblur="chkDate()">
+							</td>
+						</tr>
+						<tr>
+							<td><label id="label_date"></label></td>
+						</tr>
+						<!-- 이메일 -->
+						<tr>
+							<td><strong>이메일</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" name="m_email" value="${email}" readonly class="form-control">
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px;">
+								<button type="submit" id="btn-regist"class="btn btn-info" disabled>회원가입</button>
+							</td>
+						</tr>					
+					</table>
+				</div>
 			</form>
 		</div>
 	</div>
