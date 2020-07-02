@@ -21,6 +21,10 @@ public class MemberDAO {
 	public String chkEmail(String email) {
 		return sqlSession.selectOne(namespace + ".chkEmail" , email);
 	}
+	// 닉네임 중복검사
+	public String chkNick(String nick) {
+		return sqlSession.selectOne(namespace + ".chkNick" , nick);
+	}
 
 //	로그인 확인
 	public MemberDTO loginck(MemberDTO memberDTO) {
@@ -62,6 +66,7 @@ public class MemberDAO {
 		return 0;
 	}
 	
+	// 회원가입
 	public int addMember(MemberDTO memberDTO) {
 		return sqlSession.insert(namespace+".addMember",memberDTO);
 	}

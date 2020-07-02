@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.KG.dto.MemberDTO;
 import com.KG.service.member.MemChkEmailServImpl;
 import com.KG.service.member.MemChkIdServImpl;
+import com.KG.service.member.MemChkNickServImpl;
 import com.KG.service.member.MemberService;
 import com.KG.service.member.MemFindIdServImpl;
 import com.KG.service.member.MemFindPwServImpl;
@@ -132,6 +133,21 @@ public class MemberRestController {
 		
 		boolean flag = memServ.execute_Boo(model);
 		System.out.println("flag : " + flag);
+		if(flag) {
+			return "true";
+		}
+		return "false";
+	}
+	
+	// 닉네임 중복 체크
+	@GetMapping(value = "overlapNick" , produces = "application/json; charset=UTF-8")
+	public String overlapNick(String m_nick , Model model) {
+		
+		model.addAttribute("m_nick" , m_nick);
+		
+		memServ = (MemChkNickServImpl)AC.ac.getBean("memChkNickServImpl");
+		boolean flag = memServ.execute_Boo(model);
+		System.out.println("con result : " + flag);
 		if(flag) {
 			return "true";
 		}
