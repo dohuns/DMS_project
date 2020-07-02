@@ -151,7 +151,7 @@
 	<section class="our-webcoderskull padding-lg">
 		<div class="container">
 			<div class="row heading heading-icon">
-				<h2>무비차트 예정</h2>
+				<h2>일일 박스 오피스</h2>
 			</div>
 
 			<!-- 영화 차트 순위권 출력 -->
@@ -163,9 +163,9 @@
 								class="img-responsive" alt="">
 						</figure>
 						<h3>
-							<a href="http://www.webcoderskull.com/">Web coder skull</a>
+							<a href="#">링크1</a>
 						</h3>
-						<p>Freelance Web Developer</p>
+						<p>내용1</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
@@ -175,9 +175,9 @@
 								class="img-responsive" alt="">
 						</figure>
 						<h3>
-							<a href="#">Kappua </a>
+							<a href="#">링크2</a>
 						</h3>
-						<p>Freelance Web Developer</p>
+						<p>내용2</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
@@ -187,9 +187,9 @@
 								class="img-responsive" alt="">
 						</figure>
 						<h3>
-							<a href="http://www.webcoderskull.com/">Manish </a>
+							<a href="#">링크3</a>
 						</h3>
-						<p>Freelance Web Developer</p>
+						<p>내용3</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
@@ -199,9 +199,9 @@
 								class="img-responsive" alt="">
 						</figure>
 						<h3>
-							<a href="http://www.webcoderskull.com/">Atul </a>
+							<a href="#">링크4</a>
 						</h3>
-						<p>Freelance Web Developer</p>
+						<p>내용4</p>
 					</div>
 				</li>
 			</ul>

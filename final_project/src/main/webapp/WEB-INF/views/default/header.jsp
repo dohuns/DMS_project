@@ -58,22 +58,15 @@
 						<span class="icon-bar"></span>
 					</button>
 					<div>
-						<a class="navbar-brand navbar-brand-centered" href="home">DOMISU</a>
+						<a class="navbar-brand navbar-brand-centered" href="#">DOMISU</a>
 					</div>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
-						<li><a href="#">영화</a></li>
+						<li><a href="movie">영화</a></li>
 						<li><a href="#">게임</a></li>
-<!-- 						<li class="dropdown"><a href="#" class="dropdown-toggle" -->
-<!-- 							data-toggle="dropdown">예매 <span class="caret"></span></a> -->
-<!-- 							<ul class="dropdown-menu" role="menu"> -->
-<!-- 								<li><a href="#">빠른 예매</a></li> -->
-<!-- 								<li><a href="#">상영 시간표</a></li> -->
-<!-- 							</ul> -->
-<!-- 						</li> -->
 						<li><a href="#">고양이</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
@@ -83,18 +76,10 @@
 								<li><a href="login">로그인</a></li>
 								<li><a href="regist_email">회원가입</a></li>
 							</c:when>
-							<%-- 로그인한 아이디가 관리자인 경우 글 작성 버튼 출력 --%>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>
-								<c:choose>
-									<c:when test="${sessionScope.m_id == admin}">
-										<li><a href="write">글 작성</a>
-									</c:when>
-									<c:otherwise>
-										<li><a href="myPage">내정보</a></li>
-										<li><a href="logout">로그아웃</a></li>
-									</c:otherwise>
-								</c:choose>
+								<li><a href="myPage">내정보</a></li>
+								<li><a href="logout">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,127 +14,177 @@
 	function chk_id() {
 		var id = $("#m_id").val();
 		$.ajax({
-			url : "../overlapId",
-			type : "GET",
-			data : "m_id=" + id,
-			success : function(arg) {
-				if (arg == false) {
+			url:"../overlapId",
+			type:"GET",
+			data:"m_id="+id,
+			success:function(arg) {
+				if(arg == false) {
 					$("#label_id").text("사용가능한 ID입니다.");
 					$("#label_id").css({
-						"color" : "blue"
+						"color":"blue"
 					})
-					$("#m_id").attr("readonly", true);
-					$("#btn_chk_id").attr("disabled", "disabled");
+					$("#m_id").attr("readonly",true);
+					$("#btn_chk_id").attr("disabled","disabled");
 				} else {
 					$("#label_id").text("중복 된 ID입니다.");
 					$("#label_id").css({
-						"color" : "red"
+						"color":"red"
 					})
 				}
 			},
-			error : function() {
+			error:function(){
 				alert("실패!!")
 			}
 		});
-	}
-
-	// input 공백 체크(id,label,column명(한글))
-	function chk_blank(id, label, column) {
-		if ($("#" + id).val() == "") {
-			if (id == "m_date") {
-				$("#" + label).text(column + "을(를) 선택 해주세요.");
-			} else {
-				$("#" + label).text(column + "을(를) 입력 해주세요.");
+ 	}
+	// 닉네임 중복 체크
+	function chk_nick() {
+		var nick = $("#m_nick").val();
+		$.ajax({
+			url:"../overlapNick",
+			type:"GET",
+			data:"m_nick=" + nick,
+			success:function(arg) {
+				if(arg == true) {
+					$("#label_nick").text("사용가능한 닉네임 입니다.");
+					$("#label_nick").css({
+						"color":"blue"
+					})
+					$("#m_nick").attr("readonly",true);
+					$("#btn_chk_nick").attr("disabled","disabled");
+				} else {
+					$("#label_nick").text("중복 된 닉네임 입니다.");
+					$("#label_nick").css({
+						"color":"red"
+					})
+				}
+			},
+			error:function() {
+				alert("실패!!");
 			}
-			$("#" + label).css({
-				"color" : "red"
+		});
+	}
+	
+	// input 공백 체크(id,label,column명(한글))
+	function chk_blank(id,label,column) {
+		if($("#"+id).val() == "") {
+			if(id == "m_date") {
+				$("#"+label).text(column + "을(를) 선택 해주세요.");
+			} else {
+				$("#"+label).text(column + "을(를) 입력 해주세요.");
+			}
+			$("#"+label).css({
+				"color":"red"
 			});
 		} else {
-			$("#" + label).text("");
+			$("#"+label).text("");
 		}
 	}
-
+	
 	//비밀번호 확인 체크
 	function pwSameChk() {
-		if ($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val()
-				&& $("#label_pw").text() == "") {
+		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val() && $("#label_pw").text() == "") {
 			$("#label_Rpw").text("일치~");
 			$("#label_Rpw").css({
-				"color" : "blue"
+				"color":"blue"
 			});
-		} else if ($("#m_Rpw").val() != ""
-				&& $("#m_pw").val() != $("#m_Rpw").val()) {
+		} else if($("#m_Rpw").val() != "" && $("#m_pw").val() != $("#m_Rpw").val()) {
 			$("#label_Rpw").text("불일치!");
 			$("#label_Rpw").css({
-				"color" : "red"
+				"color":"red"
 			});
-		}
+		}	
 	}
-
+	
 	//회원가입 버튼 활성화 
 	function buttonAble() {
-		if ($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != ""
-				&& $("m_Rpw").val() != "" && $("#m_name").val() != ""
-				&& $("#m_date").val() != "" && $("#label_pw").text() == "") {
-
-			$("#btn-regist").prop("disabled", false);
-
+		if($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != "" && $("m_Rpw").val() != "" 
+				&& $("#m_name").val() != "" && $("#m_date").val() != "" 
+				&& $("#label_nick").text() == "사용가능한 닉네임 입니다." && $("#label_pw").text() == "") {
+			
+			$("#btn-regist").prop("disabled" , false);
 		} else {
-			console.log($("#label_id").text())
-			console.log($("#label_pw").text())
-			console.log($("#m_date").val())
-
-			$("#btn-regist").prop("disabled", true);
+			$("#btn-regist").prop("disabled" , true);
 		}
 	}
-
+	
 	// 비밀번호 입력 조합 설정
 	function pwPattern() {
 		var pattern1 = /[0-9]/;
 		var pattern2 = /[a-zA-Z]/;
 		var pattern3 = /[~!@\#$%<>^&*]/
-
+		
 		var pw = $("#m_pw").val();
-		if (!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw)) {
+		if(!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) 
+				) {
 			$("#label_pw").text("영문+숫자+특수문자 8자리 이상으로 입력해주세요!!")
 			$("#label_pw").css({
-				"color" : "red"
+				"color":"red"
 			});
 		}
 	}
-
+	
 	// input에 blur적용
 	function chkId() {
-		chk_blank("m_id", "label_id", "아이디");
+		chk_blank("m_id" , "label_id" , "아이디");
 		buttonAble();
 	}
 	function chkPw() {
-		chk_blank("m_pw", "label_pw", "비밀번호");
+		chk_blank("m_pw" , "label_pw" , "비밀번호");
 		pwSameChk();
 		buttonAble();
 		pwPattern();
 	}
 	function chkRpw() {
-		chk_blank("m_Rpw", "label_Rpw", "비밀번호 확인");
+		chk_blank("m_Rpw" , "label_Rpw" , "비밀번호 확인");
 		pwSameChk();
 		buttonAble();
 	}
 	function chkName() {
-		chk_blank("m_name", "label_name", "이름");
+		chk_blank("m_name" , "label_name" , "이름");
+		buttonAble();
+	}
+	function chkNick() {
+		chk_blank("m_nick" , "label_nick" , "닉네임");
 		buttonAble();
 	}
 	function chkDate() {
-		chk_blank("m_date", "label_date", "생년월일");
+		chk_blank("m_date" , "label_date" , "생년월일");
 		buttonAble();
 	}
-</script>
+	
+	// 글자 수 제한 
+	$(function(){
+		// 아이디 제한
+		$("#m_id").on('keyup' , function() {
+			if($(this).val().length > 16) {
+				$(this).val().substring(0,16);
+			}
+		});
+		// 닉네임 제한
+		$("#m_nick").on('keyup' , function() {
+			if($(this).val().lenghth > 8) {
+				$(this).val().substring(0,8);
+			}
+		});
+		// 이름 제한
+		$("#m_name").on('keyup' , function() {
+			if($(this).val().length > 6) {
+				$(this).val().substring(0,6);
+			}
+		});
+	});
+	
+	
+	
+</script> 
 </head>
 <body>
 	<div class="container">
 		<div>
 			<h1>회원가입 페이지</h1>
 		</div>
-		<div style="width: 500px;">
+		<div style="width:500px;">
 			<form action="../chk_reigst" method="POST">
 				<table>
 					<!-- 아이디 -->
@@ -142,12 +192,12 @@
 						<td><strong>아이디</strong></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="m_id" id="m_id"
+						<td>
+							<input type="text" name="m_id" id="m_id" 
 							placeholder="아이디를 입력해주세요" class="form-control" onblur="chkId()">
 						</td>
 						<td>
-							<button type="button" onclick="chk_id()" id="btn_chk_id"
-								class="btn btn-info">중복확인</button>
+							<button type="button" onclick="chk_id()" id="btn_chk_id"class="btn btn-info">중복확인</button>
 						</td>
 					</tr>
 					<tr>
@@ -158,7 +208,8 @@
 						<td><strong>비밀번호</strong></td>
 					</tr>
 					<tr>
-						<td><input type=password name="m_pw" id="m_pw"
+						<td>
+							<input type=password name="m_pw" id="m_pw" 
 							placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkPw()">
 						</td>
 					</tr>
@@ -170,7 +221,8 @@
 						<td><strong>비밀번호 확인</strong></td>
 					</tr>
 					<tr>
-						<td><input type="password" id="m_Rpw"
+						<td>
+							<input type="password" id="m_Rpw" 
 							placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkRpw()">
 						</td>
 					</tr>
@@ -182,20 +234,39 @@
 						<td><strong>이름</strong></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="m_name" id="m_name"
+						<td>
+							<input type="text" name="m_name" id="m_name" 
 							placeholder="이름을 입력해주세요" class="form-control" onblur="chkName()">
 						</td>
 					</tr>
 					<tr>
 						<td><label id="label_name"></label></td>
 					</tr>
+					<!-- 닉네임 -->
+					<tr>
+						<td><strong>닉네임</strong></td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" name="m_nick" id="m_nick" 
+							placeholder="닉네임을 입력해주세요" class="form-control" onblur="chkNick()">
+						</td>
+						<td>
+							<button type="button" onclick="chk_nick()" id="btn_chk_nick"class="btn btn-info">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+						<td><label id="label_nick"></label></td>
+					</tr>
 					<!-- 생년월일 -->
 					<tr>
 						<td><strong>생년월일</strong></td>
 					</tr>
 					<tr>
-						<td><input type="date" name="m_date" id="m_date"
-							class="form-control" onblur="chkDate()"></td>
+						<td>
+							<input type="date" name="m_birth" id="m_date" 
+							class="form-control" onblur="chkDate()">
+						</td>
 					</tr>
 					<tr>
 						<td><label id="label_date"></label></td>
@@ -205,15 +276,15 @@
 						<td><strong>이메일</strong></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="m_email" value="${email}"
-							readonly class="form-control"></td>
+						<td>
+							<input type="text" name="m_email" value="${email}" readonly class="form-control">
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" id="btn-regist" class="btn btn-info"
-								disabled>회원가입</button>
+							<button type="submit" id="btn-regist"class="btn btn-info" disabled>회원가입</button>
 						</td>
-					</tr>
+					</tr>					
 				</table>
 			</form>
 		</div>
