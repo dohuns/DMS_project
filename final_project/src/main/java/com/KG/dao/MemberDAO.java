@@ -2,6 +2,7 @@ package com.KG.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.KG.dto.MemberDTO;
@@ -9,6 +10,7 @@ import com.KG.dto.MemberDTO;
 @Repository
 public class MemberDAO {
 	@Autowired
+	@Qualifier("sqlSession")
 	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
 
