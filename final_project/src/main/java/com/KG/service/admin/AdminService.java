@@ -5,5 +5,5 @@ import org.springframework.ui.Model;
 public interface AdminService {
 
 	// 회원 전체 목록
-	public void adminList(Model model);
+	public void execute(Model model);
 }

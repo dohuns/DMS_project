@@ -6,6 +6,5 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="memberDTO" type="com.KG.dto.MemberDTO" />
-		<typeAlias alias="movieDTO" type="com.KG.dto.MovieDTO" />
 	</typeAliases>
 </configuration>

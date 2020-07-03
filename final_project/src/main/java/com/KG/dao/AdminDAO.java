@@ -12,6 +12,7 @@ import com.KG.dto.MemberDTO;
 
 @Repository
 public class AdminDAO {
+
 	@Autowired
 	@Qualifier("sqlSessionAdmin")
 	private SqlSession sqlSession;
@@ -23,4 +24,5 @@ public class AdminDAO {
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
+
 }

@@ -13,8 +13,9 @@ public class AdminChkListServImpl implements AdminService {
 	private AdminDAO adminDAO;
 
 	@Override
-	public void adminList(Model model) {
+	public void execute(Model model) {
 		model.addAttribute("memberList", adminDAO.memberList());
 	}
+
 
 }
