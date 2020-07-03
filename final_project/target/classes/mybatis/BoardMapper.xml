@@ -9,7 +9,7 @@
 	</select>
 	<!-- 아티클 리스트 출력 -->
 	<select id="articleList" resultType="boardDTO">
-		select * FROM BOARD where B_ARTICLENUM is not null
+		select * FROM BOARD where B_num is null and B_ARTICLENUM is not null
 	</select>
 	
 </mapper>

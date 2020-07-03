@@ -9,26 +9,12 @@
 </head>
 <body>
 	<c:import url="default/header.jsp" />
-	<c:import url="default/sidebar.jsp">
-		<c:param name="boardCate" value="${boardCate}"></c:param>
-	</c:import>
-	
-	<table>
-		<tr>
-			<th>1</th>
-			<th>1</th>
-			<th>1</th>
-		</tr>
-		<tr>
-			<th>1</th>
-			<th>1</th>
-			<th>1</th>
-		</tr>
-		<tr>
-			<th>1</th>
-			<th>1</th>
-			<th>1</th>
-		</tr>
-	</table>
+	<div style="display: flex;">
+		<div>
+			<c:import url="/sidebar" />
+		</div>
+		<div style="background-color: red; width: 200px; height: 800px;">
+		</div>
+	</div>
 </body>
 </html>

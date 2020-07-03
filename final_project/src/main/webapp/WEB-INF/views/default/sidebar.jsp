@@ -6,19 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>sidebar</title>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-	$.ajax({
-		url : "sidebar",
-		type : "POST",
-		success : function(list) {
-			console.log("성공")
-		},
-		error : function() {
-			console.log("실패")
-		}
-	})
-</script>
 <style type="text/css">
 a:link, a:visited, a:active {
 	text-decoration: none;
@@ -52,9 +39,10 @@ hr#sub {
 </style>
 </head>
 <body>
-	<div style="display: inline;">
-		<div
-			style="background-color: yellow; width: 300px; border-top: solid 2px #000000;">
+	<div>
+		<div style="background-color: yellow; width: 300px; border-top: solid 2px #000000;">
+		<c:choose>
+		<c:when test="${sessionScope.m_id != null}">
 			<div>
 				<div align="center" style="padding-top: 5px;">
 					<h4 class="d-none">나의 활동</h4>
@@ -64,9 +52,7 @@ hr#sub {
 						<ul>
 							<li>
 								<div>
-									<img
-										src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-										width="58" height="58" alt="프로필사진">
+									<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="58" height="58" alt="프로필사진">
 								</div>
 								<div>
 									<strong>고냥이파</strong>
@@ -83,16 +69,17 @@ hr#sub {
 					</div>
 				</div>
 			</div>
-			<a href="#"><div align="center"
-					style="background-color: skyblue; padding: 5px 0; margin: 5px 0;">
-					게시글 글쓰기</div></a> <a href="#"><div align="center"
-					style="background-color: red; padding: 5px 0; margin: 5px 0;">
-					채팅 하기</div></a>
+		</c:when>	
+		<c:otherwise>
+		<a href="login"><div align="center" style="background-color: green; padding: 5px 0; margin: 5px 0;">로그인 하기</div></a>
+		</c:otherwise>
+		</c:choose>
+			<a href="#"><div align="center" style="background-color: skyblue; padding: 5px 0; margin: 5px 0;">게시글 글쓰기</div></a>
+			<a href="#"><div align="center" style="background-color: red; padding: 5px 0; margin: 5px 0;">채팅 하기</div></a>
 			<div>
 				<form action="#">
 					<input type="text" name="search" style="width: 81%">
-					<button
-						style="background-color: #8df38b; border-color: #8df38b; color: white;">검색</button>
+					<button style="background-color: #8df38b; border-color: #8df38b; color: white;">검색</button>
 				</form>
 			</div>
 			<div id="menu">
@@ -101,14 +88,12 @@ hr#sub {
 			<div>
 				<c:forEach items="${boardCate}" var="boardCate">
 					<hr id="main">
-					<div id="menu">
-						${boardCate.b_category}<br>
+					<div id="menu">${boardCate.b_category}<br>
 					</div>
 					<hr id="sub">
 					<c:forEach items="${boardArt}" var="boardArt">
 						<c:if test="${boardCate.b_category == boardArt.b_category}">
-							<div id="menu">
-								${boardArt.b_article}<br>
+							<div id="menu">${boardArt.b_article}<br>
 							</div>
 						</c:if>
 					</c:forEach>
