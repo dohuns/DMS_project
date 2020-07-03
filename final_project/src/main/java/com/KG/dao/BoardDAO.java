@@ -13,11 +13,15 @@ import com.KG.dto.BoardDTO;
 public class BoardDAO {
 
 	@Autowired
-	@Qualifier("sqlSessionMovie")
+	@Qualifier("sqlSessionBoard")
 	SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
 	
-//	public List<BoardDTO> list() {
-//		return sqlSession.selectList(namespace + ".list");
-//	}
+	public List<BoardDTO> list(BoardDTO dto) {
+		return sqlSession.selectList(namespace + ".list" , dto);
+	}
+	
+	public List<BoardDTO> cateList(BoardDTO dto) {
+		return sqlSession.selectList(namespace + ".cateList", dto);
+	}
 }

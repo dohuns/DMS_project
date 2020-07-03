@@ -5,17 +5,17 @@ import java.sql.Timestamp;
 public class BoardDTO {
 	private String b_category; // 카테고리
 	private int b_cateNum; // 카테고리 번호부여
-	private String article; // 게시판
+	private String b_article; // 게시판
 	private int b_articleNum; // 게시판 번호부여
-	private int cateSort; // 카테고리 옮기기용 번호
+	private int b_cateSort; // 카테고리 옮기기용 번호
 	private int b_num; // 글 번호
 	private String b_title; // 글 제목
 	private String b_content; // 글 내용
 	private String b_nick; // 닉네임
 	private Timestamp b_date; // 작성시간
-	private int hit; // 조회수
-	private int reNum; // 답글 번호
-	private int sortNum; // 글 정렬용 번호
+	private int b_hit; // 조회수
+	private int b_reNum; // 답글 번호
+	private int b_sortNum; // 글 정렬용 번호
 	
 	public String getB_category() {
 		return b_category;
@@ -29,11 +29,11 @@ public class BoardDTO {
 	public void setB_cateNum(int b_cateNum) {
 		this.b_cateNum = b_cateNum;
 	}
-	public String getArticle() {
-		return article;
+	public String getB_article() {
+		return b_article;
 	}
-	public void setArticle(String article) {
-		this.article = article;
+	public void setB_article(String b_article) {
+		this.b_article = b_article;
 	}
 	public int getB_articleNum() {
 		return b_articleNum;
@@ -41,11 +41,11 @@ public class BoardDTO {
 	public void setB_articleNum(int b_articleNum) {
 		this.b_articleNum = b_articleNum;
 	}
-	public int getCateSort() {
-		return cateSort;
+	public int getB_cateSort() {
+		return b_cateSort;
 	}
-	public void setCateSort(int cateSort) {
-		this.cateSort = cateSort;
+	public void setB_cateSort(int b_cateSort) {
+		this.b_cateSort = b_cateSort;
 	}
 	public int getB_num() {
 		return b_num;
@@ -77,28 +77,25 @@ public class BoardDTO {
 	public void setB_date(Timestamp b_date) {
 		this.b_date = b_date;
 	}
-	public int getHit() {
-		return hit;
+	public int getB_hit() {
+		return b_hit;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setB_hit(int b_hit) {
+		this.b_hit = b_hit;
 	}
-	public int getReNum() {
-		return reNum;
+	public int getB_reNum() {
+		return b_reNum;
 	}
-	public void setReNum(int reNum) {
-		this.reNum = reNum;
+	public void setB_reNum(int b_reNum) {
+		this.b_reNum = b_reNum;
 	}
-	public int getSortNum() {
-		return sortNum;
+	public int getB_sortNum() {
+		return b_sortNum;
 	}
-	public void setSortNum(int sortNum) {
-		this.sortNum = sortNum;
+	public void setB_sortNum(int b_sortNum) {
+		this.b_sortNum = b_sortNum;
 	}
 	
-	
-	
-
 	
 	
 }

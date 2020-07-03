@@ -4,13 +4,27 @@ import java.sql.Date;
 
 public class MemberDTO {
 	
+	private String m_rn;
 	private String m_id;
 	private String m_pw;
 	private String m_name;
 	private String m_nick;
 	private Date m_birth;
 	private String m_email;
+	private int m_rank;
 	
+	public String getM_rn() {
+		return m_rn;
+	}
+	public void setM_rn(String m_rn) {
+		this.m_rn = m_rn;
+	}
+	public int getM_rank() {
+		return m_rank;
+	}
+	public void setM_rank(int m_rank) {
+		this.m_rank = m_rank;
+	}
 	public String getM_id() {
 		return m_id;
 	}

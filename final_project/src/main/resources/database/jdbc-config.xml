@@ -20,13 +20,13 @@
    </bean> 
    
 <!--    Movie sqlSession -->
-   <bean id="sqlSessionFactoryMovie" class="org.mybatis.spring.SqlSessionFactoryBean">
+   <bean id="sqlSessionFactoryBoard" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />
       <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-      <property name="mapperLocations" value="classpath:mybatis/MovieMapper.xml" />      
+      <property name="mapperLocations" value="classpath:mybatis/BoardMapper.xml" />      
    </bean>
-   <bean id="sqlSessionMovie" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryMovie"></constructor-arg>
+   <bean id="sqlSessionBoard" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBoard"></constructor-arg>
    </bean> 
 
 </beans>

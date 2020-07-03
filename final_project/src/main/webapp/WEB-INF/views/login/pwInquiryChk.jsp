@@ -29,7 +29,7 @@ function ckhPw() {
 	var m_pw = $("#m_pw").val();
 	var m_pw_ck = $("#m_pw_ck").val();
 	
-	if(m_pw == m_pw_ck) {
+	if(m_pw == m_pw_ck && $("#label_pw").text() == "") {
 		$("#label_pw_ck").text("비밀번호 일치~");
 		$("#label_pw_ck").css({
 			"color":"blue"

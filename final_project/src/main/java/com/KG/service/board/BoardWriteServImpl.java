@@ -8,22 +8,23 @@ import org.springframework.ui.Model;
 
 import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
-
 @Service
-public class BoardListServImpl implements BoardService{
+public class BoardWriteServImpl implements BoardService{
 
 	@Autowired
-	BoardDAO dao;
+	BoardDAO boardDAO;
 	
 	@Override
 	public boolean execute(Model model) {
-		
+
 		Map<String, Object> map = model.asMap();
 		BoardDTO dto = (BoardDTO) map.get("dto");
 		
-		model.addAttribute("list" , dao.list(dto));
+//		boardDAO.boardWrite(dto.getB_title() , dto.getB_content());
 		
 		return false;
 	}
 	
+	
+
 }
