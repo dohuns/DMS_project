@@ -15,11 +15,6 @@
 	<select id="chkNick" resultType="String">
 		SELECT m_nick FROM member WHERE m_nick=#{nick}
 	</select>
-	<!-- 회원 가입  -->
-	<insert id="addMember" parameterType="memberDTO">
-		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , 3)
-	</insert>
-	
 	<select id="loginck" resultType="memberDTO">
 		select * from member where m_id = #{m_id}
 	</select>
@@ -32,6 +27,9 @@
 	<update id="findPw_change" parameterType="memberDTO">
 		update member set m_pw = #{m_pw} where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
 	</update>
-	
+	<!-- 회원 가입  -->
+	<insert id="addMember" parameterType="memberDTO">
+		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , 3)
+	</insert>
 	
 </mapper>

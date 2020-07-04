@@ -17,10 +17,9 @@ public class BoardCateListServImpl implements BoardService{
 	BoardDAO boardDAO;
 	
 	@Override
-	public boolean execute(Model model) {
-		
+	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		BoardDTO dto = (BoardDTO) map.get("dto");
+		BoardDTO dto = (BoardDTO) map.get("boardDTO");
 		
 		System.out.println("cate : " + dto.getB_category());
 		
@@ -28,11 +27,19 @@ public class BoardCateListServImpl implements BoardService{
 		for(BoardDTO dto2 : list) {
 			System.out.println("ser : " + dto2.getB_article());
 		}
-		
-		
 		model.addAttribute("cate" , boardDAO.cateList(dto));
 		
 		return false;
+	}
+
+	@Override
+	public String execute_Str(Model model) {
+		return null;
+	}
+
+	@Override
+	public int execute_Int(Model model) {
+		return 0;
 	}
 	
 	

@@ -20,8 +20,10 @@ public class MemChkEmailServImpl implements MemberService{
 		Map<String, Object> map = model.asMap();
 		
 		String email  = (String)map.get("m_email");
+		System.out.println("ser mail : " + email);
 		
 		String m_email = memberDAO.chkEmail(email);
+		System.out.println("dao mail : " + m_email);
 		
 		if(m_email == null) {
 			return true;

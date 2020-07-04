@@ -11,17 +11,29 @@ import com.KG.dto.BoardDTO;
 
 @Repository
 public class BoardDAO {
-
 	@Autowired
 	@Qualifier("sqlSessionBoard")
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
-	
-	public List<BoardDTO> list(BoardDTO dto) {
-		return sqlSession.selectList(namespace + ".list" , dto);
+
+	// 카테고리 리스트
+	public List<BoardDTO> categoryList() {
+		return sqlSession.selectList(namespace + ".categoryList");
+	}
+
+	// 아티클 리스트
+	public List<BoardDTO> articleList() {
+		return sqlSession.selectList(namespace + ".articleList");
 	}
 	
-	public List<BoardDTO> cateList(BoardDTO dto) {
-		return sqlSession.selectList(namespace + ".cateList", dto);
+	
+	public List<BoardDTO> list(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".list" , boardDTO);
 	}
+	
+	
+	public List<BoardDTO> cateList(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".cateList", boardDTO);
+	}
+
 }

@@ -15,7 +15,7 @@
 		<div align="center">
 			<strong>${param.b_article}게시판</strong>
 			<div>
-				<table>
+				<table class="table table-striped">
 					<tr>
 						<th>글 번호</th>
 						<th>제목</th>
