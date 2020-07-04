@@ -11,7 +11,7 @@ public class BoardDTO {
 	private int b_num; // 글 번호
 	private String b_title; // 글 제목
 	private String b_content; // 글 내용
-	private String b_ncik; // 작성자
+	private String b_nick; // 작성자
 	private Timestamp b_date; // 작성시간
 	private int b_hit; // 조회수
 	private int b_reNum; // 답글번호
@@ -81,12 +81,12 @@ public class BoardDTO {
 		this.b_content = b_content;
 	}
 
-	public String getB_ncik() {
-		return b_ncik;
+	public String getB_nick() {
+		return b_nick;
 	}
 
-	public void setB_ncik(String b_ncik) {
-		this.b_ncik = b_ncik;
+	public void setB_nick(String b_nick) {
+		this.b_nick = b_nick;
 	}
 
 	public Timestamp getB_date() {
