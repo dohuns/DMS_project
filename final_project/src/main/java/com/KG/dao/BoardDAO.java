@@ -25,5 +25,15 @@ public class BoardDAO {
 	public List<BoardDTO> articleList() {
 		return sqlSession.selectList(namespace + ".articleList");
 	}
+	
+	
+	public List<BoardDTO> list(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".list" , boardDTO);
+	}
+	
+	
+	public List<BoardDTO> cateList(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".cateList", boardDTO);
+	}
 
 }

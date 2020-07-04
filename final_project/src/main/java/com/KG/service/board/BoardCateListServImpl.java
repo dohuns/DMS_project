@@ -1,5 +1,6 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,31 +11,37 @@ import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
 
 @Service
-public class BoaListServImpl implements BoardService {
+public class BoardCateListServImpl implements BoardService{
 
 	@Autowired
 	BoardDAO boardDAO;
-
+	
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
+		BoardDTO dto = (BoardDTO) map.get("boardDTO");
 		
-		model.addAttribute("list" , boardDAO.list(boardDTO));
+		System.out.println("cate : " + dto.getB_category());
+		
+		List<BoardDTO> list = boardDAO.cateList(dto);
+		for(BoardDTO dto2 : list) {
+			System.out.println("ser : " + dto2.getB_article());
+		}
+		model.addAttribute("cate" , boardDAO.cateList(dto));
+		
 		return false;
 	}
 
-//	사이드바 리스트 출력
 	@Override
 	public String execute_Str(Model model) {
-		model.addAttribute("boardCate", boardDAO.categoryList());
-		model.addAttribute("boardArt", boardDAO.articleList());
-		return "성공";
+		return null;
 	}
 
 	@Override
 	public int execute_Int(Model model) {
 		return 0;
 	}
+	
+	
 
 }

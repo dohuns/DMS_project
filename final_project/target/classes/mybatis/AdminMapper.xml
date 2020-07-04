@@ -11,16 +11,31 @@
 
 	<!-- 회원 목록 관리 > 추가 -->
 	<insert id="insertMember">
-		INSERT INTO member VALUES(#{m_id}, #{m_pw}, #{m_name}, #{m_nick}, #{m_birth}, #{m_email})
+		INSERT INTO member VALUES(#{m_id}, #{m_pw},
+		#{m_name}, #{m_nick}, #{m_birth}, #{m_email})
 	</insert>
 
 	<!-- 회원 목록 관리 > 수정 -->
 	<update id="updateMember">
-		UPDATE member SET m_pw = #{m_pw}, m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth} WHERE m_id = #{m_id}
+		UPDATE member SET m_pw = #{m_pw}, m_name = #{m_name},
+		m_nick = #{m_nick}, m_birth = #{m_birth} WHERE m_id = #{m_id}
 	</update>
 
 	<!-- 회원 목록 관리 > 삭제 -->
 	<update id="deleteMember">
 		DELETE FROM member WHERE m_id = #{m_id}
+	</update>
+
+	<!-- PAGING > 총 인원 수 -->
+	<select id="getMemberCount">
+		SELECT COUNT(*) FROM member
+	</select>
+
+	<!-- PAGING > 각 페이지별로 인원 출력 -->
+	<update id="pagingCount">
+		SELECT B.* FROM
+		(SELECT ROWNUM m_rn, A.* FROM
+		(SELECT * FROM MEMBER ORDER BY M_RANK, M_BIRTH)A)B
+		WHERE m_rn BETWEEN #{startNum} AND #{lastNum};
 	</update>
 </mapper>

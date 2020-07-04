@@ -15,6 +15,7 @@
 			<h1>인증번호 입력 페이지</h1>
 		</div>
 		<div>
+			${dice}
 			<form action="chk_certification/${dice}" method="POST" style="width:500px;">
 				<input type="text" name="certificationNum" placeholder="인증번호를 입력하세요" class="form-control"><br>
 				<button type="submit" class="btn btn-info">인증하기</button>

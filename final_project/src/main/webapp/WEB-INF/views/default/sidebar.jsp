@@ -83,7 +83,7 @@ hr#sub {
 				</form>
 			</div>
 			<div id="menu">
-				<a href="#">전체글 보기</a>
+				<a href="board/list?b_category=&b_article=전체">전체글 보기</a>
 			</div>
 			<div>
 				<c:forEach items="${boardCate}" var="boardCate">
@@ -93,7 +93,7 @@ hr#sub {
 					<hr id="sub">
 					<c:forEach items="${boardArt}" var="boardArt">
 						<c:if test="${boardCate.b_category == boardArt.b_category}">
-							<div id="menu">${boardArt.b_article}<br>
+							<div id="menu"><a href="board/list?b_category=${boardArt.b_category}&b_article=${boardArt.b_article}">${boardArt.b_article}</a><br>
 							</div>
 						</c:if>
 					</c:forEach>

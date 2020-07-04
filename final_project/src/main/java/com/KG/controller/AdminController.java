@@ -26,4 +26,16 @@ public class AdminController {
 		adminServ.adminList(model);
 		return "admin/memberList";
 	}
+
+	// 회원 관리
+	@RequestMapping("management")
+	public String manageList() {
+		return "admin/manageList";
+	}
+
+	// 회원 관리 > 회원 추가
+	@RequestMapping("insMember")
+	public String insMember() {
+		return "admin/insMember";
+	}
 }

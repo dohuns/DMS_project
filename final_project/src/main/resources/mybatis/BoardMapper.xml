@@ -11,5 +11,12 @@
 	<select id="articleList" resultType="boardDTO">
 		select * FROM BOARD where B_num is null and B_ARTICLENUM is not null
 	</select>
+	<!--  -->
+	<select id="list" resultType="boardDTO">
+		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article}
+	</select>
 	
+	<select id="cateList" resultType="boardDTO">
+		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
+	</select>
 </mapper>

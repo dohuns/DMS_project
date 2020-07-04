@@ -1,6 +1,6 @@
 package com.KG.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardDTO {
 	private String b_category; // 카테고리
@@ -12,7 +12,7 @@ public class BoardDTO {
 	private String b_title; // 글 제목
 	private String b_content; // 글 내용
 	private String b_ncik; // 작성자
-	private Date b_date; // 작성시간
+	private Timestamp b_date; // 작성시간
 	private int b_hit; // 조회수
 	private int b_reNum; // 답글번호
 	private int b_sortNum; // 정렬번호
@@ -89,11 +89,11 @@ public class BoardDTO {
 		this.b_ncik = b_ncik;
 	}
 
-	public Date getB_date() {
+	public Timestamp getB_date() {
 		return b_date;
 	}
 
-	public void setB_date(Date b_date) {
+	public void setB_date(Timestamp b_date) {
 		this.b_date = b_date;
 	}
 
