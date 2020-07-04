@@ -1,6 +1,9 @@
 package com.KG.controller;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +51,6 @@ public class BoardController {
 		public String board_write(Model model , BoardDTO dto) {
 			
 			model.addAttribute("dto", dto);
-			System.out.println("cate : " + dto.getB_category());
-			System.out.println("arti : " + dto.getB_article());
 			boaServ = (BoardCateListServImpl)AC.ac.getBean("boardCateListServImpl");
 			boaServ.execute_Boo(model);
 			return "board/write";
@@ -57,12 +58,16 @@ public class BoardController {
 		
 		// 글쓰기 저장 
 		@RequestMapping("/board/write_save")
-		public String board_wrtieSave(Model model , BoardDTO dto) {
+		public String board_wrtieSave(Model model , BoardDTO dto) throws UnsupportedEncodingException {
+			
+			String category = URLEncoder.encode(dto.getB_category() , "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
+			
 			
 			model.addAttribute("dto" , dto);
 			boaServ = (BoardWriteServImpl)AC.ac.getBean("boardWriteServImpl");
 			boaServ.execute_Boo(model);
 			
-			return "redirect:/board/list";
+			return "redirect:/board/list?b_category="+category+"&b_article="+article;
 		}
 }

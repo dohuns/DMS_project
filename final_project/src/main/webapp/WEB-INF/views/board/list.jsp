@@ -11,6 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<!-- header -->
+	<c:import url="../default/header.jsp" />
+	
+	<!-- body -->
 	<div class="container">
 		<div align="center">
 			<strong>${param.b_article}게시판</strong>

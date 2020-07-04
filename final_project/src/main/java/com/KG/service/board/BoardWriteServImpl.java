@@ -18,9 +18,9 @@ public class BoardWriteServImpl implements BoardService{
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
+		BoardDTO boardDTO = (BoardDTO) map.get("dto");
 		
-//		boardDAO.boardWrite(dto.getB_title() , dto.getB_content());
+		boardDAO.boardWrite(boardDTO);
 		
 		return false;
 	}

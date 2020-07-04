@@ -26,14 +26,18 @@ public class BoardDAO {
 		return sqlSession.selectList(namespace + ".articleList");
 	}
 	
-	
+	// 게시물 목록
 	public List<BoardDTO> list(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".list" , boardDTO);
 	}
 	
-	
+	// 게시판 목록(카테고리로 분류)
 	public List<BoardDTO> cateList(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".cateList", boardDTO);
+	}
+	// 게시글 쓰기(저장)
+	public int boardWrite(BoardDTO boardDTO) {
+		return sqlSession.insert(namespace + ".boardWrite", boardDTO);
 	}
 
 }

@@ -3,20 +3,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.KG.mybatis.myMapper">
+
 	<!-- 카테고리 리스트 출력 -->
 	<select id="categoryList" resultType="boardDTO">
-		select * FROM BOARD where B_ARTICLENUM is null
+		select * FROM BOARD where B_ARTICLENUM is null and B_ARTICLE is null
 	</select>
+	
 	<!-- 아티클 리스트 출력 -->
 	<select id="articleList" resultType="boardDTO">
 		select * FROM BOARD where B_num is null and B_ARTICLENUM is not null
 	</select>
-	<!--  -->
+	
+	<!-- 글 목록 -->
 	<select id="list" resultType="boardDTO">
 		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article}
 	</select>
 	
+	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
 		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
 	</select>
+	
+	<!-- 글 쓰기(저장) -->
+	<insert id="boardWrite">
+		INSERT INTO board 
+			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum)
+		VALUES 
+			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0)
+	</insert>
 </mapper>
