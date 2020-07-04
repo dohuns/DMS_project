@@ -15,6 +15,19 @@
 			padding-left: 110px;
 			transition: ease 0.5s;
 		}
+
+		ul li {
+			list-style-type: none;
+			float: right;
+			margin-left: 20px;
+		}
+		
+		li a {
+			font-size: 15px;
+			color: #000;
+			font-weight: bold;
+			padding: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -22,8 +35,17 @@
 	<!-- 회원 목록 페이지 -->
 	<div class="main-body-content-dms w-100 ets-pt bg-light">
 		<div class="table-responsive">
-			<h3><b>회원 목록</b></h3>
-			<hr>
+			<div id="adminMenu">
+				<h3><b>회원 목록</b></h3>
+				<ul>
+					<li><button type="button" class="btn btn-outline-dark btn-sm"
+						onclick="#">회원 삭제</button></li>
+					<li><button type="button" class="btn btn-outline-dark btn-sm"
+						onclick="#">회원 수정</button></li>
+					<li><button type="button" class="btn btn-outline-dark btn-sm"
+						onclick="insMember">회원 추가</button></li>
+				</ul>
+			</div>
 			<table class="table">
 				<tr>
 					<th>번호</th>

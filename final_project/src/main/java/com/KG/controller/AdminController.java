@@ -38,4 +38,16 @@ public class AdminController {
 	public String insMember() {
 		return "admin/insMember";
 	}
+
+	// 회원 관리 > 회원 수정
+	@RequestMapping("updMember")
+	public String updMember() {
+		return "admin/insMember";
+	}
+	
+	// 회원 관리 > 회원 삭제
+	@RequestMapping("delMember")
+	public String delMember() {
+		return "admin/insMember";
+	}
 }
