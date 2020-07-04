@@ -15,9 +15,14 @@
 	<c:import url="../default/header.jsp" />
 	
 	<!-- body -->
+	<!-- 게시판 보기  -->
+<c:choose>
+	<c:when test="${param.b_category != ''}">
 	<div class="container">
 		<div align="center">
-			<strong>${param.b_article}게시판</strong>
+			<div align="left">
+				<h3>${param.b_article}</h3>
+			</div>
 			<div>
 				<table class="table table-striped">
 					<tr>
@@ -38,7 +43,8 @@
 							<td>${dto.b_hit}</td>
 						</tr>
 						</c:if>
-					</c:forEach>					
+					</c:forEach>		
+					<!-- 버튼 -->			
 					<tr>
 						<td colspan="5" align="right">
 							<a href="write?b_category=${param.b_category}&b_article=${param.b_article}" class="btn btn-info btn-sm">글 쓰기</a>
@@ -48,6 +54,42 @@
 			</div>	
 		</div>
 	</div>
+	</c:when>
 	
+	<%-- 전체 글 보기 --%>
+	<c:otherwise>
+	<div class="container">
+		<div align="center">
+			<div align="left">
+				<h3>전체 글 보기</h3>
+			</div>
+			<div>
+				<table class="table table-striped">
+					<tr>
+						<th>게시판</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+					</tr>
+					<c:forEach var="dto" items="${listAll}">
+						<!-- null인 애들은 카테고리나 게시판임 -->
+						<c:if test="${dto.b_title != null}"> 
+						<tr>
+							<td>${dto.b_article}</td>
+							<td>${dto.b_title}</td>
+							<td>${dto.b_nick}</td>
+							<td>${dto.b_date}</td>
+							<td>${dto.b_hit}</td>
+						</tr>
+						</c:if>
+					</c:forEach>					
+				</table>		
+			</div>	
+		</div>
+	</div>
+	</c:otherwise>
+	
+</c:choose>
 </body>
 </html>

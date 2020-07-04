@@ -16,7 +16,12 @@
 	
 	<!-- 글 목록 -->
 	<select id="list" resultType="boardDTO">
-		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article}
+		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article} ORDER BY b_group DESC , b_sortnum ASC
+	</select>
+	
+	<!-- 글 목록(전체) -->
+	<select id="listAll" resultType="boardDTO">
+		SELECT * FROM board ORDER BY b_group DESC , b_sortnum ASC
 	</select>
 	
 	<!-- 게시판 가져오기(카테고리 분류) -->
@@ -27,8 +32,8 @@
 	<!-- 글 쓰기(저장) -->
 	<insert id="boardWrite">
 		INSERT INTO board 
-			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum)
+			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group)
 		VALUES 
-			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0)
+			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval)
 	</insert>
 </mapper>

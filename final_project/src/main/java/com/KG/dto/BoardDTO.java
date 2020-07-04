@@ -1,6 +1,13 @@
 package com.KG.dto;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class BoardDTO {
 	private String b_category; // 카테고리
@@ -15,7 +22,16 @@ public class BoardDTO {
 	private Timestamp b_date; // 작성시간
 	private int b_hit; // 조회수
 	private int b_reNum; // 답글번호
-	private int b_sortNum; // 정렬번호
+	private int b_sortNum; // 답글 정렬번호
+	private int b_group; // 정렬번호
+
+	public int getB_group() {
+		return b_group;
+	}
+
+	public void setB_group(int b_group) {
+		this.b_group = b_group;
+	}
 
 	public String getB_category() {
 		return b_category;
@@ -90,8 +106,14 @@ public class BoardDTO {
 		this.b_nick = b_nick;
 	}
 
-	public Timestamp getB_date() {
-		return b_date;
+	public String getB_date() throws ParseException {
+
+		String today1 = new SimpleDateFormat("yy.MM.dd").format(new Date());
+		String article = new SimpleDateFormat("yy.MM.dd").format(b_date);
+		if(today1.equals(article)) { 
+			return new SimpleDateFormat("HH:mm").format(b_date);
+		}
+		return new SimpleDateFormat("yyyy.MM.dd").format(b_date);
 	}
 
 	public void setB_date(Timestamp b_date) {

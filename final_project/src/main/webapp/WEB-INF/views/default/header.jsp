@@ -58,7 +58,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<div>
-						<a class="navbar-brand navbar-brand-centered" href="#">DOMISU</a>
+						<a class="navbar-brand navbar-brand-centered" href="/movie/">DOMISU</a>
 					</div>
 				</div>
 

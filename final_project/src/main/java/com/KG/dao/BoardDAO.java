@@ -30,6 +30,10 @@ public class BoardDAO {
 	public List<BoardDTO> list(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".list" , boardDTO);
 	}
+	// 게시물 목록(전체 글)
+	public List<BoardDTO> listAll(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".listAll" , boardDTO);
+	}
 	
 	// 게시판 목록(카테고리로 분류)
 	public List<BoardDTO> cateList(BoardDTO boardDTO) {

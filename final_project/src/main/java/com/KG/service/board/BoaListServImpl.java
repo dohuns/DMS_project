@@ -20,6 +20,7 @@ public class BoaListServImpl implements BoardService {
 		Map<String, Object> map = model.asMap();
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
 		
+		model.addAttribute("listAll" , boardDAO.listAll(boardDTO));
 		model.addAttribute("list" , boardDAO.list(boardDTO));
 		return false;
 	}
