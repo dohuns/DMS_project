@@ -1,16 +1,19 @@
 package com.KG.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.service.admin.AdminChkListServImpl;
+import com.KG.service.admin.AdminSearchServImpl;
 import com.KG.service.admin.AdminService;
 
 @Controller
 public class AdminController {
-	@Autowired
 	AdminService adminServ;
 
 	// 회원 목록
@@ -30,6 +33,18 @@ public class AdminController {
 	// 회원 관리
 	@RequestMapping("management")
 	public String manageList() {
+		return "admin/manageList";
+	}
+
+	// 회원 관리 > 검색 결과 출력
+	@RequestMapping("searchMember")
+	public String searchMember(Model model,
+								@RequestParam(defaultValue = "m_id") String searchOption,
+								@RequestParam(defaultValue = "") String keyword) {
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("keyword", keyword);
+		adminServ = (AdminSearchServImpl) AC.ac.getBean("adminSearchServImpl");
+		adminServ.execute(model);
 		return "admin/manageList";
 	}
 

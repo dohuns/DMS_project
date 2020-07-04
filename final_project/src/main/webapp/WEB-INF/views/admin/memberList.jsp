@@ -35,17 +35,7 @@
 	<!-- 회원 목록 페이지 -->
 	<div class="main-body-content-dms w-100 ets-pt bg-light">
 		<div class="table-responsive">
-			<div id="adminMenu">
-				<h3><b>회원 목록</b></h3>
-				<ul>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="#">회원 삭제</button></li>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="#">회원 수정</button></li>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="insMember">회원 추가</button></li>
-				</ul>
-			</div>
+			<h3><b>회원 목록</b></h3>
 			<table class="table">
 				<tr>
 					<th>번호</th>
