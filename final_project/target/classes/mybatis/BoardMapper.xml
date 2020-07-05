@@ -5,7 +5,7 @@
 <mapper namespace="com.KG.mybatis.myMapper">
 	<!-- 카테고리 리스트 출력 -->
 	<select id="categoryList" resultType="boardDTO">
-		select * FROM BOARD where B_ARTICLENUM is null
+		select * FROM BOARD where B_ARTICLENUM is null and B_ARTICLE is null
 	</select>
 	<!-- 아티클 리스트 출력 -->
 	<select id="articleList" resultType="boardDTO">
