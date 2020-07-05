@@ -24,6 +24,16 @@ public class BoardDTO {
 	private int b_reNum; // 답글번호
 	private int b_sortNum; // 답글 정렬번호
 	private int b_group; // 정렬번호
+	private int artiNum; // 게시글 보기에서 15개씩 나누는 번호
+
+
+	public int getArtiNum() {
+		return artiNum;
+	}
+
+	public void setArtiNum(int artiNum) {
+		this.artiNum = artiNum;
+	}
 
 	public int getB_group() {
 		return b_group;

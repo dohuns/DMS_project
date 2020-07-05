@@ -14,15 +14,47 @@
 		select * FROM BOARD where B_num is null and B_ARTICLENUM is not null
 	</select>
 	
-	<!-- 글 목록 -->
-	<select id="list" resultType="boardDTO">
-		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article} ORDER BY b_group DESC , b_sortnum ASC
-	</select>
 	
-	<!-- 글 목록(전체) -->
-	<select id="listAll" resultType="boardDTO">
-		SELECT * FROM board ORDER BY b_group DESC , b_sortnum ASC
+	
+	<!-- /////////////////////// 글 목록 ////////////////////////// -->
+	<!-- 글 목록 -->
+	<select id="list" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_category=#{category} and b_article=#{article} and b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
 	</select>
+	<!-- 글 목록 개수 -->
+	<select id="getCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_category=#{b_category} and b_article=#{b_article} and b_title is not null
+	</select>
+
+
+	<!-- 글 목록(전체) -->
+	<select id="listAll" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 글 목록 개수(전체) -->
+	<select id="getCountAll" resultType="int"> 
+		SELECT count(*) FROM board 
+			WHERE b_title is not null
+	</select>
+	<!--  ///////////////////////////////////////////////////  -->
+	
+	
+	
+	
+	<!-- ///////////////////////////////// 글 쓰기 ////////////////////// -->
 	
 	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
@@ -36,4 +68,16 @@
 		VALUES 
 			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval)
 	</insert>
+	<!-- ///////////////////////////////////////////////////////////////// -->
+	
+	
+	
+	<!-- //////////////////////////////////// 검색 ////////////////////////////// -->
+	<!-- 제목 + 내용으로 검색 -->
+	<select id="TCsearch" resultType="boardDTO">
+	SELECT * FROM board 
+				WHERE b_title is not null and b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%'
+				ORDER BY b_group DESC , b_sortnum ASC
+	</select>
+	
 </mapper>

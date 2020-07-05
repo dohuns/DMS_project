@@ -7,10 +7,12 @@ import java.net.URLEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
 import com.KG.service.board.BoardCateListServImpl;
+import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.BoardWriteServImpl;
 
@@ -69,5 +71,20 @@ public class BoardController {
 			boaServ.execute_Boo(model);
 			
 			return "redirect:/board/list?b_category="+category+"&b_article="+article;
+		}
+		
+		// 게시글 검색
+		@RequestMapping("/board/search_list")
+		public String search_list(Model model, 
+					@RequestParam("b_search") String b_search,
+					@RequestParam("b_content") String b_content) {
+			
+			model.addAttribute("b_search", b_search);
+			model.addAttribute("b_content",b_content);
+			
+			boaServ = (BoardSearchServImpl)AC.ac.getBean("boardSearchServImpl");
+			boaServ.execute_Boo(model);
+			
+			return "board/search";
 		}
 }
