@@ -88,6 +88,28 @@
 			<a href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next+1}&artiNum=${(next+1)*10}">다음 &gt;</a>
 		</c:if>
 		[${artiNum+1} /${count}]
+		
+		<%-- 검색 --%>	
+		<form action="search_list" class="form-inline">
+			<input type="hidden" name="b_article" value="${param.b_article}">
+			<input type="hidden" name="b_category" value="${param.b_category}">
+			
+			<div class="form-group">
+				<select name="b_search" class="form-control">
+					<option value="titleNcontent">제목 + 내용</option>
+					<option value="title"> 제목만 </option>
+					<option value="writer"> 작성자 </option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<input type="text" name="b_content" placeholder="검색어를 입력해주세요" class="form-control">
+			</div>
+				
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-sm">검색</button>
+			</div>
+		</form>
 	</div>
 	</c:when>
 	
@@ -150,7 +172,7 @@
 			
 			<div class="form-group">
 				<select name="b_search" class="form-control">
-					<option value="title&content">제목 + 내용</option>
+					<option value="titleNcontent">제목 + 내용</option>
 					<option value="title"> 제목만 </option>
 					<option value="writer"> 작성자 </option>
 				</select>
@@ -163,7 +185,6 @@
 			<div class="form-group">
 				<button type="submit" class="btn btn-success btn-sm">검색</button>
 			</div>
-			
 		</form>
 	</div>
 	</c:otherwise>

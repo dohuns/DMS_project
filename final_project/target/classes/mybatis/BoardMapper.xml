@@ -80,14 +80,111 @@
 	</insert>
 	<!-- ///////////////////////////////////////////////////////////////// -->
 	
-	
-	
-	<!-- //////////////////////////////////// 검색 ////////////////////////////// -->
+	 
+	<!-- ///////////////////////////////전체 글  검색 ////////////////////////////// -->
 	<!-- 제목 + 내용으로 검색 -->
-	<select id="TCsearch" resultType="boardDTO">
-	SELECT * FROM board 
+	<select id="TCsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
 				WHERE b_title is not null and b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%'
 				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 + 내용 개수 -->
+	<select id="TCsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%'
 	</select>
 	
+	<!-- 제목으로 검색 -->
+	<select id="TsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_title like '%'||#{b_content}||'%' 
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 개수 -->
+	<select id="TsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_title like '%'||#{b_content}||'%'
+	</select>
+	
+	<!-- 작성자로 검색 -->
+	<select id="WsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_nick like '%'||#{b_content}||'%' 
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<select id="WsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_nick like '%'||#{b_content}||'%'
+	</select>
+	<!-- ///////////////////////////////////////////////////////////////////////// -->
+	
+	
+	<!-- //////////////////////////// 게시판 검색 //////////////////////////////// -->
+	<!-- 제목 + 내용으로 검색 -->
+	<select id="TCsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 + 내용 개수 -->
+	<select id="TCsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+	</select>	
+	
+	<!-- 제목 검색  -->
+	<select id="Tsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and b_title like '%'||#{b_content}||'%'
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 검색 개수 -->
+	<select id="TsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and b_title like '%'||#{b_content}||'%'
+	</select>
+	
+	<!-- 작성자 검색 -->
+	<select id="Wsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and b_nick like '%'||#{b_content}||'%'
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 작성자 검색 개수 -->
+	<select id="WsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and b_nick like '%'||#{b_content}||'%'
+	</select>
+	<!-- ///////////////////////////////////////////////////////////////////// -->
 </mapper>

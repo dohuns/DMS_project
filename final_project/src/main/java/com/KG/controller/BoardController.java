@@ -89,10 +89,11 @@ public class BoardController {
 		@RequestMapping("/board/search_list")
 		public String search_list(Model model, 
 					@RequestParam("b_search") String b_search,
-					@RequestParam("b_content") String b_content) {
-			
+					@RequestParam("b_content") String b_content,
+					BoardDTO dto) {
 			model.addAttribute("b_search", b_search);
 			model.addAttribute("b_content",b_content);
+			model.addAttribute("dto", dto);
 			
 			boaServ = (BoardSearchServImpl)AC.ac.getBean("boardSearchServImpl");
 			boaServ.execute_Boo(model);

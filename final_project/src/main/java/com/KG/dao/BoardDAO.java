@@ -81,21 +81,65 @@ public class BoardDAO {
 	
 	
 	
-	////////////////// 검색 //////////////////////////
+	////////////////// 전체 글 검색 //////////////////////////
 	
 	//제목 + 내용으로 검색
-	public List<BoardDTO> TCsearch(String b_content) {
-		return sqlSession.selectList(namespace + ".TCsearch" , b_content);
+	public List<BoardDTO> TCsearchAll(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".TCsearch" , hash);
 	}
-//	// 제목으로 검색
-//	public List<BoardDTO> Tsearch(String b_content) {
-//		return sqlSession.selectList(namespace + ".Tsearch" , b_content);
-//	}
-//	// 작성자로 검색
-//	public List<BoardDTO> Wsearch(String b_content) {
-//		return sqlSession.selectList(namespace + ".Wsearch" , b_content);
-//	}
+	// 제목 + 내용검색 개수
+	public int TCsearchCountAll(String b_content) {
+		return sqlSession.selectOne(namespace + ".TCsearchCount" , b_content);
+	}
+	// 제목으로 검색
+	public List<BoardDTO> TsearchAll(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".Tsearch" , hash);
+	}
+	// 제목 개수
+	public int TsearchCountAll(String b_content) {
+		return sqlSession.selectOne(namespace + ".TsearchCount", b_content);
+	}
+	// 작성자로 검색
+	public List<BoardDTO> WsearchAll(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".Wsearch" , hash);
+	}
+	// 작성자 개수
+	public int WsearchCountAll(String b_content) {
+		return sqlSession.selectOne(namespace + ".WsearchCount", b_content);
+	}
 	
 	////////////////////////////////////////////////
+	
+	/////////////////// 게시판 검색 ///////////////////
+	// 제목 + 내용 검색
+	public List<BoardDTO> TCsearch(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".TCsearch" , hash);
+	}
+	// 제목 + 내용 개수
+	public int TCsearchCount(HashMap<String, Object> hash) { 
+		return sqlSession.selectOne(namespace + ".TCsearchCount" , hash);
+	}
+	
+	// 제목 검색
+	public List<BoardDTO> Tsearch(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace +".Tsearch",hash);
+	}
+	// 제목 검색 개수
+	public int TsearchCount(HashMap<String, Object> hash) {
+		return sqlSession.selectOne(namespace + ".TsearchCount" , hash);
+	}
+	
+	// 작성자 검색
+	public List<BoardDTO> Wsearch(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".Wsearch", hash);
+	}
+	// 작성자 검색 개수
+	public int WsearchCount(HashMap<String, Object> hash) {
+		return sqlSession.selectOne(namespace + ".WsearchCount" , hash);
+	} 
+	
+	
+	
+	///////////////////////////////////////////////
 
 }

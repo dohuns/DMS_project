@@ -12,7 +12,15 @@ public class MemberDTO {
 	private String m_nick;
 	private Date m_birth;
 	private String m_email;
-	private int m_rank;
+	private String m_rank;
+
+	public String getM_rank() {
+		return m_rank;
+	}
+
+	public void setM_rank(String m_rank) {
+		this.m_rank = m_rank;
+	}
 
 	public String getM_rn() {
 		return m_rn;
@@ -70,12 +78,5 @@ public class MemberDTO {
 		this.m_email = m_email;
 	}
 
-	public int getM_rank() {
-		return m_rank;
-	}
-
-	public void setM_rank(int m_rank) {
-		this.m_rank = m_rank;
-	}
 
 }
