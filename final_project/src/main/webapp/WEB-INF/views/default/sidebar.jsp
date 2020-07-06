@@ -30,7 +30,7 @@ div#menu {
 }
 
 hr#main {
-	border: solid 1.5px red;
+	border: solid 1.5px f2f2f2;
 }
 
 hr#sub {
@@ -40,9 +40,9 @@ hr#sub {
 </head>
 <body>
 	<div>
-		<div style="background-color: yellow; width: 300px; border-top: solid 2px #000000;">
+		<div style="background-color: white; width: 300px; border-top: solid 2px #000000;">
 		<c:choose>
-		<c:when test="${sessionScope.m_id != null}">
+		<c:when test="${sessionScope.m_nick != null}">
 			<div>
 				<div align="center" style="padding-top: 5px;">
 					<h4 class="d-none">나의 활동</h4>
@@ -55,16 +55,31 @@ hr#sub {
 									<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="58" height="58" alt="프로필사진">
 								</div>
 								<div>
-									<strong>고냥이파</strong>
+									<strong>${userInfo.m_nick }</strong>
 								</div>
 							</li>
-							<li>사서지망생</li>
+							<li>
+								<c:choose>
+								<c:when test="${userInfo.m_rank == 1}">
+									관리자
+								</c:when>
+								<c:when test="${userInfo.m_rank == 2}">
+									스탭
+								</c:when>
+								<c:when test="${userInfo.m_rank == 3}">
+									일반 회원
+								</c:when>
+								<c:otherwise>
+									대기 회원
+								</c:otherwise>
+							</c:choose>
+							</li>
 						</ul>
 					</div>
 					<div>
 						<ul>
-							<li><b><a href="#">내가 쓴 글 보기</a></b> 1개</li>
-							<li><b><a href="#">내가 쓴 댓글보기</a></b> 4개</li>
+							<li><b><a href="#">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
+							<li><b><a href="#">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
 						</ul>
 					</div>
 				</div>

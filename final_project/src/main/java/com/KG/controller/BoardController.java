@@ -4,6 +4,8 @@ package com.KG.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
+import com.KG.service.board.BoaUserInfoServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
@@ -25,17 +28,26 @@ public class BoardController {
 	public String movie() {
 		return "movie/home";
 	}
-	//사이드바 출력
-	@RequestMapping("sidebar")
-	public String sidebar(Model model, BoardDTO boardDTO) {
-		try {
-			boaServ = (BoaListServImpl) AC.ac.getBean("boaListServImpl");
-			boaServ.execute_Str(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "default/sidebar";
-	}
+	   // 사이드바 출력
+	   @RequestMapping("sidebar")
+	   public String sidebar(Model model, HttpSession session) {
+	      try {
+//	         유저 닉네임으로 회원정보 가져오기
+	         model.addAttribute("session", session);
+	         boaServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+	         boaServ.execute_Boo(model);
+	         boaServ.execute_Int(model);
+	      } catch (Exception e) {
+	      }
+	      try {
+//	         게시판 list 가져오기
+	         boaServ = (BoaListServImpl) AC.ac.getBean("boaListServImpl");
+	         boaServ.execute_Str(model);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return "default/sidebar";
+	   }
 	
 	// 게시글 목록
 		@RequestMapping("/board/list")
