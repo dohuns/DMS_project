@@ -3,6 +3,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.KG.mybatis.myMapper">
+	<!-- 사이드바 닉네임으로 정보 가져오기 -->
+	<select id="userInfo" resultType="memberDTO">
+		SELECT * FROM member WHERE m_nick=#{m_nick}
+	</select>
+	<!-- 사이드바 작성한 게시글 수 가져오기 -->
+	<select id="boardCount" resultType="int">
+		SELECT COUNT(*) FROM board where b_nick=#{m_nick}
+	</select>
+	<!-- 사이드바 작성한 댓글 수 가져오기 -->
+	<select id="replyCount" resultType="int">
+		SELECT COUNT(*) FROM reply where c_nick=#{m_nick}
+	</select>
 	<!-- 카테고리 리스트 출력 -->
 	<select id="categoryList" resultType="boardDTO">
 		select * FROM BOARD where B_ARTICLENUM is null and B_ARTICLE is null

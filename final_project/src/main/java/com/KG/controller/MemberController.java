@@ -59,9 +59,10 @@ public class MemberController {
 		try {
 			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
 			memServ.execute_Str(model);
+			return "redirect:/";
 		} catch (Exception e) {
 		}
-		return "redirect:/";
+		return "login/login";
 	}
 
 //	아이디 찾기 페이지
