@@ -232,7 +232,7 @@
 			<div>
 				<h3><b>회원 추가</b></h3>
 			</div>
-			<form action="">
+			<form action="insChkMember">
 				<table class="table">
 					<!-- 아이디 -->
 					<tr>

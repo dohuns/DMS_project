@@ -48,4 +48,9 @@ public class AdminDAO {
 		}
 		return sqlSession.selectList(namespace + ".searchList", map);
 	}
+
+	// 회원 관리 페이지 > 회원 추가
+	public int insertMember(MemberDTO dto) {
+		return sqlSession.insert(namespace + ".insertMember", dto);
+	}
 }

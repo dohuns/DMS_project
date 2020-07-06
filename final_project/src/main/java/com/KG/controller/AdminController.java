@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.KG.dto.MemberDTO;
 import com.KG.service.admin.AdminChkListServImpl;
+import com.KG.service.admin.AdminInsertServImpl;
 import com.KG.service.admin.AdminSearchServImpl;
 import com.KG.service.admin.AdminService;
 
@@ -54,8 +56,11 @@ public class AdminController {
 
 	// 회원관리 > 회원 추가 진행
 	@RequestMapping("insChkMember")
-	public String insChkMember() {
-		return "admin/manageList";
+	public String insChkMember(Model model, MemberDTO dto) {
+		model.addAttribute("dto", dto);
+		adminServ = (AdminInsertServImpl) AC.ac.getBean("adminInsertServImpl");
+		adminServ.execute(model);
+		return "redirect:admin_chkList";
 	}
 
 	// 회원 관리 > 회원 수정
