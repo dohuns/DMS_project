@@ -116,7 +116,7 @@
 		
 		var pw = $("#m_pw").val();
 		if(!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) 
-				) {
+			|| $("#m_pw").val().length < 8) {
 			$("#label_pw").text("영문+숫자+특수문자 8자리 이상으로 입력해주세요!!")
 			$("#label_pw").css({
 				"color":"red"
@@ -188,9 +188,19 @@
 				});
 			}
 		});
+		// 비밀번호 제한
+		$("#m_pw").on('keyup' , function() {
+			if($(this).val().length > 16) {
+				$(this).val($(this).val().substring(0,16));
+			}
+		});
+		// 비밀번호 확인 제한
+		$("#m_Rpw").on('keyup' , function() {
+			if($(this).val().length > 16) {
+				$(this).val($(this).val().substring(0,16));
+			}
+		});
 	});
-	
-	
 	
 </script> 
 </head>
