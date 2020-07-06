@@ -40,11 +40,11 @@
 				<h3><b>검색 결과</b></h3>
 				<ul>
 					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="#">회원 삭제</button></li>
+						onclick="location.href='delMember'">회원 삭제</button></li>
 					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="#">회원 수정</button></li>
+						onclick="location.href='updMember'">회원 수정</button></li>
 					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="#">회원 추가</button></li>
+						onclick="location.href='insMember'">회원 추가</button></li>
 				</ul>
 			</div>
 			<!-- 검색 기능 추가 -->

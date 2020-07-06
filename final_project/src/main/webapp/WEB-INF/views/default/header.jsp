@@ -72,7 +72,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>
 							<%-- 세션이 없는 경우 로그인, 회원가입 출력 --%>
-							<c:when test="${sessionScope.m_id == null}">
+							<c:when test="${sessionScope.m_nick == null}">
 								<li><a href="login">로그인</a></li>
 								<li><a href="regist_email">회원가입</a></li>
 							</c:when>

@@ -147,7 +147,6 @@ public class MemberRestController {
 		
 		memServ = (MemChkNickServImpl)AC.ac.getBean("memChkNickServImpl");
 		boolean flag = memServ.execute_Boo(model);
-		System.out.println("con result : " + flag);
 		if(flag) {
 			return "true";
 		}

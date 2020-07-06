@@ -3,7 +3,7 @@ package com.KG.dto;
 import java.sql.Date;
 
 public class MemberDTO {
-
+	
 	// m_rn : adminPage에서 회원 수 확인용도(paging처리에 사용)
 	private String m_rn;
 	private String m_id;

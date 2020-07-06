@@ -29,7 +29,7 @@ public class MemChkLoginServImpl implements MemberService {
 		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
 		HttpSession session = (HttpSession) map.get("session");
 		if (memberDAO.loginck(memberDTO).getM_id().equals(memberDTO.getM_id()) && memberDAO.loginck(memberDTO).getM_pw().equals(memberDTO.getM_pw())) {
-			session.setAttribute("m_id", memberDTO.getM_id());
+			session.setAttribute("m_nick", memberDAO.loginck(memberDTO).getM_nick());
 		} else {
 			System.out.println("실패");
 		}

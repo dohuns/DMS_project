@@ -29,4 +29,14 @@
 	<bean id="sqlSessionAdmin" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionAdminFactory"></constructor-arg>
 	</bean>
+	
+	<!-- Board(게시판 > sqlSessionAdmin) -->
+	<bean id="sqlSessionBoardFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/BoardMapper.xml" />
+	</bean>
+	<bean id="sqlSessionBoard" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionBoardFactory"></constructor-arg>
+	</bean>
 </beans>
