@@ -229,8 +229,8 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a href="admin" class="nav-links d-block">
 						<i class="fa fa-home pr-2"></i> 회원 목록</a></li>
-					<li class="nav-item"><a href="management" class="nav-links d-block">
-						<i class="fa fa-home pr-2"></i> 회원 관리</a></li>
+					<li class="nav-item"><a href="insMember" class="nav-links d-block">
+						<i class="fa fa-home pr-2"></i> 회원 추가</a></li>
 					<li class="nav-item"><a href="#" class="nav-links d-block">
 						<i class="fa fa-home pr-2"></i> 공지 작성</a></li>
 					<li class="nav-item"><a href="#" class="nav-links d-block">
@@ -241,7 +241,7 @@
 				<div class="icons d-flex flex-column align-items-center">
 					<a href="admin" class="set-width text-center display-inline-block my-1">
 						<i class="fa fa-home"></i></a>
-					<a href="management" class="set-width text-center display-inline-block my-1">
+					<a href="insMember" class="set-width text-center display-inline-block my-1">
 						<i class="fa fa-users"></i></a>
 					<a href="#" class="set-width text-center display-inline-block my-1">
 						<i class="fa fa-list"></i></a>

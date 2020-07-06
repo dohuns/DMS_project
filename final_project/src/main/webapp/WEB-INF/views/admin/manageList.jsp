@@ -35,18 +35,7 @@
 	<!-- 회원 목록 페이지 -->
 	<div class="main-body-content-dms w-100 ets-pt bg-light">
 		<div class="table-responsive">
-			<!-- 회원 관리 목록 -->
-			<div id="adminMenu">
-				<h3><b>검색 결과</b></h3>
-				<ul>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="location.href='delMember'">회원 삭제</button></li>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="location.href='updMember'">회원 수정</button></li>
-					<li><button type="button" class="btn btn-outline-dark btn-sm"
-						onclick="location.href='insMember'">회원 추가</button></li>
-				</ul>
-			</div>
+			<h4><b>검색</b></h4>
 			<!-- 검색 기능 추가 -->
 			<div id="searchMenu">
 				<form name="" method="post" action="searchMember">
@@ -61,6 +50,7 @@
 					<input type="submit" value="조회">
 				</form>
 			</div>
+			<br>
 			<table class="table">
 				<tr>
 					<th>번호</th>
@@ -71,6 +61,7 @@
 					<th>생년월일</th>
 					<th>이메일</th>
 					<th>등급</th>
+					<th>관리</th>
 				</tr>
 				<c:forEach var="list" items="${searchList}">
 					<tr>
@@ -82,6 +73,12 @@
 						<td>${list.m_birth}</td>
 						<td>${list.m_email}</td>
 						<td>${list.m_rank}</td>
+						<td>
+							<button type="button" class="btn btn-outline-dark btn-sm"
+								onclick="location.href='updMember?m_id=${list.m_id}'">수정</button>
+							<button type="button" class="btn btn-outline-dark btn-sm"
+								onclick="location.href='delMember'">삭제</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -48,7 +48,7 @@ public class AdminController {
 		return "admin/manageList";
 	}
 
-	// 회원 관리 > 회원 추가
+	// 회원 관리 > 회원 추가 페이지
 	@RequestMapping("insMember")
 	public String insMember() {
 		return "admin/insMember";
@@ -62,10 +62,19 @@ public class AdminController {
 		adminServ.execute(model);
 		return "redirect:admin_chkList";
 	}
+	
+	// 회원 관리 > 회원 수정 이전
+	@RequestMapping("updChkMember")
+	public String updChkMember(Model model, MemberDTO dto) {
+		System.out.println("Controller_updMember에서 updChkMember로 이동 : " + dto.getM_id());
+		return "admin/updMember";
+	}
 
-	// 회원 관리 > 회원 수정
+	// 회원 관리 > 회원 수정 페이지
 	@RequestMapping("updMember")
-	public String updMember() {
+	public String updMember(Model model, String m_id) {
+		System.out.println("Controller_리스트에서 updMember로 이동 : " + m_id);
+		model.addAttribute("m_id", m_id);
 		return "admin/updMember";
 	}
 

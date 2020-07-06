@@ -22,7 +22,7 @@
 			float: right;
 			margin-left: 20px;
 		}
-		
+
 		li a {
 			font-size: 15px;
 			color: #000;
@@ -103,7 +103,7 @@
 			}
 		}
 
-		//회원가입 버튼 활성화 
+		// 추가 버튼 활성화 
 		function buttonAble() {
 			if ($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != ""
 					&& $("#m_name").val() != ""

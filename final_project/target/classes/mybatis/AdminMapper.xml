@@ -22,8 +22,8 @@
 
 	<!-- 회원 목록 관리 > 수정 -->
 	<update id="updateMember">
-		UPDATE member SET m_pw = #{m_pw}, m_name = #{m_name},
-		m_nick = #{m_nick}, m_birth = #{m_birth}, m_rank = #{m_rank}
+		UPDATE member SET m_nick = #{m_nick}, m_pw = #{m_pw},
+		m_name = #{m_name}, m_birth = #{m_birth}, m_rank = #{m_rank}
 		WHERE m_id = #{m_id}
 	</update>
 

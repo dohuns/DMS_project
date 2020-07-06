@@ -7,8 +7,6 @@
 	<meta charset="UTF-8">
 	<title>회원 추가</title>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<style>
 		.main-body-content-dms {
 			display: inline-block;
@@ -24,7 +22,7 @@
 			float: right;
 			margin-left: 20px;
 		}
-		
+
 		li a {
 			font-size: 15px;
 			color: #000;
@@ -105,7 +103,7 @@
 			}
 		}
 
-		//회원가입 버튼 활성화 
+		//수정 버튼 활성화 
 		function buttonAble() {
 			if ($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != ""
 					&& $("#m_name").val() != ""
@@ -228,78 +226,75 @@
 </head>
 <body>
 	<c:import url="../default/adminHeader.jsp"></c:import>
-	<!-- 회원 추가 페이지 -->
+	<!-- 회원 목록 페이지 -->
 	<div class="main-body-content-dms w-100 ets-pt bg-light">
 		<div class="table-responsive">
-			<div align="center">
-				<h3>회원 추가</h3>
+			<div>
+				<h3><b>회원 수정</b></h3>
 			</div>
-			<form action="insChkMember" method="POST">
-				<div align="center">
-					<table style="width: 550px; padding: 20px; border-width: 500px;">
-						<!-- 아이디 -->
-						<tr>
-							<td><strong>아이디</strong></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="m_id" id="m_id"
-								placeholder="아이디를 입력해주세요" class="form-control" onblur="chkId()">
-							</td>
-							<td style="padding-left: 10px;">
-								<button type="button" onclick="chk_id()" id="btn_chk_id"
-									class="btn btn-info">중복확인</button>
-							</td>
-						</tr>
-						<tr>
-							<td><label id="label_id"></label></td>
-						</tr>
-						<!-- 비밀번호 -->
-						<tr>
-							<td><strong>비밀번호</strong></td>
-						</tr>
-						<tr>
-							<td><input type=password name="m_pw" id="m_pw"
-								placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkPw()">
-							</td>
-						</tr>
-						<tr>
-							<td><label id="label_pw"></label></td>
-						</tr>
-						<!-- 닉네임 -->
-						<tr>
-							<td><strong>닉네임</strong></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="m_nick" id="m_nick"
-								placeholder="닉네임을 입력해주세요" class="form-control"
-								onblur="chkNick()"></td>
-							<td style="padding-left: 10px;">
-								<button type="button" onclick="chk_nick()" id="btn_chk_nick"
-									class="btn btn-info">중복확인</button>
-							</td>
-						</tr>
-						<tr>
-							<td><label id="label_nick"></label></td>
-						</tr>
-						<!-- 이름 -->
-						<tr>
-							<td><strong>이름</strong></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="m_name" id="m_name"
-								placeholder="이름을 입력해주세요" class="form-control" onblur="chkName()">
-							</td>
-						</tr>
-						<tr>
-							<td><label id="label_name"></label></td>
-						</tr>
-						<tr>
-							<td style="padding-top: 10px;">
-								<button type="submit" id="btn-regist"class="btn btn-info" disabled>회원가입</button>
-							</td>
-						</tr>
-					</table>
-				</div>
+			<form action="insChkMember">
+				<table class="table">
+					<!-- 아이디 -->
+					<tr>
+						<th>아이디</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="m_id" id="m_id"
+							placeholder="아이디를 입력해주세요" class="form-control" onblur="chkId()">
+						</td>
+						<td>
+							<button type="button" onclick="chk_id()" id="btn_chk_id"
+								class="btn btn-info">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+						<td><label id="label_id"></label></td>
+					</tr>
+					<!-- 비밀번호 -->
+					<tr>
+						<th>비밀번호</th>
+					</tr>
+					<tr>
+						<td><input type=password name="m_pw" id="m_pw"
+							placeholder="비밀번호를 입력해주세요" class="form-control" onblur="chkPw()">
+						</td>
+					</tr>
+					<tr>
+						<td><label id="label_pw"></label></td>
+					</tr>
+					<!-- 닉네임 -->
+					<tr>
+						<th>닉네임</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="m_nick" id="m_nick"
+							placeholder="닉네임을 입력해주세요" class="form-control" onblur="chkNick()"></td>
+						<td style="padding-left: 10px;">
+							<button type="button" onclick="chk_nick()" id="btn_chk_nick"
+								class="btn btn-info">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+						<td><label id="label_nick"></label></td>
+					</tr>
+					<!-- 이름 -->
+					<tr>
+						<th>이름</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="m_name" id="m_name"
+							placeholder="이름을 입력해주세요" class="form-control" onblur="chkName()">
+						</td>
+					</tr>
+					<tr>
+						<td><label id="label_name"></label></td>
+					</tr>
+					<tr>
+						<td>
+							<button type="submit" id="btn-regist" class="btn btn-info" disabled>회원 추가</button>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
