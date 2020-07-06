@@ -125,6 +125,10 @@ public class BoardDTO {
 		}
 		return new SimpleDateFormat("yyyy.MM.dd").format(b_date);
 	}
+	
+	public String getDate() {
+		return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(b_date);
+	}
 
 	public void setB_date(Timestamp b_date) {
 		this.b_date = b_date;

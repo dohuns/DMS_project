@@ -59,20 +59,7 @@ hr#sub {
 								</div>
 							</li>
 							<li>
-								<c:choose>
-								<c:when test="${userInfo.m_rank == 1}">
-									관리자
-								</c:when>
-								<c:when test="${userInfo.m_rank == 2}">
-									스탭
-								</c:when>
-								<c:when test="${userInfo.m_rank == 3}">
-									일반 회원
-								</c:when>
-								<c:otherwise>
-									대기 회원
-								</c:otherwise>
-							</c:choose>
+								${userInfo.m_rank}
 							</li>
 						</ul>
 					</div>

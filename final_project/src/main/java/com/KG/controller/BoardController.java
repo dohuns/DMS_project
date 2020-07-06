@@ -17,6 +17,7 @@ import com.KG.service.board.BoaUserInfoServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
 
 @Controller
@@ -99,5 +100,17 @@ public class BoardController {
 			boaServ.execute_Boo(model);
 			
 			return "board/search";
+		}
+		
+		// 게시글 보기
+		@RequestMapping("/board/show")
+		public String show(Model model, @RequestParam("b_num") int b_num) {
+			
+			model.addAttribute("b_num" , b_num);
+			
+			boaServ = (BoardShowServImpl)AC.ac.getBean("boardShowServImpl");
+			boaServ.execute_Boo(model);
+			
+			return "board/show";
 		}
 }

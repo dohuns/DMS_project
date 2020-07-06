@@ -47,10 +47,13 @@
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="dto" items="${list}">
-						<!-- null인 애들은 카테고리나 게시판임 -->
 						<tr>
 							<td>${dto.b_num}</td>
-							<td>${dto.b_title}</td>
+							<td>
+								<a href="show?b_num=${dto.b_num}">
+									${dto.b_title} 
+								</a>
+							</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>
 							<td>${dto.b_hit}</td>
@@ -130,9 +133,12 @@
 						<th>조회수</th>
 					</tr>
 					<c:forEach var="dto" items="${listAll}">
-						<!-- null인 애들은 카테고리나 게시판임 -->
 						<tr>
-							<td>${dto.b_article}</td>
+							<td>
+								<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}">
+									${dto.b_article}
+								</a>
+							</td>
 							<td>${dto.b_title}</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>

@@ -187,4 +187,11 @@
 			and b_nick like '%'||#{b_content}||'%'
 	</select>
 	<!-- ///////////////////////////////////////////////////////////////////// -->
+	
+	
+	<!-- 게시물 보기 -->
+	<select id="showBoard" resultType="boardDTO">
+		SELECT * FROM board 
+			WHERE b_num = #{b_num}
+	</select>
 </mapper>
