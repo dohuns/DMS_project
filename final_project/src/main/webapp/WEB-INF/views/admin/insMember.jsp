@@ -211,6 +211,11 @@
 			});
 		});
 	</script>
+	<script>
+		function setSelectBox() {
+			var m_rank = $("#rankOption option:selected").text();
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/adminHeader.jsp"></c:import>
@@ -278,6 +283,21 @@
 					<tr>
 						<td><label id="label_name"></label></td>
 					</tr>
+					<!-- 회원 등급 -->
+					<tr>
+						<th>등급</th>
+					</tr>
+					<tr>
+						<td>
+							<select name="m_rank" class="form-control">
+								<option value="1_관리자">1_관리자</option>
+								<option value="2_스탭">2_스탭</option>
+								<option value="3_일반회원">3_일반회원</option>
+								<option value="4_대기회원">4_대기회원</option>
+							</select>
+						</td>
+					</tr>
+					<!-- 완료 버튼 -->
 					<tr>
 						<td>
 							<button type="submit" id="btn-regist"

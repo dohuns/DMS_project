@@ -17,7 +17,7 @@
 
 	<!-- 회원 목록 관리 > 추가 -->
 	<insert id="insertMember" parameterType="memberDTO">
-		INSERT INTO member (m_id, m_pw, m_nick, m_name, m_birth, m_email, m_rank) VALUES (#{m_id}, #{m_pw}, #{m_nick}, #{m_name}, SYSDATE, '[R.M]adminTestID', '2_스탭')
+		INSERT INTO member (m_id, m_pw, m_nick, m_name, m_birth, m_email, m_rank) VALUES (#{m_id}, #{m_pw}, #{m_nick}, #{m_name}, SYSDATE, '[R.M]adminTestID', #{m_rank})
 	</insert>
 
 	<!-- 회원 목록 관리 > 수정 -->

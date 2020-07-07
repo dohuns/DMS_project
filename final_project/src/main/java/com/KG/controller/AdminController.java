@@ -59,6 +59,7 @@ public class AdminController {
 	@RequestMapping("insChkMember")
 	public String insChkMember(Model model, MemberDTO dto) {
 		model.addAttribute("dto", dto);
+		System.out.println("Controller: " + dto.getM_rank());
 		adminServ = (AdminInsertServImpl) AC.ac.getBean("adminInsertServImpl");
 		adminServ.execute(model);
 		return "redirect:admin_chkList";

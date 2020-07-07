@@ -35,7 +35,7 @@
 	<!-- 회원 목록 페이지 -->
 	<div class="main-body-content-dms w-100 ets-pt bg-light">
 		<div class="table-responsive">
-			<h4><b>회원 목록</b></h4>
+			<h3><b>회원 목록</b></h3>
 			<!-- 검색 기능 추가 -->
 			<div id="searchMenu">
 				<form method="post" action="searchMember">

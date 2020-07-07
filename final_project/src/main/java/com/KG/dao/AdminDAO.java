@@ -33,6 +33,7 @@ public class AdminDAO {
 
 	// 회원 관리 페이지 > 회원 추가
 	public int insertMember(MemberDTO dto) {
+		System.out.println("DAO : " + dto.getM_rank());
 		return sqlSession.insert(namespace + ".insertMember", dto);
 	}
 
