@@ -44,22 +44,7 @@
 						<td>${list.m_nick}</td>
 						<td>${list.m_birth}</td>
 						<td>${list.m_email}</td>
-						<td>
-							<c:choose>
-								<c:when test="${list.m_rank == 1}">
-									관리자
-								</c:when>
-								<c:when test="${list.m_rank == 2}">
-									스탭
-								</c:when>
-								<c:when test="${list.m_rank == 3}">
-									일반 회원
-								</c:when>
-								<c:otherwise>
-									대기 회원
-								</c:otherwise>
-							</c:choose>
-						</td>
+						<td>${list.m_rank}</td>
 					</tr>
 				</c:forEach>
 			</table>

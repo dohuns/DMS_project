@@ -1,20 +1,23 @@
 package com.KG.service.admin;
 
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.AdminDAO;
-
+import com.KG.dao.BoardDAO;
+import com.KG.dto.BoardDTO;
 @Service
-public class AdminChkListServImpl implements AdminService {
-	@Autowired
-	private AdminDAO adminDAO;
+public class AdminBoardCatInsServImpl implements AdminService {
 
+	@Autowired
+	AdminDAO admDAO;
+	
 	@Override
 	public void adminList(Model model) {
-		model.addAttribute("memberList", adminDAO.memberList());
+		
 	}
 
 	@Override
@@ -25,8 +28,10 @@ public class AdminChkListServImpl implements AdminService {
 
 	@Override
 	public String execute_Str(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = model.asMap();
+		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
+		admDAO.inscategory(boardDTO);
+		return boardDTO.getB_category();
 	}
 
 	@Override

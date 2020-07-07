@@ -26,6 +26,41 @@
 		DELETE FROM member WHERE m_id = #{m_id}
 	</update>
 
+	<!-- category 추가 -->
+	<insert id="inscategory" parameterType="boardDTO">
+		INSERT INTO BOARD(B_CATEGORY,B_CATENUM) values(#{b_category},(SELECT
+		MAX(b_catenum) from BOARD)+1)
+	</insert>
+
+	<!-- category 수정 -->
+	<update id="updcategory" parameterType="boardDTO">
+		UPDATE BOARD SET
+		B_CATEGORY = #{b_title} where B_CATEGORY = #{b_category}
+	</update>
+
+	<!-- category 삭제 -->
+	<update id="delcategory" parameterType="boardDTO">
+		DELETE FROM BOARD WHERE B_CATEGORY = #{b_category}
+	</update>
+
+	<!-- article 추가 -->
+	<insert id="insarticle" parameterType="boardDTO">
+		INSERT INTO BOARD(B_CATEGORY,B_ARTICLE,B_ARTICLENUM) values(#{b_category},
+		#{b_article},(SELECT MAX(B_ARTICLENUM) from BOARD WHERE b_category =
+		#{b_category})+1)
+	</insert>
+
+	<!-- article 수정 -->
+	<update id="updarticle" parameterType="boardDTO">
+		UPDATE BOARD SET B_ARTICLE
+		= #{b_title} where B_ARTICLE = #{b_article}
+	</update>
+
+	<!-- article 삭제 -->
+	<update id="delarticle" parameterType="boardDTO">
+		DELETE FROM BOARD WHERE B_ARTICLE = #{b_article}
+	</update>
+
 	<!-- PAGING > 총 인원 수 -->
 	<select id="getMemberCount">
 		SELECT COUNT(*) FROM member
@@ -35,7 +70,9 @@
 	<update id="pagingCount">
 		SELECT B.* FROM
 		(SELECT ROWNUM m_rn, A.* FROM
-		(SELECT * FROM MEMBER ORDER BY M_RANK, M_BIRTH)A)B
-		WHERE m_rn BETWEEN #{startNum} AND #{lastNum};
+		(SELECT *
+		FROM MEMBER ORDER BY M_RANK, M_BIRTH)A)B
+		WHERE m_rn BETWEEN #{startNum}
+		AND #{lastNum};
 	</update>
 </mapper>
