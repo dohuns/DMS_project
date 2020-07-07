@@ -20,13 +20,7 @@ public class AdminController {
 
 	// 회원 목록
 	@RequestMapping("admin")
-	public String adminPage() {
-		return "redirect:admin_chkList";
-	}
-
-	// 회원 목록 출력
-	@RequestMapping("admin_chkList")
-	public String adminChkList(Model model) {
+	public String adminPage(Model model) {
 		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
 		adminServ.execute(model);
 		return "admin/memberList";
@@ -62,7 +56,7 @@ public class AdminController {
 		model.addAttribute("dto", dto);
 		adminServ = (AdminInsertServImpl) AC.ac.getBean("adminInsertServImpl");
 		adminServ.execute(model);
-		return "redirect:admin_chkList";
+		return "redirect:admin";
 	}
 
 	// 회원 관리 > 회원 수정 페이지
@@ -80,7 +74,7 @@ public class AdminController {
 		model.addAttribute("dto", dto);
 		adminServ = (AdminUpdServImpl) AC.ac.getBean("adminUpdServImpl");
 		adminServ.execute(model);
-		return "redirect:admin_chkList";
+		return "redirect:admin";
 	}
 
 	// 회원 관리 > 회원 삭제

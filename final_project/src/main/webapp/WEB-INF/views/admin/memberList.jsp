@@ -77,7 +77,7 @@
 							<button type="button" class="btn btn-outline-dark btn-sm"
 								onclick="location.href='updMember?m_id=${list.m_id}'">수정</button>
 							<button type="button" class="btn btn-outline-dark btn-sm"
-								onclick="location.href='delMember'">삭제</button>
+								onclick="location.href='delMember?m_id=${list.m_id}'">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>

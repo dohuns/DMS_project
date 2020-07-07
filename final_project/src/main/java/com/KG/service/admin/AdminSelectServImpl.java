@@ -17,7 +17,6 @@ public class AdminSelectServImpl implements AdminService {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		String m_id = (String) map.get("m_id");
-		System.out.println("Impl " + m_id);
 		model.addAttribute("infoList", adminDAO.selectInfoList(m_id));
 	}
 

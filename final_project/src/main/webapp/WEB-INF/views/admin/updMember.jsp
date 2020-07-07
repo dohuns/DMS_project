@@ -254,6 +254,8 @@
 						<td>
 							<button type="submit" id="btn-regist"
 								class="btn btn-outline-dark" disabled>수정 완료</button>
+							<button type="button" class="btn btn-outline-dark"
+								onclick="location.href='admin'">취소</button>
 						</td>
 					</tr>
 				</table>
