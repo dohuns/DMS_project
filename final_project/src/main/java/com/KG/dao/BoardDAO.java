@@ -85,27 +85,27 @@ public class BoardDAO {
 	
 	//제목 + 내용으로 검색
 	public List<BoardDTO> TCsearchAll(HashMap<String, Object> hash) {
-		return sqlSession.selectList(namespace + ".TCsearch" , hash);
+		return sqlSession.selectList(namespace + ".TCsearchAll" , hash);
 	}
 	// 제목 + 내용검색 개수
 	public int TCsearchCountAll(String b_content) {
-		return sqlSession.selectOne(namespace + ".TCsearchCount" , b_content);
+		return sqlSession.selectOne(namespace + ".TCsearchCountAll" , b_content);
 	}
 	// 제목으로 검색
 	public List<BoardDTO> TsearchAll(HashMap<String, Object> hash) {
-		return sqlSession.selectList(namespace + ".Tsearch" , hash);
+		return sqlSession.selectList(namespace + ".TsearchAll" , hash);
 	}
 	// 제목 개수
 	public int TsearchCountAll(String b_content) {
-		return sqlSession.selectOne(namespace + ".TsearchCount", b_content);
+		return sqlSession.selectOne(namespace + ".TsearchCountAll", b_content);
 	}
 	// 작성자로 검색
 	public List<BoardDTO> WsearchAll(HashMap<String, Object> hash) {
-		return sqlSession.selectList(namespace + ".Wsearch" , hash);
+		return sqlSession.selectList(namespace + ".WsearchAll" , hash);
 	}
 	// 작성자 개수
 	public int WsearchCountAll(String b_content) {
-		return sqlSession.selectOne(namespace + ".WsearchCount", b_content);
+		return sqlSession.selectOne(namespace + ".WsearchCountAll", b_content);
 	}
 	
 	////////////////////////////////////////////////

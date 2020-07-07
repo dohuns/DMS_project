@@ -1,6 +1,7 @@
 package com.KG.service.board;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,64 +36,72 @@ public class BoardSearchServImpl implements BoardService{
 		hash.put("b_category" , dto.getB_category());
 		hash.put("b_article", dto.getB_article());
 		
+		
+		System.out.println("ser article : " + dto.getB_article());
 		if(b_search.equals("titleNcontent")) { // 제목 + 내용
 			model.addAttribute("b_search" , "제목 + 내용");
 			// 게시판 글 
-			model.addAttribute("searchList", boardDAO.Tsearch(hash));
-			int count = boardDAO.TsearchCount(hash);
-			if(count%15 == 0) {
-				model.addAttribute("count", count/15);
-			} else {
-				model.addAttribute("count", count/15+1);
-			}
-			
+			if(dto.getB_article() != null) {
+				model.addAttribute("searchList", boardDAO.TCsearch(hash));
+				int count = boardDAO.TCsearchCount(hash);
+				if(count%15 == 0) {
+					model.addAttribute("count", count/15);
+				} else {
+					model.addAttribute("count", count/15+1);
+				}
 			// 전체 글
-			model.addAttribute("searchListAll", boardDAO.TCsearchAll(hash));
-			int countAll = boardDAO.TCsearchCountAll(b_content);
-			if(countAll%15 == 0) {
-				model.addAttribute("countAll", countAll/15);
 			} else {
-				model.addAttribute("countAll", countAll/15+1);
+				model.addAttribute("searchListAll", boardDAO.TCsearchAll(hash));
+				int countAll = boardDAO.TCsearchCountAll(b_content);
+				if(countAll%15 == 0) {
+					model.addAttribute("countAll", countAll/15);
+				} else {
+					model.addAttribute("countAll", countAll/15+1);
+				}
 			}
 		} else if (b_search.equals("title")) { // 제목
 			model.addAttribute("b_search" , "제목");
 			// 게시판 글 
-			model.addAttribute("searchList", boardDAO.TCsearch(hash));
-			int count = boardDAO.TCsearchCount(hash);
-			if(count%15 == 0) {
-				model.addAttribute("count", count/15);
+			if(dto.getB_article() != null) {
+				model.addAttribute("searchList", boardDAO.Tsearch(hash));
+				int count = boardDAO.TsearchCount(hash);
+				if(count%15 == 0) {
+					model.addAttribute("count", count/15);
+				} else {
+					model.addAttribute("count", count/15+1);
+				}
+				// 전체 글
 			} else {
-				model.addAttribute("count", count/15+1);
-			}
-			
-			// 전체 글
-			model.addAttribute("searchListAll", boardDAO.TsearchAll(hash));
-			int countAll = boardDAO.TsearchCountAll(b_content);
-			if(countAll%15 == 0) {
-				model.addAttribute("countAll", countAll/15);
-			} else {
-				model.addAttribute("countAll", countAll/15+1);
+				model.addAttribute("searchListAll", boardDAO.TsearchAll(hash));
+				int countAll = boardDAO.TsearchCountAll(b_content);
+				if(countAll%15 == 0) {
+					model.addAttribute("countAll", countAll/15);
+				} else {
+					model.addAttribute("countAll", countAll/15+1);
+				}
 			}
 			
 		} else { // 작성자
 			model.addAttribute("b_search" , "작성자");
 			
 			// 게시판 글 
-			model.addAttribute("searchList", boardDAO.Wsearch(hash));
-			int count = boardDAO.WsearchCount(hash);
-			if(count%15 == 0) {
-				model.addAttribute("count", count/15);
-			} else {
-				model.addAttribute("count", count/15+1);
-			}
-			
+			if(dto.getB_article() != null) {
+				model.addAttribute("searchList", boardDAO.Wsearch(hash));
+				int count = boardDAO.WsearchCount(hash);
+				if(count%15 == 0) {
+					model.addAttribute("count", count/15);
+				} else {
+					model.addAttribute("count", count/15+1);
+				}
 			// 전체 글
-			model.addAttribute("searchListAll", boardDAO.WsearchAll(hash));
-			int countAll = boardDAO.WsearchCountAll(b_content);
-			if(countAll%15 == 0) {
-				model.addAttribute("countAll", countAll/15);
 			} else {
-				model.addAttribute("countAll", countAll/15+1);
+				model.addAttribute("searchListAll", boardDAO.WsearchAll(hash));
+				int countAll = boardDAO.WsearchCountAll(b_content);
+				if(countAll%15 == 0) {
+					model.addAttribute("countAll", countAll/15);
+				} else {
+					model.addAttribute("countAll", countAll/15+1);
+				}
 			}
 		}
 		

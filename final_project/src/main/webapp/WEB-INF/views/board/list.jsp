@@ -139,7 +139,11 @@
 									${dto.b_article}
 								</a>
 							</td>
-							<td>${dto.b_title}</td>
+							<td>
+								<a href="show?b_num=${dto.b_num}">
+									${dto.b_title} 
+								</a>
+							</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>
 							<td>${dto.b_hit}</td>
