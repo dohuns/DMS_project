@@ -29,6 +29,14 @@
 			padding: 10px;
 		}
 	</style>
+	<script>
+		function deleteAlert(m_id) {
+			var message = confirm(m_id + '님의 회원정보를 삭제하시겠습니까?');
+			if(message == true) {
+				location.href = "delMember?m_id=" + m_id;
+			}
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/adminHeader.jsp"></c:import>
@@ -77,7 +85,7 @@
 							<button type="button" class="btn btn-outline-dark btn-sm"
 								onclick="location.href='updMember?m_id=${list.m_id}'">수정</button>
 							<button type="button" class="btn btn-outline-dark btn-sm"
-								onclick="location.href='delMember?m_id=${list.m_id}'">삭제</button>
+								onclick="deleteAlert('${list.m_id}')">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.AdminChkListServImpl;
+import com.KG.service.admin.AdminDelServImpl;
 import com.KG.service.admin.AdminInsertServImpl;
 import com.KG.service.admin.AdminSearchServImpl;
 import com.KG.service.admin.AdminSelectServImpl;
@@ -79,7 +80,10 @@ public class AdminController {
 
 	// 회원 관리 > 회원 삭제
 	@RequestMapping("delMember")
-	public String delMember() {
-		return "admin/delMember";
+	public String delMember(Model model, String m_id) {
+		model.addAttribute("m_id", m_id);
+		adminServ = (AdminDelServImpl) AC.ac.getBean("adminDelServImpl");
+		adminServ.execute(model);
+		return "redirect:admin";
 	}
 }

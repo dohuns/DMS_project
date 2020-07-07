@@ -46,4 +46,8 @@ public class AdminDAO {
 		return sqlSession.update(namespace + ".updateMember", dto);
 	}
 
+	// 회원 관리 페이지 > 회원 삭제
+	public int deleteMember(String m_id) {
+		return sqlSession.delete(namespace + ".deleteMember", m_id);
+	}
 }
