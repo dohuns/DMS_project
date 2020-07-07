@@ -28,6 +28,20 @@
 			font-weight: bold;
 			padding: 10px;
 		}
+
+		.form-control-dms {
+			display: static;
+			padding: .375rem .75rem;
+			font-size: .875rem;
+			line-height: 1.5;
+			height: 35px;
+			color: #495057;
+			background-color: #FFF;
+			background-clip: padding-box;
+			border: 1px solid #CED4DA;
+			border-radius: .25rem;
+			transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+		}
 	</style>
 	<script>
 		function deleteAlert(m_id) {
@@ -45,9 +59,9 @@
 		<div class="table-responsive">
 			<h3><b>회원 목록</b></h3>
 			<!-- 검색 기능 추가 -->
-			<div id="searchMenu">
+			<div id="searchMenu" align="right">
 				<form method="post" action="searchMember">
-						<select name="searchOption">
+						<select name="searchOption" class="form-control-dms">
 							<option value="m_id" <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"/> >아이디</option>
 							<option value="m_name" <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}"/> >이름</option>
 							<option value="m_nick" <c:out value="${map.searchOption == 'm_nick' ? 'selected' : ''}"/> >닉네임</option>
