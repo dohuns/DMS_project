@@ -49,7 +49,7 @@
 	font-weight: 400p;
 }
 .commentWriter {
-	margin: 12px 0 29px;
+	margin: 30px 0 29px;
 	padding: 8px 10px 10px 10px;
 	border-radius: 6px;
 	box-sizing: border-box;
@@ -80,12 +80,15 @@ textarea:focus {
 </style>
 
 <script type="text/javascript">
+	// 실행 시 댓글 불러오기
+	$(function() {
+		getCommentList();
+	})
 	
 	// 댓글 입력에 따른 작성버튼 변화
 	$(function() {
-		$("#comment_content").on('keyon keydown' , function() {
+		$("#comment_content").on('keydown keyon' , function() {
 			if($("#comment_content").val() == "") {
-				console.log("성공")
 				$("#comment_btn_div").html(
 					'<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault btn-sm">작성</button>'		
 				);
@@ -96,16 +99,81 @@ textarea:focus {
 			}
 		});
 	});
-	
+	// 댓글 내용 작성여부 + 댓글 작성
 	function commentWriter() {
-		if($("#comment_content").val() == "") {
+		if($("#comment_content").val() == "") { // 댓글내용 없을 때
 			alert("내용을 입력해주세요!!");			
-		} else {
-			// 
+		} else { // 댓글 작성
+			var formData = $("#fo").serializeArray();
 			
-			// ajax로 바꾸기
-			$("#fo").submit();
+			// JS에선 값이 보이지만 ajax통신하면 안넘어감
+// 			var object = {};
+// 			for(var i = 0; i < formData.length; i++) {
+// 				object[formData[i]['name']] = formData[i]['value'];
+// 			}
+// 			var json = JSON.stringify(object);
+			
+			$.ajax({
+				url : "comment_save",
+				type : "POST",
+				data : formData,
+				dataType : "text",
+				success : function(arg) {
+					getCommentList();
+					$("#comment_content").val("");
+				},
+				error : function() {
+					alert("실패!");
+				}
+			});
 		}
+	}
+	
+	// 댓글 창 클릭 시 로그인 x면 로그인창으로
+	$(function() {
+		$("#comment_content").click(function() {
+			var session = $("#c_nick").val();
+			if(session == "") {
+				location.href="../login";
+			}
+		});
+	});
+	
+	// 댓글 불러오기
+	function getCommentList() {
+		
+		$.ajax({
+			url:"comment_list",
+			type:"GET",
+			data:$("#fo").serializeArray(),
+			success : function(list) {
+				let html = "";
+				if(list.length > 0) {
+					$("#commentBox").css({
+						"display":"block"
+					})
+					for(var i=0; i<list.length; i++) {
+						html += '<div style="margin-bottom: 5px;">';
+						html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a>';
+						html += '</div>';
+						html += '<div>';
+						html += '<span class="c-content">' + list[i].c_content + '</span>';
+						html += '</div>';
+						html += '<div style="margin-top: 7px;">';
+						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
+						html += '<a href="#"><span class="lb3">답글 쓰기</span></a>';
+						html += '</div>';
+						if(i != list.length-1) {
+							html += '<hr class="hr1">';
+						}
+					}
+					$("#commentList").html(html);
+				}
+			},
+			error : function() {
+				alert("실패!");
+			}
+		});
 	}
 </script>
 </head>
@@ -165,31 +233,38 @@ textarea:focus {
 				<hr class="hr1">
 				
 				<!-- 댓글 창 -->
-				
-				<div style="margin-bottom: 40px;">
-					<h3 style="font-weight:800">댓글</h3>
+				<div id="commentBox" style="display: none;">
+					<div style="margin-bottom: 40px;">
+						<h3 style="font-weight:800">댓글</h3>
+					</div>
+					<div id="commentList">
+<!-- 						<div style="margin-bottom: 5px;"> -->
+<!-- 							<a href="#"><span class="c-nick">닉네임</span></a> -->
+<!-- 						</div> -->
+<!-- 						<div> -->
+<!-- 							<span class="c-content">댓글 내용</span> -->
+<!-- 						</div> -->
+<!-- 						<div style="margin-top: 7px;"> -->
+<!-- 							<span class="lb3">작성시간</span> -->
+<!-- 							<a href="#"><span class="lb3">답글 쓰기</span></a> -->
+<!-- 						</div> -->
+					</div>
 				</div>
-				<!-- 댓글 내용 -->
-				<div>
-					<div style="margin-bottom: 5px;">
-						<a href="#"><span class="c-nick">닉네임</span></a>
-					</div>
-					<div>
-						<span class="c-content">댓글 내용</span>
-					</div>
-					<div style="margin-top: 7px;">
-						<span class="lb3">작성시간</span>
-						<a href="#"><span class="lb3">답글 쓰기</span></a>
-					</div>
-				</div>
-				
 				<!-- 댓글 작성 -->
 				<div class="commentWriter">
 					<form action="comment_save" id="fo">
 						<!-- 닉네임 댓글작성 textarea -->
 						<div>
-							<label class="c-nick" style="padding: 6px 12px;">닉네임</label>	
-							<textarea rows="1" id="comment_content"class="dms-textarea" style="overflow:hidden; 
+							<!-- hidden으로 보낼 값 -->
+							<input type="hidden" value="${param.b_num}" name="c_num">
+							
+				
+							<!-- 닉네임 -->
+							<input type="hidden" value="${sessionScope.m_nick}" id="c_nick" name="c_nick">
+							<label class="c-nick" style="padding: 6px 12px;">닉네임</label>
+							
+							<!-- 댓글작성 -->
+							<textarea rows="1" id="comment_content" name="c_content" class="dms-textarea" style="overflow:hidden; 
 								overflow-wrap:break-word; height:60px; border: 0px; resize:none;"
 								placeholder="댓글을 입력하세요"></textarea>
 							<script>
@@ -198,6 +273,7 @@ textarea:focus {
 									$(this).height(17).height($(this).prop('scrollHeight')+12);
 								});
 							</script>
+							
 						</div>
 						<!-- 작성 버튼 -->
 						<div id="comment_btn_div" align="right">
