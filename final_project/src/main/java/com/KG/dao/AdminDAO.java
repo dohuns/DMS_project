@@ -33,13 +33,17 @@ public class AdminDAO {
 
 	// 회원 관리 페이지 > 회원 추가
 	public int insertMember(MemberDTO dto) {
-		System.out.println("DAO : " + dto.getM_rank());
 		return sqlSession.insert(namespace + ".insertMember", dto);
 	}
 
 	// 회원 관리 페이지 > 회원 수정 (정보 출력)
 	public MemberDTO selectInfoList(String m_id) {
-		System.out.println("Controller " + m_id);
 		return sqlSession.selectOne(namespace + ".selectInfoList", m_id);
 	}
+
+	// 회원 관리 페이지 > 회원 수정
+	public int updateMember(MemberDTO dto) {
+		return sqlSession.update(namespace + ".updateMember", dto);
+	}
+
 }

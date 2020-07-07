@@ -12,6 +12,7 @@ import com.KG.service.admin.AdminInsertServImpl;
 import com.KG.service.admin.AdminSearchServImpl;
 import com.KG.service.admin.AdminSelectServImpl;
 import com.KG.service.admin.AdminService;
+import com.KG.service.admin.AdminUpdServImpl;
 
 @Controller
 public class AdminController {
@@ -59,7 +60,6 @@ public class AdminController {
 	@RequestMapping("insChkMember")
 	public String insChkMember(Model model, MemberDTO dto) {
 		model.addAttribute("dto", dto);
-		System.out.println("Controller: " + dto.getM_rank());
 		adminServ = (AdminInsertServImpl) AC.ac.getBean("adminInsertServImpl");
 		adminServ.execute(model);
 		return "redirect:admin_chkList";
@@ -77,7 +77,9 @@ public class AdminController {
 	// 회원 관리 > 회원 정보 수정 진행
 	@RequestMapping("updChkMember")
 	public String updChkMember(Model model, MemberDTO dto) {
-		// mapper > 회원 정보 update 이후 메인 페이지로 이동
+		model.addAttribute("dto", dto);
+		adminServ = (AdminUpdServImpl) AC.ac.getBean("adminUpdServImpl");
+		adminServ.execute(model);
 		return "redirect:admin_chkList";
 	}
 

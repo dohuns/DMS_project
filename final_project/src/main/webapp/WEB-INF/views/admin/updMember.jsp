@@ -8,31 +8,31 @@
 	<title>회원 수정</title>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<style>
-	.main-body-content-dms {
-		display: inline-block;
-		padding: 15px;
-		background-color: #EEF4FB;
-		height: 100vh;
-		padding-left: 110px;
-		transition: ease 0.5s;
-	}
+		.main-body-content-dms {
+			display: inline-block;
+			padding: 15px;
+			background-color: #EEF4FB;
+			height: 100vh;
+			padding-left: 110px;
+			transition: ease 0.5s;
+		}
 	
-	ul li {
-		list-style-type: none;
-		float: right;
-		margin-left: 20px;
-	}
+		ul li {
+			list-style-type: none;
+			float: right;
+			margin-left: 20px;
+		}
 	
-	li a {
-		font-size: 15px;
-		color: #000;
-		font-weight: bold;
-		padding: 10px;
-	}
+		li a {
+			font-size: 15px;
+			color: #000;
+			font-weight: bold;
+			padding: 10px;
+		}
 
-	tr, td, th {
-		width: 400px;
-	}
+		tr, td, th {
+			width: 400px;
+		}
 	</style>
 	<script>
 		// 닉네임 중복 체크
@@ -241,7 +241,7 @@
 					</tr>
 					<tr>
 						<td>
-							<select id="m_rank" class="form-control">
+							<select name="m_rank" class="form-control">
 								<option value="1_관리자" <c:out value="${infoList.m_rank == '1_관리자' ? 'selected' : ''}"/>>1_관리자</option>
 								<option value="2_스탭" <c:out value="${infoList.m_rank == '2_스탭' ? 'selected' : ''}"/>>2_스탭</option>
 								<option value="3_일반회원" <c:out value="${infoList.m_rank == '3_일반회원' ? 'selected' : ''}"/>>3_일반회원</option>
