@@ -22,21 +22,7 @@ public class AdminSearchServImpl implements AdminService {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
-		if(searchOption.equals("m_rank")) {
-			if(keyword.contains("관") || keyword.contains("리") || keyword.contains("자")) {
-				map.put("keyword", "1");
-			} else if(keyword.contains("스") || keyword.contains("탭")) {
-				map.put("keyword", "2");
-			} else if(keyword.contains("일") || keyword.contains("반")) {
-				map.put("keyword", "3");
-			} else if(keyword.contains("대") || keyword.contains("기")) {
-				map.put("keyword", "4");
-			} else {
-				map.put("keyword", keyword);
-			}
-		} else {
-			map.put("keyword", keyword);
-		}
+		map.put("keyword", keyword);
 
 		model.addAttribute("searchList", adminDAO.searchList(map));
 	}

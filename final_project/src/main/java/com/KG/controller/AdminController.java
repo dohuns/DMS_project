@@ -10,6 +10,7 @@ import com.KG.dto.MemberDTO;
 import com.KG.service.admin.AdminChkListServImpl;
 import com.KG.service.admin.AdminInsertServImpl;
 import com.KG.service.admin.AdminSearchServImpl;
+import com.KG.service.admin.AdminSelectServImpl;
 import com.KG.service.admin.AdminService;
 
 @Controller
@@ -62,20 +63,21 @@ public class AdminController {
 		adminServ.execute(model);
 		return "redirect:admin_chkList";
 	}
-	
-	// 회원 관리 > 회원 수정 이전
-	@RequestMapping("updChkMember")
-	public String updChkMember(Model model, MemberDTO dto) {
-		System.out.println("Controller_updMember에서 updChkMember로 이동 : " + dto.getM_id());
-		return "admin/updMember";
-	}
 
 	// 회원 관리 > 회원 수정 페이지
 	@RequestMapping("updMember")
 	public String updMember(Model model, String m_id) {
-		System.out.println("Controller_리스트에서 updMember로 이동 : " + m_id);
 		model.addAttribute("m_id", m_id);
+		adminServ = (AdminSelectServImpl) AC.ac.getBean("adminSelectServImpl");
+		adminServ.execute(model);
 		return "admin/updMember";
+	}
+
+	// 회원 관리 > 회원 정보 수정 진행
+	@RequestMapping("updChkMember")
+	public String updChkMember(Model model, MemberDTO dto) {
+		// mapper > 회원 정보 update 이후 메인 페이지로 이동
+		return "redirect:admin_chkList";
 	}
 
 	// 회원 관리 > 회원 삭제

@@ -27,6 +27,11 @@
 		WHERE m_id = #{m_id}
 	</update>
 
+	<!-- 회원 목록 관리 > 수정 > 정보 출력 -->
+	<select id="selectInfoList" resultType="memberDTO">
+		SELECT * FROM member WHERE m_id = #{m_id}
+	</select>
+
 	<!-- 회원 목록 관리 > 삭제 -->
 	<update id="deleteMember">
 		DELETE FROM member WHERE m_id = #{m_id}

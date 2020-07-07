@@ -7,19 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.AdminDAO;
-import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminInsertServImpl implements AdminService {
+public class AdminSelectServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		// 문자열로 받아왔기때문에 ""안에 넣어주셔야 합니다!
-		MemberDTO dto = (MemberDTO)map.get("dto");
-		adminDAO.insertMember(dto);
+		String m_id = (String) map.get("m_id");
+		System.out.println("Impl " + m_id);
+		model.addAttribute("infoList", adminDAO.selectInfoList(m_id));
 	}
 
 }

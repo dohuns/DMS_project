@@ -35,4 +35,10 @@ public class AdminDAO {
 	public int insertMember(MemberDTO dto) {
 		return sqlSession.insert(namespace + ".insertMember", dto);
 	}
+
+	// 회원 관리 페이지 > 회원 수정 (정보 출력)
+	public MemberDTO selectInfoList(String m_id) {
+		System.out.println("Controller " + m_id);
+		return sqlSession.selectOne(namespace + ".selectInfoList", m_id);
+	}
 }

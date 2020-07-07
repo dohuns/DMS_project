@@ -29,6 +29,10 @@
 			font-weight: bold;
 			padding: 10px;
 		}
+
+		tr, td, th {
+			width: 400px;
+		}
 	</style>
 	<script>
 		// 아이디 중복체크 
@@ -118,21 +122,6 @@
 			}
 		}
 
-		// 비밀번호 입력 조합 설정
-		function pwPattern() {
-			var pattern1 = /[0-9]/;
-			var pattern2 = /[a-zA-Z]/;
-			var pattern3 = /[~!@\#$%<>^&*]/
-	
-			var pw = $("#m_pw").val();
-			if (!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw)) {
-				$("#label_pw").text("영문+숫자+특수문자 8자리 이상으로 입력해주세요!!")
-				$("#label_pw").css({
-					"color" : "red"
-				});
-			}
-		}
-
 		// label_id text 값 유지
 		function keepId() {
 			if($("#btn_chk_id").is(":disabled")) {
@@ -169,7 +158,6 @@
 		function chkPw() {
 			chk_blank("m_pw", "label_pw", "비밀번호");
 			buttonAble();
-			pwPattern();
 		}
 
 		function chkName() {
@@ -232,6 +220,7 @@
 			<div>
 				<h3><b>회원 추가</b></h3>
 			</div>
+			<br>
 			<form action="insChkMember">
 				<table class="table">
 					<!-- 아이디 -->
@@ -244,7 +233,7 @@
 						</td>
 						<td>
 							<button type="button" onclick="chk_id()" id="btn_chk_id"
-								class="btn btn-info">중복확인</button>
+								class="btn btn-outline-dark">중복확인</button>
 						</td>
 					</tr>
 					<tr>
@@ -271,7 +260,7 @@
 							placeholder="닉네임을 입력해주세요" class="form-control" onblur="chkNick()"></td>
 						<td style="padding-left: 10px;">
 							<button type="button" onclick="chk_nick()" id="btn_chk_nick"
-								class="btn btn-info">중복확인</button>
+								class="btn btn-outline-dark">중복확인</button>
 						</td>
 					</tr>
 					<tr>
@@ -291,7 +280,8 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" id="btn-regist" class="btn btn-info" disabled>회원 추가</button>
+							<button type="submit" id="btn-regist"
+								class="btn btn-outline-dark" disabled>회원 추가</button>
 						</td>
 					</tr>
 				</table>
