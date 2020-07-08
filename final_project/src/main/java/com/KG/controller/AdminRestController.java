@@ -69,6 +69,8 @@ public class AdminRestController {
 	@RequestMapping(value = "updcategory", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String updcategory(Model model, BoardDTO boardDTO) throws JsonProcessingException {
+		System.out.println("카테고리 :"+boardDTO.getB_title());
+		System.out.println("변경할 카테고리 :"+boardDTO.getB_category());
 		ObjectMapper mapper = new ObjectMapper();
 
 		model.addAttribute("boardDTO", boardDTO);

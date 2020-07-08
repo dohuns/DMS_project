@@ -38,7 +38,7 @@
 		$("#List").html(html)
 		$.each(cate,function(index, cate) {
 			html += "<hr id='main'>";
-			html += "<div id='fl-off' onclick='artcleCk(`"+ cate.b_category + "`)' style='display: flex;'>";
+			html += "<div id='fl-off' class='"+cate.b_category+"' onclick='artcleCk(`"+ cate.b_category + "`)' style='display: flex;'>";
 			html += "<div id='menu' style='width: 65%;'>" + cate.b_category + "</div>";
 			html += "<div id='menu' style='width: 35%;' align='right'>";
 			html += "<button onclick='categoryDel(`"+ cate.b_category + "`)'>-</button>";
@@ -49,7 +49,7 @@
 			html += "<hr id='sub'>";
 				$.each(art,function(index, art) {
 					if (cate.b_category == art.b_category) {
-					html += "<div id='fl-off' onclick='artcleCk(`"+ cate.b_category + art.b_article+ "`)' style='display: flex;'>";
+					html += "<div id='fl-off' class='"+cate.b_category + art.b_article+"' onclick='artcleCk(`"+ cate.b_category + art.b_article+ "`)' style='display: flex;'>";
 					html += "<div id='menu' style='width: 65%;'>" + art.b_article + "</div>";
 					html += "<div id='menu' style='width: 35%;' align='right'>";
 					html += "<button onclick='articleDel(`" + cate.b_category +"`,`"+ art.b_article + "`)'>-</button>";
@@ -65,10 +65,10 @@
 	//	category 추가
 	function categoryIns() {
 		let b_category = prompt('추가할 category를 입력해주세요');
-		b_category = b_category.replace(/(\s)/g, "&nbsp;");
 		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
 		if (b_category.trim() != "" && b_category != null) {
 			if (!pattern.test(b_category)) {
+			b_category = b_category.replace(/(\s)/g, "&nbsp;");
 				var form = {
 					b_category : b_category
 				};
@@ -101,10 +101,11 @@
 	// category 수정
 	function categoryUpd(b_category) {
 		let b_title = prompt('수정할 category를 입력해주세요');
-		b_title = b_title.replace(/(\s)/g, "&nbsp;");
 		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
 		if (b_title.trim() != "" && b_title != null) {
 			if (!pattern.test(b_title)) {
+			b_category = b_category.replace(/(\s)/g, "&nbsp;");
+			b_title = b_title.replace(/(\s)/g, "&nbsp;");
 			var form = {
 				b_category : b_title,
 				b_title : b_category
@@ -114,7 +115,6 @@
 				type : "GET",
 				data : form,
 				success : function(data) {
-					console.log(data)
 					if (data == "") {
 						alert("category가 중복되었습니다.");
 					} else {
@@ -162,10 +162,10 @@
 	// article 추가
 	function articleIns(b_category) {
 		let b_article = prompt('추가할 article을 입력해주세요');
-		b_article = b_article.replace(/(\s)/g, "&nbsp;");
 		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
 		if (b_article.trim() != "" && b_article != null) {
 			if (!pattern.test(b_article)) {
+			b_article = b_article.replace(/(\s)/g, "&nbsp;");
 			var form = {
 				b_category : b_category,
 				b_article : b_article
@@ -199,10 +199,11 @@
 	//	article 수정
 	function articleUpd(b_article) {
 		let b_title = prompt('수정할 article을 입력해주세요');
-		b_title = b_title.replace(/(\s)/g, "&nbsp;");
 		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
 		if (b_title.trim() != "" && b_title != null) {
 			if (!pattern.test(b_title)) {
+			b_article = b_article.replace(/(\s)/g, "&nbsp;");
+			b_title = b_title.replace(/(\s)/g, "&nbsp;");
 			var form = {
 				b_article : b_title,
 				b_title : b_article
