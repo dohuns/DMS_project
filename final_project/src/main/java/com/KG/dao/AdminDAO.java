@@ -25,6 +25,11 @@ public class AdminDAO {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
 	
+	// category 중복확인
+	public BoardDTO chkcategory(BoardDTO boardDTO) {
+		return sqlSession.selectOne(namespace + ".chkcategory", boardDTO);
+	}
+	
 	// category 추가
 	public int inscategory(BoardDTO boardDTO) {
 		return sqlSession.insert(namespace + ".inscategory", boardDTO);
@@ -37,7 +42,13 @@ public class AdminDAO {
 	
 	// category 삭제
 	public int delcategory(BoardDTO boardDTO) {
+		sqlSession.update(namespace + ".delcategoryDown", boardDTO);
 		return sqlSession.delete(namespace + ".delcategory", boardDTO);
+	}
+	
+	// article 중복확인
+	public BoardDTO chkarticle(BoardDTO boardDTO) {
+		return sqlSession.selectOne(namespace + ".chkarticle", boardDTO);
 	}
 
 	// article 추가
@@ -52,6 +63,7 @@ public class AdminDAO {
 	
 	// article 삭제
 	public int delarticle(BoardDTO boardDTO) {
+		sqlSession.update(namespace + ".delarticleDown", boardDTO);
 		return sqlSession.delete(namespace + ".delarticle", boardDTO);
 	}
 }

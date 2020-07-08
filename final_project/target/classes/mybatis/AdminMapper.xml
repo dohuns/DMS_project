@@ -26,22 +26,36 @@
 		DELETE FROM member WHERE m_id = #{m_id}
 	</update>
 
+	<!-- category 중복확인 -->
+	<select id="chkcategory" resultType="boardDTO">
+		select * from board where b_category = #{b_category}
+	</select>
+
 	<!-- category 추가 -->
 	<insert id="inscategory" parameterType="boardDTO">
-		INSERT INTO BOARD(B_CATEGORY,B_CATENUM) values(#{b_category},(SELECT
-		MAX(b_catenum) from BOARD)+1)
+		INSERT INTO BOARD(B_CATEGORY,B_CATENUM,b_articlenum) values(#{b_category},(SELECT
+		MAX(b_catenum) from BOARD)+1,0)
 	</insert>
 
 	<!-- category 수정 -->
 	<update id="updcategory" parameterType="boardDTO">
-		UPDATE BOARD SET
-		B_CATEGORY = #{b_title} where B_CATEGORY = #{b_category}
+		UPDATE BOARD SET B_CATEGORY = #{b_category} where B_CATEGORY = #{b_title}
 	</update>
 
 	<!-- category 삭제 -->
 	<update id="delcategory" parameterType="boardDTO">
 		DELETE FROM BOARD WHERE B_CATEGORY = #{b_category}
 	</update>
+
+	<!-- category 삭제시 num 다운 -->
+	<update id="delcategoryDown" parameterType="boardDTO">
+		UPDATE BOARD set B_CATENUM = B_CATENUM -1 where B_CATENUM > (SELECT B_CATENUM FROM BOARD where b_category = #{b_category} and b_catenum is not null)
+	</update>
+
+	<!-- article 중복확인 -->
+	<select id="chkarticle" resultType="boardDTO">
+		select * from board where b_article = #{b_article}
+	</select>
 
 	<!-- article 추가 -->
 	<insert id="insarticle" parameterType="boardDTO">
@@ -52,13 +66,17 @@
 
 	<!-- article 수정 -->
 	<update id="updarticle" parameterType="boardDTO">
-		UPDATE BOARD SET B_ARTICLE
-		= #{b_title} where B_ARTICLE = #{b_article}
+		UPDATE BOARD SET B_ARTICLE = #{b_article} where B_ARTICLE = #{b_title}
 	</update>
 
 	<!-- article 삭제 -->
 	<update id="delarticle" parameterType="boardDTO">
 		DELETE FROM BOARD WHERE B_ARTICLE = #{b_article}
+	</update>
+
+	<!-- article 삭제시 num 다운 -->
+	<update id="delarticleDown" parameterType="boardDTO">
+		UPDATE BOARD set B_ARTICLENUM = B_ARTICLENUM -1 where b_category = #{b_category} and  B_ARTICLENUM > (SELECT B_ARTICLENUM FROM BOARD where b_article = #{b_article} and B_ARTICLENUM is not null)
 	</update>
 
 	<!-- PAGING > 총 인원 수 -->

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KG.dto.BoardDTO;
-import com.KG.service.board.BoaListServImpl;
+import com.KG.service.board.BoaCatListServImpl;
 import com.KG.service.board.BoaUserInfoServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardService;
@@ -38,7 +38,7 @@ public class BoardController {
 		}
 		try {
 //			게시판 list 가져오기
-			boaServ = (BoaListServImpl) AC.ac.getBean("boaListServImpl");
+			boaServ = (BoaCatListServImpl) AC.ac.getBean("boaListServImpl");
 			boaServ.execute_Str(model);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class BoardController {
 	public String board_list(Model model, BoardDTO dto) {
 
 		model.addAttribute("dto", dto);
-		boaServ = (BoaListServImpl) AC.ac.getBean("boaListServImpl");
+		boaServ = (BoaCatListServImpl) AC.ac.getBean("boaListServImpl");
 		boaServ.execute_Boo(model);
 
 		return "board/list";

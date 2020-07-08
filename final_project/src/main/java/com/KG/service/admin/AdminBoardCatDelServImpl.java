@@ -31,7 +31,7 @@ public class AdminBoardCatDelServImpl implements AdminService {
 		Map<String, Object> map = model.asMap();
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
 		admDAO.delcategory(boardDTO);
-		return boardDTO.getB_category();
+		return null;
 	}
 
 	@Override

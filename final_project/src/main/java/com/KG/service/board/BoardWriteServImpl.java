@@ -1,5 +1,6 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class BoardWriteServImpl implements BoardService{
 	@Override
 	public int execute_Int(Model model) {
 		return 0;
+	}
+
+	@Override
+	public List<BoardDTO> execute_List(Model model) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

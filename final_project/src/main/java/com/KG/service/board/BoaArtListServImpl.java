@@ -11,24 +11,13 @@ import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
 
 @Service
-public class BoardCateListServImpl implements BoardService{
+public class BoaArtListServImpl implements BoardService {
 
 	@Autowired
 	BoardDAO boardDAO;
-	
+
 	@Override
 	public boolean execute_Boo(Model model) {
-		Map<String, Object> map = model.asMap();
-		BoardDTO dto = (BoardDTO) map.get("boardDTO");
-		
-		System.out.println("cate : " + dto.getB_category());
-		
-		List<BoardDTO> list = boardDAO.cateList(dto);
-		for(BoardDTO dto2 : list) {
-			System.out.println("ser : " + dto2.getB_article());
-		}
-		model.addAttribute("cate" , boardDAO.cateList(dto));
-		
 		return false;
 	}
 
@@ -44,10 +33,7 @@ public class BoardCateListServImpl implements BoardService{
 
 	@Override
 	public List<BoardDTO> execute_List(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		return boardDAO.articleList();
 	}
-	
-	
 
 }

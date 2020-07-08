@@ -1,5 +1,6 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.BoardDAO;
+import com.KG.dto.BoardDTO;
 
 @Service
 public class BoaUserInfoServImpl implements BoardService {
@@ -35,6 +37,12 @@ public class BoaUserInfoServImpl implements BoardService {
 	@Override
 	public int execute_Int(Model model) {
 		return 0;
+	}
+
+	@Override
+	public List<BoardDTO> execute_List(Model model) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

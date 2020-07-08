@@ -8,85 +8,164 @@
 <title>boardList</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-	function categoryUp() {
-		console.log("위치 업");
+	// 리스트 출력
+	function AllList() {
+		$.ajax({
+			url : "cateList",
+			type : "GET",
+			success : function(cate) {
+				$(function cateList() {
+					$.ajax({
+						url : "artList",
+						type : "GET",
+						success : function(art) {
+							reset(cate, art)
+						},
+						error : function() {
+							console.log("art 에러")
+						}
+					})
+				})
+			},
+			error : function() {
+				console.log("cate 에러")
+			}
+		})
 	}
-	function categoryDo() {
-		console.log("위치 다운");
+	// 리스트 리셋
+	function reset(cate, art) {
+		let html = ""
+		$("#List").html(html)
+		$.each(cate,function(index, cate) {
+			html += "<hr id='main'>";
+			html += "<div id='fl-off' onclick='artcleCk(`"+ cate.b_category + "`)' style='display: flex;'>";
+			html += "<div id='menu' style='width: 65%;'>" + cate.b_category + "</div>";
+			html += "<div id='menu' style='width: 35%;' align='right'>";
+			html += "<button onclick='categoryDel(`"+ cate.b_category + "`)'>-</button>";
+			html += "<button onclick='articleIns(`"+ cate.b_category + "`)'>+</button>";
+			html += "<button onclick='categoryUpd(`"+ cate.b_category + "`)'>수정</button>";
+			html += "</div>";
+			html += "</div>";
+			html += "<hr id='sub'>";
+				$.each(art,function(index, art) {
+					if (cate.b_category == art.b_category) {
+					html += "<div id='fl-off' onclick='artcleCk(`"+ cate.b_category + art.b_article+ "`)' style='display: flex;'>";
+					html += "<div id='menu' style='width: 65%;'>" + art.b_article + "</div>";
+					html += "<div id='menu' style='width: 35%;' align='right'>";
+					html += "<button onclick='articleDel(`" + cate.b_category +"`,`"+ art.b_article + "`)'>-</button>";
+					html += "<button onclick='articleUpd(`" + art.b_article + "`)'>수정</button>";
+					html += "</div>";
+					html += "</div>";
+					}
+				});
+		})
+		$("#List").html(html)
 	}
+
 	//	category 추가
 	function categoryIns() {
 		let b_category = prompt('추가할 category를 입력해주세요');
-		if (b_category != "" && b_category != null) {
-			var form = {
-				b_category : b_category
-			};
-			$.ajax({
-				url : "inscategory",
-				type : "GET",
-				data : form,
-				success : function(data) {
-					alert("추가 되었습니다.");
-				},
-				error : function(data) {
-					alert("실패!!")
-				}
-			});
+		b_category = b_category.replace(/(\s)/g, "&nbsp;");
+		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
+		if (b_category.trim() != "" && b_category != null) {
+			if (!pattern.test(b_category)) {
+				var form = {
+					b_category : b_category
+				};
+				$.ajax({
+					url : "inscategory",
+					type : "GET",
+					data : form,
+					success : function(data) {
+						if (data == "") {
+							alert("category가 중복되었습니다.");
+						} else {
+							AllList()
+							alert("category가 추가 되었습니다.");
+						}
+					},
+					error : function(data) {
+						alert("실패!!")
+					}
+				});
+			} else{
+				alert("특수문자를 제거해주세요.")
+			}
 		} else if (b_category == null) {
-			alert("취소되었습니다.")
+			return false;
 		} else {
 			alert("값을 입력해주세요")
 		}
 	}
+
 	// category 수정
 	function categoryUpd(b_category) {
 		let b_title = prompt('수정할 category를 입력해주세요');
-		if (b_title != "" && b_title != null) {
+		b_title = b_title.replace(/(\s)/g, "&nbsp;");
+		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
+		if (b_title.trim() != "" && b_title != null) {
+			if (!pattern.test(b_title)) {
 			var form = {
-				b_category : b_category,
-				b_title : b_title
+				b_category : b_title,
+				b_title : b_category
 			};
 			$.ajax({
 				url : "updcategory",
 				type : "GET",
 				data : form,
 				success : function(data) {
-					alert("수정되었습니다.");
-					console.log("성공 :" + data)
-					$("#" + b_category + "1").html(data);
-					$("#" + b_category + "1").attr("id", data + "1");
-					$("#" + b_category + "1_1").attr({
-						"onclick" : "categoryUpd('" + data + "')",
-						"id" : data + "1_1"
-					});
-					$("#" + b_category + "1_2").attr({
-						"onclick" : "categoryIns('" + data + "')",
-						"id" : data + "1_2"
-					});
+					console.log(data)
+					if (data == "") {
+						alert("category가 중복되었습니다.");
+					} else {
+						AllList()
+						alert("수정되었습니다.");
+					}
 				},
 				error : function(data) {
 					alert("실패!!")
 				}
 			});
+			} else{
+				alert("특수문자를 제거해주세요.")
+			}
 		} else if (b_title == null) {
-			alert("취소되었습니다.")
+			return false;
 		} else {
 			alert("값을 입력해주세요")
 		}
 	}
+
 	// category 삭제
-	function categoryDel(category) {
+	function categoryDel(b_category) {
 		if (confirm("삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?") == true) {
-			location.href = "delcategory?b_category="+category;
-			alert("category가 삭제되었습니다");
+			b_category = b_category.replace(/(\s)/g, "&nbsp;");
+			$.ajax({
+				url : "delcategory",
+				type : "GET",
+				data : {
+					b_category : b_category
+				},
+				success : function(data) {
+					AllList()
+					alert("category가 삭제되었습니다");
+				},
+				error : function(data) {
+					alert("실패!!")
+				}
+			});
 		} else {
 			return false;
 		}
 	}
+
 	// article 추가
 	function articleIns(b_category) {
 		let b_article = prompt('추가할 article을 입력해주세요');
-		if (b_article != "" && b_article != null) {
+		b_article = b_article.replace(/(\s)/g, "&nbsp;");
+		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
+		if (b_article.trim() != "" && b_article != null) {
+			if (!pattern.test(b_article)) {
 			var form = {
 				b_category : b_category,
 				b_article : b_article
@@ -96,23 +175,84 @@
 				type : "GET",
 				data : form,
 				success : function(data) {
-					alert("추가 되었습니다.");
+					if (data == "") {
+						alert("article이 중복되었습니다.");
+					} else {
+						AllList()
+						alert("article이 추가 되었습니다.");
+					}
 				},
 				error : function(data) {
 					alert("실패!!")
 				}
 			});
+			} else{
+				alert("특수문자를 제거해주세요.")
+			}
 		} else if (b_article == null) {
-			alert("취소되었습니다.")
+			return false;
 		} else {
 			alert("값을 입력해주세요")
 		}
 	}
+
+	//	article 수정
+	function articleUpd(b_article) {
+		let b_title = prompt('수정할 article을 입력해주세요');
+		b_title = b_title.replace(/(\s)/g, "&nbsp;");
+		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
+		if (b_title.trim() != "" && b_title != null) {
+			if (!pattern.test(b_title)) {
+			var form = {
+				b_article : b_title,
+				b_title : b_article
+			};
+			$.ajax({
+				url : "updarticle",
+				type : "GET",
+				data : form,
+				success : function(data) {
+					if (data == "") {
+						alert("article이 중복되었습니다.");
+					} else {
+						AllList()
+						alert("article이 수정 되었습니다.");
+					}
+				},
+				error : function(data) {
+					alert("실패!!")
+				}
+			});
+			} else{
+				alert("특수문자를 제거해주세요.")
+			}
+		} else if (b_title == null) {
+			return false;
+		} else {
+			alert("값을 입력해주세요")
+		}
+	}
+
 	// article 삭제
-	function articleDel(article) {
+	function articleDel(b_category, b_article) {
 		if (confirm("삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?") == true) {
-			location.href = "delarticle?b_article="+article;
-			alert("article이 삭제되었습니다");
+			b_article = b_article.replace(/(\s)/g, "&nbsp;");
+			var form = {
+					b_category : b_category,
+					b_article : b_article
+				};
+			$.ajax({
+				url : "delarticle",
+				type : "GET",
+				data : form,
+				success : function(data) {
+					AllList()
+					alert("article이 삭제되었습니다");
+				},
+				error : function(data) {
+					alert("실패!!")
+				}
+			});
 		} else {
 			return false;
 		}
@@ -122,47 +262,14 @@
 		$("#fl-on").attr('id', 'fl-off');
 		$("." + article).attr('id', 'fl-on');
 	}
-	//	article 수정
-	function articleUpd(b_article) {
-		let b_title = prompt('수정할 article을 입력해주세요');
-		if (b_title != "" && b_title != null) {
-			var form = {
-				b_article : b_article,
-				b_title : b_title
-			};
-			$.ajax({
-				url : "updarticle",
-				type : "GET",
-				data : form,
-				success : function(data) {
-					alert("수정되었습니다.");
-					console.log("성공 :" + data)
-					$("#" + b_article + "2").html(data);
-					$("#" + b_article + "2").attr("id", data + "2");
-					$("#" + b_article + "2_1").attr({
-						"onclick" : "articleUpd('" + data + "')",
-						"id" : data + "2_1"
-					});
-					$("." + b_article).attr({
-						"class" : data,
-						"onclick" : "artcleCk('" + data + "')"
-					});
-				},
-				error : function(data) {
-					alert("실패!!")
-				}
-			});
-		} else if (b_title == null) {
-			alert("취소되었습니다.")
-		} else {
-			alert("값을 입력해주세요")
-		}
+	function categoryUp() {
+		console.log("업")
+	}
+	function categoryDo() {
+		console.log("다운")
 	}
 </script>
 <style type="text/css">
-div#fl {
-	display: flex;
-}
 
 div#fl-on {
 	background-color: #f0f0f0;
@@ -185,44 +292,14 @@ hr#sub {
 }
 </style>
 </head>
-<body>
+<body onload="AllList()">
 	<div style="width: 400px;">
 		<div align="right">
 			<button onclick="categoryUp()">&#9650;</button>
 			<button onclick="categoryDo()">&#9660;</button>
 			<button onclick="categoryIns()">+</button>
 		</div>
-		<c:forEach items="${boardCate}" var="Cate">
-			<hr id="main">
-			<div id="fl">
-				<div id="menu" style="width: 65%;">
-					<label id="${Cate.b_category}1">${Cate.b_category}</label>
-				</div>
-				<div id="menu" style="width: 35%;" align="right">
-					<button onclick="categoryDel('${Cate.b_category}')">-</button>
-					<button id="${Cate.b_category}1_2"
-						onclick="articleIns('${Cate.b_category}')">+</button>
-					<button id="${Cate.b_category}1_1"
-						onclick="categoryUpd('${Cate.b_category}')">수정</button>
-				</div>
-			</div>
-			<hr id="sub">
-			<c:forEach items="${boardArt}" var="Art">
-				<c:if test="${Cate.b_category == Art.b_category}">
-					<div id="fl-off" class="${Art.b_article}"
-						onclick="artcleCk('${Art.b_article}')" style="display: flex;">
-						<div id="menu" style="width: 65%;">
-							<label id="${Art.b_article}2">${Art.b_article}</label>
-						</div>
-						<div id="menu" style="width: 35%;" align="right">
-							<button onclick="articleDel('${Art.b_article}')">-</button>
-							<button id="${Art.b_article}2_1"
-								onclick="articleUpd('${Art.b_article}')">수정</button>
-						</div>
-					</div>
-				</c:if>
-			</c:forEach>
-		</c:forEach>
+		<div id="List"></div>
 	</div>
 </body>
 </html>
