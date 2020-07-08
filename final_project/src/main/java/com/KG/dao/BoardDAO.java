@@ -143,5 +143,16 @@ public class BoardDAO {
 	public BoardDTO showBoard(int b_num) {
 		return sqlSession.selectOne(namespace +".showBoard" , b_num);
 	}
+	
+	// 게시판 전부 가져오기
+	public List<BoardDTO> getArticle() {
+		return sqlSession.selectList(namespace + ".getArticle");
+	}
+	
+	// 게시글 수정
+	public int modifyBoard(BoardDTO dto) {
+		return sqlSession.update(namespace + ".modifyBoard" , dto);
+	}
+	
 
 }

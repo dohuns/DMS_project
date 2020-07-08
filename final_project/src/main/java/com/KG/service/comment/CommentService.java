@@ -11,5 +11,7 @@ public interface CommentService {
 	public boolean execute(Model model);
 	
 	public List<CommentDTO> execute_list(Model model);
+	
+	public int execute_int(Model model);
 
 }

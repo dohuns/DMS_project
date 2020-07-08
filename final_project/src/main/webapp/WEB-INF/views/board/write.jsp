@@ -26,8 +26,6 @@
 			$("#b_content").val(str);
 			$("#fo").submit();
 		}
-		
-		
 	}
 </script>
 </head>
@@ -60,8 +58,6 @@
 								</select>
 								<!-- 게시판 카테고리 hidden으로 보내기 -->
 								<input type="hidden" name="b_category" value="${param.b_category}">
-								${sessionScope.m_nick}
-								<input type="hidden" name="b_nick" value="${sessionScope.m_nick}">
 							</div>
 							<!-- 제목 입력 -->
 							<div>
@@ -77,7 +73,6 @@
 							</div>
 							<!-- 버튼 -->
 							<div align="right" style="padding-top: 10px;">
-<!-- 								<button type="submit">클릭</button> -->
 								<button type="button" class="btn btn-success" onclick="write_save()">글 작성</button>
 							</div>
 						</form>

@@ -15,7 +15,17 @@
 	border: 1px solid #eee;
 	width:1000px;
 	border-radius : 20px;
-	margin : 29px;
+	margin : 10px 29px 0 33px;
+}
+.btnBotBox {
+	width:985px;
+	height: 50px;
+	margin: 10px 0 29px 38px;
+}
+.btnTopBox {
+	width:985px;
+	height: 34px;
+	margin: 29px 0 0 38px;
 }
 .lb_title {
 	font-size: 35px;
@@ -40,7 +50,7 @@
 	line-height: 1.6;
 }
 .c-nick {
-	font-size: 19px;
+	font-size: 16px;
 	font-weight: 900;
 	color: black;
 }
@@ -80,9 +90,10 @@ textarea:focus {
 </style>
 
 <script type="text/javascript">
-	// 실행 시 댓글 불러오기
+	// 페이지 접근 시
 	$(function() {
 		getCommentList();
+		addBtn();
 	})
 	
 	// 댓글 입력에 따른 작성버튼 변화
@@ -90,11 +101,11 @@ textarea:focus {
 		$("#comment_content").on('keydown keyon' , function() {
 			if($("#comment_content").val() == "") {
 				$("#comment_btn_div").html(
-					'<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault btn-sm">작성</button>'		
+					'<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault" style="font-weight: 900">작성</button>'		
 				);
 			} else {
 				$("#comment_btn_div").html(
-					'<button type="button" onclick="commentWriter()" class="btn btn-info btn-sm">작성</button>'
+					'<button type="button" onclick="commentWriter()" class="btn btn-info" style="font-weight: 900">작성</button>'
 				);
 			}
 		});
@@ -105,13 +116,6 @@ textarea:focus {
 			alert("내용을 입력해주세요!!");			
 		} else { // 댓글 작성
 			var formData = $("#fo").serializeArray();
-			
-			// JS에선 값이 보이지만 ajax통신하면 안넘어감
-// 			var object = {};
-// 			for(var i = 0; i < formData.length; i++) {
-// 				object[formData[i]['name']] = formData[i]['value'];
-// 			}
-// 			var json = JSON.stringify(object);
 			
 			$.ajax({
 				url : "comment_save",
@@ -132,16 +136,31 @@ textarea:focus {
 	// 댓글 창 클릭 시 로그인 x면 로그인창으로
 	$(function() {
 		$("#comment_content").click(function() {
-			var session = $("#c_nick").val();
+			var session = "${sessionScope.m_nick}";
 			if(session == "") {
 				location.href="../login";
 			}
 		});
 	});
 	
-	// 댓글 불러오기
+	// 댓글 불러오기 + 댓글 수 
 	function getCommentList() {
 		
+		// 댓글 수 
+		$.ajax({
+			url:"comment_count",
+			type:"GET",
+			data:$("#fo").serializeArray(),
+			dataType : "text",
+			success : function(arg) {
+				$("#c_count").text(arg);
+			},
+			error : function() {
+				alert("실패!!");
+			}
+		});	
+		
+		// 댓글 불러오기
 		$.ajax({
 			url:"comment_list",
 			type:"GET",
@@ -175,6 +194,46 @@ textarea:focus {
 			}
 		});
 	}
+	
+	// 본인 게시글이면 수정,삭제 버튼 생성
+	function addBtn() {
+		var sessionId = "${sessionScope.m_id}";
+		if(sessionId == $("#b_id").val()) {
+			$("#btnMD01").css({
+				"display":"inline-block"
+			});
+			$("#btnMD02").css({
+				"display":"inline-block"
+			});
+			$("#btnMD03").css({
+				"display":"inline-block"
+			});
+			$("#btnMD04").css({
+				"display":"inline-block"
+			});
+		} else {
+			$("#btnMD01").css({
+				"display":"none"
+			});
+			$("#btnMD02").css({
+				"display":"none"
+			});
+			$("#btnMD03").css({
+				"display":"none"
+			});
+			$("#btnMD04").css({
+				"display":"none"
+			});
+		}
+	}
+	
+	// 수정 버튼 클릭
+	$(function() {
+		$("#btnMD01,#btnMD03").click(function() {
+			var num = $("#c_num").val();
+			location.href="modify?c_num="+num;
+		})
+	})
 </script>
 </head>
 <body>
@@ -184,6 +243,15 @@ textarea:focus {
 
 	<!-- body -->
 	<div class="container">
+		<div class="btnTopBox">
+			<div style="float: left;">
+				<button type="button" id="btnMD01"class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
+				<button type="button" id="btnMD02"class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
+			</div>
+			<div style="float: right;">
+				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
+			</div>
+		</div>
 		<!-- 둥군 테두리 만들 공간 -->
 		<div class="contentBox"> 
 			<div align="left" style="margin: 0 30px;">
@@ -198,9 +266,10 @@ textarea:focus {
 					<label class="lb_title">${boardInfo.b_title}</label>				
 				</div>
 				<!-- 닉네임 + 등급  -->
+				<input type="hidden" id="b_id" name="b_id" value="${boardInfo.b_id}">
 				<div style="height: 40px;">
 					<div style="height:15px; margin-bottom:2px;">
-						<label><b>${boardInfo.b_nick}</b></label>
+						<a href="#"><b style="color: black;">${boardInfo.b_nick}</b></a>
 						<label class="lb2">${memberInfo.m_rank}</label>
 					<br style="margin: 0px;">
 					</div>
@@ -226,7 +295,7 @@ textarea:focus {
 					<a href="#">
 						<img src="/movie/resources/commentImg.png" style="width:20px;">
 						<span style="color:black;">댓글</span>
-						<strong style="color:black;">2</strong>
+						<strong style="color:black;" id="c_count"></strong>
 					</a>
 				</div>
 				
@@ -256,11 +325,9 @@ textarea:focus {
 						<!-- 닉네임 댓글작성 textarea -->
 						<div>
 							<!-- hidden으로 보낼 값 -->
-							<input type="hidden" value="${param.b_num}" name="c_num">
-							
+							<input type="hidden" value="${param.b_num}" name="c_num" id="c_num">
 				
 							<!-- 닉네임 -->
-							<input type="hidden" value="${sessionScope.m_nick}" id="c_nick" name="c_nick">
 							<label class="c-nick" style="padding: 6px 12px;">닉네임</label>
 							
 							<!-- 댓글작성 -->
@@ -277,10 +344,21 @@ textarea:focus {
 						</div>
 						<!-- 작성 버튼 -->
 						<div id="comment_btn_div" align="right">
-							<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault btn-sm">작성</button>
+							<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault" style="font-weight: 900">작성</button>
 						</div>
 					</form>
 				</div>
+			</div>
+		</div>
+		<div class="btnBotBox">
+			<div style="float: left;">
+				<button type="button" class="btn btn-success" style="font-weight: 900;">글 쓰기</button>
+				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900;">답글</button>
+				<button type="button" id="btnMD03" class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
+				<button type="button" id="btnMD04" class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
+			</div>
+			<div style="float: right;">
+				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
 			</div>
 		</div>
 	</div>

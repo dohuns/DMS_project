@@ -3,6 +3,8 @@ package com.KG.service.comment;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,6 +23,12 @@ public class CommentSaveServImpl  implements CommentService{
 		
 		Map<String, Object> map = model.asMap();
 		CommentDTO dto = (CommentDTO)map.get("dto");
+		HttpSession session = (HttpSession)map.get("session");
+		
+		System.out.println("nick : " + session.getAttribute("m_nick"));
+		System.out.println("id : " + session.getAttribute("m_id"));
+		dto.setC_nick((String)session.getAttribute("m_nick"));
+		dto.setC_id((String)session.getAttribute("m_id"));
 		
 		dao.commentSave(dto);
 		return false;
@@ -30,6 +38,12 @@ public class CommentSaveServImpl  implements CommentService{
 	public List<CommentDTO> execute_list(Model model) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int execute_int(Model model) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

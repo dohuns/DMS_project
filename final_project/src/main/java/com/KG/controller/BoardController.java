@@ -15,6 +15,8 @@ import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
 import com.KG.service.board.BoaUserInfoServImpl;
 import com.KG.service.board.BoardCateListServImpl;
+import com.KG.service.board.BoardModSaveServImpl;
+import com.KG.service.board.BoardModifyServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.BoardShowServImpl;
@@ -73,13 +75,14 @@ public class BoardController {
 		
 		// 글쓰기 저장 
 		@RequestMapping("/board/write_save")
-		public String board_wrtieSave(Model model , BoardDTO dto) throws UnsupportedEncodingException {
+		public String board_wrtieSave(Model model , BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
 			
 			String category = URLEncoder.encode(dto.getB_category() , "UTF-8");
 			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 			
 			
 			model.addAttribute("dto" , dto);
+			model.addAttribute("session" , session);
 			boaServ = (BoardWriteServImpl)AC.ac.getBean("boardWriteServImpl");
 			boaServ.execute_Boo(model);
 			
@@ -112,5 +115,29 @@ public class BoardController {
 			boaServ.execute_Boo(model);
 			
 			return "board/show";
+		}
+		
+		// 게시글 수정 페이지
+		@RequestMapping("/board/modify") 
+		public String modify(Model model, @RequestParam("c_num") int b_num) {
+			
+			model.addAttribute("num" , b_num);
+			
+			boaServ = (BoardModifyServImpl)AC.ac.getBean("boardModifyServImpl");
+			boaServ.execute_Boo(model);
+			
+			return "board/modify";
+		}
+		
+		// 게시글 수정
+		@RequestMapping("/board/modify_save")
+		public String modify_save(Model model, BoardDTO dto) {
+			model.addAttribute("dto" , dto);
+			
+			boaServ = (BoardModSaveServImpl)AC.ac.getBean("boardModSaveServImpl");
+			boaServ.execute_Boo(model);
+			
+			int num = dto.getB_num();
+			return "redirect:/board/show?b_num=" + num;
 		}
 }

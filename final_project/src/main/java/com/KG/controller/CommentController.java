@@ -2,6 +2,9 @@ package com.KG.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.CommentDTO;
+import com.KG.service.comment.CommentCountServImpl;
 import com.KG.service.comment.CommentListServImpl;
 import com.KG.service.comment.CommentSaveServImpl;
 import com.KG.service.comment.CommentService;
@@ -25,9 +29,10 @@ public class CommentController {
 	// 댓글 작성(저장)
 	@PostMapping(value = "/board/comment_save",
 				produces = "application/json; charset=UTF-8")
-	public String comment_save(CommentDTO dto , Model model){
+	public String comment_save(CommentDTO dto , Model model , HttpSession session){
 		
 		model.addAttribute("dto" , dto);
+		model.addAttribute("session" , session);
 		
 		comServ = (CommentSaveServImpl)AC.ac.getBean("commentSaveServImpl");
 		comServ.execute(model);
@@ -47,5 +52,17 @@ public class CommentController {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		return mapper.writeValueAsString(list);
+	}
+	
+	// 댓글 개수 가져오기
+	@GetMapping(value = "/board/comment_count" , 
+				produces = "application/json; charset=UTF-8")
+	public int comment_count(CommentDTO dto , Model model) {
+		model.addAttribute("dto" , dto);
+
+		comServ = (CommentCountServImpl)AC.ac.getBean("commentCountServImpl");
+		int count = comServ.execute_int(model);
+		
+		return count;
 	}
 }
