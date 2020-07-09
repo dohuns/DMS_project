@@ -241,11 +241,11 @@
 					</tr>
 					<tr>
 						<td>
-							<select name="m_rank" class="form-control">
-								<option value="1_관리자" <c:out value="${infoList.m_rank == '1_관리자' ? 'selected' : ''}"/>>1_관리자</option>
-								<option value="2_스탭" <c:out value="${infoList.m_rank == '2_스탭' ? 'selected' : ''}"/>>2_스탭</option>
-								<option value="3_일반회원" <c:out value="${infoList.m_rank == '3_일반회원' ? 'selected' : ''}"/>>3_일반회원</option>
-								<option value="4_대기회원" <c:out value="${infoList.m_rank == '4_대기회원' ? 'selected' : ''}"/>>4_대기회원</option>
+							<select name="m_rankNum" class="form-control">
+								<option value=1 <c:out value="${infoList.m_rankNum == 1 ? 'selected' : ''}"/>> 관리자</option>
+								<option value=2 <c:out value="${infoList.m_rankNum == 2 ? 'selected' : ''}"/>> 스탭</option>
+								<option value=3 <c:out value="${infoList.m_rankNum == 3 ? 'selected' : ''}"/>> 일반회원</option>
+								<option value=4 <c:out value="${infoList.m_rankNum == 4 ? 'selected' : ''}"/>> 대기회원</option>
 							</select>
 						</td>
 					</tr>

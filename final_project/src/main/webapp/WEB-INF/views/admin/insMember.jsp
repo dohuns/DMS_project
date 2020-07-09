@@ -289,11 +289,11 @@
 					</tr>
 					<tr>
 						<td>
-							<select name="m_rank" class="form-control">
-								<option value="1_관리자">1_관리자</option>
-								<option value="2_스탭">2_스탭</option>
-								<option value="3_일반회원">3_일반회원</option>
-								<option value="4_대기회원">4_대기회원</option>
+							<select name="m_rankNum" class="form-control">
+								<option value=1>관리자</option>
+								<option value=2>스탭</option>
+								<option value=3>일반회원</option>
+								<option value=4>대기회원</option>
 							</select>
 						</td>
 					</tr>

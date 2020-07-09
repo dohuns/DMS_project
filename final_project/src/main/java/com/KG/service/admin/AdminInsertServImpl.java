@@ -17,9 +17,16 @@ public class AdminInsertServImpl implements AdminService {
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		// 문자열로 받아왔기때문에 ""안에 넣어주셔야 합니다!
 		MemberDTO dto = (MemberDTO)map.get("dto");
+		if (dto.getM_rankNum() == 1) {
+			dto.setM_rank("관리자");
+		} else if (dto.getM_rankNum() == 2) {
+			dto.setM_rank("스탭");
+		} else if (dto.getM_rankNum() == 3) {
+			dto.setM_rank("일반회원");
+		} else {
+			dto.setM_rank("대기회원");
+		}
 		adminDAO.insertMember(dto);
 	}
-
 }

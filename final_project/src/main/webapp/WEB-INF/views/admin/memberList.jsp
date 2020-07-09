@@ -44,8 +44,8 @@
 		}
 	</style>
 	<script>
-		function deleteAlert(m_id) {
-			var message = confirm(m_id + '님의 회원정보를 삭제하시겠습니까?');
+		function deleteAlert(m_id, m_nick) {
+			var message = confirm(m_nick + " [ " + m_id + " ] " + '님의 회원정보를 삭제하시겠습니까?');
 			if(message == true) {
 				location.href = "delMember?m_id=" + m_id;
 			}
@@ -62,12 +62,12 @@
 			<div id="searchMenu" align="right">
 				<form method="post" action="searchMember">
 						<select name="searchOption" class="form-control-dms">
-							<option value="m_id" <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"/> >아이디</option>
-							<option value="m_name" <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}"/> >이름</option>
-							<option value="m_nick" <c:out value="${map.searchOption == 'm_nick' ? 'selected' : ''}"/> >닉네임</option>
-							<option value="m_email" <c:out value="${map.searchOption == 'm_email' ? 'selected' : ''}"/> >이메일</option>
-							<option value="m_rank" <c:out value="${map.searchOption == 'm_rank' ? 'selected' : ''}"/> >등급</option>
-						</select>
+						<option value="m_id"    <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"   /> > 아이디</option>
+						<option value="m_name"  <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}" /> > 이름</option>
+						<option value="m_nick"  <c:out value="${map.searchOption == 'm_nick' ? 'selected' : ''}" /> > 닉네임</option>
+						<option value="m_email" <c:out value="${map.searchOption == 'm_email' ? 'selected' : ''}"/> > 이메일</option>
+						<option value="m_rank"  <c:out value="${map.searchOption == 'm_rank' ? 'selected' : ''}" /> > 등급</option>
+					</select>
 						<input type="text" name="keyword" value="${map.keyword}">
 						<button type="submit" class="btn btn-outline-dark btn-sm">조회</button>
 				</form>
@@ -99,7 +99,7 @@
 							<button type="button" class="btn btn-outline-dark btn-sm"
 								onclick="location.href='updMember?m_id=${list.m_id}'">수정</button>
 							<button type="button" class="btn btn-outline-dark btn-sm"
-								onclick="deleteAlert('${list.m_id}')">삭제</button>
+								onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>

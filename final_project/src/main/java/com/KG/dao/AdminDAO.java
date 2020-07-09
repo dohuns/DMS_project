@@ -28,7 +28,17 @@ public class AdminDAO {
 
 	// 회원 관리 페이지 > 회원 검색
 	public List<MemberDTO> searchList(Map<String, Object> map) {
-		return sqlSession.selectList(namespace + ".searchList", map);
+		return sqlSession.selectList(namespace + ".selectSearchList", map);
+	}
+
+	// 회원 관리 페이지 > 일반 회원 검색
+	public List<MemberDTO> normalList() {
+		return sqlSession.selectList(namespace + ".selectNormalList");
+	}
+
+	// 회원 관리 페이지 > 대기 회원 검색
+	public List<MemberDTO> waitList() {
+		return sqlSession.selectList(namespace + ".selectWaitList");
 	}
 
 	// 회원 관리 페이지 > 회원 추가

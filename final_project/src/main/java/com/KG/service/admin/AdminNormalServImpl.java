@@ -7,12 +7,13 @@ import org.springframework.ui.Model;
 import com.KG.dao.AdminDAO;
 
 @Service
-public class AdminChkListServImpl implements AdminService {
+public class AdminNormalServImpl implements AdminService {
 	@Autowired
-	private AdminDAO adminDAO;
+	AdminDAO adminDAO;
 
 	@Override
 	public void execute(Model model) {
-		model.addAttribute("memberList", adminDAO.memberList());
+		model.addAttribute("normalList", adminDAO.normalList());
 	}
+
 }

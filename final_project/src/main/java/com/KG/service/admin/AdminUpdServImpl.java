@@ -18,6 +18,15 @@ public class AdminUpdServImpl implements AdminService {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		MemberDTO dto = (MemberDTO) map.get("dto");
+		if (dto.getM_rankNum() == 1) {
+			dto.setM_rank("관리자");
+		} else if (dto.getM_rankNum() == 2) {
+			dto.setM_rank("스탭");
+		} else if (dto.getM_rankNum() == 3) {
+			dto.setM_rank("일반회원");
+		} else {
+			dto.setM_rank("대기회원");
+		}
 		adminDAO.updateMember(dto);
 	}
 

@@ -10,10 +10,12 @@ import com.KG.dto.MemberDTO;
 import com.KG.service.admin.AdminChkListServImpl;
 import com.KG.service.admin.AdminDelServImpl;
 import com.KG.service.admin.AdminInsertServImpl;
+import com.KG.service.admin.AdminNormalServImpl;
 import com.KG.service.admin.AdminSearchServImpl;
 import com.KG.service.admin.AdminSelectServImpl;
 import com.KG.service.admin.AdminService;
 import com.KG.service.admin.AdminUpdServImpl;
+import com.KG.service.admin.AdminWaitServImpl;
 
 @Controller
 public class AdminController {
@@ -24,7 +26,11 @@ public class AdminController {
 	public String adminPage(Model model) {
 		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
 		adminServ.execute(model);
-		return "admin/memberList";
+		adminServ = (AdminNormalServImpl) AC.ac.getBean("adminNormalServImpl");
+		adminServ.execute(model);
+		adminServ = (AdminWaitServImpl) AC.ac.getBean("adminWaitServImpl");
+		adminServ.execute(model);
+		return "admin/adminMain";
 	}
 
 	// 회원 관리
@@ -86,4 +92,5 @@ public class AdminController {
 		adminServ.execute(model);
 		return "redirect:admin";
 	}
+
 }
