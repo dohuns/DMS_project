@@ -17,7 +17,7 @@ public class AdminInsertServImpl implements AdminService {
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		MemberDTO dto = (MemberDTO)map.get("dto");
+		MemberDTO dto = (MemberDTO) map.get("dto");
 		if (dto.getM_rankNum() == 1) {
 			dto.setM_rank("관리자");
 		} else if (dto.getM_rankNum() == 2) {
@@ -28,5 +28,10 @@ public class AdminInsertServImpl implements AdminService {
 			dto.setM_rank("대기회원");
 		}
 		adminDAO.insertMember(dto);
+	}
+
+	@Override
+	public MemberDTO memberList(Model model) {
+		return null;
 	}
 }

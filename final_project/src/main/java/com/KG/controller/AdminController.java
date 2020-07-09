@@ -51,12 +51,6 @@ public class AdminController {
 		return "admin/manageList";
 	}
 
-	// 회원 관리 > 회원 추가 페이지
-	@RequestMapping("insMember")
-	public String insMember() {
-		return "admin/insMember";
-	}
-
 	// 회원관리 > 회원 추가 진행
 	@RequestMapping("insChkMember")
 	public String insChkMember(Model model, MemberDTO dto) {

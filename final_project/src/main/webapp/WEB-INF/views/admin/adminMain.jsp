@@ -19,7 +19,7 @@
 		}
 	</script>
 
-	<!-- 계정 추가 -->
+	<!-- 계정 확인 -->
 	<script>
 		// 아이디 중복체크 
 		function chk_id() {
@@ -196,6 +196,29 @@
 				}
 			});
 		});
+	</script>
+
+	<!-- AJAX -->
+	<script>
+		function updMember(m_id) {
+			console.log("AJAX 접근 완료 : " + m_id);
+			$.ajax({
+				url: 'updateMember',
+				data: {m_id : m_id},
+				success: function(memberList) {
+					console.log("updMember 함수 실행 성공 : " + memberList.m_id);
+					$('#update-member #m_id').val(memberList.m_id);
+					$('#update-member #m_pw').val(memberList.m_pw);
+					$('#update-member #m_nick').val(memberList.m_nick);
+					$('#update-member #m_name').val(memberList.m_name);
+					$('#update-member #m_rankNum').val(memberList.m_rankNum);
+					$('#update-member').modal('show');
+				},
+				error: function() {
+					console.log("updMember 함수 실행 실패");
+				}
+			})
+		}
 	</script>
 
 	<!-- STYLE -->
@@ -1242,6 +1265,9 @@
 															<td>${list.m_email}</td>
 															<td>${list.m_rank}</td>
 															<td style="text-align: left">
+																<span class="btn btn-xs btn-success" data-toggle="modal"
+																	id="updButton" title="회원 정보 수정"
+																	onclick="updMember('${list.m_id}')">수정</span>
 																<span class="btn btn-xs btn-danger"
 																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
 															</td>
@@ -1290,6 +1316,8 @@
 															<td>${list.m_email}</td>
 															<td>${list.m_rank}</td>
 															<td style="text-align: left">
+																<span class="btn btn-xs btn-success"
+																	onclick="location.href='updMember?m_id=${list.m_id}'">수정</span>
 																<span class="btn btn-xs btn-danger"
 																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
 															</td>
@@ -1338,6 +1366,8 @@
 															<td>${list.m_email}</td>
 															<td>${list.m_rank}</td>
 															<td style="text-align: left">
+																<span class="btn btn-xs btn-success"
+																	onclick="location.href='updMember?m_id=${list.m_id}'">수정</span>
 																<span class="btn btn-xs btn-danger"
 																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
 															</td>
@@ -1354,8 +1384,7 @@
 				</div>
 
 				<!-- MODAL -->
-				<div id="add-inventory" class="modal fade" tabindex="-1"
-					role="dialog">
+				<div id="add-inventory" class="modal fade" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<form id="inven_hedge_info" action="insChkMember">
@@ -1400,6 +1429,69 @@
 										<div class="form-group">
 											<label for="">등 급</label>
 											<select name="m_rankNum" class="form-control">
+												<option value=1>관리자</option>
+												<option value=2>스탭</option>
+												<option value=3>일반회원</option>
+												<option value=4>대기회원</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Cancel</button>
+									<button type="submit" id="btn-regist" class="btn btn-primary" disabled>Save</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- /MODAL -->
+
+				<!-- 회원 정보 수정 MODAL -->
+				<div id="update-member" class="modal fade" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form id="inven_hedge_info" action="updChkMember">
+								<input type="hidden" name="csrfmiddlewaretoken"
+									value="EWOIvVzzLzQnlowipCXQAQ49b9rS4aNE">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<h4 class="modal-title">계정 추가</h4>
+								</div>
+								<div class="modal-body clearfix">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label for="">아 이 디</label>
+											<input type="text" name="m_id" id="m_id"
+												class="form-control">
+											<label id="label_id"></label>
+										</div>
+										<div class="form-group">
+											<label for="">비밀번호</label>
+											<input type="text" name="m_pw" id="m_pw"
+												class="form-control" onblur="chkPw()">
+											<label id="label_pw"></label>
+										</div>
+										<div class="form-group">
+											<label for="">닉 네 임</label>
+											<input type="text" name="m_nick" id="m_nick"
+												class="form-control" onblur="chkNick()">
+											<label id="label_nick"></label>
+											<button type="button" id="btn_chk_nick" onclick="chk_nick()"
+												class="btn btn-sm btn-default">중복확인</button>
+										</div>
+										<div class="form-group">
+											<label for="">이 름</label>
+											<label id="label_name"></label>
+											<input type="text" name="m_name" id="m_name" class="form-control"  onblur="chkName()">
+										</div>
+										<div class="form-group">
+											<label for="">등 급</label>
+											<select name="m_rankNum" id="m_rankNum" class="form-control">
 												<option value=1>관리자</option>
 												<option value=2>스탭</option>
 												<option value=3>일반회원</option>

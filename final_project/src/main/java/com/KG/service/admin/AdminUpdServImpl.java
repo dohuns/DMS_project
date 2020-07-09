@@ -30,4 +30,9 @@ public class AdminUpdServImpl implements AdminService {
 		adminDAO.updateMember(dto);
 	}
 
+	@Override
+	public MemberDTO memberList(Model model) {
+		return null;
+	}
+
 }
