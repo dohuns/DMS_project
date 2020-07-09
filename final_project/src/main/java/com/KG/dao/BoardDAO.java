@@ -154,5 +154,11 @@ public class BoardDAO {
 		return sqlSession.update(namespace + ".modifyBoard" , dto);
 	}
 	
+	// 게시글 삭제
+	public int deleteBoard(BoardDTO dto) {
+		return sqlSession.delete(namespace + ".deleteBoard", dto);
+	}
+
+	
 
 }

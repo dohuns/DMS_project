@@ -38,9 +38,14 @@
 	font-size: 12px;
 	color: #979797;
 }
+
+.hr0 {
+	width:950px;
+	margin: 20px 0;
+}
 .hr1 {
 	width:950px;
-	margin: 20px 0px;
+	margin: 0px 0;
 }
 .board-content {
 	overflow-y : hidden;
@@ -64,6 +69,26 @@
 	border-radius: 6px;
 	box-sizing: border-box;
 	border: 2px solid rgba(0,0,0,0.1);
+}
+.commentReplyWriter {
+	margin: 30px 0 29px;
+	padding: 8px 10px 10px 10px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	border: 2px solid rgba(0,0,0,0.1);
+}
+.comment {
+	padding: 12px 23px 10px 0px;
+}
+.hide-Comment {
+	display:none;
+}
+.myComment {
+	padding: 12px 23px 10px 0px;
+	background-color: #F5F6F8;
+}
+.mylb{
+	color:red;
 }
 .btn-dmsDefault {
 	color:black;
@@ -172,21 +197,31 @@ textarea:focus {
 						"display":"block"
 					})
 					for(var i=0; i<list.length; i++) {
+						if("${sessionScope.m_id}" == list[i].c_id) {
+							html += '<div class="myComment">'
+						} else {
+							html += '<div class="comment">';
+						}
 						html += '<div style="margin-bottom: 5px;">';
-						html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a>';
+						if($("#b_id").val() == list[i].c_id) {
+							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a><span class="mylb">작성자</span>';
+						} else {
+							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a>';
+						}
 						html += '</div>';
 						html += '<div>';
 						html += '<span class="c-content">' + list[i].c_content + '</span>';
 						html += '</div>';
 						html += '<div style="margin-top: 7px;">';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
-						html += '<a href="#"><span class="lb3">답글 쓰기</span></a>';
+						html += '<a href="#"><span class="lb3" onclick="comReply(' + list[i].c_num + ', \''+ list[i].c_nick +'\')">답글 쓰기</span></a>';
+						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {
 							html += '<hr class="hr1">';
 						}
 					}
-					$("#commentList").html(html);
+// 					$("#commentList").html(html);
 				}
 			},
 			error : function() {
@@ -227,13 +262,37 @@ textarea:focus {
 		}
 	}
 	
-	// 수정 버튼 클릭
 	$(function() {
+		var num = $("#c_num").val();
+		// 수정 버튼 클릭
 		$("#btnMD01,#btnMD03").click(function() {
-			var num = $("#c_num").val();
 			location.href="modify?c_num="+num;
-		})
+		});
+		
+		// 삭제 버튼 클릭
+		$("#btnMD02,#btnMD04").click(function() {
+			if(confirm("정말로 삭제하시겠습니까?")) {
+				location.href="delete?b_num="+num +"&b_category=${boardInfo.b_category}&b_article=${boardInfo.b_article}";
+			}
+		});
+		
+		// 목록 버튼 클릭 
+		$("#btnList01,#btnList02").click(function() {
+			location.href="list?b_category=${boardInfo.b_category}&b_article=${boardInfo.b_article}";
+		});
 	})
+	
+	function comReply(num , nick) {
+		console.log("num : " + num);
+		console.log("nick : " + nick)
+	}
+	
+	function gkgk() {
+		alert("눌림")
+		$("#hide-Comment").css({
+			"display":"block"
+		})
+	}
 </script>
 </head>
 <body>
@@ -249,7 +308,7 @@ textarea:focus {
 				<button type="button" id="btnMD02"class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
 			</div>
 			<div style="float: right;">
-				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
+				<button type="button" id="btnList01"class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
 			</div>
 		</div>
 		<!-- 둥군 테두리 만들 공간 -->
@@ -279,7 +338,7 @@ textarea:focus {
 					</div>
 				</div>
 				
-				<hr class="hr1">
+				<hr class="hr0">
 				
 				<!-- 글 내용 -->
 				<div class="board-content">
@@ -299,24 +358,54 @@ textarea:focus {
 					</a>
 				</div>
 				
-				<hr class="hr1">
+				<hr class="hr0">
 				
 				<!-- 댓글 창 -->
 				<div id="commentBox" style="display: none;">
-					<div style="margin-bottom: 40px;">
+					<div style="margin-bottom: 20px;">
 						<h3 style="font-weight:800">댓글</h3>
 					</div>
 					<div id="commentList">
-<!-- 						<div style="margin-bottom: 5px;"> -->
-<!-- 							<a href="#"><span class="c-nick">닉네임</span></a> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<span class="c-content">댓글 내용</span> -->
-<!-- 						</div> -->
-<!-- 						<div style="margin-top: 7px;"> -->
-<!-- 							<span class="lb3">작성시간</span> -->
-<!-- 							<a href="#"><span class="lb3">답글 쓰기</span></a> -->
-<!-- 						</div> -->
+					
+						<div class="comment">
+							<div style="margin-bottom: 5px;">
+								<a href="#"><span class="c-nick">닉네임</span></a>
+							</div>
+							<div>
+								<span class="c-content">댓글 내용</span>
+							</div>
+							<div style="margin-top: 7px;">
+								<span class="lb3">작성시간</span>
+								<a href="#"><span class="lb3" onclick="gkgk()">답글 쓰기</span></a>
+							</div>
+						</div>
+						<hr class="hr1">
+						<div class="hide-Comment" id="hide-Comment">
+							<div class="commentReplyWriter">
+								<form action="comment_save" id="fo">
+									<!-- 닉네임 댓글작성 textarea -->
+									<div>
+										<!-- hidden으로 보낼 값 -->
+										<input type="hidden" value="${param.b_num}" name="c_num" id="c_num">
+							
+										<!-- 닉네임 -->
+										<label class="c-nick" style="padding: 6px 12px;">닉네임</label>
+										
+										<!-- 댓글작성 -->
+										<textarea rows="1" id="comment_content" name="c_content" class="dms-textarea" style="overflow:hidden; 
+											overflow-wrap:break-word; height:60px; border: 0px; resize:none;"
+											placeholder="댓글을 입력하세요"></textarea>
+										
+									</div>
+									<!-- 작성 버튼 -->
+									<div id="comment_btn_div" align="right">
+										<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault" style="font-weight: 900">작성</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<hr class="hr1">
+						
 					</div>
 				</div>
 				<!-- 댓글 작성 -->
@@ -358,7 +447,7 @@ textarea:focus {
 				<button type="button" id="btnMD04" class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
 			</div>
 			<div style="float: right;">
-				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
+				<button type="button" id="btnList02" class="btn btn-dmsDefault" style="font-weight: 900" onclick="gkgk()">목록</button>
 			</div>
 		</div>
 	</div>

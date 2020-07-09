@@ -15,6 +15,7 @@ import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
 import com.KG.service.board.BoaUserInfoServImpl;
 import com.KG.service.board.BoardCateListServImpl;
+import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardModSaveServImpl;
 import com.KG.service.board.BoardModifyServImpl;
 import com.KG.service.board.BoardSearchServImpl;
@@ -139,5 +140,20 @@ public class BoardController {
 			
 			int num = dto.getB_num();
 			return "redirect:/board/show?b_num=" + num;
+		}
+		
+		// 게시글 삭제
+		@RequestMapping("/board/delete")
+		public String delete(Model model, BoardDTO dto) throws UnsupportedEncodingException {
+			
+			model.addAttribute("dto" , dto);
+			
+			String category = URLEncoder.encode(dto.getB_category() , "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
+			
+			boaServ = (BoardDeleteServImpl)AC.ac.getBean("boardDeleteServImpl");
+//			boaServ.execute_Boo(model);
+			
+			return "redirect:/board/list?b_category="+category+"&b_article="+article;
 		}
 }
