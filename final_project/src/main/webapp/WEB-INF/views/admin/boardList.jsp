@@ -38,7 +38,7 @@
 		$("#List").html(html)
 		$.each(cate,function(index, cate) {
 			html += "<hr id='main'>";
-			html += "<div id='fl-off' class='"+cate.b_category+"' onclick='artcleCk(`"+ cate.b_category + "`)' style='display: flex;'>";
+			html += "<div class='"+cate.b_category+"' onclick='artcleCk(`"+ cate.b_category + "`)' style='display: flex;'>";
 			html += "<div id='menu' style='width: 65%;'>" + cate.b_category + "</div>";
 			html += "<div id='menu' style='width: 35%;' align='right'>";
 			html += "<button onclick='categoryDel(`"+ cate.b_category + "`)'>-</button>";
@@ -49,7 +49,7 @@
 			html += "<hr id='sub'>";
 				$.each(art,function(index, art) {
 					if (cate.b_category == art.b_category) {
-					html += "<div id='fl-off' class='"+cate.b_category + art.b_article+"' onclick='artcleCk(`"+ cate.b_category + art.b_article+ "`)' style='display: flex;'>";
+					html += "<div class='"+cate.b_category + art.b_article+"' onclick='artcleCk(`"+ cate.b_category + art.b_article+ "`)' style='display: flex;'>";
 					html += "<div id='menu' style='width: 65%;'>" + art.b_article + "</div>";
 					html += "<div id='menu' style='width: 35%;' align='right'>";
 					html += "<button onclick='articleDel(`" + cate.b_category +"`,`"+ art.b_article + "`)'>-</button>";
@@ -258,17 +258,6 @@
 			return false;
 		}
 	}
-	function artcleCk(article) {
-		console.log(article)
-		$("#fl-on").attr('id', 'fl-off');
-		$("." + article).attr('id', 'fl-on');
-	}
-	function categoryUp() {
-		console.log("업")
-	}
-	function categoryDo() {
-		console.log("다운")
-	}
 </script>
 <style type="text/css">
 
@@ -296,8 +285,6 @@ hr#sub {
 <body onload="AllList()">
 	<div style="width: 400px;">
 		<div align="right">
-			<button onclick="categoryUp()">&#9650;</button>
-			<button onclick="categoryDo()">&#9660;</button>
 			<button onclick="categoryIns()">+</button>
 		</div>
 		<div id="List"></div>
