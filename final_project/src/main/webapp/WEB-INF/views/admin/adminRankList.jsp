@@ -1161,7 +1161,7 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name"><b>관리자 페이지</b></h1>
+					<h1 class="company-name" onclick="location.href='admin'"><b>관리자 페이지</b></h1>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
@@ -1176,114 +1176,23 @@
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
 							<div class="box-head clearfix">
-								<h1 class="pull-left"><b>계정 관리</b></h1>
+								<h1 class="pull-left">
+									<c:choose>
+										<c:when test="${m_rankNum == 3}">
+											<b>일반 회원 목록</b>
+										</c:when>
+										<c:otherwise>
+											<b>대기 회원 목록</b>
+										</c:otherwise>
+									</c:choose>
+								</h1>
 								<div class="actions pull-right">
-									<a href="javascript:;" class="btn btn-add" data-toggle="modal"
-										data-target="#add-inventory" title="Create Inventory">
-										<i class="glyphicon glyphicon-user" aria-hidden="true"></i> 계정 추가
-									</a>
+									<label style="padding-top: 20px; height: 40px;">회원 수 : </label>
+									<label style="padding: 20px; height: 40px;">000</label>
 								</div>
 							</div>
 
-							<div class="box-content">
-								<div class="table-container">
-									<table id="edit_account" class="table is-datatable dataTable">
-										<thead>
-											<tr>
-												<th width="15%">아이디</th>
-												<th width="15%">닉네임</th>
-												<th width="40%">이메일</th>
-												<th width="15%">등 급</th>
-												<th width="15%">관 리</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="list" items="${memberList}">
-												<c:if test="${list.m_rankNum == 1}">
-													<tr>
-														<td>${list.m_id}</td>
-														<td>${list.m_nick}</td>
-														<td>${list.m_email}</td>
-														<td>${list.m_rank}</td>
-														<td>
-															<span class="btn btn-xs btn-success" data-toggle="modal"
-																id="updButton" title="회원 정보 수정"
-																onclick="updMember('${list.m_id}')">수정</span>
-															<span class="btn btn-xs btn-danger"
-																onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
-														</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<!-- 관리 스탭 목록 -->
-							<div class="box-head clearfix">
-								<div class="pull-left" style="margin-bottom: 10px;">
-									<h1 class="pull-left" style="margin-bottom: 10px;"><b>관리 스탭</b></h1>
-								</div>
-								<div class="pull-right" style="margin-top: 20px; padding-right: 20px;">
-									<a href="adminRankList?m_rankNum=2"><b>더보기</b></a>
-								</div>
-							</div>
-							<!-- 관리 스탭 목록 출력 -->
-							<div class="box-content">
-								<div class="table-container">
-									<table id="users" class="table is-datatable">
-										<thead>
-											<tr>
-												<th class="select-checkbox no-filter"></th>
-												<th class="no-filter" width="15%">아이디</th>
-												<th width="15%">닉네임</th>
-												<th width="15%">이   름</th>
-												<th width="25%">이메일</th>
-												<th width="15%">등   급</th>
-												<th width="15%">관   리</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="list" items="${memberList}">
-												<c:if test="${list.m_rankNum == 2}">
-													<c:set var="stepCount" value="${stepCount + 1}"/>
-												</c:if>
-												<c:choose>
-													<c:when test="${list.m_rankNum == 2 && stepCount <= 3}">
-														<tr>
-															<td class="select-checkbox no-filter"></td>
-															<td class="no-filter">${list.m_id}</td>
-															<td>${list.m_nick}</td>
-															<td>${list.m_name}</td>
-															<td>${list.m_email}</td>
-															<td>${list.m_rank}</td>
-															<td style="text-align: left">
-																<span class="btn btn-xs btn-success" data-toggle="modal"
-																	id="updButton" title="회원 정보 수정"
-																	onclick="updMember('${list.m_id}')">수정</span>
-																<span class="btn btn-xs btn-danger"
-																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
-															</td>
-														</tr>
-													</c:when>
-												</c:choose>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<!-- 일반 회원 목록 -->
-							<div class="box-head clearfix">
-								<div class="pull-left" style="margin-bottom: 10px;">
-									<h1 class="company-name"><b>일반 회원</b></h1>
-								</div>
-								<div class="pull-right" style="margin-top: 20px; padding-right: 20px;">
-									<a href="adminRankList?m_rankNum=3"><b>더보기</b></a>
-								</div>
-							</div>
-							<!-- 일반 회원 목록 출력 -->
+							<!-- 회원 목록 출력 -->
 							<div class="box-content">
 								<div class="table-container">
 									<table id="inventories" class="table is-datatable">
@@ -1299,83 +1208,22 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="list" items="${memberList}">
-												<c:if test="${list.m_rankNum == 3}">
-													<c:set var="normalCount" value="${normalCount + 1}"/>
-												</c:if>
-												<c:choose>
-													<c:when test="${list.m_rankNum == 3 && normalCount <= 3}">
-														<tr>
-															<td class="select-checkbox no-filter"></td>
-															<td class="no-filter">${list.m_id}</td>
-															<td>${list.m_nick}</td>
-															<td>${list.m_name}</td>
-															<td>${list.m_email}</td>
-															<td>${list.m_rank}</td>
-															<td style="text-align: left">
-																<span class="btn btn-xs btn-success" data-toggle="modal"
-																	id="updButton" title="회원 정보 수정"
-																	onclick="updMember('${list.m_id}')">수정</span>
-																<span class="btn btn-xs btn-danger"
-																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
-															</td>
-														</tr>
-													</c:when>
-												</c:choose>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<!-- 대기 회원 목록 -->
-							<div class="box-head clearfix">
-								<div class="pull-left" style="margin-bottom: 10px;">
-									<h1 class="company-name"><b>대기 회원</b></h1>
-								</div>
-								<div class="pull-right" style="margin-top: 20px; padding-right: 20px;">
-									<a href="adminRankList?m_rankNum=4"><b>더보기</b></a>
-								</div>
-							</div>
-							<!-- 대기 회원 목록 출력 -->
-							<div class="box-content">
-								<div class="table-container">
-									<table id="inventories" class="table is-datatable">
-										<thead>
-											<tr>
-												<th class="select-checkbox no-filter"></th>
-												<th class="no-filter" width="15%">아이디</th>
-												<th width="15%">닉네임</th>
-												<th width="15%">이   름</th>
-												<th width="25%">이메일</th>
-												<th width="15%">등   급</th>
-												<th width="15%">관   리</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="list" items="${memberList}">
-												<c:if test="${list.m_rankNum == 4}">
-													<c:set var="waitCount" value="${waitCount + 1}"/>
-												</c:if>
-												<c:choose>
-													<c:when test="${list.m_rankNum == 4 && waitCount <= 3}">
-														<tr>
-															<td class="select-checkbox no-filter"></td>
-															<td class="no-filter">${list.m_id}</td>
-															<td>${list.m_nick}</td>
-															<td>${list.m_name}</td>
-															<td>${list.m_email}</td>
-															<td>${list.m_rank}</td>
-															<td style="text-align: left">
-																<span class="btn btn-xs btn-success" data-toggle="modal"
-																	id="updButton" title="회원 정보 수정"
-																	onclick="updMember('${list.m_id}')">수정</span>
-																<span class="btn btn-xs btn-danger"
-																	onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
-															</td>
-														</tr>
-													</c:when>
-												</c:choose>
+											<c:forEach var="list" items="${rankList}">
+												<tr>
+													<td class="select-checkbox no-filter"></td>
+													<td class="no-filter">${list.m_id}</td>
+													<td>${list.m_nick}</td>
+													<td>${list.m_name}</td>
+													<td>${list.m_email}</td>
+													<td>${list.m_rank}</td>
+													<td style="text-align: left">
+														<span class="btn btn-xs btn-success" data-toggle="modal"
+															id="updButton" title="회원 정보 수정"
+															onclick="updMember('${list.m_id}')">수정</span>
+														<span class="btn btn-xs btn-danger"
+															onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
+													</td>
+												</tr>
 											</c:forEach>
 										</tbody>
 									</table>

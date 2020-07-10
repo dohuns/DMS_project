@@ -26,19 +26,14 @@ public class AdminDAO {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
 
+	// 메인 페이지 > 등급별 회원 목록
+	public List<MemberDTO> rankList(int m_rankNum) {
+		return sqlSession.selectList(namespace + ".selectRankList", m_rankNum);
+	}
+
 	// 회원 관리 페이지 > 회원 검색
 	public List<MemberDTO> searchList(Map<String, Object> map) {
 		return sqlSession.selectList(namespace + ".selectSearchList", map);
-	}
-
-	// 회원 관리 페이지 > 일반 회원 검색
-	public List<MemberDTO> normalList() {
-		return sqlSession.selectList(namespace + ".selectNormalList");
-	}
-
-	// 회원 관리 페이지 > 대기 회원 검색
-	public List<MemberDTO> waitList() {
-		return sqlSession.selectList(namespace + ".selectWaitList");
 	}
 
 	// 회원 관리 페이지 > 회원 추가

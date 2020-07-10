@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.member;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminDelServImpl implements AdminService {
+public class AdminSelectServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
@@ -18,12 +18,14 @@ public class AdminDelServImpl implements AdminService {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		String m_id = (String) map.get("m_id");
-		adminDAO.deleteMember(m_id);
+		model.addAttribute("infoList", adminDAO.selectInfoList(m_id));
 	}
 
 	@Override
 	public MemberDTO memberList(Model model) {
-		return null;
+		Map<String, Object> map = model.asMap();
+		String m_id = (String) map.get("m_id");
+		return adminDAO.selectInfoList(m_id);
 	}
 
 }

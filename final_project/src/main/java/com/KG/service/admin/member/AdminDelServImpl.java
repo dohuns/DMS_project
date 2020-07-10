@@ -1,4 +1,6 @@
-package com.KG.service.admin;
+package com.KG.service.admin.member;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,13 +10,15 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminWaitServImpl implements AdminService {
+public class AdminDelServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
 	@Override
 	public void execute(Model model) {
-		model.addAttribute("waitList", adminDAO.waitList());
+		Map<String, Object> map = model.asMap();
+		String m_id = (String) map.get("m_id");
+		adminDAO.deleteMember(m_id);
 	}
 
 	@Override

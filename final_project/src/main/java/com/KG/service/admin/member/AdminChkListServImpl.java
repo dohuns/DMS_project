@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,17 +8,18 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminNormalServImpl implements AdminService {
+public class AdminChkListServImpl implements AdminService {
 	@Autowired
-	AdminDAO adminDAO;
+	private AdminDAO adminDAO;
 
 	@Override
 	public void execute(Model model) {
-		model.addAttribute("normalList", adminDAO.normalList());
+		model.addAttribute("memberList", adminDAO.memberList());
 	}
 
 	@Override
 	public MemberDTO memberList(Model model) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

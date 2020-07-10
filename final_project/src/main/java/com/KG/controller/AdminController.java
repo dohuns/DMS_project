@@ -1,21 +1,19 @@
 package com.KG.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.MemberDTO;
-import com.KG.service.admin.AdminChkListServImpl;
-import com.KG.service.admin.AdminDelServImpl;
-import com.KG.service.admin.AdminInsertServImpl;
-import com.KG.service.admin.AdminNormalServImpl;
-import com.KG.service.admin.AdminSearchServImpl;
-import com.KG.service.admin.AdminSelectServImpl;
-import com.KG.service.admin.AdminService;
-import com.KG.service.admin.AdminUpdServImpl;
-import com.KG.service.admin.AdminWaitServImpl;
+import com.KG.service.admin.member.AdminChkListServImpl;
+import com.KG.service.admin.member.AdminDelServImpl;
+import com.KG.service.admin.member.AdminInsertServImpl;
+import com.KG.service.admin.member.AdminRankServImpl;
+import com.KG.service.admin.member.AdminSearchServImpl;
+import com.KG.service.admin.member.AdminSelectServImpl;
+import com.KG.service.admin.member.AdminService;
+import com.KG.service.admin.member.AdminUpdServImpl;
 
 @Controller
 public class AdminController {
@@ -26,11 +24,16 @@ public class AdminController {
 	public String adminPage(Model model) {
 		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
 		adminServ.execute(model);
-		adminServ = (AdminNormalServImpl) AC.ac.getBean("adminNormalServImpl");
-		adminServ.execute(model);
-		adminServ = (AdminWaitServImpl) AC.ac.getBean("adminWaitServImpl");
-		adminServ.execute(model);
 		return "admin/adminMain";
+	}
+
+	// 회원 등급별 목록 출력
+	@RequestMapping("adminRankList")
+	public String adminRankList(Model model, int m_rankNum) {
+		model.addAttribute("m_rankNum", m_rankNum);
+		adminServ = (AdminRankServImpl) AC.ac.getBean("adminRankServImpl");
+		adminServ.execute(model);
+		return "admin/adminRankList";
 	}
 
 	// 회원 관리

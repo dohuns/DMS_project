@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.member;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.member;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminUpdServImpl implements AdminService {
+public class AdminInsertServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
@@ -27,12 +27,11 @@ public class AdminUpdServImpl implements AdminService {
 		} else {
 			dto.setM_rank("대기회원");
 		}
-		adminDAO.updateMember(dto);
+		adminDAO.insertMember(dto);
 	}
 
 	@Override
 	public MemberDTO memberList(Model model) {
 		return null;
 	}
-
 }
