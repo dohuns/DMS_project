@@ -1191,7 +1191,7 @@
 										<thead>
 											<tr>
 												<th class="select-checkbox no-filter"></th>
-												<th class="no-filter" width="15%">아이디</th>
+												<th class="no-filter" width="15%">관리자</th>
 												<th width="15%">닉네임</th>
 												<th width="15%">이   름</th>
 												<th width="25%">이메일</th>

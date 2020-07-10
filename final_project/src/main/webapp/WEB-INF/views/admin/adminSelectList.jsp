@@ -1161,7 +1161,7 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name"><b>관리자 페이지</b></h1>
+					<h1 class="company-name" onclick="location.href='admin'"><b>관리자 페이지</b></h1>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
