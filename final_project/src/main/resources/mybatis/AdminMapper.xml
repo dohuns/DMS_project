@@ -47,9 +47,14 @@
 		DELETE FROM member WHERE m_id = #{m_id}
 	</update>
 
-	<!-- PAGING > 총 인원 수 -->
-	<select id="getMemberCount">
+	<!-- PAGING > 등급 별 인원 수 -->
+	<select id="getMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member
+	</select>
+
+	<!-- PAGING > 등급 별 인원 수 -->
+	<select id="getRankCount" resultType="int">
+		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>
 
 	<!-- PAGING > 각 페이지별로 인원 출력 -->

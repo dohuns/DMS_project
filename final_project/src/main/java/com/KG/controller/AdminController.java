@@ -36,10 +36,12 @@ public class AdminController {
 		return "admin/adminRankList";
 	}
 
-	// 회원 관리
-	@RequestMapping("management")
-	public String manageList() {
-		return "admin/manageList";
+	// 회원 전체 목록 출력
+	@RequestMapping("adminSelectList")
+	public String adminSelectList(Model model) {
+		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
+		adminServ.execute(model);
+		return "admin/adminSelectList";
 	}
 
 	// 회원 관리 > 검색 결과 출력

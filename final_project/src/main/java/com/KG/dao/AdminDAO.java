@@ -31,6 +31,16 @@ public class AdminDAO {
 		return sqlSession.selectList(namespace + ".selectRankList", m_rankNum);
 	}
 
+	// 메인 페이지 > 회원 수
+	public int getMemberCount() {
+		return sqlSession.selectOne(namespace + ".getMemberCount");
+	}
+
+	// 메인 페이지 > 등급별 회원 수
+	public int getRankCount(int m_rankNum) {
+		return sqlSession.selectOne(namespace + ".getRankCount", m_rankNum);
+	}
+
 	// 회원 관리 페이지 > 회원 검색
 	public List<MemberDTO> searchList(Map<String, Object> map) {
 		return sqlSession.selectList(namespace + ".selectSearchList", map);

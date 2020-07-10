@@ -19,6 +19,7 @@ public class AdminRankServImpl implements AdminService {
 		Map<String, Object> map = model.asMap();
 		int m_rankNum = (Integer) map.get("m_rankNum");
 		model.addAttribute("rankList", adminDAO.rankList(m_rankNum));
+		model.addAttribute("getRankCount", adminDAO.getRankCount(m_rankNum));
 	}
 
 	@Override

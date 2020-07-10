@@ -1132,7 +1132,7 @@
 					<a data-toggle="collapse" class="active" data-parent="#menu-accordion"
 						href="#dashboard-link">회원 관리 <span class="glyphicon  arrow"></span></a>
 					<ul id="dashboard-link" class="collapse">
-						<li><a href="#" class="active">전체 목록</a></li>
+						<li><a href="adminSelectList" class="active">전체 목록</a></li>
 						<li><a href="adminRankList?m_rankNum=2">관리 스탭</a></li>
 						<li><a href="adminRankList?m_rankNum=3">일반 회원</a></li>
 						<li><a href="adminRankList?m_rankNum=4">대기 회원</a></li>
@@ -1187,8 +1187,7 @@
 									</c:choose>
 								</h1>
 								<div class="actions pull-right">
-									<label style="padding-top: 20px; height: 40px;">회원 수 : </label>
-									<label style="padding: 20px; height: 40px;">000</label>
+									<label style="padding-top: 20px; height: 40px;">회원 수 : ${getRankCount} 명</label>
 								</div>
 							</div>
 

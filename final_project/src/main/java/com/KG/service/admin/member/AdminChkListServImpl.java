@@ -15,11 +15,11 @@ public class AdminChkListServImpl implements AdminService {
 	@Override
 	public void execute(Model model) {
 		model.addAttribute("memberList", adminDAO.memberList());
+		model.addAttribute("memberCount", adminDAO.getMemberCount());
 	}
 
 	@Override
 	public MemberDTO memberList(Model model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
