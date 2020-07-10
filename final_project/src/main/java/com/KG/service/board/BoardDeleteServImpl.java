@@ -22,6 +22,7 @@ public class BoardDeleteServImpl implements BoardService{
 		BoardDTO dto = (BoardDTO)map.get("dto");
 		
 		dao.deleteBoard(dto);
+		dao.deleteComment(dto);
 		
 		return false;
 	}

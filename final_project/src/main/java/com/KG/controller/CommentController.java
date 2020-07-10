@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.CommentDTO;
-import com.KG.service.board.CommentReComSaveServImpl;
 import com.KG.service.comment.CommentCountServImpl;
 import com.KG.service.comment.CommentListServImpl;
+import com.KG.service.comment.CommentReComSaveServImpl;
 import com.KG.service.comment.CommentSaveServImpl;
 import com.KG.service.comment.CommentService;
 import com.fasterxml.jackson.core.JsonProcessingException;

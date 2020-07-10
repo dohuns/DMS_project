@@ -35,12 +35,12 @@ public class CommentDAO {
 	
 	// 대댓글 전 reNum올려주기
 	public int ReComGroup(CommentDTO dto) {
-		return sqlSession.update(namespace + ".ReComGroup" , dto);
+		System.out.println("group : " + dto.getC_group());
+		return sqlSession.selectOne(namespace + ".ReComGroup" , dto);
 	}
 	// 대댓글 달기
 	public int ReComSave(CommentDTO dto) {
-		dto.setC_renum(dto.getC_renum()+1);
-		System.out.println("num : " + dto.getC_renum());
+		System.out.println("renum : " + dto.getC_reNum());
 		return sqlSession.insert(namespace+".ReComSave" , dto);
 	}
 } 

@@ -88,6 +88,11 @@
 	padding: 12px 23px 10px 0px;
 	background-color: #F5F6F8;
 }
+.commentArea {
+}
+.CommentArea-reply {
+	padding-left: 50px;
+}
 .mylb{
 	color:red;
 }
@@ -198,12 +203,20 @@ textarea:focus {
 						"display":"block"
 					})
 					for(var i=0; i<list.length; i++) {
+						// 덧글은 들여쓰기 
+						if(list[i].c_reNum == 0) {
+							html += '<div class="commentArea">';
+						} else {
+							html += '<div class="CommentArea-reply">';
+						}
+						// 자신 댓글이면 배경색 입히기
 						if("${sessionScope.m_id}" == list[i].c_id) {
-							html += '<div class="myComment">'
+							html += '<div class="myComment">';
 						} else {
 							html += '<div class="comment">';
 						}
 						html += '<div style="margin-bottom: 5px;">';
+						// 게시자와 댓글작성자가 같으면 작성자 표시
 						if($("#b_id").val() == list[i].c_id) {
 							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a><span class="mylb">작성자</span>';
 						} else {
@@ -216,6 +229,7 @@ textarea:focus {
 						html += '<div style="margin-top: 7px;">';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
 						html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+						html += '</div>';
 						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {

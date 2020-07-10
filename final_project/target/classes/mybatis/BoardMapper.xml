@@ -214,5 +214,10 @@
 		DELETE FROM board 
 			WHERE b_num = #{b_num}
 	</delete>
+	<!-- 게시글 삭제 시 댓글 전부 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM reply
+			WHERE c_boardNum = #{b_num}
+	</delete>
 	
 </mapper>

@@ -158,6 +158,10 @@ public class BoardDAO {
 	public int deleteBoard(BoardDTO dto) {
 		return sqlSession.delete(namespace + ".deleteBoard", dto);
 	}
+	// 게시글 삭제 시 댓글도 전부 삭제
+	public int deleteComment(BoardDTO dto) {
+		return sqlSession.delete(namespace + ".deleteComment", dto);
+	}
 
 	
 

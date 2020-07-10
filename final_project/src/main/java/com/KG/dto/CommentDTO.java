@@ -11,7 +11,7 @@ public class CommentDTO {
 	private String c_content; // 댓글 내용
 	private Timestamp c_date; // 작성 시간
 	private int c_group; // 정렬 번호
-	private int c_renum; // 답글 정렬
+	private int c_reNum; // 답글 정렬
 	private String c_id; // 작성자 ID
 	
 	
@@ -57,11 +57,11 @@ public class CommentDTO {
 	public void setC_group(int c_group) {
 		this.c_group = c_group;
 	}
-	public int getC_renum() {
-		return c_renum;
+	public int getC_reNum() {
+		return c_reNum;
 	}
-	public void setC_renum(int c_renum) {
-		this.c_renum = c_renum;
+	public void setC_reNum(int c_reNum) {
+		this.c_reNum = c_reNum;
 	}
 
 	

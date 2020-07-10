@@ -20,13 +20,13 @@
 		SELECT count(*) FROM reply WHERE C_BOARDNUM = #{c_boardNum}
 	</select>
 	
-	<!-- 대댓글 달기전 reNum1씩 늘려주기 -->
-	<update id="ReComGroup">
-		UPDATE reply SET c_reNum = c_reNum-1 WHERE c_group = #{c_group} and c_reNum &lt; 1
-	</update>
+	<!-- c_reNum 최대값 가져오기 -->
+	<select id="ReComGroup" resultType="int">
+		SELECT B.c_renum FROM (SELECT rownum rn,A.* FROM (SELECT * FROM reply WHERE c_group=#{c_group} ORDER BY c_renum DESC)A ORDER BY  rn ASC)B WHERE B.rn = 1
+	</select>
 	<!-- 대댓글 달기 --> 
 	<insert id="ReComSave">
-		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, 0, #{c_group}, #{c_id}, c_numSQ.nextval)
+		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, #{c_reNum}+1, #{c_group}, #{c_id}, c_numSQ.nextval)
 	</insert>
 	
 </mapper>
