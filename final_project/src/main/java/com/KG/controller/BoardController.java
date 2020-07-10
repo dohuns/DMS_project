@@ -120,7 +120,7 @@ public class BoardController {
 		
 		// 게시글 수정 페이지
 		@RequestMapping("/board/modify") 
-		public String modify(Model model, @RequestParam("c_num") int b_num) {
+		public String modify(Model model, @RequestParam("c_boardNum") int b_num) {
 			
 			model.addAttribute("num" , b_num);
 			
@@ -152,7 +152,7 @@ public class BoardController {
 			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 			
 			boaServ = (BoardDeleteServImpl)AC.ac.getBean("boardDeleteServImpl");
-//			boaServ.execute_Boo(model);
+			boaServ.execute_Boo(model);
 			
 			return "redirect:/board/list?b_category="+category+"&b_article="+article;
 		}

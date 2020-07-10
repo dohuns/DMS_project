@@ -82,6 +82,7 @@
 }
 .hide-Comment {
 	display:none;
+	padding: 0 0 0 50px; 
 }
 .myComment {
 	padding: 12px 23px 10px 0px;
@@ -214,14 +215,35 @@ textarea:focus {
 						html += '</div>';
 						html += '<div style="margin-top: 7px;">';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
-						html += '<a href="#"><span class="lb3" onclick="comReply(' + list[i].c_num + ', \''+ list[i].c_nick +'\')">답글 쓰기</span></a>';
+						html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
 						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {
 							html += '<hr class="hr1">';
 						}
+						html += '<div class="hide-Comment" id="div'+list[i].c_comNum+'">';
+						html += '<div class="commentReplyWriter">';
+						html += '<form action="comment_save" id="fo'+list[i].c_comNum+'">';
+						html += '<input type="hidden" value="${param.b_num}" name="c_boardNum">';
+						html += '<input type="hidden" value="'+list[i].c_group+'" name="c_group">';
+						html += '<div>';
+						html += '<label class="c-nick" style="padding: 6px 12px;">닉네임</label>'	
+						html += '<textarea rows="1" id="Recomment_content'+list[i].c_comNum+'" name="c_content" class="dms-textarea" style="overflow:hidden;';			
+						html += 'overflow-wrap:break-word; height:60px; border: 0px; resize:none;"';
+						html += 'placeholder="댓글을 입력하세요"></textarea>';
+						html += '</div>';
+						html += '<div id="comment_btn_div" align="right">';
+						html += '<button type="button" onclick="commentCancel(' + list[i].c_comNum + ')" class="btn btn-dmsDefault" style="font-weight: 900">취소</button>';
+						html += '<button type="button" onclick="RecommentWriter(' + list[i].c_comNum + ')" class="btn btn-dmsDefault" style="font-weight: 900; margin-left:10px;">작성</button>';
+						html += '</div>';
+						html += '</form>';
+						html += '</div>';
+						html += '</div>';
+// 						if(i != list.length-1) {
+// 							html += '<hr class="hr0">';
+// 						}
 					}
-// 					$("#commentList").html(html);
+					$("#commentList").html(html);
 				}
 			},
 			error : function() {
@@ -263,10 +285,10 @@ textarea:focus {
 	}
 	
 	$(function() {
-		var num = $("#c_num").val();
+		var num = $("#c_boardNum").val();
 		// 수정 버튼 클릭
 		$("#btnMD01,#btnMD03").click(function() {
-			location.href="modify?c_num="+num;
+			location.href="modify?c_boardNum="+num;
 		});
 		
 		// 삭제 버튼 클릭
@@ -282,23 +304,51 @@ textarea:focus {
 		});
 	})
 	
+	// 대댓글 창 열기
 	function comReply(num , nick) {
-		console.log("num : " + num);
-		console.log("nick : " + nick)
+		$("#div"+num).css({
+			"display":"block"
+		});
+		$("#Recomment_content"+num).attr( 'placeholder', nick+'님께 답글을 남겨보세요~' );
 	}
 	
-	function gkgk() {
-		alert("눌림")
-		$("#hide-Comment").css({
-			"display":"block"
+	// 대댓글창 없애는 버튼
+	function commentCancel(num) {
+		$("#div"+num).css({
+			"display":"none"
 		})
+	}
+	
+	// 대댓글 남기기
+	function RecommentWriter(num) {
+		if($("#Recomment_content"+num).val() == "") { // 댓글내용 없을 때
+			alert("내용을 입력해주세요!!");			
+		} else { // 댓글 작성
+			var formData = $("#fo"+num).serializeArray();
+			
+			$.ajax({
+				url : "Recomment_save",
+				type : "POST",
+				data : formData,
+				dataType : "text",
+				success : function(arg) {
+					getCommentList();
+					$("#comment_content").val("");
+					$("#div"+num).css({
+						"display":"none"
+					});
+				},
+				error : function() {
+					alert("실패!");
+				}
+			});
+		}
 	}
 </script>
 </head>
 <body>
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
-
 
 	<!-- body -->
 	<div class="container">
@@ -366,45 +416,6 @@ textarea:focus {
 						<h3 style="font-weight:800">댓글</h3>
 					</div>
 					<div id="commentList">
-					
-						<div class="comment">
-							<div style="margin-bottom: 5px;">
-								<a href="#"><span class="c-nick">닉네임</span></a>
-							</div>
-							<div>
-								<span class="c-content">댓글 내용</span>
-							</div>
-							<div style="margin-top: 7px;">
-								<span class="lb3">작성시간</span>
-								<a href="#"><span class="lb3" onclick="gkgk()">답글 쓰기</span></a>
-							</div>
-						</div>
-						<hr class="hr1">
-						<div class="hide-Comment" id="hide-Comment">
-							<div class="commentReplyWriter">
-								<form action="comment_save" id="fo">
-									<!-- 닉네임 댓글작성 textarea -->
-									<div>
-										<!-- hidden으로 보낼 값 -->
-										<input type="hidden" value="${param.b_num}" name="c_num" id="c_num">
-							
-										<!-- 닉네임 -->
-										<label class="c-nick" style="padding: 6px 12px;">닉네임</label>
-										
-										<!-- 댓글작성 -->
-										<textarea rows="1" id="comment_content" name="c_content" class="dms-textarea" style="overflow:hidden; 
-											overflow-wrap:break-word; height:60px; border: 0px; resize:none;"
-											placeholder="댓글을 입력하세요"></textarea>
-										
-									</div>
-									<!-- 작성 버튼 -->
-									<div id="comment_btn_div" align="right">
-										<button type="button" onclick="commentWriter()" class="btn btn-dmsDefault" style="font-weight: 900">작성</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						<hr class="hr1">
 						
 					</div>
 				</div>
@@ -414,7 +425,7 @@ textarea:focus {
 						<!-- 닉네임 댓글작성 textarea -->
 						<div>
 							<!-- hidden으로 보낼 값 -->
-							<input type="hidden" value="${param.b_num}" name="c_num" id="c_num">
+							<input type="hidden" value="${param.b_num}" name="c_boardNum" id="c_boardNum">
 				
 							<!-- 닉네임 -->
 							<label class="c-nick" style="padding: 6px 12px;">닉네임</label>

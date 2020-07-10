@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.CommentDTO;
+import com.KG.service.board.CommentReComSaveServImpl;
 import com.KG.service.comment.CommentCountServImpl;
 import com.KG.service.comment.CommentListServImpl;
 import com.KG.service.comment.CommentSaveServImpl;
@@ -31,6 +32,7 @@ public class CommentController {
 				produces = "application/json; charset=UTF-8")
 	public String comment_save(CommentDTO dto , Model model , HttpSession session){
 		
+		System.out.println("내용 : " + dto.getC_content());
 		model.addAttribute("dto" , dto);
 		model.addAttribute("session" , session);
 		
@@ -65,4 +67,18 @@ public class CommentController {
 		
 		return count;
 	}
+	
+	// 대댓글 달기
+	@PostMapping(value = "/board/Recomment_save" , 
+				produces = "application/json; charset=UTF-8")
+	public String Recomment_save(CommentDTO dto , Model model, HttpSession session) {
+		
+		model.addAttribute("dto" , dto);
+		model.addAttribute("session" , session);
+		
+		comServ = (CommentReComSaveServImpl)AC.ac.getBean("commentReComSaveServImpl");
+		comServ.execute(model);
+		return "";
+	}
+	
 }

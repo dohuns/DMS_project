@@ -6,18 +6,27 @@
 
 	<!-- 댓글 저장 -->
 	<insert id="commentSave">
-		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_num}, 0, c_numSQ.nextval , #{c_id})	
+		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, 0, c_numSQ.currval , #{c_id}, c_numSQ.nextval)	
 	</insert>
 	
 	<!-- 댓글 리스트 -->
 	<select id="commentList" resultType="commentDTO">
-		SELECT * FROM reply WHERE c_num = #{c_num}
+		SELECT * FROM reply WHERE C_BOARDNUM = #{c_boardNum}
 			ORDER BY c_group ASC , c_renum ASC
 	</select>
 	
 	<!-- 댓글 개수 -->
 	<select id="getCount" resultType="int">
-		SELECT count(*) FROM reply WHERE c_num = #{c_num}
+		SELECT count(*) FROM reply WHERE C_BOARDNUM = #{c_boardNum}
 	</select>
+	
+	<!-- 대댓글 달기전 reNum1씩 늘려주기 -->
+	<update id="ReComGroup">
+		UPDATE reply SET c_reNum = c_reNum-1 WHERE c_group = #{c_group} and c_reNum &lt; 1
+	</update>
+	<!-- 대댓글 달기 --> 
+	<insert id="ReComSave">
+		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, 0, #{c_group}, #{c_id}, c_numSQ.nextval)
+	</insert>
 	
 </mapper>
