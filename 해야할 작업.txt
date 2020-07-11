@@ -1,7 +1,7 @@
 답글 작업중
-->	답글 쓰기 누르면 열려있는 창은 닫기
+->	댓글 덧글 수정 삭제 
+	게시글 답글
 	
-
 
 	
 	
@@ -15,4 +15,3 @@
 아이디 비번 찾기 조건
 로그인 아이디 찾기 UI
 
-commentBox -> commentList -> commentArea , CommentArea-reply

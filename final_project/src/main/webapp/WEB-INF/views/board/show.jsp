@@ -92,7 +92,6 @@
 }
 .hide-Comment {
 	width : 950px;
-	display:none;
 	padding: 0 0 0 50px; 
 }
 .commentArea {
@@ -210,11 +209,15 @@ textarea:focus {
 			data:$("#fo").serializeArray(),
 			success : function(list) {
 				let html = "";
+				
 				if(list.length > 0) {
 					$("#commentBox").css({
 						"display":"block"
 					})
 					for(var i=0; i<list.length; i++) {
+						if(i != list.length-1) {
+							var j = i+1;
+						}
 						// 덧글은 들여쓰기 
 						if(list[i].c_reNum == 0) {
 							if("${sessionScope.m_id}" != list[i].c_id) {
@@ -243,43 +246,22 @@ textarea:focus {
 						html += '<div style="margin-top: 7px;">';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
 						if("${sessionScope.m_nick}" == "") {
-							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')">답글 쓰기</span>';
 						} else {
-							html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+							html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
 						}
 						html += '</div>';
 						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {
-							var j = i+1;
 							if(list[i].c_reNum == 0) {
 								html += '<hr class="hr1">'
 							} else {
 								html += '<hr class="hr2">';
 							}
 						}
-						html += '<div class="hide-Comment" id="div'+list[i].c_comNum+'">';
-						html += '<div class="commentReplyWriter">';
-						html += '<form action="comment_save" id="fo'+list[i].c_comNum+'">';
-						html += '<input type="hidden" value="${param.b_num}" name="c_boardNum">';
-						html += '<input type="hidden" value="'+list[i].c_group+'" name="c_group">';
-						html += '<div>';
-						html += '<label class="c-nick" style="padding: 6px 12px;">닉네임</label>'	
-						html += '<textarea rows="1" id="Recomment_content'+list[i].c_comNum+'" name="c_content" class="dms-textarea" style="overflow:hidden;';			
-						html += 'overflow-wrap:break-word; height:60px; border: 0px; resize:none;"';
-						html += 'placeholder="댓글을 입력하세요"></textarea>';
-						html += '</div>';
-						html += '<div id="comment_btn_div" align="right">';
-						html += '<button type="button" onclick="commentCancel(' + list[i].c_comNum + ')" class="btn btn-dmsDefault" style="font-weight: 900">취소</button>';
-						html += '<button type="button" onclick="RecommentWriter(' + list[i].c_comNum + ')" class="btn btn-dmsDefault" style="font-weight: 900; margin-left:10px;">작성</button>';
-						html += '</div>';
-						html += '</form>';
-						html += '</div>';
-						if(list[j].c_reNum != 0) {
-							html += '<hr class="hr3">'
-						} else {
-							html += '<hr class="hr4">'
-						}
+						// 답글 창 div
+						html += '<div id="div'+list[i].c_comNum+'">';
 						html += '</div>';
 					}
 					$("#commentList").html(html);
@@ -344,26 +326,52 @@ textarea:focus {
 	})
 	
 	// 대댓글 창 열기
-	function comReply(num , nick) {
-		$("#div"+num).css({
-			"display":"block"
-		});
-		$("#Recomment_content"+num).attr( 'placeholder', nick+'님께 답글을 남겨보세요~' );
+	function comReply(num , nick, reNum, group) {
+		
+		$("#openReply").remove();
+		console.log("group : " + group);
+		console.log("reNum : " + reNum);
+		var html =
+			'<div class="hide-Comment" id="openReply">' +
+			'	<div class="commentReplyWriter">' + 
+			'	<form action="comment_save" id="fo">' +
+			'		<input type="hidden" value="${param.b_num}" name="c_boardNum">' +
+			'		<input type="hidden" value="'+group+'" name="c_group">' +
+			'		<div>' +
+			'			<label class="c-nick" style="padding: 6px 12px;">${sessionScope.m_nick}</label>' + 
+			'			<textarea rows="1" id="Recomment_content"'+
+			'			name="c_content" class="dms-textarea" style="overflow:hidden;' + 
+			'			overflow-wrap:break-word; height:60px; border: 0px; resize:none;"' + 
+			'			placeholder="'+nick+'님께 답글을 남겨보세요~"></textarea>' + 
+			'		</div>' +
+			'		<div id="comment_btn_div" align="right">' +
+			'			<button type="button" onclick="commentCancel('+num+')" class="btn btn-dmsDefault" style="font-weight: 900">취소</button>' + 
+			'			<button type="button" onclick="RecommentWriter()" class="btn btn-dmsDefault" style="font-weight: 900; margin-left:10px;">작성</button>' + 
+			'		</div>' + 
+			'	</form>' + 
+			'</div>';
+			if(reNum != 0 ) {
+				html += '<hr class="hr3">';
+			} else {
+				html += '<hr class="hr4">';
+			}
+			
+		$("#div" + num).html(html);
 	}
 	
 	// 대댓글창 없애는 버튼
 	function commentCancel(num) {
-		$("#div"+num).css({
-			"display":"none"
-		})
+		console.log("div"+num);
+		$("#div"+num).html("");
 	}
 	
 	// 대댓글 남기기
-	function RecommentWriter(num) {
-		if($("#Recomment_content"+num).val() == "") { // 댓글내용 없을 때
+	function RecommentWriter() {
+		if($("#Recomment_content").val() == "") { // 댓글내용 없을 때
 			alert("내용을 입력해주세요!!");			
 		} else { // 댓글 작성
-			var formData = $("#fo"+num).serializeArray();
+			var formData = $("#fo").serializeArray();
+			console.log(formData);
 			
 			$.ajax({
 				url : "Recomment_save",
@@ -373,9 +381,7 @@ textarea:focus {
 				success : function(arg) {
 					getCommentList();
 					$("#comment_content").val("");
-					$("#div"+num).css({
-						"display":"none"
-					});
+					$("#openReply").remove();
 				},
 				error : function() {
 					alert("실패!");
