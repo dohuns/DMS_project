@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.BoardDTO;
-import com.KG.service.admin.AdminBoardArtChkServImpl;
-import com.KG.service.admin.AdminBoardArtDelServImpl;
-import com.KG.service.admin.AdminBoardArtInsServImpl;
-import com.KG.service.admin.AdminBoardArtUpdServImpl;
-import com.KG.service.admin.AdminBoardCatChkServImpl;
-import com.KG.service.admin.AdminBoardCatDelServImpl;
-import com.KG.service.admin.AdminBoardCatInsServImpl;
-import com.KG.service.admin.AdminBoardCatUpdServImpl;
-import com.KG.service.admin.AdminService;
+import com.KG.service.admin.board.AdminBoardArtChkServImpl;
+import com.KG.service.admin.board.AdminBoardArtDelServImpl;
+import com.KG.service.admin.board.AdminBoardArtInsServImpl;
+import com.KG.service.admin.board.AdminBoardArtOrdServImpl;
+import com.KG.service.admin.board.AdminBoardArtUpdServImpl;
+import com.KG.service.admin.board.AdminBoardCatChkServImpl;
+import com.KG.service.admin.board.AdminBoardCatDelServImpl;
+import com.KG.service.admin.board.AdminBoardCatInsServImpl;
+import com.KG.service.admin.board.AdminBoardCatOrdServImpl;
+import com.KG.service.admin.board.AdminBoardCatUpdServImpl;
+import com.KG.service.admin.board.AdminService;
 import com.KG.service.board.BoaArtListServImpl;
 import com.KG.service.board.BoaCatListServImpl;
 import com.KG.service.board.BoardService;
@@ -136,6 +138,22 @@ public class AdminRestController {
 		model.addAttribute("boardDTO", boardDTO);
 		admServ = (AdminBoardArtDelServImpl) AC.ac.getBean("adminBoardArtDelServImpl");
 		admServ.execute_Str(model);
+	}
+	
+//	category 순서 저장
+	@RequestMapping(value = "ordercategory", produces = "application/json;charset=utf-8")
+	public void ordercategory(Model model, BoardDTO boardDTO){
+		model.addAttribute("boardDTO", boardDTO);
+		admServ = (AdminBoardCatOrdServImpl) AC.ac.getBean("adminBoardCatOrdServImpl");
+		admServ.execute_Boo(model);
+	}
+	
+//	article 순서 저장
+	@RequestMapping(value = "orderarticle", produces = "application/json;charset=utf-8")
+	public void orderarticle(Model model, BoardDTO boardDTO){
+		model.addAttribute("boardDTO", boardDTO);
+		admServ = (AdminBoardArtOrdServImpl) AC.ac.getBean("adminBoardArtOrdServImpl");
+		admServ.execute_Boo(model);
 	}
 
 }

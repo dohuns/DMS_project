@@ -1,46 +1,45 @@
-package com.KG.service.board;
+package com.KG.service.admin.board;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.KG.dao.BoardDAO;
+import com.KG.dao.AdminDAO;
 import com.KG.dto.BoardDTO;
-
 @Service
-public class BoaCatListServImpl implements BoardService {
+public class AdminBoardCatChkServImpl implements AdminService {
 
 	@Autowired
-	BoardDAO boardDAO;
+	AdminDAO admDAO;
+	
+	@Override
+	public void adminList(Model model) {
+		
+	}
 
-
-//	사이드바 리스트 출력
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-		model.addAttribute("list" , boardDAO.list(boardDTO));
+		try {
+			if (admDAO.chkcategory(boardDTO) == null) {
+				return true;
+			}
+		} catch (Exception e) {
+		}
 		return false;
 	}
 
 	@Override
 	public String execute_Str(Model model) {
-		model.addAttribute("boardCate", boardDAO.categoryList());
-		model.addAttribute("boardArt", boardDAO.articleList());
-		return "성공";
+		return null;
 	}
 
 	@Override
 	public int execute_Int(Model model) {
 		return 0;
-	}
-
-	@Override
-	public List<BoardDTO> execute_List(Model model) {
-		return boardDAO.categoryList();
 	}
 
 }

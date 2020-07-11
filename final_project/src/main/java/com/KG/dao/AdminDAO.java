@@ -66,4 +66,14 @@ public class AdminDAO {
 		sqlSession.update(namespace + ".delarticleDown", boardDTO);
 		return sqlSession.delete(namespace + ".delarticle", boardDTO);
 	}
+	
+	// category 순서 저장
+	public int ordercategory(BoardDTO boardDTO) {
+		return sqlSession.update(namespace + ".ordercategory", boardDTO);
+	}
+	
+	// article 순서 저장
+	public int orderarticle(BoardDTO boardDTO) {
+		return sqlSession.update(namespace + ".orderarticle", boardDTO);
+	}
 }

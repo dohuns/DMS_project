@@ -38,7 +38,7 @@ public class BoardController {
 		}
 		try {
 //			게시판 list 가져오기
-			boaServ = (BoaCatListServImpl) AC.ac.getBean("boaListServImpl");
+			boaServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
 			boaServ.execute_Str(model);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class BoardController {
 	public String board_list(Model model, BoardDTO dto) {
 
 		model.addAttribute("dto", dto);
-		boaServ = (BoaCatListServImpl) AC.ac.getBean("boaListServImpl");
+		boaServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
 		boaServ.execute_Boo(model);
 
 		return "board/list";

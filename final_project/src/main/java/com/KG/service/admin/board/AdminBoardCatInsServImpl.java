@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.board;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import com.KG.dao.AdminDAO;
 import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
 @Service
-public class AdminBoardCatDelServImpl implements AdminService {
+public class AdminBoardCatInsServImpl implements AdminService {
 
 	@Autowired
 	AdminDAO admDAO;
@@ -30,8 +30,8 @@ public class AdminBoardCatDelServImpl implements AdminService {
 	public String execute_Str(Model model) {
 		Map<String, Object> map = model.asMap();
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-		admDAO.delcategory(boardDTO);
-		return null;
+		admDAO.inscategory(boardDTO);
+		return boardDTO.getB_category();
 	}
 
 	@Override

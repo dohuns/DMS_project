@@ -1,4 +1,4 @@
-package com.KG.service.admin;
+package com.KG.service.admin.board;
 
 import java.util.Map;
 
@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.AdminDAO;
+import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
 @Service
-public class AdminBoardArtChkServImpl implements AdminService {
+public class AdminBoardArtUpdServImpl implements AdminService {
 
 	@Autowired
 	AdminDAO admDAO;
@@ -21,24 +22,21 @@ public class AdminBoardArtChkServImpl implements AdminService {
 
 	@Override
 	public boolean execute_Boo(Model model) {
-		Map<String, Object> map = model.asMap();
-		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-		try {
-			if (admDAO.chkarticle(boardDTO) == null) {
-				return true;
-			}
-		} catch (Exception e) {
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String execute_Str(Model model) {
-		return null;
+		Map<String, Object> map = model.asMap();
+		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
+		admDAO.updarticle(boardDTO);
+		return boardDTO.getB_title();
 	}
 
 	@Override
 	public int execute_Int(Model model) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 

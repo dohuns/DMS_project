@@ -78,6 +78,16 @@
 	<update id="delarticleDown" parameterType="boardDTO">
 		UPDATE BOARD set B_ARTICLENUM = B_ARTICLENUM -1 where b_category = #{b_category} and  B_ARTICLENUM > (SELECT B_ARTICLENUM FROM BOARD where b_article = #{b_article} and B_ARTICLENUM is not null)
 	</update>
+	
+	<!-- category 위치 수정 -->
+	<update id="ordercategory" parameterType="boardDTO">
+		UPDATE board set B_CATENUM = #{b_cateNum} where B_CATEGORY = #{b_category} and B_CATENUM is not null
+	</update>
+	
+	<!-- article 위치 수정 -->
+	<update id="orderarticle" parameterType="boardDTO">
+		 UPDATE board set B_CATEGORY = #{b_category}, B_ARTICLENUM = #{b_articleNum} where B_ARTICLE = #{b_article} and B_num is null and B_CATENUM is null
+	</update>
 
 	<!-- PAGING > 총 인원 수 -->
 	<select id="getMemberCount">
