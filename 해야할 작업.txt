@@ -1,6 +1,7 @@
 답글 작업중
-->	답글창 마지막 밑에 hr바 
-	자신글 백그라운드 채우기(네이버참고)
+->	답글 쓰기 누르면 열려있는 창은 닫기
+	
+
 
 	
 	
@@ -13,3 +14,5 @@
 회원가입 창 조건
 아이디 비번 찾기 조건
 로그인 아이디 찾기 UI
+
+commentBox -> commentList -> commentArea , CommentArea-reply

@@ -47,6 +47,18 @@
 	width:950px;
 	margin: 0px 0;
 }
+.hr2 {
+	width:900px;
+	margin : 0 0 0 50px;
+}
+.hr3 {
+	width:900px;
+	margin : 0;
+}
+.hr4 {
+	width: 950px;
+	margin: 0 0 0 -50px;
+}
 .board-content {
 	overflow-y : hidden;
 	position: relative;
@@ -64,34 +76,33 @@
 	font-weight: 400p;
 }
 .commentWriter {
-	margin: 30px 0 29px;
+	width : 950px;
+	margin: 12px 0 ;
 	padding: 8px 10px 10px 10px;
 	border-radius: 6px;
 	box-sizing: border-box;
 	border: 2px solid rgba(0,0,0,0.1);
 }
 .commentReplyWriter {
-	margin: 30px 0 29px;
+	margin: 12px 0 ;
 	padding: 8px 10px 10px 10px;
 	border-radius: 6px;
 	box-sizing: border-box;
 	border: 2px solid rgba(0,0,0,0.1);
 }
-.comment {
-	padding: 12px 23px 10px 0px;
-}
 .hide-Comment {
+	width : 950px;
 	display:none;
 	padding: 0 0 0 50px; 
 }
-.myComment {
-	padding: 12px 23px 10px 0px;
-	background-color: #F5F6F8;
-}
 .commentArea {
+	padding: 12px 23px 10px 20px;
+	width: 950px;
 }
-.CommentArea-reply {
+.commentArea-reply {
+	padding: 12px 23px 10px 0px;
 	padding-left: 50px;
+	width: 950px;
 }
 .mylb{
 	color:red;
@@ -117,6 +128,7 @@ textarea:focus {
 	box-shadow: 0px;
 	outline: 0 none;
 }
+
 
 </style>
 
@@ -164,15 +176,15 @@ textarea:focus {
 		}
 	}
 	
-	// 댓글 창 클릭 시 로그인 x면 로그인창으로
+	// 로그인 안하면 댓글 못담
 	$(function() {
-		$("#comment_content").click(function() {
-			var session = "${sessionScope.m_nick}";
-			if(session == "") {
-				location.href="../login";
-			}
-		});
-	});
+		var session = "${sessionScope.m_nick}";
+		if(session == "") {
+			$("#commentWriter").css({
+				"display":"none"
+			});
+		}
+	})
 	
 	// 댓글 불러오기 + 댓글 수 
 	function getCommentList() {
@@ -205,15 +217,17 @@ textarea:focus {
 					for(var i=0; i<list.length; i++) {
 						// 덧글은 들여쓰기 
 						if(list[i].c_reNum == 0) {
-							html += '<div class="commentArea">';
+							if("${sessionScope.m_id}" != list[i].c_id) {
+								html += '<div class="commentArea">';
+							} else {
+								html += '<div class="commentArea" style="background:#F5F6F8;">';
+							}
 						} else {
-							html += '<div class="CommentArea-reply">';
-						}
-						// 자신 댓글이면 배경색 입히기
-						if("${sessionScope.m_id}" == list[i].c_id) {
-							html += '<div class="myComment">';
-						} else {
-							html += '<div class="comment">';
+							if("${sessionScope.m_id}" != list[i].c_id) {
+								html += '<div class="commentArea-reply">';
+							} else {
+								html += '<div class="commentArea-reply" style="background:#F5F6F8;">';
+							}
 						}
 						html += '<div style="margin-bottom: 5px;">';
 						// 게시자와 댓글작성자가 같으면 작성자 표시
@@ -228,12 +242,21 @@ textarea:focus {
 						html += '</div>';
 						html += '<div style="margin-top: 7px;">';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
-						html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+						if("${sessionScope.m_nick}" == "") {
+							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+						} else {
+							html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')" >답글 쓰기</span>';
+						}
 						html += '</div>';
 						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {
-							html += '<hr class="hr1">';
+							var j = i+1;
+							if(list[i].c_reNum == 0) {
+								html += '<hr class="hr1">'
+							} else {
+								html += '<hr class="hr2">';
+							}
 						}
 						html += '<div class="hide-Comment" id="div'+list[i].c_comNum+'">';
 						html += '<div class="commentReplyWriter">';
@@ -252,10 +275,12 @@ textarea:focus {
 						html += '</div>';
 						html += '</form>';
 						html += '</div>';
+						if(list[j].c_reNum != 0) {
+							html += '<hr class="hr3">'
+						} else {
+							html += '<hr class="hr4">'
+						}
 						html += '</div>';
-// 						if(i != list.length-1) {
-// 							html += '<hr class="hr0">';
-// 						}
 					}
 					$("#commentList").html(html);
 				}
@@ -434,7 +459,7 @@ textarea:focus {
 					</div>
 				</div>
 				<!-- 댓글 작성 -->
-				<div class="commentWriter">
+				<div class="commentWriter" id="commentWriter">
 					<form action="comment_save" id="fo">
 						<!-- 닉네임 댓글작성 textarea -->
 						<div>
