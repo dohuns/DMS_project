@@ -4,16 +4,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.CommentDTO;
 import com.KG.service.comment.CommentCountServImpl;
+import com.KG.service.comment.CommentDeleteServImpl;
 import com.KG.service.comment.CommentListServImpl;
 import com.KG.service.comment.CommentReComSaveServImpl;
 import com.KG.service.comment.CommentSaveServImpl;
@@ -78,6 +77,21 @@ public class CommentController {
 		
 		comServ = (CommentReComSaveServImpl)AC.ac.getBean("commentReComSaveServImpl");
 		comServ.execute(model);
+		return "";
+	}
+	
+	// 댓글 삭제
+	@DeleteMapping(value = "/board/comment_delete", 
+					produces = "application/json; charset=UTF-8")
+	public String comment_delete(int c_comNum , Model model) {
+		
+		System.out.println("comNum : " + c_comNum);
+		
+		model.addAttribute("comNum" , c_comNum);
+		
+		comServ = (CommentDeleteServImpl)AC.ac.getBean("commentDeleteServImpl");
+		comServ.execute(model);
+		
 		return "";
 	}
 	

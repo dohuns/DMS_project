@@ -104,7 +104,8 @@
 	width: 950px;
 }
 .mylb{
-	color:red;
+	color:blue;
+	margin-left: 10px;
 }
 .btn-dmsDefault {
 	color:black;
@@ -126,6 +127,16 @@ textarea:focus {
 	border-color: white;
 	box-shadow: 0px;
 	outline: 0 none;
+}
+.deleteBtn {
+	margin-left: 10px;
+	margin-bottom: 3px;
+	cursor: pointer;
+	width:10px;
+}
+.delComment{
+	padding: 12px 23px 10px 0px;
+	width: 950px;
 }
 
 
@@ -218,7 +229,10 @@ textarea:focus {
 						if(i != list.length-1) {
 							var j = i+1;
 						}
-						// 덧글은 들여쓰기 
+						if(i > 0) {
+							var z = i-1;
+						}
+						// 덧글은 들여쓰기 + 자신글은 배경색 넣기
 						if(list[i].c_reNum == 0) {
 							if("${sessionScope.m_id}" != list[i].c_id) {
 								html += '<div class="commentArea">';
@@ -226,19 +240,32 @@ textarea:focus {
 								html += '<div class="commentArea" style="background:#F5F6F8;">';
 							}
 						} else {
+							if(list[i].c_reNum == 1 && list[i].c_group != list[z].c_group) {
+								html += '<div class="delComment">';
+								html += '<label>삭제 된 댓글입니다.</label>';
+								html += '</div>';
+								html += '<hr class="hr2">';
+							}
 							if("${sessionScope.m_id}" != list[i].c_id) {
 								html += '<div class="commentArea-reply">';
 							} else {
 								html += '<div class="commentArea-reply" style="background:#F5F6F8;">';
 							}
+							
 						}
-						html += '<div style="margin-bottom: 5px;">';
+						html += '<div style="margin-bottom: 5px; display:inline-block">';
 						// 게시자와 댓글작성자가 같으면 작성자 표시
 						if($("#b_id").val() == list[i].c_id) {
 							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a><span class="mylb">작성자</span>';
 						} else {
 							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a>';
 						}
+						html += '<div style="float:right">'
+						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
+						if(list[i].c_id == "${sessionScope.m_id}") {
+							html += '<img src="/movie/resources/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+')">'
+						}
+						html += '</div>'
 						html += '</div>';
 						html += '<div>';
 						html += '<span class="c-content">' + list[i].c_content + '</span>';
@@ -263,6 +290,7 @@ textarea:focus {
 						// 답글 창 div
 						html += '<div id="div'+list[i].c_comNum+'">';
 						html += '</div>';
+						
 					}
 					$("#commentList").html(html);
 				}
@@ -304,7 +332,7 @@ textarea:focus {
 			});
 		}
 	}
-	
+	// 게시판 버튼들
 	$(function() {
 		var num = $("#c_boardNum").val();
 		// 수정 버튼 클릭
@@ -323,6 +351,7 @@ textarea:focus {
 		$("#btnList01,#btnList02").click(function() {
 			location.href="list?b_category=${boardInfo.b_category}&b_article=${boardInfo.b_article}";
 		});
+		
 	})
 	
 	// 대댓글 창 열기
@@ -387,6 +416,23 @@ textarea:focus {
 					alert("실패!");
 				}
 			});
+		}
+	}
+	// 댓글 삭제 
+	function commentDelete(comNum) {
+		var Data = {c_comNum : comNum}
+		if(confirm("삭제 하시겠습니까?")) {
+			$.ajax({
+				url : "comment_delete",
+				data : Data,
+				type : "DELETE",
+				success : function() {
+					getCommentList();
+				},
+				error : function() {
+					getCommentList();
+				}
+			});		
 		}
 	}
 </script>
