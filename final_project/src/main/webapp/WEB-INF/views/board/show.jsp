@@ -220,18 +220,12 @@ textarea:focus {
 			data:$("#fo").serializeArray(),
 			success : function(list) {
 				let html = "";
-				
 				if(list.length > 0) {
 					$("#commentBox").css({
 						"display":"block"
 					})
 					for(var i=0; i<list.length; i++) {
-						if(i != list.length-1) {
-							var j = i+1;
-						}
-						if(i > 0) {
-							var z = i-1;
-						}
+						
 						// 덧글은 들여쓰기 + 자신글은 배경색 넣기
 						if(list[i].c_reNum == 0) {
 							if("${sessionScope.m_id}" != list[i].c_id) {
@@ -240,12 +234,23 @@ textarea:focus {
 								html += '<div class="commentArea" style="background:#F5F6F8;">';
 							}
 						} else {
-							if(list[i].c_reNum == 1 && list[i].c_group != list[z].c_group) {
-								html += '<div class="delComment">';
-								html += '<label>삭제 된 댓글입니다.</label>';
-								html += '</div>';
-								html += '<hr class="hr2">';
+							if(i>0) {
+								var z = i-1;
+								if(list[i].c_reNum == 1 && list[i].c_group != list[z].c_group) {
+									html += '<div class="delComment">';
+									html += '<label>삭제 된 댓글입니다.</label>';
+									html += '</div>';
+									html += '<hr class="hr2">';
+								}
+							} else {
+								if(list[i].c_reNum == 1) {
+									html += '<div class="delComment">';
+									html += '<label>삭제 된 댓글입니다.</label>';
+									html += '</div>';
+									html += '<hr class="hr2">';
+								}
 							}
+							
 							if("${sessionScope.m_id}" != list[i].c_id) {
 								html += '<div class="commentArea-reply">';
 							} else {
@@ -275,7 +280,13 @@ textarea:focus {
 						if("${sessionScope.m_nick}" == "") {
 							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')">답글 쓰기</span>';
 						} else {
-							html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
+							if(i == 0){
+								var j = 0;
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
+							}else if(i != list.length-1) {
+								var j = i+1;
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
+							}
 						}
 						html += '</div>';
 						html += '</div>';
@@ -293,6 +304,10 @@ textarea:focus {
 						
 					}
 					$("#commentList").html(html);
+				} else {
+					$("#commentBox").css({
+						"display":"none"
+					})
 				}
 			},
 			error : function() {
@@ -421,6 +436,7 @@ textarea:focus {
 	// 댓글 삭제 
 	function commentDelete(comNum) {
 		var Data = {c_comNum : comNum}
+		
 		if(confirm("삭제 하시겠습니까?")) {
 			$.ajax({
 				url : "comment_delete",
