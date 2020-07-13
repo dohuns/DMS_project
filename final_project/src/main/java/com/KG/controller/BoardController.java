@@ -18,6 +18,8 @@ import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardModSaveServImpl;
 import com.KG.service.board.BoardModifyServImpl;
+import com.KG.service.board.BoardReplySaveServImpl;
+import com.KG.service.board.BoardReplyServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.BoardShowServImpl;
@@ -153,6 +155,33 @@ public class BoardController {
 			
 			boaServ = (BoardDeleteServImpl)AC.ac.getBean("boardDeleteServImpl");
 			boaServ.execute_Boo(model);
+			
+			return "redirect:/board/list?b_category="+category+"&b_article="+article;
+		}
+		
+		// 답글 쓰기 페이지
+		@RequestMapping("/board/reply")
+		public String reply(Model model, BoardDTO dto) {
+			
+			model.addAttribute("dto", dto);
+			
+			boaServ = (BoardReplyServImpl)AC.ac.getBean("boardReplyServImpl");
+			boaServ.execute_Boo(model);
+			return "board/reply";
+		}
+		
+		//답글 쓰기 저장
+		@RequestMapping("/board/reply_save")
+		public String reply_save(Model model, BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
+			
+			model.addAttribute("dto" , dto);
+			model.addAttribute("session" , session);
+			
+			boaServ = (BoardReplySaveServImpl)AC.ac.getBean("boardReplySaveServImpl");
+			boaServ.execute_Boo(model);
+			
+			String category = URLEncoder.encode(dto.getB_category() , "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 			
 			return "redirect:/board/list?b_category="+category+"&b_article="+article;
 		}

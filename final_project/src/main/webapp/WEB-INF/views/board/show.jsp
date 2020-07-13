@@ -268,7 +268,7 @@ textarea:focus {
 						html += '<div style="float:right">'
 						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
 						if(list[i].c_id == "${sessionScope.m_id}") {
-							html += '<img src="/movie/resources/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+')">'
+							html += '<img src="/movie/resources/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
 						}
 						html += '</div>'
 						html += '</div>';
@@ -434,9 +434,9 @@ textarea:focus {
 		}
 	}
 	// 댓글 삭제 
-	function commentDelete(comNum) {
-		var Data = {c_comNum : comNum}
-		
+	function commentDelete(comNum , boardNum) {
+		var Data = {c_comNum : comNum , c_boardNum : boardNum};
+		console.log("boardNum : " + boardNum);
 		if(confirm("삭제 하시겠습니까?")) {
 			$.ajax({
 				url : "comment_delete",
@@ -559,8 +559,12 @@ textarea:focus {
 		</div>
 		<div class="btnBotBox">
 			<div style="float: left;">
-				<button type="button" class="btn btn-success" style="font-weight: 900;">글 쓰기</button>
-				<button type="button" class="btn btn-dmsDefault" style="font-weight: 900;">답글</button>
+				<c:if test="${sessionScope.m_id != null}">
+					<button type="button" class="btn btn-success" style="font-weight: 900;">글 쓰기</button>
+					<button type="button" class="btn btn-dmsDefault" style="font-weight: 900;"
+						onclick="location.href='reply?b_num=${param.b_num}'">답글</button>
+				</c:if>
+					
 				<button type="button" id="btnMD03" class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
 				<button type="button" id="btnMD04" class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
 			</div>

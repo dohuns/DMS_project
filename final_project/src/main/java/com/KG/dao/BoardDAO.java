@@ -162,6 +162,22 @@ public class BoardDAO {
 	public int deleteComment(BoardDTO dto) {
 		return sqlSession.delete(namespace + ".deleteComment", dto);
 	}
+	
+	// 답글 작성 저장
+	public int replySave(BoardDTO dto) {
+		
+		sortNumPlus(dto);
+		
+		dto.setB_reNum(dto.getB_reNum() +1);
+		dto.setB_sortNum(dto.getB_sortNum() +1);
+		
+		return sqlSession.insert(namespace + ".replySave" , dto);
+	}
+	
+	// 답글 작성시 현재의 sortNum보다 큰애들 +1해주기
+	public int sortNumPlus(BoardDTO dto) {
+		return sqlSession.update(namespace + ".sortNumPlus", dto);
+	}
 
 	
 

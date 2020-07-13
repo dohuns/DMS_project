@@ -19,13 +19,14 @@ public class CommentDeleteServImpl implements CommentService{
 	@Override
 	public boolean execute(Model model) {
 		
-		
 		Map<String, Object> map = model.asMap();
-		int comNum = (Integer)map.get("comNum");
+		CommentDTO dto = (CommentDTO)map.get("dto");
 		
+		System.out.println("con com : " + dto.getC_comNum());
+		System.out.println("con bor : " + dto.getC_boardNum());
 		
-		dao.commentDelete(comNum);
-		
+		dao.commentDelete(dto.getC_comNum());
+		dao.downComCount(dto.getC_boardNum());
 		return false;
 	}
 

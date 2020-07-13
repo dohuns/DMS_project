@@ -1,5 +1,7 @@
 답글 작업중
 ->	게시글 답글
+	게시글 리스트에서 답글 보일 때 -> 밀리는거 style에서 margin-left를 10px씩 더해줌
+	현재 내 project에서 category 띄어쓰기 못가져옴
 	
 
 	

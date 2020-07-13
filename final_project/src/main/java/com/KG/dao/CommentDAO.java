@@ -19,7 +19,6 @@ public class CommentDAO {
 	
 	// 댓글 작성
 	public int commentSave(CommentDTO dto) {
-		
 		return sqlSession.insert(namespace + ".commentSave" , dto);
 	}
 	
@@ -44,7 +43,16 @@ public class CommentDAO {
 	
 	// 댓글 삭제
 	public int commentDelete(int comNum) {
-		System.out.println("dao : " + comNum);
 		return sqlSession.delete(namespace + ".commentDelete", comNum);
+	}
+	
+	// 게시글에 댓글 수 올려주기
+	public int upComCount(int boardNum) {
+		return sqlSession.update(namespace + ".upComCount" , boardNum);
+	}
+	
+	// 게시글에 댓글 수 내려주기
+	public int downComCount(int boardNum) {
+		return sqlSession.update(namespace + ".downComCount" , boardNum);
 	}
 } 

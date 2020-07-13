@@ -10,6 +10,22 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.lb1{
+	font-weight: 400;
+	color: red;
+	margin-bottom: 0px;
+}
+.a1 {
+	color: black;
+}
+a:hover, a:focus {
+	color: black;
+	text-decoration: underline;
+	font-weight: 600;
+}
+</style>
 </head>
 <body>
 	
@@ -50,9 +66,24 @@
 						<tr>
 							<td>${dto.b_num}</td>
 							<td>
-								<a href="show?b_num=${dto.b_num}">
-									${dto.b_title} 
-								</a>
+								<c:choose>
+									<c:when test="${dto.b_reNum == 0 }">
+										<div>
+											<a href="show?b_num=${dto.b_num}" class="a1">
+												${dto.b_title} 
+											</a>
+											<label class="lb1">[${dto.b_comCount}]</label>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div style="margin-left:${dto.b_reNum*10}px;">
+											└<a href="show?b_num=${dto.b_num}" class="a1">
+												${dto.b_title} 
+											</a>
+											<label class="lb1">[${dto.b_comCount}]</label>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>
@@ -113,14 +144,29 @@
 					<c:forEach var="dto" items="${searchListAll}">
 						<tr>
 							<td>
-								<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}">
+								<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}" class="a1">
 									${dto.b_article}
 								</a>
 							</td>
 							<td>
-								<a href="show?b_num=${dto.b_num}">
-									${dto.b_title} 
-								</a>
+								<c:choose>
+									<c:when test="${dto.b_reNum == 0 }">
+										<div>
+											<a href="show?b_num=${dto.b_num}" class="a1">
+												${dto.b_title} 
+											</a>
+											<label class="lb1">[${dto.b_comCount}]</label>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div style="margin-left:${dto.b_reNum*10}px;">
+											└<a href="show?b_num=${dto.b_num}" class="a1">
+												${dto.b_title} 
+											</a>
+											<label class="lb1">[${dto.b_comCount}]</label>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>

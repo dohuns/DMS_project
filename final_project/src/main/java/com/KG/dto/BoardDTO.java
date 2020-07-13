@@ -26,7 +26,17 @@ public class BoardDTO {
 	private int b_group; // 정렬번호
 	private int artiNum; // 게시글 보기에서 15개씩 나누는 번호
 	private String b_id; // 아이디 
+	private int b_comCount; // 댓글 개수
  
+
+
+	public int getB_comCount() {
+		return b_comCount;
+	}
+
+	public void setB_comCount(int b_comCount) {
+		this.b_comCount = b_comCount;
+	}
 
 	public String getB_id() {
 		return b_id;
