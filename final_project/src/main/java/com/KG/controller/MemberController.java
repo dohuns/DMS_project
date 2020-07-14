@@ -43,15 +43,14 @@ public class MemberController {
 	public String login() {
 		return "login/login";
 	}
-	
+
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	
+
 //	로그인 확인 후 세션 생성
 	@RequestMapping("login_Ck")
 	public String login_Ck(Model model, HttpSession session, MemberDTO memberDTO) {
@@ -60,9 +59,10 @@ public class MemberController {
 		try {
 			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
 			memServ.execute_Str(model);
+			return "redirect:/";
 		} catch (Exception e) {
 		}
-		return "redirect:/";
+		return "login/login";
 	}
 
 //	아이디 찾기 페이지
@@ -112,11 +112,13 @@ public class MemberController {
 		}
 		return "login/login";
 	}
-	// 회원가입 시 이메일 인증페이지 
+
+	// 회원가입 시 이메일 인증페이지
 	@RequestMapping("regist_email")
 	public String regist_email() {
 		return "member/regist_email";
 	}
+
 	// 인증번호 입력 페이지
 	@PostMapping("email_certify")
 	public String certify(HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
@@ -124,7 +126,7 @@ public class MemberController {
 		Random random = new Random();
 		int dice = random.nextInt(4589362) + 49311; // 이메일로 받을 인증코드 난수
 
-		String tomail = request.getParameter("e_mail"); // 받는 사람 이메일
+		String tomail = request.getParameter("m_email"); // 받는 사람 이메일
 		HttpSession session = request.getSession();
 		session.setAttribute("email", tomail);
 		String title = "회원가입 인증 이메일 입니다"; // 이메일 제목
@@ -156,11 +158,11 @@ public class MemberController {
 		pw.flush();
 		return "member/regist_emailChk";
 	}
+
 	// 입력한 인증번호가 맞는지 확인 후 맞으면 회원가입 아니면 이 페이지로
 	@PostMapping("chk_certification/{dice}")
 	public String chk_certification(@PathVariable String dice, String certificationNum, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
-
 
 		if (certificationNum.equals(dice)) {
 			String email = (String) session.getAttribute("email");
@@ -178,17 +180,14 @@ public class MemberController {
 			return "redirect:chk_certification/{dice}";
 		}
 	}
-	
+
 //	회원가입
-	@PostMapping("chk_reigst") 
-	public String chk_reigst(Model model , MemberDTO memberDTO) {
-		model.addAttribute("memberDTO" , memberDTO);
-		
-		memServ = (MemChkRegistServImpl)AC.ac.getBean("memChkRegistServImpl");
-		
+	@PostMapping("chk_reigst")
+	public String chk_reigst(Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
+		memServ = (MemChkRegistServImpl) AC.ac.getBean("memChkRegistServImpl");
 		memServ.execute_Boo(model);
-		
 		return "redirect:login";
 	}
-	
+
 }

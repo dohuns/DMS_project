@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.KG.mybatis.myMapper">
+
+	<!-- 댓글 저장 -->
+	<insert id="commentSave">
+		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, 0, c_numSQ.currval , #{c_id}, c_numSQ.nextval)	
+	</insert>
+	
+	<!-- 댓글 리스트 -->
+	<select id="commentList" resultType="commentDTO">
+		SELECT * FROM reply WHERE C_BOARDNUM = #{c_boardNum}
+			ORDER BY c_group ASC , c_renum ASC
+	</select>
+	
+	<!-- 댓글 개수 -->
+	<select id="getCount" resultType="int">
+		SELECT count(*) FROM reply WHERE C_BOARDNUM = #{c_boardNum}
+	</select>
+	
+	<!-- c_reNum 최대값 가져오기 -->
+	<select id="ReComGroup" resultType="int">
+		SELECT B.c_renum FROM (SELECT rownum rn,A.* FROM (SELECT * FROM reply WHERE c_group=#{c_group} ORDER BY c_renum DESC)A ORDER BY  rn ASC)B WHERE B.rn = 1
+	</select>
+	
+	<!-- 대댓글 달기 --> 
+	<insert id="ReComSave">
+		INSERT INTO reply values(#{c_nick}, sysdate, #{c_content}, #{c_boardNum}, #{c_reNum}+1, #{c_group}, #{c_id}, c_numSQ.nextval)
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="commentDelete">
+		DELETE FROM reply WHERE c_comNum = #{comNum}
+	</delete>
+	
+	<!-- 게시글 댓글 수 올려주기 -->
+	<update id="upComCount">
+		UPDATE board SET b_comCount = b_comCount+1 WHERE b_num = #{boardNum}
+	</update>
+	<!-- 게시글 댓글 수 내려주기 -->
+	<update id="downComCount">
+		UPDATE board SET b_comCount = b_comCount-1 WHERE b_num = #{boardNum}
+	</update>
+	
+	
+</mapper>

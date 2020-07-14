@@ -9,7 +9,7 @@
 	<link
 		href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 		rel="stylesheet" id="bootstrap-css">
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<style>
 		.navbar-brand-centered {
@@ -58,34 +58,28 @@
 						<span class="icon-bar"></span>
 					</button>
 					<div>
-						<a class="navbar-brand navbar-brand-centered" href="#">DOMISU</a>
+						<a class="navbar-brand navbar-brand-centered" href="/movie/">DOMISU</a>
 					</div>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
-						<li><a href="#">영화</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">예매 <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">빠른 예매</a></li>
-								<li><a href="#">상영 시간표</a></li>
-							</ul>
-						</li>
-						<li><a href="#">극장</a></li>
+						<li><a href="movie">영화</a></li>
+						<li><a href="#">게임</a></li>
+						<li><a href="#">고양이</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>
 							<%-- 세션이 없는 경우 로그인, 회원가입 출력 --%>
-							<c:when test="${sessionScope.m_id == null}">
-								<li><a href="login">로그인</a></li>
-								<li><a href="regist_email">회원가입</a></li>
+							<c:when test="${sessionScope.m_nick == null}">
+								<li><a href="/movie/login">로그인</a></li>
+								<li><a href="/movie/regist_email">회원가입</a></li>
 							</c:when>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>
-								<li><a href="myPage">내정보</a></li>
-								<li><a href="logout">로그아웃</a></li>
+								<li><a href="/myPage">내정보</a></li>
+								<li><a href="/movie/logout">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

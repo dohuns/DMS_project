@@ -25,11 +25,14 @@ public class MemChkLoginServImpl implements MemberService {
 //	로그인 확인 및 세션 생성
 	@Override
 	public String execute_Str(Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		MemberDTO memberDTO = (MemberDTO) map.get("memberDTO");
 		HttpSession session = (HttpSession) map.get("session");
+		
 		if (memberDAO.loginck(memberDTO).getM_id().equals(memberDTO.getM_id()) && memberDAO.loginck(memberDTO).getM_pw().equals(memberDTO.getM_pw())) {
-			session.setAttribute("m_id", memberDTO.getM_id());
+			session.setAttribute("m_nick", memberDAO.loginck(memberDTO).getM_nick());
+			session.setAttribute("m_id", memberDAO.loginck(memberDTO).getM_id());
 		} else {
 			System.out.println("실패");
 		}

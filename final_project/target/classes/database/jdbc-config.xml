@@ -2,20 +2,61 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-   <property name="url" value="jdbc:oracle:thin:@210.108.48.214:1521:xe" />
-   <property name="username" value="dms" />
-   <property name="password" value="1234" />
-</bean>
-   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="dataSource" />
-      <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-      <property name="mapperLocations" value="classpath:mybatis/mapper.xml" />      
-   </bean>
-   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-   </bean> 
 
+	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@210.108.48.214:1521:xe" />
+		<property name="username" value="dms" />
+		<property name="password" value="1234" />
+	</bean>
+
+	<!-- Member(회원 > sqlSession) -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/mapper.xml" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<!-- Admin(관리자 > sqlSessionAdmin) -->
+	<bean id="sqlSessionAdminFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/AdminMapper.xml" />
+	</bean>
+	<bean id="sqlSessionAdmin" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionAdminFactory"></constructor-arg>
+	</bean>
+
+	<!-- Admin(관리자 > sqlSessionAdmin) -->
+	<bean id="sqlSessionAdminSideFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/AdminSidebarMapper.xml" />
+	</bean>
+	<bean id="sqlSessionSideAdmin" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionAdminSideFactory"></constructor-arg>
+	</bean>
+	
+	<!-- Board(게시판 > sqlSessionBoard) -->
+	<bean id="sqlSessionBoardFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/BoardMapper.xml" />
+	</bean>
+	<bean id="sqlSessionBoard" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionBoardFactory"></constructor-arg>
+	</bean>
+	
+	<!-- Board(게시판 > sqlSessionComment) -->
+	<bean id="sqlSessionCommentFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mybatis/CommentMapper.xml" />
+	</bean>
+	<bean id="sqlSessionComment" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionCommentFactory"></constructor-arg>
+	</bean>
 </beans>
