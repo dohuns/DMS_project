@@ -58,9 +58,6 @@ public class BoardDTO {
 		return b_group;
 	}
 
-	public Timestamp getB_date() {
-		return b_date;
-	}
 
 	public void setB_group(int b_group) {
 		this.b_group = b_group;
@@ -140,8 +137,7 @@ public class BoardDTO {
 	}
 
 	
-	
-	public String todayDate() throws ParseException {
+	public String getB_date() throws ParseException {
 
 		String today1 = new SimpleDateFormat("yy.MM.dd").format(new Date());
 		String article = new SimpleDateFormat("yy.MM.dd").format(b_date);
@@ -151,7 +147,7 @@ public class BoardDTO {
 		return new SimpleDateFormat("yyyy.MM.dd").format(b_date);
 	}
 
-	public String lastDate() {
+	public String getDate() {
 		return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(b_date);
 	}
 
