@@ -31,7 +31,6 @@ public class CommentController {
 				produces = "application/json; charset=UTF-8")
 	public String comment_save(CommentDTO dto , Model model , HttpSession session){
 		
-		System.out.println("내용 : " + dto.getC_content());
 		model.addAttribute("dto" , dto);
 		model.addAttribute("session" , session);
 		
@@ -64,7 +63,7 @@ public class CommentController {
 		comServ = (CommentCountServImpl)AC.ac.getBean("commentCountServImpl");
 		int count = comServ.execute_int(model);
 		
-		return count;
+		return count; 
 	}
 	
 	// 대댓글 달기
@@ -83,11 +82,11 @@ public class CommentController {
 	// 댓글 삭제
 	@DeleteMapping(value = "/board/comment_delete", 
 					produces = "application/json; charset=UTF-8")
-	public String comment_delete(int c_comNum , Model model) {
+	public String comment_delete(CommentDTO dto , Model model) {
 		
-		System.out.println("comNum : " + c_comNum);
+		System.out.println("boardNum : " + dto.getC_boardNum());
 		
-		model.addAttribute("comNum" , c_comNum);
+		model.addAttribute("dto" , dto);
 		
 		comServ = (CommentDeleteServImpl)AC.ac.getBean("commentDeleteServImpl");
 		comServ.execute(model);

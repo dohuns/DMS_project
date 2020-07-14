@@ -26,7 +26,17 @@ public class BoardDTO {
 	private int b_group; // 정렬번호
 	private int artiNum; // 게시글 보기에서 15개씩 나누는 번호
 	private String b_id; // 아이디 
+	private int b_comCount; // 댓글 개수
  
+
+
+	public int getB_comCount() {
+		return b_comCount;
+	}
+
+	public void setB_comCount(int b_comCount) {
+		this.b_comCount = b_comCount;
+	}
 
 	public String getB_id() {
 		return b_id;
@@ -46,6 +56,10 @@ public class BoardDTO {
 
 	public int getB_group() {
 		return b_group;
+	}
+
+	public Timestamp getB_date() {
+		return b_date;
 	}
 
 	public void setB_group(int b_group) {
@@ -125,7 +139,9 @@ public class BoardDTO {
 		this.b_nick = b_nick;
 	}
 
-	public String getB_date() throws ParseException {
+	
+	
+	public String todayDate() throws ParseException {
 
 		String today1 = new SimpleDateFormat("yy.MM.dd").format(new Date());
 		String article = new SimpleDateFormat("yy.MM.dd").format(b_date);
@@ -134,8 +150,8 @@ public class BoardDTO {
 		}
 		return new SimpleDateFormat("yyyy.MM.dd").format(b_date);
 	}
-	
-	public String getDate() {
+
+	public String lastDate() {
 		return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(b_date);
 	}
 

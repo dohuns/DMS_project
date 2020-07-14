@@ -71,7 +71,7 @@ function write_save() {
 					<div align="right" style="padding-top: 10px;">
 						<button type="button" class="btn btn-success" onclick="write_save()">수정</button>
 					</div>
-					<input type="hidden" name="b_num" value="${param.c_num}">
+					<input type="hidden" name="b_num" value="${param.c_boardNum}">
 				</form>
 			</div>
 		</div>

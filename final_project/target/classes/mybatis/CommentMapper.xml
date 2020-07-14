@@ -35,4 +35,14 @@
 		DELETE FROM reply WHERE c_comNum = #{comNum}
 	</delete>
 	
+	<!-- 게시글 댓글 수 올려주기 -->
+	<update id="upComCount">
+		UPDATE board SET b_comCount = b_comCount+1 WHERE b_num = #{boardNum}
+	</update>
+	<!-- 게시글 댓글 수 내려주기 -->
+	<update id="downComCount">
+		UPDATE board SET b_comCount = b_comCount-1 WHERE b_num = #{boardNum}
+	</update>
+	
+	
 </mapper>

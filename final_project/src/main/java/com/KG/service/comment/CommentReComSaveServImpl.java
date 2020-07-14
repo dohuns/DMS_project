@@ -32,6 +32,7 @@ public class CommentReComSaveServImpl implements CommentService{
 		dto.setC_reNum(dao.ReComGroup(dto));
 		
 		dao.ReComSave(dto);
+		dao.upComCount(dto.getC_boardNum());
 		
 		return false;
 	}

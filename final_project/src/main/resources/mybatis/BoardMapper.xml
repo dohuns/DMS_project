@@ -4,14 +4,21 @@
 
 <mapper namespace="com.KG.mybatis.myMapper">
 
+	<!-- 사이드바 리스트 -->
+	<select id="sidebarlist" resultType="boardDTO">
+		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article}
+	</select>
+
 	<!-- 카테고리 리스트 출력 -->
 	<select id="categoryList" resultType="boardDTO">
-		select * FROM BOARD where B_ARTICLENUM = 0 and B_ARTICLE is null
+<!-- 		select * FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM -->
+		SELECT B_CATEGORY, B_CATENUM FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM
 	</select>
 	
 	<!-- 아티클 리스트 출력 -->
 	<select id="articleList" resultType="boardDTO">
-		select * FROM BOARD where B_num is null and B_ARTICLENUM is not null
+<!-- 		select * FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM -->
+		SELECT B_CATEGORY, B_ARTICLE, B_ARTICLENUM FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM
 	</select>
 	
 	
@@ -74,9 +81,9 @@
 	<!-- 글 쓰기(저장) -->
 	<insert id="boardWrite">
 		INSERT INTO board 
-			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id)
+			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
 		VALUES 
-			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id})
+			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
 	</insert>
 	<!-- ///////////////////////////////////////////////////////////////// -->
 	
@@ -220,4 +227,17 @@
 			WHERE c_boardNum = #{b_num}
 	</delete>
 	
+	
+	<!-- 답글 쓰기 저장 -->
+	<insert id="replySave">
+		INSERT INTO board 
+			(b_category, b_article, b_num, b_title, b_content, b_nick, b_date, b_hit, b_reNum, b_sortNum, b_group, b_id, b_comCount)
+		values
+			(#{b_category}, #{b_article}, b_numSQ.nextval, #{b_title}, #{b_content}, #{b_nick}, sysdate, 0, #{b_reNum}, #{b_sortNum}, #{b_group}, #{b_id}, 0)
+	</insert>
+	
+	<!-- 나보다 큰 sortNum +1 해주기 -->
+	<update id="sortNumPlus">
+		UPDATE board SET b_sortNum = b_sortNum + 1 WHERE b_group=#{b_group} and b_sortNum &gt; #{b_sortNum}
+	</update>
 </mapper>

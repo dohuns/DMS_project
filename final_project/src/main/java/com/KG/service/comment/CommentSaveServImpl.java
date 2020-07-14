@@ -25,12 +25,11 @@ public class CommentSaveServImpl  implements CommentService{
 		CommentDTO dto = (CommentDTO)map.get("dto");
 		HttpSession session = (HttpSession)map.get("session");
 		
-		System.out.println("nick : " + session.getAttribute("m_nick"));
-		System.out.println("id : " + session.getAttribute("m_id"));
 		dto.setC_nick((String)session.getAttribute("m_nick"));
 		dto.setC_id((String)session.getAttribute("m_id"));
 		
 		dao.commentSave(dto);
+		dao.upComCount(dto.getC_boardNum());
 		return false;
 	}
 

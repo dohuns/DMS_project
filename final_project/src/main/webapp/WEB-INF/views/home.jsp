@@ -13,7 +13,7 @@
 		<div>
 			<c:import url="/sidebar" />
 		</div>
-		<div style="background-color: red; width: 200px; height: 800px;">
+		<div style="background-color: gray; width: 200px; height: 800px;">
 		</div>
 	</div>
 </body>

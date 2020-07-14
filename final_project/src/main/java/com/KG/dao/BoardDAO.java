@@ -18,6 +18,12 @@ public class BoardDAO {
 	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
 	/////////////////////////// 사이드바 /////////////////////////////////
+	
+	// 사이드바 리스트
+	public List<BoardDTO> sidebarlist(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace + ".sidebarlist" , boardDTO);
+	}
+	
 	// 카테고리 리스트
 	public List<BoardDTO> categoryList() {
 		return sqlSession.selectList(namespace + ".categoryList");
@@ -161,6 +167,22 @@ public class BoardDAO {
 	// 게시글 삭제 시 댓글도 전부 삭제
 	public int deleteComment(BoardDTO dto) {
 		return sqlSession.delete(namespace + ".deleteComment", dto);
+	}
+	
+	// 답글 작성 저장
+	public int replySave(BoardDTO dto) {
+		
+		sortNumPlus(dto);
+		
+		dto.setB_reNum(dto.getB_reNum() +1);
+		dto.setB_sortNum(dto.getB_sortNum() +1);
+		
+		return sqlSession.insert(namespace + ".replySave" , dto);
+	}
+	
+	// 답글 작성시 현재의 sortNum보다 큰애들 +1해주기
+	public int sortNumPlus(BoardDTO dto) {
+		return sqlSession.update(namespace + ".sortNumPlus", dto);
 	}
 
 	
