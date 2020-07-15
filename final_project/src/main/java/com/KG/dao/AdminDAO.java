@@ -56,6 +56,11 @@ public class AdminDAO {
 		return sqlSession.update(namespace + ".updateMember", dto);
 	}
 
+	// 회원 등급 수정
+	public int updRankMember(MemberDTO dto) {
+		return sqlSession.update(namespace + ".updateRankMember", dto);
+	}
+
 	// 회원 정보 삭제
 	public int deleteMember(String m_id) {
 		return sqlSession.delete(namespace + ".deleteMember", m_id);

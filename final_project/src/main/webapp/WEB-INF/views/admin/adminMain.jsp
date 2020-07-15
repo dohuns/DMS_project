@@ -515,8 +515,8 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Cancel</button>
-									<button type="submit" id="btn-regist" class="btn btn-primary" disabled>Save</button>
+										data-dismiss="modal">취소</button>
+									<button type="submit" id="btn-regist" class="btn btn-primary" disabled>저장</button>
 								</div>
 							</form>
 						</div>
@@ -588,14 +588,14 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Cancel</button>
-									<button type="submit" id="btn-regist" class="btn btn-primary">Save</button>
+										data-dismiss="modal">취소</button>
+									<button type="submit" id="btn-regist" class="btn btn-primary">저장</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-				<!-- /MODEL -->
+				<!-- /MODAL -->
 			</div>
 		</div>
 		<!-- /PAGE CONTENT -->

@@ -13,6 +13,7 @@ import com.KG.service.admin.member.AdminDelAllServImpl;
 import com.KG.service.admin.member.AdminDelServImpl;
 import com.KG.service.admin.member.AdminInsertServImpl;
 import com.KG.service.admin.member.AdminRankServImpl;
+import com.KG.service.admin.member.AdminRankUpdServImpl;
 import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdServImpl;
@@ -50,12 +51,22 @@ public class AdminController {
 		return "admin/adminRankList";
 	}
 
-	// 회원 등급 변경
+	// 회원 등급 변경 출력
 	@RequestMapping("adminUpdRank")
 	public String adminUpdRank(Model model) {
 		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
 		adminServ.execute(model);
 		return "admin/adminUpdRank";
+	}
+
+	// 회원 등급 변경
+	@RequestMapping("updChkRank")
+	public String updChkRank(Model model, @RequestParam("m_idChk") List<String> m_idChk, int m_rankNum) {
+		model.addAttribute("m_idChk", m_idChk);
+		model.addAttribute("m_rankNum", m_rankNum);
+		adminServ = (AdminRankUpdServImpl) AC.ac.getBean("adminRankUpdServImpl");
+		adminServ.execute(model);
+		return "redirect:adminUpdRank";
 	}
 
 	// 회원 정보 추가
