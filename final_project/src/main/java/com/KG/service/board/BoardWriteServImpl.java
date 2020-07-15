@@ -2,6 +2,8 @@ package com.KG.service.board;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -18,9 +20,13 @@ public class BoardWriteServImpl implements BoardService{
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
+		BoardDTO boardDTO = (BoardDTO) map.get("dto");
+		HttpSession session = (HttpSession)map.get("session");
 		
-//		boardDAO.boardWrite(dto.getB_title() , dto.getB_content());
+		boardDTO.setB_nick((String)session.getAttribute("m_nick"));
+		boardDTO.setB_id((String)session.getAttribute("m_id"));
+		
+		boardDAO.boardWrite(boardDTO);
 		
 		return false;
 	}

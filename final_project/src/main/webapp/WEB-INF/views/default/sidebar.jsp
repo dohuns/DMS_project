@@ -59,20 +59,7 @@ hr#sub {
 								</div>
 							</li>
 							<li>
-								<c:choose>
-								<c:when test="${userInfo.m_rank == 1}">
-									관리자
-								</c:when>
-								<c:when test="${userInfo.m_rank == 2}">
-									스탭
-								</c:when>
-								<c:when test="${userInfo.m_rank == 3}">
-									일반 회원
-								</c:when>
-								<c:otherwise>
-									대기 회원
-								</c:otherwise>
-							</c:choose>
+							${userInfo.m_rank}
 							</li>
 						</ul>
 					</div>
@@ -89,7 +76,7 @@ hr#sub {
 		<a href="login"><div align="center" style="background-color: green; padding: 5px 0; margin: 5px 0;">로그인 하기</div></a>
 		</c:otherwise>
 		</c:choose>
-			<a href="#"><div align="center" style="background-color: skyblue; padding: 5px 0; margin: 5px 0;">게시글 글쓰기</div></a>
+			<a href="#"><div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">게시글 글쓰기</div></a>
 			<a href="#"><div align="center" style="background-color: red; padding: 5px 0; margin: 5px 0;">채팅 하기</div></a>
 			<div>
 				<form action="#">

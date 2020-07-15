@@ -1,6 +1,13 @@
 package com.KG.dto;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class BoardDTO {
 	private String b_category; // 카테고리
@@ -15,7 +22,46 @@ public class BoardDTO {
 	private Timestamp b_date; // 작성시간
 	private int b_hit; // 조회수
 	private int b_reNum; // 답글번호
-	private int b_sortNum; // 정렬번호
+	private int b_sortNum; // 답글 정렬번호
+	private int b_group; // 정렬번호
+	private int artiNum; // 게시글 보기에서 15개씩 나누는 번호
+	private String b_id; // 아이디 
+	private int b_comCount; // 댓글 개수
+ 
+
+
+	public int getB_comCount() {
+		return b_comCount;
+	}
+
+	public void setB_comCount(int b_comCount) {
+		this.b_comCount = b_comCount;
+	}
+
+	public String getB_id() {
+		return b_id;
+	}
+
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
+
+	public int getArtiNum() {
+		return artiNum;
+	}
+
+	public void setArtiNum(int artiNum) {
+		this.artiNum = artiNum;
+	}
+
+	public int getB_group() {
+		return b_group;
+	}
+
+
+	public void setB_group(int b_group) {
+		this.b_group = b_group;
+	}
 
 	public String getB_category() {
 		return b_category;
@@ -81,6 +127,7 @@ public class BoardDTO {
 		this.b_content = b_content;
 	}
 
+
 	public String getB_nick() {
 		return b_nick;
 	}
@@ -89,8 +136,19 @@ public class BoardDTO {
 		this.b_nick = b_nick;
 	}
 
-	public Timestamp getB_date() {
-		return b_date;
+	
+	public String getB_date() throws ParseException {
+
+		String today1 = new SimpleDateFormat("yy.MM.dd").format(new Date());
+		String article = new SimpleDateFormat("yy.MM.dd").format(b_date);
+		if(today1.equals(article)) { 
+			return new SimpleDateFormat("HH:mm").format(b_date);
+		}
+		return new SimpleDateFormat("yyyy.MM.dd").format(b_date);
+	}
+
+	public String getDate() {
+		return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(b_date);
 	}
 
 	public void setB_date(Timestamp b_date) {
