@@ -112,7 +112,7 @@
 	function pwPattern() {
 		var pattern1 = /[0-9]/;
 		var pattern2 = /[a-zA-Z]/;
-		var pattern3 = /[~!@\#$%<>^&*()_+=]/
+		var pattern3 = /[~!@\#$%<>^&*]/
 		
 		var pw = $("#m_pw").val();
 		if(!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) 

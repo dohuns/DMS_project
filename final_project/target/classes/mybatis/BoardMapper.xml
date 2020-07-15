@@ -3,32 +3,241 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.KG.mybatis.myMapper">
-	<!-- 사이드바 닉네임으로 정보 가져오기 -->
-	<select id="userInfo" resultType="memberDTO">
-		SELECT * FROM member WHERE m_nick=#{m_nick}
-	</select>
-	<!-- 사이드바 작성한 게시글 수 가져오기 -->
-	<select id="boardCount" resultType="int">
-		SELECT COUNT(*) FROM board where b_nick=#{m_nick}
-	</select>
-	<!-- 사이드바 작성한 댓글 수 가져오기 -->
-	<select id="replyCount" resultType="int">
-		SELECT COUNT(*) FROM reply where c_nick=#{m_nick}
-	</select>
-	<!-- 카테고리 리스트 출력 -->
-	<select id="categoryList" resultType="boardDTO">
-		select * FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM
-	</select>
-	<!-- 아티클 리스트 출력 -->
-	<select id="articleList" resultType="boardDTO">
-		select * FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM
-	</select>
-	<!--  -->
-	<select id="list" resultType="boardDTO">
+
+	<!-- 사이드바 리스트 -->
+	<select id="sidebarlist" resultType="boardDTO">
 		SELECT * FROM board WHERE b_category=#{b_category} and b_article=#{b_article}
 	</select>
+
+	<!-- 카테고리 리스트 출력 -->
+	<select id="categoryList" resultType="boardDTO">
+<!-- 		select * FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM -->
+		SELECT B_CATEGORY, B_CATENUM FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM
+	</select>
 	
+	<!-- 아티클 리스트 출력 -->
+	<select id="articleList" resultType="boardDTO">
+<!-- 		select * FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM -->
+		SELECT B_CATEGORY, B_ARTICLE, B_ARTICLENUM FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM
+	</select>
+	
+	
+	<!-- 사이드바 닉네임으로 정보 가져오기 -->
+	<select resultType="memberDTO" id="userInfo">SELECT * FROM member WHERE m_nick=#{m_nick} </select>
+	
+	<!-- 사이드바 작성한 게시글 수 가져오기 -->
+	<select resultType="int" id="boardCount">SELECT COUNT(*) FROM board where b_nick=#{m_nick} </select>
+	
+	<!-- 사이드바 작성한 댓글 수 가져오기 -->
+	<select resultType="int" id="replyCount">SELECT COUNT(*) FROM reply where c_nick=#{m_nick} </select>
+	
+	
+	
+	<!-- /////////////////////// 글 목록 ////////////////////////// -->
+	<!-- 글 목록 -->
+	<select id="list" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_category=#{category} and b_article=#{article} and b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 글 목록 개수 -->
+	<select id="getCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_category=#{b_category} and b_article=#{b_article} and b_title is not null
+	</select>
+
+
+	<!-- 글 목록(전체) -->
+	<select id="listAll" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 글 목록 개수(전체) -->
+	<select id="getCountAll" resultType="int"> 
+		SELECT count(*) FROM board 
+			WHERE b_title is not null
+	</select>
+	<!--  ///////////////////////////////////////////////////  -->
+	
+	
+	
+	
+	<!-- ///////////////////////////////// 글 쓰기 ////////////////////// -->
+	
+	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
 		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
 	</select>
+	
+	<!-- 글 쓰기(저장) -->
+	<insert id="boardWrite">
+		INSERT INTO board 
+			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
+		VALUES 
+			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
+	</insert>
+	<!-- ///////////////////////////////////////////////////////////////// -->
+	
+	 
+	<!-- ///////////////////////////////전체 글  검색 ////////////////////////////// -->
+	<!-- 제목 + 내용으로 검색 -->
+	<select id="TCsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null 
+				and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 + 내용 개수 -->
+	<select id="TCsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+	</select>
+	
+	<!-- 제목으로 검색 -->
+	<select id="TsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_title like '%'||#{b_content}||'%' 
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 개수 -->
+	<select id="TsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_title like '%'||#{b_content}||'%'
+	</select>
+	
+	<!-- 작성자로 검색 -->
+	<select id="WsearchAll" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_nick like '%'||#{b_content}||'%' 
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<select id="WsearchCountAll" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_nick like '%'||#{b_content}||'%'
+	</select>
+	<!-- ///////////////////////////////////////////////////////////////////////// -->
+	
+	
+	<!-- //////////////////////////// 게시판 검색 //////////////////////////////// -->
+	<!-- 제목 + 내용으로 검색 -->
+	<select id="TCsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 + 내용 개수 -->
+	<select id="TCsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and (b_title like '%'||#{b_content}||'%' OR b_content like '%'||#{b_content}||'%')
+	</select>	
+	
+	<!-- 제목 검색  -->
+	<select id="Tsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and b_title like '%'||#{b_content}||'%'
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 제목 검색 개수 -->
+	<select id="TsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and b_title like '%'||#{b_content}||'%'
+	</select>
+	
+	<!-- 작성자 검색 -->
+	<select id="Wsearch" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+				and b_nick like '%'||#{b_content}||'%'
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	<!-- 작성자 검색 개수 -->
+	<select id="WsearchCount" resultType="int">
+		SELECT count(*) FROM board 
+			WHERE b_title is not null and b_category = #{b_category} and b_article = #{b_article}
+			and b_nick like '%'||#{b_content}||'%'
+	</select>
+	<!-- ///////////////////////////////////////////////////////////////////// -->
+	
+	
+	<!-- 게시물 보기 -->
+	<select id="showBoard" resultType="boardDTO">
+		SELECT * FROM board 
+			WHERE b_num = #{b_num}
+	</select>
+	
+	<!-- 게시판 전부 가져오기 -->
+	<select id="getArticle" resultType="boardDTO">
+		SELECT * FROM board 
+			WHERE b_articleNum IS NOT NULL
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="modifyBoard">
+		UPDATE board 
+			SET b_article=#{b_article} , b_title=#{b_title} , b_content=#{b_content} 
+			WHERE b_num = #{b_num}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+		DELETE FROM board 
+			WHERE b_num = #{b_num}
+	</delete>
+	<!-- 게시글 삭제 시 댓글 전부 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM reply
+			WHERE c_boardNum = #{b_num}
+	</delete>
+	
+	
+	<!-- 답글 쓰기 저장 -->
+	<insert id="replySave">
+		INSERT INTO board 
+			(b_category, b_article, b_num, b_title, b_content, b_nick, b_date, b_hit, b_reNum, b_sortNum, b_group, b_id, b_comCount)
+		values
+			(#{b_category}, #{b_article}, b_numSQ.nextval, #{b_title}, #{b_content}, #{b_nick}, sysdate, 0, #{b_reNum}, #{b_sortNum}, #{b_group}, #{b_id}, 0)
+	</insert>
+	
+	<!-- 나보다 큰 sortNum +1 해주기 -->
+	<update id="sortNumPlus">
+		UPDATE board SET b_sortNum = b_sortNum + 1 WHERE b_group=#{b_group} and b_sortNum &gt; #{b_sortNum}
+	</update>
 </mapper>

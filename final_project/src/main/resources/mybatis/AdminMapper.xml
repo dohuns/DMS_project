@@ -1,105 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.KG.mybatis.myMapper">
 
+	<!-- 관리자 페이지 > 수빈 -->
 	<!-- 회원 목록 조회 -->
 	<select id="selectMemberList" resultType="memberDTO">
-		SELECT * FROM member
+		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum
+		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)
+	</select>
+
+	<!-- 회원 목록 > 등급별 목록 출력 -->
+	<select id="selectRankList" resultType="memberDTO">
+		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum
+		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)
+		WHERE m_rankNum = #{m_rankNum}
+	</select>
+
+	<!-- 회원 목록 관리 > 검색 -->
+	<select id="selectSearchList" resultType="memberDTO">
+		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum
+		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth)
+		WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
 	</select>
 
 	<!-- 회원 목록 관리 > 추가 -->
-	<insert id="insertMember">
-		INSERT INTO member VALUES(#{m_id}, #{m_pw},
-		#{m_name}, #{m_nick}, #{m_birth}, #{m_email})
+	<insert id="insertMember" parameterType="memberDTO">
+		INSERT INTO member (m_id, m_pw, m_nick, m_name, m_birth, m_email, m_rank, m_rankNum) 
+		VALUES (#{m_id}, #{m_pw}, #{m_nick}, #{m_name}, SYSDATE, '[R.M]adminTestID', #{m_rank}, #{m_rankNum})
 	</insert>
 
 	<!-- 회원 목록 관리 > 수정 -->
-	<update id="updateMember">
-		UPDATE member SET m_pw = #{m_pw}, m_name = #{m_name},
-		m_nick = #{m_nick}, m_birth = #{m_birth} WHERE m_id = #{m_id}
+	<update id="updateMember" parameterType="memberDTO">
+		UPDATE member SET m_pw = #{m_pw}, m_nick = #{m_nick}, m_name = #{m_name},
+		m_email = #{m_email}, m_birth = #{m_birth}, m_rank = #{m_rank}, m_rankNum = #{m_rankNum} 
+		WHERE m_id = #{m_id}
 	</update>
+
+	<!-- 회원 목록 관리 > 수정 > 정보 출력 -->
+	<select id="selectInfoList" resultType="memberDTO">
+		SELECT * FROM member WHERE m_id = #{m_id}
+	</select>
 
 	<!-- 회원 목록 관리 > 삭제 -->
 	<update id="deleteMember">
 		DELETE FROM member WHERE m_id = #{m_id}
 	</update>
 
-	<!-- category 중복확인 -->
-	<select id="chkcategory" resultType="boardDTO">
-		select * from board where b_category = #{b_category}
-	</select>
-
-	<!-- category 추가 -->
-	<insert id="inscategory" parameterType="boardDTO">
-		INSERT INTO BOARD(B_CATEGORY,B_CATENUM,b_articlenum) values(#{b_category},(SELECT
-		MAX(b_catenum) from BOARD)+1,0)
-	</insert>
-
-	<!-- category 수정 -->
-	<update id="updcategory" parameterType="boardDTO">
-		UPDATE BOARD SET B_CATEGORY = #{b_category} where B_CATEGORY = #{b_title}
-	</update>
-
-	<!-- category 삭제 -->
-	<update id="delcategory" parameterType="boardDTO">
-		DELETE FROM BOARD WHERE B_CATEGORY = #{b_category}
-	</update>
-
-	<!-- category 삭제시 num 다운 -->
-	<update id="delcategoryDown" parameterType="boardDTO">
-		UPDATE BOARD set B_CATENUM = B_CATENUM -1 where B_CATENUM > (SELECT B_CATENUM FROM BOARD where b_category = #{b_category} and b_catenum is not null)
-	</update>
-
-	<!-- article 중복확인 -->
-	<select id="chkarticle" resultType="boardDTO">
-		select * from board where b_article = #{b_article}
-	</select>
-
-	<!-- article 추가 -->
-	<insert id="insarticle" parameterType="boardDTO">
-		INSERT INTO BOARD(B_CATEGORY,B_ARTICLE,B_ARTICLENUM) values(#{b_category},
-		#{b_article},(SELECT MAX(B_ARTICLENUM) from BOARD WHERE b_category =
-		#{b_category})+1)
-	</insert>
-
-	<!-- article 수정 -->
-	<update id="updarticle" parameterType="boardDTO">
-		UPDATE BOARD SET B_ARTICLE = #{b_article} where B_ARTICLE = #{b_title}
-	</update>
-
-	<!-- article 삭제 -->
-	<update id="delarticle" parameterType="boardDTO">
-		DELETE FROM BOARD WHERE B_ARTICLE = #{b_article}
-	</update>
-
-	<!-- article 삭제시 num 다운 -->
-	<update id="delarticleDown" parameterType="boardDTO">
-		UPDATE BOARD set B_ARTICLENUM = B_ARTICLENUM -1 where b_category = #{b_category} and  B_ARTICLENUM > (SELECT B_ARTICLENUM FROM BOARD where b_article = #{b_article} and B_ARTICLENUM is not null)
-	</update>
-	
-	<!-- category 위치 수정 -->
-	<update id="ordercategory" parameterType="boardDTO">
-		UPDATE board set B_CATENUM = #{b_cateNum} where B_CATEGORY = #{b_category} and B_CATENUM is not null
-	</update>
-	
-	<!-- article 위치 수정 -->
-	<update id="orderarticle" parameterType="boardDTO">
-		 UPDATE board set B_CATEGORY = #{b_category}, B_ARTICLENUM = #{b_articleNum} where B_ARTICLE = #{b_article} and B_num is null and B_CATENUM is null
-	</update>
-
-	<!-- PAGING > 총 인원 수 -->
-	<select id="getMemberCount">
+	<!-- PAGING > 등급 별 인원 수 -->
+	<select id="getMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member
+	</select>
+
+	<!-- PAGING > 등급 별 인원 수 -->
+	<select id="getRankCount" resultType="int">
+		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>
 
 	<!-- PAGING > 각 페이지별로 인원 출력 -->
 	<update id="pagingCount">
 		SELECT B.* FROM
 		(SELECT ROWNUM m_rn, A.* FROM
-		(SELECT *
-		FROM MEMBER ORDER BY M_RANK, M_BIRTH)A)B
+		(SELECT * FROM MEMBER ORDER BY m_rankNum, m_birth)A)B
 		WHERE m_rn BETWEEN #{startNum}
 		AND #{lastNum};
 	</update>

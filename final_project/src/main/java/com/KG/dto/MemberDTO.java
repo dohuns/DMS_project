@@ -3,17 +3,33 @@ package com.KG.dto;
 import java.sql.Date;
 
 public class MemberDTO {
-
+	
 	// m_rn : adminPage에서 회원 수 확인용도(paging처리에 사용)
-	 private String m_rn;
-	   private String m_id;
-	   private String m_pw;
-	   private String m_name;
-	   private String m_nick;
-	   private Date m_birth;
-	   private String m_email;
-	   private String m_rank;
-	   private int m_rankNum;
+	private String m_rn;
+	private String m_id;
+	private String m_pw;
+	private String m_name;
+	private String m_nick;
+	private Date m_birth;
+	private String m_email;
+	private String m_rank;
+	private int m_rankNum;
+
+	public int getM_rankNum() {
+		return m_rankNum;
+	}
+
+	public void setM_rankNum(int m_rankNum) {
+		this.m_rankNum = m_rankNum;
+	}
+
+	public String getM_rank() {
+		return m_rank;
+	}
+
+	public void setM_rank(String m_rank) {
+		this.m_rank = m_rank;
+	}
 
 	public String getM_rn() {
 		return m_rn;
@@ -71,20 +87,5 @@ public class MemberDTO {
 		this.m_email = m_email;
 	}
 
-	public String getM_rank() {
-		return m_rank;
-	}
-
-	public void setM_rank(String m_rank) {
-		this.m_rank = m_rank;
-	}
-
-	public int getM_rankNum() {
-		return m_rankNum;
-	}
-
-	public void setM_rankNum(int m_rankNum) {
-		this.m_rankNum = m_rankNum;
-	}
 
 }

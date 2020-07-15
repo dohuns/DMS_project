@@ -2,17 +2,18 @@ package com.KG.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.KG.dto.BoardDTO;
 import com.KG.dto.MemberDTO;
 
 @Repository
 public class AdminDAO {
+
 	@Autowired
 	@Qualifier("sqlSessionAdmin")
 	private SqlSession sqlSession;
@@ -24,56 +25,44 @@ public class AdminDAO {
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
-	
-	// category 중복확인
-	public BoardDTO chkcategory(BoardDTO boardDTO) {
-		return sqlSession.selectOne(namespace + ".chkcategory", boardDTO);
-	}
-	
-	// category 추가
-	public int inscategory(BoardDTO boardDTO) {
-		return sqlSession.insert(namespace + ".inscategory", boardDTO);
+
+	// 메인 페이지 > 등급별 회원 목록
+	public List<MemberDTO> rankList(int m_rankNum) {
+		return sqlSession.selectList(namespace + ".selectRankList", m_rankNum);
 	}
 
-	// category 수정
-	public int updcategory(BoardDTO boardDTO) {
-		return sqlSession.update(namespace + ".updcategory", boardDTO);
-	}
-	
-	// category 삭제
-	public int delcategory(BoardDTO boardDTO) {
-		sqlSession.update(namespace + ".delcategoryDown", boardDTO);
-		return sqlSession.delete(namespace + ".delcategory", boardDTO);
-	}
-	
-	// article 중복확인
-	public BoardDTO chkarticle(BoardDTO boardDTO) {
-		return sqlSession.selectOne(namespace + ".chkarticle", boardDTO);
+	// 메인 페이지 > 회원 수
+	public int getMemberCount() {
+		return sqlSession.selectOne(namespace + ".getMemberCount");
 	}
 
-	// article 추가
-	public int insarticle(BoardDTO boardDTO) {
-		return sqlSession.insert(namespace + ".insarticle", boardDTO);
+	// 메인 페이지 > 등급별 회원 수
+	public int getRankCount(int m_rankNum) {
+		return sqlSession.selectOne(namespace + ".getRankCount", m_rankNum);
 	}
-	
-	// article 수정
-	public int updarticle(BoardDTO boardDTO) {
-		return sqlSession.update(namespace + ".updarticle", boardDTO);
+
+	// 회원 관리 페이지 > 회원 검색
+	public List<MemberDTO> searchList(Map<String, Object> map) {
+		return sqlSession.selectList(namespace + ".selectSearchList", map);
 	}
-	
-	// article 삭제
-	public int delarticle(BoardDTO boardDTO) {
-		sqlSession.update(namespace + ".delarticleDown", boardDTO);
-		return sqlSession.delete(namespace + ".delarticle", boardDTO);
+
+	// 회원 관리 페이지 > 회원 추가
+	public int insertMember(MemberDTO dto) {
+		return sqlSession.insert(namespace + ".insertMember", dto);
 	}
-	
-	// category 순서 저장
-	public int ordercategory(BoardDTO boardDTO) {
-		return sqlSession.update(namespace + ".ordercategory", boardDTO);
+
+	// 회원 관리 페이지 > 회원 수정 (정보 출력)
+	public MemberDTO selectInfoList(String m_id) {
+		return sqlSession.selectOne(namespace + ".selectInfoList", m_id);
 	}
-	
-	// article 순서 저장
-	public int orderarticle(BoardDTO boardDTO) {
-		return sqlSession.update(namespace + ".orderarticle", boardDTO);
+
+	// 회원 관리 페이지 > 회원 수정
+	public int updateMember(MemberDTO dto) {
+		return sqlSession.update(namespace + ".updateMember", dto);
+	}
+
+	// 회원 관리 페이지 > 회원 삭제
+	public int deleteMember(String m_id) {
+		return sqlSession.delete(namespace + ".deleteMember", m_id);
 	}
 }

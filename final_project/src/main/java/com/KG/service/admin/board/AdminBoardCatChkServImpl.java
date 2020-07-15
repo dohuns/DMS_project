@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.AdminDAO;
+import com.KG.dao.AdminSidebarDAO;
 import com.KG.dto.BoardDTO;
 @Service
-public class AdminBoardCatChkServImpl implements AdminService {
+public class AdminBoardCatChkServImpl implements AdminBoardService {
 
 	@Autowired
-	AdminDAO admDAO;
+	AdminSidebarDAO admDAO;
 	
 	@Override
 	public void adminList(Model model) {

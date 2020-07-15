@@ -1,11 +1,13 @@
 package com.KG.controller;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.BoardDTO;
+import com.KG.dto.MemberDTO;
 import com.KG.service.admin.board.AdminBoardArtChkServImpl;
 import com.KG.service.admin.board.AdminBoardArtDelServImpl;
 import com.KG.service.admin.board.AdminBoardArtInsServImpl;
@@ -16,26 +18,41 @@ import com.KG.service.admin.board.AdminBoardCatDelServImpl;
 import com.KG.service.admin.board.AdminBoardCatInsServImpl;
 import com.KG.service.admin.board.AdminBoardCatOrdServImpl;
 import com.KG.service.admin.board.AdminBoardCatUpdServImpl;
-import com.KG.service.admin.board.AdminService;
-import com.KG.service.board.BoaArtListServImpl;
-import com.KG.service.board.BoaCatListServImpl;
+import com.KG.service.admin.board.AdminBoardService;
+import com.KG.service.admin.member.AdminSelectServImpl;
+import com.KG.service.admin.member.AdminService;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.sidebar.BoaArtListServImpl;
+import com.KG.service.board.sidebar.BoaCatListServImpl;
+import com.KG.service.board.sidebar.BoardSidebarService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class AdminRestController {
 
-	AdminService admServ;
+	AdminService adminServ;
+	AdminBoardService admServ;
 	BoardService boaServ;
+	BoardSidebarService boaSideServ;
 
+	/////////////////////////////////////////////////////////////////////////////////////
+	// 회원 관리 > 수정
+	@GetMapping(value = "updateMember", produces = "application/json; charset=UTF-8")
+	public MemberDTO updateMember(Model model, String m_id) {
+		model.addAttribute("m_id", m_id);
+		adminServ = (AdminSelectServImpl) AC.ac.getBean("adminSelectServImpl");
+		return adminServ.memberList(model);
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
 //	boardList 출력
 	@RequestMapping(value = "cateList", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String cateList(Model model, BoardDTO boardDTO) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		boaServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
-		String strJson = mapper.writeValueAsString(boaServ.execute_List(model));
+		boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
+		String strJson = mapper.writeValueAsString(boaSideServ.execute_List(model));
 		return strJson;
 	}
 
@@ -44,8 +61,8 @@ public class AdminRestController {
 	@ResponseBody
 	public String artList(Model model, BoardDTO boardDTO) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		boaServ = (BoaArtListServImpl) AC.ac.getBean("boaArtListServImpl");
-		String strJson = mapper.writeValueAsString(boaServ.execute_List(model));
+		boaSideServ = (BoaArtListServImpl) AC.ac.getBean("boaArtListServImpl");
+		String strJson = mapper.writeValueAsString(boaSideServ.execute_List(model));
 		return strJson;
 	}
 
