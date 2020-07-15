@@ -21,13 +21,21 @@
 		}
 
 		// 계정 선택 삭제
-		function deleteAlert() {
+		function delUser() {
 			var message = confirm("선택한 회원정보를 삭제하시겠습니까?");
 			if(message) {
-				$("#form").submit();
+				$('#form').attr('action', 'delAllMember').submit();
 			}
 		}
-	</script>
+
+		// 계정 등급 변경
+// 		function updRank() {
+// 			var message = confirm("선택한 회원의 등급을 변경하시겠습니까?");
+// 			if(message) {
+				
+// 			}
+// 		}
+		</script>
 	<meta charset="UTF-8">
 	<title>등급 변경</title>
 </head>
@@ -48,56 +56,56 @@
 				<div class="clearfix"></div>
 			</div>
 
-			<div id="main-content">
-				<div class="content-body">
-					<div class="col-lg-12 main-box-container">
-						<div class="box">
-							<div class="box-head clearfix">
-								<h1 class="pull-left"><b>정보 변경</b></h1>
-								<div class="actions pull-right">
-									<a href="#" class="btn btn-sm">등급 변경</a>
-									<a href="#" onclick="deleteAlert()" class="btn btn-sm">계정 삭제</a>
+			<form id="form">
+				<div id="main-content">
+					<div class="content-body">
+						<div class="col-lg-12 main-box-container">
+							<div class="box">
+								<div class="box-head clearfix">
+									<h1 class="pull-left"><b>정보 변경</b></h1>
+									<div class="actions pull-right">
+										<a href="#" type="button" onclick="updRank()" class="btn btn-sm">등급 변경</a>
+										<a href="#" type="button" onclick="delUser()" class="btn btn-sm">계정 삭제</a>
+									</div>
 								</div>
-							</div>
-
-							<div class="box-content">
-								<div class="table-container">
-									<form action="delAllMember" id="form">
-										<table id="edit_account" class="table is-datatable dataTable">
-											<thead>
-													<tr>
-													<th class="select-checkbox no-filter"></th>
-													<th width="5%">
-														<input type="checkbox" name="rankChk" id="rankChk" onclick="rankChkAll();">
-													</th>
-													<th class="no-filter" width="20%">아이디</th>
-													<th width="20%">닉네임</th>
-													<th width="35%">이메일</th>
-													<th width="20%">등   급</th>
-													</tr>
-											</thead>
-											<tbody>
-												<c:forEach var="list" items="${memberList}">
-													<tr>
-														<td class="select-checkbox no-filter"></td>
-														<td>
-															<input type="checkbox" name="m_idChk" value="${list.m_id}">
-														</td>
-														<td class="no-filter">${list.m_id}</td>
-														<td>${list.m_nick}</td>
-														<td>${list.m_email}</td>
-														<td>${list.m_rank}</td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
-									</form>
+	
+								<div class="box-content">
+									<div class="table-container">
+											<table id="edit_account" class="table is-datatable dataTable">
+												<thead>
+														<tr>
+														<th class="select-checkbox no-filter"></th>
+														<th width="5%">
+															<input type="checkbox" name="rankChk" id="rankChk" onclick="rankChkAll();">
+														</th>
+														<th class="no-filter" width="20%">아이디</th>
+														<th width="20%">닉네임</th>
+														<th width="35%">이메일</th>
+														<th width="20%">등   급</th>
+														</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="list" items="${memberList}">
+														<tr>
+															<td class="select-checkbox no-filter"></td>
+															<td>
+																<input type="checkbox" name="m_idChk" value="${list.m_id}">
+															</td>
+															<td class="no-filter">${list.m_id}</td>
+															<td>${list.m_nick}</td>
+															<td>${list.m_email}</td>
+															<td>${list.m_rank}</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		<!-- /PAGE CONTENT -->
 	</div>

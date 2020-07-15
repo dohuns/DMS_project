@@ -914,7 +914,7 @@
 				<li class="sidebar-brand"><a href="admin"> DO.MI.SU </a></li>
 				<li class="panel dashboard">
 					<a data-toggle="collapse" class="active" data-parent="#menu-accordion"
-						href="#dashboard-link">회원 관리 <span class="glyphicon  arrow"></span></a>
+						href="#dashboard-link">회원 관리 <span class="glyphicon arrow"></span></a>
 					<ul id="dashboard-link" class="collapse">
 						<li><a href="adminSelectList" class="active">전체 목록</a></li>
 						<li><a href="adminRankList?m_rankNum=2">관리 스탭</a></li>
