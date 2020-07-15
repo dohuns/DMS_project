@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>login</title>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/jquery.cookie.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -22,7 +23,6 @@
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 </style>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(function(){
 // 	체크되어있으면 아이디 기억(페이지 들어왔을 때 )
@@ -99,12 +99,6 @@ $(function(){
 	});
 	
 	
-// 	// 입력시 아이디 기억하기가 체크되어 있을 때 쿠키 만들기
-// 	$("#m_id").on('keyup keydown' , function() {
-// 		if($("#remember_me").is(":checked")) {
-// 			$.cookie("cookieId" , $("#m_id").val() , {expires:7});
-// 		}
-// 	})
 	
 	// 로그인 시 쿠키 추가
 	$("#login").on('click' , function() {
@@ -155,33 +149,14 @@ $(function(){
 					</div>
 				</div>
 			</fieldset>
-			<div id="naverIdLogin" style="margin-top: 20px; width:100%;"></div>
+			 <a href="${url}"><img height="30" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+			<div>
+				주소 : ${url}
+			</div>
 		</form>
 	</div>
 </div>
 </div>
-
-<body>
-<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-
-<!-- //네이버아이디로로그인 버튼 노출 영역 -->
-
-<!-- 네이버아디디로로그인 초기화 Script -->
-<script type="text/javascript">
-	var naverLogin = new naver.LoginWithNaverId(
-		{
-			clientId: "24O8tZgaByEYfBup9LRG",
-			callbackUrl: "http://localhost:8181/movie/",
-			isPopup: false, /* 팝업을 통한 연동처리 여부 */
-			loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
-		}
-	);
-	
-	/* 설정정보를 초기화하고 연동을 준비 */
-	naverLogin.init();
-</script>
-<!-- // 네이버아이디로로그인 초기화 Script -->
-</body>
 
 </body>
 </html>
