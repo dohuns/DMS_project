@@ -81,6 +81,26 @@
 		}
 	}
 	
+	// label_id text 값 유지
+	function keepId() {
+		if($("#btn_chk_id").is(":disabled")) {
+			$("#label_id").text("사용가능한 ID입니다.");
+			$("#label_id").css({
+				"color" : "blue"
+			})
+		}
+	}
+
+	// label_nick text 값 유지
+	function keepNick() {
+		if($("#btn_chk_nick").is(":disabled")) {
+			$("#label_nick").text("사용가능한 닉네임 입니다.");
+			$("#label_nick").css({
+				"color" : "blue"
+			})
+		}
+	}
+	
 	//비밀번호 확인 체크
 	function pwSameChk() {
 		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val() && $("#label_pw").text() == "") {
@@ -128,6 +148,7 @@
 	function chkId() {
 		chk_blank("m_id" , "label_id" , "아이디");
 		buttonAble();
+		keepId();
 	}
 	function chkPw() {
 		chk_blank("m_pw" , "label_pw" , "비밀번호");
@@ -147,6 +168,7 @@
 	function chkNick() {
 		chk_blank("m_nick" , "label_nick" , "닉네임");
 		buttonAble();
+		keepNick();
 	}
 	function chkDate() {
 		chk_blank("m_date" , "label_date" , "생년월일");
