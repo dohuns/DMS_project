@@ -84,10 +84,8 @@ hr#sub {
 							</div>
 							<div>
 								<ul>
-									<li><b><a href="board/myList">내가 쓴 글 보기</a></b>
-										${boardcount} 개</li>
-									<li><b><a href="board/myList">내가 쓴 댓글보기</a></b>
-										${replycount} 개</li>
+									<li><b><a href="myList">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
+									<li><b><a href="myList">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
 								</ul>
 							</div>
 						</div>
@@ -102,16 +100,23 @@ hr#sub {
 			<a href="#"><div align="center"
 					style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">게시글
 					글쓰기</div></a> <a href="#"><div align="center"
-					style="background-color: red; padding: 5px 0; margin: 5px 0;">채팅
+					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
 					하기</div></a>
 			<div>
 				<form action="#">
-					<input type="text" name="search" style="width: 81%">
-					<button
-						style="background-color: #8df38b; border-color: #8df38b; color: white;">검색</button>
+					<div class="input-group">
+						<input type="text" class="form-control" style="height: 28px;"
+							placeholder="Search">
+						<div class="input-group-btn">
+							<button class="btn btn-default" type="submit" style="height: 28px;">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+					</div>
+
 				</form>
 			</div>
-			<div id="menu">
+			<div id="menu" style="margin-top: 20px;">
 				<a href="board/list?b_category=&b_article=전체">전체글 보기</a>
 			</div>
 			<div>
@@ -119,10 +124,12 @@ hr#sub {
 					<hr id="main" style="margin-top: 10px; margin-bottom: 10px;">
 					<div id="menu" style="display: flex;">
 						<div style="width: 95%;">${boardCate.b_category}</div>
-						<div align="right" style="width: 5%; cursor: pointer;" class="${boardCate.b_category}"
-						onclick="menuClose('${boardCate.b_category}')" >&or;</div>
+						<div align="right" style="width: 5%; cursor: pointer;"
+							class="${boardCate.b_category}"
+							onclick="menuClose('${boardCate.b_category}')">&or;</div>
 					</div>
-					<hr id="sub" class="${boardCate.b_category}SubClose" style="margin-top: 10px; margin-bottom: 10px;">
+					<hr id="sub" class="${boardCate.b_category}SubClose"
+						style="margin-top: 10px; margin-bottom: 10px;">
 					<c:forEach items="${boardArt}" var="boardArt">
 						<c:if test="${boardCate.b_category == boardArt.b_category}">
 							<div id="menu" class="${boardCate.b_category}Close">
@@ -135,6 +142,6 @@ hr#sub {
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 </html>
