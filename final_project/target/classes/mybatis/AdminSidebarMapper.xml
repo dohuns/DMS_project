@@ -11,8 +11,8 @@
 
 	<!-- category 추가 -->
 	<insert id="inscategory" parameterType="boardDTO">
-		INSERT INTO BOARD(B_CATEGORY,B_CATENUM,b_articlenum) values(#{b_category},(SELECT
-		MAX(b_catenum) from BOARD)+1,0)
+		INSERT INTO BOARD(B_CATEGORY,B_CATENUM,b_articlenum,B_DATE) values(#{b_category},(SELECT
+		MAX(b_catenum) from BOARD)+1,0,SYSDATE)
 	</insert>
 
 	<!-- category 수정 -->
@@ -37,9 +37,9 @@
 
 	<!-- article 추가 -->
 	<insert id="insarticle" parameterType="boardDTO">
-		INSERT INTO BOARD(B_CATEGORY,B_ARTICLE,B_ARTICLENUM) values(#{b_category},
+		INSERT INTO BOARD(B_CATEGORY,B_ARTICLE,B_ARTICLENUM,B_DATE) values(#{b_category},
 		#{b_article},(SELECT MAX(B_ARTICLENUM) from BOARD WHERE b_category =
-		#{b_category})+1)
+		#{b_category})+1,SYSDATE)
 	</insert>
 
 	<!-- article 수정 -->
