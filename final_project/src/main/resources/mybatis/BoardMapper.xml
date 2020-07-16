@@ -12,13 +12,13 @@
 	<!-- 카테고리 리스트 출력 -->
 	<select id="categoryList" resultType="boardDTO">
 <!-- 		select * FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM -->
-		SELECT B_CATEGORY, B_CATENUM FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM
+		SELECT * FROM BOARD where B_ARTICLE is null and B_ARTICLE is null ORDER by B_CATENUM
 	</select>
 	
 	<!-- 아티클 리스트 출력 -->
 	<select id="articleList" resultType="boardDTO">
 <!-- 		select * FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM -->
-		SELECT B_CATEGORY, B_ARTICLE, B_ARTICLENUM FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM
+		SELECT * FROM BOARD where B_num is null and B_ARTICLE is not null ORDER by B_ARTICLENUM
 	</select>
 	
 	
