@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name = "google-signin-client_id"content = "117371344622-2cj0jdfcjbjgud7p47kucda54ucnqetu.apps.googleusercontent.com">
 <title>login</title>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="resources/jquery.cookie.js"></script>
@@ -115,6 +118,23 @@ $(function(){
 		
 	})
 });
+var token = "";
+// 구글 로그인
+function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  if(token == 1 && profile.getEmail() != null && profile.getEmail() != "") {
+		  location.href="login/googleCallback?email="+ profile.getEmail() ;
+	  }
+}
+function makeToken() {
+	token = 1;
+}
+
+	
 
 </script>
 </head>
@@ -136,8 +156,8 @@ $(function(){
 				<span class="button-checkbox">
 					<button type="button" class="btn" data-color="info">아이디 저장하기</button>
                     <input type="checkbox" name="remember_me" id="remember_me" class="hidden">
-					<a href="" class="btn btn-link pull-right">아이디 찾기</a>
-					<a href="" class="btn btn-link pull-right">비밀번호 찾기</a>
+					<a href="pwInquiry" class="btn btn-link pull-right">비밀번호 찾기</a>
+					<a href="idInquiry" class="btn btn-link pull-right">아이디 찾기</a>
 				</span>
 				<hr class="colorgraph">
 			 	<div class="row">
@@ -145,14 +165,16 @@ $(function(){
                         <input type="button" class="btn btn-lg btn-success btn-block" value="로그인" id="login">
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
-						<a href="" class="btn btn-lg btn-primary btn-block">회원가입</a>
+						<a href="regist_email" class="btn btn-lg btn-primary btn-block">회원가입</a>
 					</div>
 				</div>
 			</fieldset>
-			 <a href="${url}"><img height="30" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-			<div>
-				주소 : ${url}
-			</div>
+			<div align="center">
+				<div>
+					<a href="${url}"><img height="40"src="/movie/resources/naverBtn.PNG"/></a>
+				</div>
+				 <div class="g-signin2" data-onsuccess="onSignIn" onclick="makeToken()" style="width:180px; height:40px;"></div>
+			 </div>
 		</form>
 	</div>
 </div>

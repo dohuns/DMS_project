@@ -1,6 +1,11 @@
 package com.KG.loginAPI;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,16 +15,23 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.KG.dao.MemberDAO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Controller
 public class loginController {
 
+	@Autowired
+	overlapEmail over;
+	
 	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
@@ -40,7 +52,7 @@ public class loginController {
     }
 
     
-	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "login/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws IOException, ParseException {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
@@ -54,15 +66,27 @@ public class loginController {
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
 		
 		// response의 nickname값 파싱
-		String name = (String)response_obj.get("name");
-		String img = (String)response_obj.get("profile_image");
-		String nick = (String)response_obj.get("nickname");
+		String email = (String)response_obj.get("email");
 		
 		// 파싱 닉네임 세션으로 저장
-		session.setAttribute("sessionNick", name);
-		model.addAttribute("img" , img );
-		model.addAttribute("nick" , nick );
 		model.addAttribute("result" , apiResult);
-		return "callback";
+		
+		model.addAttribute("email" , email);
+		if(over.execute(model)) {
+			return "member/regist";
+		}
+		return "googleFail";
+	}
+	
+	////////////////////////////////// 구글 ///////////////////////////////
+	@RequestMapping("login/googleCallback")
+	public String googleLogin(@RequestParam(required = false) String email , Model model ) {
+		
+		model.addAttribute("email" , email);
+		
+		if(over.execute(model)) {
+			return "member/regist";
+		}
+		return "googleFail";
 	}
 }

@@ -120,7 +120,8 @@
 	function buttonAble() {
 		if($("#label_id").text() == "사용가능한 ID입니다." && $("#m_pw").val() != "" && $("m_Rpw").val() != "" 
 				&& $("#m_name").val() != "" && $("#m_date").val() != "" 
-				&& $("#label_nick").text() == "사용가능한 닉네임 입니다." && $("#label_pw").text() == "") {
+				&& $("#label_nick").text() == "사용가능한 닉네임 입니다." && $("#label_pw").text() == ""
+				&& $("#label_Rpw").text() == "일치~") {
 			
 			$("#btn-regist").prop("disabled" , false);
 		} else {
