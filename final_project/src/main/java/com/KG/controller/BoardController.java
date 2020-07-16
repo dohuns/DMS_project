@@ -57,15 +57,21 @@ public class BoardController {
 		}
 		return "default/sidebar";
 	}
-
+	
+	// 게시글 목록
+	@RequestMapping("myList")
+	public String myList(Model model, BoardDTO dto) {
+		return "board/myList";
+	}
+//=======================================================================================	
 	// 게시글 목록
 	@RequestMapping("/board/list")
 	public String board_list(Model model, BoardDTO dto) {
-
+		
 		model.addAttribute("dto", dto);
 		boaServ = (BoaListServImpl) AC.ac.getBean("boaListServImpl");
 		boaServ.execute_Boo(model);
-
+		
 		return "board/list";
 	}
 

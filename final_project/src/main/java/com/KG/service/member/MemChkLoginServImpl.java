@@ -33,6 +33,7 @@ public class MemChkLoginServImpl implements MemberService {
 		if (memberDAO.loginck(memberDTO).getM_id().equals(memberDTO.getM_id()) && memberDAO.loginck(memberDTO).getM_pw().equals(memberDTO.getM_pw())) {
 			session.setAttribute("m_nick", memberDAO.loginck(memberDTO).getM_nick());
 			session.setAttribute("m_id", memberDAO.loginck(memberDTO).getM_id());
+			session.setAttribute("m_rankNum", memberDAO.loginck(memberDTO).getM_rankNum());
 		} else {
 			System.out.println("실패");
 		}
