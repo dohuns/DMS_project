@@ -285,7 +285,7 @@
 									</c:choose>
 								</h1>
 								<div class="actions pull-left" style="margin-top: 10px;">
-									<form action="searchMember">
+									<form action="adminSearchList">
 										<select name="searchOption" style="height: 26px;">
 										<option value="m_id"    <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"   /> > 아이디</option>
 										<option value="m_name"  <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}" /> > 이름</option>

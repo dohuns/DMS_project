@@ -53,8 +53,8 @@ public class AdminController {
 	}
 
 	// 회원 정보 검색
-	@RequestMapping("searchMember")
-	public String searchMember(Model model, MemberDTO dto,
+	@RequestMapping("adminSearchList")
+	public String adminSearchList(Model model, MemberDTO dto,
 				@RequestParam(defaultValue = "m_id") String searchOption,
 				@RequestParam(defaultValue = "") String keyword) {
 		model.addAttribute("dto", dto);

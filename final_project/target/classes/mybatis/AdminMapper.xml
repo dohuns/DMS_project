@@ -26,10 +26,6 @@
 
 	<!-- 회원 정보 검색 -->
 	<select id="selectSearchList" parameterType="hashMap" resultType="memberDTO">
-<!-- 		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum -->
-<!-- 		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id) -->
-<!-- 		WHERE ${searchOption} LIKE '%'||#{keyword}||'%' -->
-
 		SELECT B.* FROM (
 			SELECT ROWNUM m_rn, A.* FROM
 				(SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)A 

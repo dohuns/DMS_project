@@ -19,12 +19,14 @@ public class AdminSearchServImpl implements AdminService {
 	public void execute(Model model) {
 		Map<String, Object> modelMap = model.asMap();
 		MemberDTO memberDTO = (MemberDTO) modelMap.get("dto");
+		String searchOption = (String) modelMap.get("searchOption");
+		String keyword = (String) modelMap.get("keyword");
+		int pageNum = memberDTO.getPageNum();
+		int start = pageNum * 15 + 1;
+		int end = pageNum * 15 + 15;
 
 		// 검색된 회원수 계산
 		HashMap<String, Object> hash = new HashMap<String, Object>();
-		String searchOption = (String) modelMap.get("searchOption");
-		String keyword = (String) modelMap.get("keyword");
-
 		hash.put("searchOption", searchOption);
 		hash.put("keyword", keyword);
 
@@ -32,10 +34,8 @@ public class AdminSearchServImpl implements AdminService {
 		hash.put("getRankCount", getRankCount);
 
 		// 페이징 처리 후 데이터 출력
-		int pageNum = memberDTO.getPageNum();
-		hash.put("start", pageNum * 15 + 1);
-		hash.put("end", pageNum * 15 + 15);
-		System.out.println("pageNum : " + pageNum + ", search : " + searchOption + ", key : " + keyword + ", rankCount : " + getRankCount);
+		hash.put("start", start);
+		hash.put("end", end);
 
 		model.addAttribute("searchList", adminDAO.searchList(hash));
 		model.addAttribute("getRankCount", getRankCount);

@@ -28,8 +28,8 @@ public class AdminDAO {
 	}
 
 	// 회원 정보 검색
-	public List<MemberDTO> searchList(Map<String, Object> map) {
-		return sqlSession.selectList(namespace + ".selectSearchList", map);
+	public List<MemberDTO> searchList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectSearchList", hash);
 	}
 
 	// 등급별 목록

@@ -273,7 +273,7 @@
 							<div class="box-head clearfix">
 								<h1 class="pull-left" style="height: 56px;"><b>검색 결과</b></h1>
 								<div class="actions pull-left" style="margin-top: 10px;">
-									<form action="searchMember">
+									<form action="adminSearchList">
 										<select name="searchOption" style="height: 26px;">
 										<option value="m_id"    <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"   /> > 아이디</option>
 										<option value="m_name"  <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}" /> > 이름</option>
@@ -283,6 +283,9 @@
 										<input type="text" name="keyword" value="${map.keyword}" style="width: 130px;">
 										<button type="submit" class="searchBtn">검색</button>
 									</form>
+								</div>
+								<div class="actions pull-right">
+									<label style="padding-top: 20px; height: 40px;">회원 수 : ${getRankCount} 명</label>
 								</div>
 							</div>
 
