@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="//code.jquery.com/jquery-latest.min.js"></script>
 	<!-- 회원 정보 삭제 -->
 	<script>
 		function deleteAlert(m_id, m_nick) {

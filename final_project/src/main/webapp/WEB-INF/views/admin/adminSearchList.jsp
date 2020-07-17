@@ -222,12 +222,36 @@
 		}
 	</script>
 
+	<style>
+		.searchBtn {
+			border: 1px solid;
+			border-color: #55a4d3;
+			border-radius: 3px;
+			background-color: #55a4d3;
+			color: white;
+			height: 26px;
+		}
+	</style>
+
 	<meta charset="UTF-8">
-	<title>계정 관리</title>
+	<title>정보 검색</title>
 </head>
 <body>
 	<div id="wrapper" class="">
 		<c:import url="../default/adminHeader.jsp"/>
+
+		<!-- PAGING -->
+		<c:choose>
+			<c:when test="${param.pageNum == null}">
+				<c:set var="pageNum" value="0" />
+				<c:set var="next" value="0" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="pageNum" value="${param.pageNum}" />
+				<c:set var="next" value="${param.next}" />
+			</c:otherwise>
+		</c:choose>
+
 		<!-- PAGE CONTENT -->
 		<div id="page-content-wrapper">
 			<div id="topbar">
@@ -247,13 +271,22 @@
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
 							<div class="box-head clearfix">
-								<h1 class="pull-left"><b>회원 목록</b></h1>
-								<div class="actions pull-right">
-									<label style="padding-top: 20px; height: 40px;">회원 수 : ${memberCount} 명</label>
+								<h1 class="pull-left" style="height: 56px;"><b>검색 결과</b></h1>
+								<div class="actions pull-left" style="margin-top: 10px;">
+									<form action="searchMember">
+										<select name="searchOption" style="height: 26px;">
+										<option value="m_id"    <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"   /> > 아이디</option>
+										<option value="m_name"  <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}" /> > 이름</option>
+										<option value="m_nick"  <c:out value="${map.searchOption == 'm_nick' ? 'selected' : ''}" /> > 닉네임</option>
+										<option value="m_email" <c:out value="${map.searchOption == 'm_email' ? 'selected' : ''}"/> > 이메일</option>
+										</select>
+										<input type="text" name="keyword" value="${map.keyword}" style="width: 130px;">
+										<button type="submit" class="searchBtn">검색</button>
+									</form>
 								</div>
 							</div>
 
-							<!-- 일반 회원 목록 출력 -->
+							<!-- 회원 목록 출력 -->
 							<div class="box-content">
 								<div class="table-container">
 									<table id="inventories" class="table is-datatable">
@@ -269,7 +302,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="list" items="${memberList}">
+											<c:forEach var="list" items="${searchList}">
 												<tr>
 													<td class="select-checkbox no-filter"></td>
 													<td class="no-filter">${list.m_id}</td>
@@ -288,6 +321,44 @@
 											</c:forEach>
 										</tbody>
 									</table>
+								</div>
+							</div>
+
+							<!-- PAGING -->
+							<div class="text-center">
+								<ul class="pagination">
+									<!-- 이전 버튼 -->
+									<li>
+										<c:if test="${pageNum > 9}">
+											<a href="adminSearchList?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+										</c:if>
+									</li>
+									<!-- 번호 출력 -->
+									<li>
+										<c:choose>
+											<c:when test="${totalNum > next * 10 + 10}">
+												<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}"
+													step="1" var="cnt">
+													<a href="adminSearchList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<c:forEach begin="${next * 10 + 1}" end="${totalNum}"
+													step="1" var="cnt">
+													<a href="adminSearchList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</li>
+									<!-- 다음 버튼 -->
+									<li>
+										<c:if test="${totalNum > next * 10 + 10 }">
+											<a href="adminSearchList?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+										</c:if>
+									</li>
+								</ul>
+								<div class="row">
+									<label>${pageNum + 1} / ${totalNum}</label><p>
 								</div>
 							</div>
 						</div>
@@ -393,7 +464,8 @@
 												class="form-control">
 											<label id="label_nick"></label>
 											<button type="button" id="btn_chk_nick"
-												class="btn btn-sm btn-default">중복확인</button>
+												class="btn btn-sm btn-default"
+												onclick="chk_nick()">중복확인</button>
 										</div>
 										<div class="form-group">
 											<label for="">이 름</label>

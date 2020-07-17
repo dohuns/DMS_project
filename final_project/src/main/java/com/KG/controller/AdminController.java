@@ -14,6 +14,7 @@ import com.KG.service.admin.member.AdminDelServImpl;
 import com.KG.service.admin.member.AdminInsertServImpl;
 import com.KG.service.admin.member.AdminRankServImpl;
 import com.KG.service.admin.member.AdminRankUpdServImpl;
+import com.KG.service.admin.member.AdminSearchServImpl;
 import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdServImpl;
@@ -44,11 +45,24 @@ public class AdminController {
 
 	// 등급별 목록 출력
 	@RequestMapping("adminRankList")
-	public String adminRankList(Model model, int m_rankNum) {
-		model.addAttribute("m_rankNum", m_rankNum);
+	public String adminRankList(Model model, MemberDTO dto) {
+		model.addAttribute("dto", dto);
 		adminServ = (AdminRankServImpl) AC.ac.getBean("adminRankServImpl");
 		adminServ.execute(model);
 		return "admin/adminRankList";
+	}
+
+	// 회원 정보 검색
+	@RequestMapping("searchMember")
+	public String searchMember(Model model, MemberDTO dto,
+				@RequestParam(defaultValue = "m_id") String searchOption,
+				@RequestParam(defaultValue = "") String keyword) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("keyword", keyword);
+		adminServ = (AdminSearchServImpl) AC.ac.getBean("adminSearchServImpl");
+		adminServ.execute(model);
+		return "admin/adminSearchList";
 	}
 
 	// 회원 등급 변경 출력
@@ -120,7 +134,7 @@ public class AdminController {
 	public String boardList(Model model) {
 		return "admin/boardList";
 	}
-	
+
 	// 관리자페이지 > 게시판 위치 수정
 	@RequestMapping("boardChange")
 	public String boardChange(Model model) {
@@ -128,7 +142,5 @@ public class AdminController {
 		model.addAttribute("category",boaSideServ.execute_Str(model));
 		return "admin/boardChange";
 	}
-	
-	
-	
+
 }
