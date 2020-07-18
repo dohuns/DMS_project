@@ -260,7 +260,19 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'"><b>관리자 페이지</b></h1>
+					<h1 class="company-name" onclick="location.href='admin'">
+						<c:choose>
+							<c:when test="${param.m_rankNum == 2}">
+								<b>관리 스탭 목록</b>
+							</c:when>
+							<c:when test="${param.m_rankNum == 3}">
+								<b>일반 회원 목록</b>
+							</c:when>
+							<c:otherwise>
+								<b>대기 회원 목록</b>
+							</c:otherwise>
+						</c:choose>
+					</h1>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
@@ -275,29 +287,16 @@
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
 							<div class="box-head clearfix">
-								<h1 class="pull-left">
-									<c:choose>
-										<c:when test="${param.m_rankNum == 2}">
-											<b>관리 스탭 목록</b>
-										</c:when>
-										<c:when test="${param.m_rankNum == 3}">
-											<b>일반 회원 목록</b>
-										</c:when>
-										<c:otherwise>
-											<b>대기 회원 목록</b>
-										</c:otherwise>
-									</c:choose>
-								</h1>
 								<div class="actions pull-left" style="margin-top: 10px;">
 									<form action="adminSearchList">
-										<select name="searchOption" style="height: 26px;">
+										<select name="searchOption" style="width: 80px; height: 26px;">
 										<option value="m_id"    <c:out value="${map.searchOption == 'm_id' ? 'selected' : ''}"   /> > 아이디</option>
 										<option value="m_name"  <c:out value="${map.searchOption == 'm_name' ? 'selected' : ''}" /> > 이름</option>
 										<option value="m_nick"  <c:out value="${map.searchOption == 'm_nick' ? 'selected' : ''}" /> > 닉네임</option>
 										<option value="m_email" <c:out value="${map.searchOption == 'm_email' ? 'selected' : ''}"/> > 이메일</option>
 										</select>
-										<input type="text" name="keyword" value="${map.keyword}" style="width: 130px;">
-										<button type="submit" class="searchBtn">검색</button>
+										<input type="text" name="keyword" value="${map.keyword}" style="width: 200px;">
+										<button type="submit" class="searchBtn"><i class="glyphicon glyphicon-search"></i></button>
 									</form>
 								</div>
 								<div class="actions pull-right">

@@ -127,6 +127,15 @@ public class AdminController {
 		adminServ.execute(model);
 		return "redirect:adminUpdRank";
 	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	// 게시글 관리 > 공지사항
+	@RequestMapping("adminNoticeMain")
+	public String adminNoticeMain(Model model) {
+		return "admin/adminNoticeMain";
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	// 관리자페이지 > 게시판 목록
