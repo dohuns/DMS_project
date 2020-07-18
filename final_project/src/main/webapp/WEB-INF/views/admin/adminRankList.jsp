@@ -231,6 +231,10 @@
 			color: white;
 			height: 26px;
 		}
+
+		.pagination>li>a,
+		.pagination>li>span {
+		}
 	</style>
 
 	<meta charset="UTF-8">
@@ -349,22 +353,22 @@
 										</c:if>
 									</li>
 									<!-- 번호 출력 -->
-									<li>
-										<c:choose>
-											<c:when test="${totalNum > next * 10 + 10}">
-												<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}"
-													step="1" var="cnt">
+									<c:choose>
+										<c:when test="${totalNum > next * 10 + 10}">
+											<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
+												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
 													<a href="adminRankList?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<c:forEach begin="${next * 10 + 1}" end="${totalNum}"
-													step="1" var="cnt">
+												</li>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
+												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
 													<a href="adminRankList?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
-									</li>
+												</li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
 									<!-- 다음 버튼 -->
 									<li>
 										<c:if test="${totalNum > next * 10 + 10 }">
@@ -372,9 +376,6 @@
 										</c:if>
 									</li>
 								</ul>
-								<div class="row">
-									<label>${pageNum + 1} / ${totalNum}</label><p>
-								</div>
 							</div>
 						</div>
 					</div>

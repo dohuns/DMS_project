@@ -30,6 +30,7 @@ public class AdminRankServImpl implements AdminService {
 		hash.put("end", pageNum * 15 + 15);
 		hash.put("m_rankNum", m_rankNum);
 
+		System.out.println("rankServ_pageNum : " + pageNum);
 		model.addAttribute("rankList", adminDAO.rankList(hash));
 		model.addAttribute("getRankCount", getRankCount);
 		model.addAttribute("totalNum", (getRankCount % 15 == 0 ? getRankCount / 15 : getRankCount / 15 + 1) );
