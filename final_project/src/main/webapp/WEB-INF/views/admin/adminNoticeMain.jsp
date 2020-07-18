@@ -14,6 +14,17 @@
 		.banana {
 			text-align: center;
 		}
+
+		.mango {
+			color: #727272;
+			margin-left: 10px;
+		}
+
+		a:hover, a:focus, a:visited {
+			color: #727272;
+			font-weight: bolder;
+			text-decoration: underline;
+		}
 	</style>
 </head>
 <body>
@@ -79,11 +90,11 @@
 												<tr>
 													<td class="select-checkbox no-filter"></td>
 													<td class="no-filter banana">${list.b_num}</td>
-													<td>${list.b_title}</td>
+													<td><a href="#" class="mango">${list.b_title}</a></td>
 													<td>${list.b_nick}</td>
 													<td class="banana">${list.b_date}</td>
 													<td class="banana">
-														<span class="btn btn-xs btn-danger" onclick="">삭제</span>
+														<span class="btn btn-xs btn-danger" onclick="#">삭제</span>
 													</td>
 												</tr>
 											</c:forEach>
@@ -98,7 +109,7 @@
 									<!-- 이전 버튼 -->
 									<li>
 										<c:if test="${pageNum > 9}">
-											<a href="adminNoticeMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}&m_rankNum=${param.m_rankNum}">«</a>
+											<a href="adminNoticeMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 										</c:if>
 									</li>
 									<!-- 번호 출력 -->
@@ -106,14 +117,14 @@
 										<c:when test="${totalNum > next * 10 + 10}">
 											<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
+													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
 											<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
+													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:otherwise>
@@ -121,7 +132,7 @@
 									<!-- 다음 버튼 -->
 									<li>
 										<c:if test="${totalNum > next * 10 + 10 }">
-											<a href="adminNoticeMain?next=${next + 1}&pageNum=${(next + 1) * 10}&m_rankNum=${param.m_rankNum}">»</a>
+											<a href="adminNoticeMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 										</c:if>
 									</li>
 								</ul>
