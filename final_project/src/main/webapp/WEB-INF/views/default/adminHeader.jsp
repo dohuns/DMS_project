@@ -771,9 +771,9 @@
 				</li>
 				<li class="panel transactions">
 					<a data-toggle="collapse" class="collapsed" data-parent="#menu-accordion"
-						href="#transactions-link">게시글 관리<span class="glyphicon  arrow"></span></a>
+						href="#transactions-link">게시글 관리<span class="glyphicon arrow"></span></a>
 					<ul id="transactions-link" class="collapse">
-						<li><a href="adminNoticeMain">공지사항</a></li>
+						<li><a href="adminNoticeMain?b_category=공지사항&b_article=공지">공지사항</a></li>
 						<li><a href="#">질문응답</a></li>
 					</ul>
 				</li>

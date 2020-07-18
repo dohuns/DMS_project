@@ -10,6 +10,10 @@
 		tr>th {
 			text-align: center;
 		}
+
+		.banana {
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
@@ -56,13 +60,14 @@
 								</div>
 							</div>
 
+							<!-- 공지사항 출력 -->
 							<div class="box-content">
 								<div class="table-container">
 									<table id="admin_Notice" class="table is-datatable dataTable">
 										<thead>
 											<tr>
 												<th class="select-checkbox no-filter"></th>
-												<th class="no-filter" width="5%">000</th>
+												<th class="no-filter" width="5%">번   호</th>
 												<th width="59%">제   목</th>
 												<th width="12%">작성자</th>
 												<th width="12%">작성일</th>
@@ -70,17 +75,56 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="select-checkbox no-filter"></td>
-												<td>001</td>
-												<td>[점검] 점검중입니다.</td>
-												<td>관리자</td>
-												<td>2020-07-18</td>
-												<td>[삭제]</td>
-											</tr>
+											<c:forEach var="list" items="${noticeList}">
+												<tr>
+													<td class="select-checkbox no-filter"></td>
+													<td class="no-filter banana">${list.b_num}</td>
+													<td>${list.b_title}</td>
+													<td>${list.b_nick}</td>
+													<td class="banana">${list.b_date}</td>
+													<td class="banana">
+														<span class="btn btn-xs btn-danger" onclick="">삭제</span>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
+							</div>
+
+							<!-- PAGING -->
+							<div class="text-center">
+								<ul class="pagination">
+									<!-- 이전 버튼 -->
+									<li>
+										<c:if test="${pageNum > 9}">
+											<a href="adminNoticeMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}&m_rankNum=${param.m_rankNum}">«</a>
+										</c:if>
+									</li>
+									<!-- 번호 출력 -->
+									<c:choose>
+										<c:when test="${totalNum > next * 10 + 10}">
+											<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
+												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
+													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
+												</li>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
+												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
+													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}&m_rankNum=${param.m_rankNum}">${cnt}</a>
+												</li>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+									<!-- 다음 버튼 -->
+									<li>
+										<c:if test="${totalNum > next * 10 + 10 }">
+											<a href="adminNoticeMain?next=${next + 1}&pageNum=${(next + 1) * 10}&m_rankNum=${param.m_rankNum}">»</a>
+										</c:if>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
