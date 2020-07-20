@@ -1,8 +1,8 @@
 package com.KG.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,14 @@ public class AdminDAO {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
 
+	// 회원 정보 검색
+	public List<MemberDTO> searchList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectSearchList", hash);
+	}
+
 	// 등급별 목록
-	public List<MemberDTO> rankList(int m_rankNum) {
-		return sqlSession.selectList(namespace + ".selectRankList", m_rankNum);
+	public List<MemberDTO> rankList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectRankList", hash);
 	}
 
 	// 회원 수
@@ -39,6 +44,11 @@ public class AdminDAO {
 	// 등급별 회원 수
 	public int getRankCount(int m_rankNum) {
 		return sqlSession.selectOne(namespace + ".getRankCount", m_rankNum);
+	}
+
+	// 검색된 회원 수
+	public int getSearchCount(HashMap<String, Object> hash) {
+		return sqlSession.selectOne(namespace + ".getSearchCount", hash);
 	}
 
 	// 회원 정보 추가

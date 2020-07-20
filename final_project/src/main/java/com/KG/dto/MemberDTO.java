@@ -14,6 +14,15 @@ public class MemberDTO {
 	private String m_email;
 	private String m_rank;
 	private int m_rankNum;
+	private int pageNum;
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
 
 	public int getM_rankNum() {
 		return m_rankNum;
