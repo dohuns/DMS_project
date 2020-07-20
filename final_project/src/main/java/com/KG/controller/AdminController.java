@@ -22,6 +22,7 @@ import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 
@@ -147,6 +148,15 @@ public class AdminController {
 		boardServ = (AdminNoticeServImpl) AC.ac.getBean("adminNoticeServImpl");
 		boardServ.execute_Boo(model);
 		return "admin/adminNoticeMain";
+	}
+
+	// 공지사항 : 게시글 보기
+	@RequestMapping("adminNoticeContent")
+	public String adminNoticeContent(Model model, @RequestParam("b_num") int b_num) {
+		model.addAttribute("b_num", b_num);
+		boardServ = (BoardShowServImpl) AC.ac.getBean("boardShowServImpl");
+		boardServ.execute_Boo(model);
+		return "admin/adminNoticeContent";
 	}
 
 	// 공지사항 : 게시글 삭제

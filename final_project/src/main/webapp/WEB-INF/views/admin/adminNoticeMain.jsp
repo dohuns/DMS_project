@@ -17,18 +17,29 @@
 
 		.mango {
 			color: #727272;
-			margin-left: 10px;
-		}
-
-		.searchBar {
-			margin-top: 6px;
-			width: 200px;
+			margin-left: 20px;
 		}
 
 		a:hover, a:focus, a:visited {
-			color: #727272;
-			font-weight: bolder;
 			text-decoration: underline;
+		}
+
+		.searchBtn {
+			border: 1px solid;
+			border-color: #55a4d3;
+			border-radius: 3px;
+			background-color: #55a4d3;
+			color: white;
+			height: 26px;
+		}
+
+		.searchBar {
+			margin-top: 8px;
+			width: 200px;
+		}
+
+		.toolbarSize {
+			height: 56px;
 		}
 	</style>
 	<script>
@@ -74,7 +85,7 @@
 				<div class="content-body">
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
-							<div class="box-head clearfix">
+							<div class="box-head clearfix toolbarSize">
 								<div class="actions pull-left">
 									<form action="#">
 										<input type="text" id="keyword" onkeyup="showData(this.value)" class="searchBar">
@@ -89,7 +100,7 @@
 							<!-- 공지사항 출력 -->
 							<div class="box-content">
 								<div class="table-container">
-									<table id="admin_Notice" class="table is-datatable dataTable">
+									<table id="admin_Notice" class="table is-datatable dataTable test">
 										<thead>
 											<tr>
 												<th class="select-checkbox no-filter"></th>
@@ -105,7 +116,7 @@
 												<tr>
 													<td class="select-checkbox no-filter"></td>
 													<td class="no-filter banana">${list.b_num}</td>
-													<td><a href="#" class="mango">${list.b_title}</a></td>
+													<td><a href="adminNoticeContent?b_num=${list.b_num}" class="mango">${list.b_title}</a></td>
 													<td>${list.b_nick}</td>
 													<td class="banana">${list.b_date}</td>
 													<td class="banana">

@@ -222,6 +222,25 @@
 		}
 	</script>
 
+	<style>
+		.searchBtn {
+			border: 1px solid;
+			border-color: #55a4d3;
+			border-radius: 3px;
+			background-color: #55a4d3;
+			color: white;
+			height: 26px;
+		}
+
+		.searchBar {
+			margin-top: 8px;
+			width: 200px;
+		}
+
+		.toolbarSize {
+			height: 56px;
+		}
+	</style>
 	<meta charset="UTF-8">
 	<title>계정 관리</title>
 </head>
@@ -232,7 +251,7 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'"><b>관리자 페이지</b></h1>
+					<h1 class="company-name" onclick="location.href='admin'"><b>회원 목록</b></h1>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
@@ -246,8 +265,13 @@
 				<div class="content-body">
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
-							<div class="box-head clearfix">
-								<h1 class="pull-left"><b>회원 목록</b></h1>
+							<div class="box-head clearfix toolbarSize">
+								<div class="actions pull-left">
+									<form action="#">
+										<input type="text" id="keyword" onkeyup="showData(this.value)" class="searchBar">
+										<button type="button" class="searchBtn"><i class="glyphicon glyphicon-search"></i></button>
+									</form>
+								</div>
 								<div class="actions pull-right">
 									<label style="padding-top: 20px; height: 40px;">회원 수 : ${memberCount} 명</label>
 								</div>
