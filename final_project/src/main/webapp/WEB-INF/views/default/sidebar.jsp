@@ -84,8 +84,8 @@ hr#sub {
 							</div>
 							<div>
 								<ul>
-									<li><b><a href="myList">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
-									<li><b><a href="myList">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
+									<li><b><a href="myList?page=1">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
+									<li><b><a href="myList?page=2">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
 								</ul>
 							</div>
 						</div>

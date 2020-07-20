@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.KG.dto.BoardDTO;
 import com.KG.dto.CommentDTO;
 
 @Repository
@@ -55,4 +56,15 @@ public class CommentDAO {
 	public int downComCount(int boardNum) {
 		return sqlSession.update(namespace + ".downComCount" , boardNum);
 	}
+	
+	// 닉네임으로 게시글 검색
+	public List<CommentDTO> selectNick(String c_nick) {
+		return sqlSession.selectList(namespace + ".selectNick" , c_nick);
+	}
+	
+	// 닉네임으로 게시글 검색
+	public CommentDTO selectBoardNum(int c_comnum) {
+		return sqlSession.selectOne(namespace + ".selectBoardNum" , c_comnum);
+	}
+	
 } 

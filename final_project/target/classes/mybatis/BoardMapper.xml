@@ -32,6 +32,9 @@
 	<select resultType="int" id="replyCount">SELECT COUNT(*) FROM reply where c_nick=#{m_nick} </select>
 	
 	
+	<!-- 유저가 작성한 게시글 가져오기 -->
+	<select id="userBoardList" resultType="boardDTO">SELECT * FROM board where b_nick=#{m_nick} ORDER by b_date DESC </select>
+	
 	
 	<!-- /////////////////////// 글 목록 ////////////////////////// -->
 	<!-- 글 목록 -->
