@@ -53,7 +53,6 @@ public class loginController {
         /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         
-        System.out.println("id : " + m_id);
 		if(m_id != null) {
 			model.addAttribute("login" , "fail");
 		}

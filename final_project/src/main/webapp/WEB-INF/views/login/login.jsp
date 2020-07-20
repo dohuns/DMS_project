@@ -25,6 +25,9 @@
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
+.lb1 {
+	color: #FF1616;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -161,7 +164,7 @@ function makeToken() {
 				</div>
 				<div style="margin-bottom: 5px;">
                    	<c:if test="${login == 'fail'}">
-	                    <label> 아이디 또는 비밀번호가 일치하지 않습니다.</label>
+	                    <label class="lb1"> 아이디 또는 비밀번호가 일치하지 않습니다.</label>
                    	</c:if>
                 </div>
 				<span class="button-checkbox">
