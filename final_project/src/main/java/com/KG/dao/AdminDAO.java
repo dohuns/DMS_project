@@ -1,8 +1,8 @@
 package com.KG.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,47 +21,57 @@ public class AdminDAO {
 	// mapper.xml의 상단 값과 일치해야 함
 	public static final String namespace = "com.KG.mybatis.myMapper";
 
-	// 메인 페이지 > 회원 목록
+	// 회원 전체 목록
 	public List<MemberDTO> memberList() {
 		return sqlSession.selectList(namespace + ".selectMemberList");
 	}
 
-	// 메인 페이지 > 등급별 회원 목록
-	public List<MemberDTO> rankList(int m_rankNum) {
-		return sqlSession.selectList(namespace + ".selectRankList", m_rankNum);
+	// 회원 정보 검색
+	public List<MemberDTO> searchList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectSearchList", hash);
 	}
 
-	// 메인 페이지 > 회원 수
+	// 등급별 목록
+	public List<MemberDTO> rankList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectRankList", hash);
+	}
+
+	// 회원 수
 	public int getMemberCount() {
 		return sqlSession.selectOne(namespace + ".getMemberCount");
 	}
 
-	// 메인 페이지 > 등급별 회원 수
+	// 등급별 회원 수
 	public int getRankCount(int m_rankNum) {
 		return sqlSession.selectOne(namespace + ".getRankCount", m_rankNum);
 	}
 
-	// 회원 관리 페이지 > 회원 검색
-	public List<MemberDTO> searchList(Map<String, Object> map) {
-		return sqlSession.selectList(namespace + ".selectSearchList", map);
+	// 검색된 회원 수
+	public int getSearchCount(HashMap<String, Object> hash) {
+		return sqlSession.selectOne(namespace + ".getSearchCount", hash);
 	}
 
-	// 회원 관리 페이지 > 회원 추가
+	// 회원 정보 추가
 	public int insertMember(MemberDTO dto) {
 		return sqlSession.insert(namespace + ".insertMember", dto);
 	}
 
-	// 회원 관리 페이지 > 회원 수정 (정보 출력)
+	// 회원 정보 출력 : 수정 회원
 	public MemberDTO selectInfoList(String m_id) {
 		return sqlSession.selectOne(namespace + ".selectInfoList", m_id);
 	}
 
-	// 회원 관리 페이지 > 회원 수정
+	// 회원 정보 수정
 	public int updateMember(MemberDTO dto) {
 		return sqlSession.update(namespace + ".updateMember", dto);
 	}
 
-	// 회원 관리 페이지 > 회원 삭제
+	// 회원 등급 수정
+	public int updRankMember(MemberDTO dto) {
+		return sqlSession.update(namespace + ".updateRankMember", dto);
+	}
+
+	// 회원 정보 삭제
 	public int deleteMember(String m_id) {
 		return sqlSession.delete(namespace + ".deleteMember", m_id);
 	}
