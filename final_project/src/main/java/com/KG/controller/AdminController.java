@@ -7,22 +7,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.KG.dto.BoardDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminChkListServImpl;
 import com.KG.service.admin.member.AdminDelAllServImpl;
 import com.KG.service.admin.member.AdminDelServImpl;
 import com.KG.service.admin.member.AdminInsertServImpl;
+import com.KG.service.admin.member.AdminNoticeServImpl;
 import com.KG.service.admin.member.AdminRankServImpl;
 import com.KG.service.admin.member.AdminRankUpdServImpl;
+import com.KG.service.admin.member.AdminSearchServImpl;
 import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdServImpl;
+import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 
 @Controller
 public class AdminController {
 	AdminService adminServ;
+	BoardService boardServ;
 	BoardSidebarService boaSideServ;
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -44,11 +49,24 @@ public class AdminController {
 
 	// 등급별 목록 출력
 	@RequestMapping("adminRankList")
-	public String adminRankList(Model model, int m_rankNum) {
-		model.addAttribute("m_rankNum", m_rankNum);
+	public String adminRankList(Model model, MemberDTO dto) {
+		model.addAttribute("dto", dto);
 		adminServ = (AdminRankServImpl) AC.ac.getBean("adminRankServImpl");
 		adminServ.execute(model);
 		return "admin/adminRankList";
+	}
+
+	// 회원 정보 검색
+	@RequestMapping("adminSearchList")
+	public String adminSearchList(Model model, MemberDTO dto,
+				@RequestParam(defaultValue = "m_id") String searchOption,
+				@RequestParam(defaultValue = "") String keyword) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("keyword", keyword);
+		adminServ = (AdminSearchServImpl) AC.ac.getBean("adminSearchServImpl");
+		adminServ.execute(model);
+		return "admin/adminSearchList";
 	}
 
 	// 회원 등급 변경 출력
@@ -113,8 +131,24 @@ public class AdminController {
 		adminServ.execute(model);
 		return "redirect:adminUpdRank";
 	}
+
 	/////////////////////////////////////////////////////////////////////////////////////
 
+	// 게시글 관리 > 공지사항
+	@RequestMapping("adminNoticeMain")
+	public String adminNoticeMain(Model model, BoardDTO dto,
+				@RequestParam(defaultValue = "공지사항") String b_category,
+				@RequestParam(defaultValue = "공지") String b_article) {
+		model.addAttribute("dto", dto);
+		dto.setB_article(b_article);
+		dto.setB_category(b_category);
+
+		boardServ = (AdminNoticeServImpl) AC.ac.getBean("adminNoticeServImpl");
+		boardServ.execute_Boo(model);
+		return "admin/adminNoticeMain";
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
 	// 관리자페이지 > 게시판 목록
 	@RequestMapping("boardList")
 	public String boardList(Model model) {

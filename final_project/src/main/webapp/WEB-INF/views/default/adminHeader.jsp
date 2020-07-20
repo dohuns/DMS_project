@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>AdminHeader</title>
 	<link
-		href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+		href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css?after"
 		rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
@@ -174,51 +174,6 @@
 		html body #wrapper #sidebar-wrapper .sidebar-nav .panel ul {
 			list-style-type: none
 		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a {
-			background: url(../images/ico_dashboard_on.png) 20px 18px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a.collapsed {
-			background: url(../images/ico_dashboard.png) 20px 18px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a.collapsed:hover {
-			background-image: url(../images/ico_dashboard_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a {
-			background: url(../images/ico_transactions_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a.collapsed {
-			background-image: url(../images/ico_transactions.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a.collapsed:hover {
-			background-image: url(../images/ico_transactions_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a {
-			background: url(../images/ico_inventories_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a.collapsed {
-			background-image: url(../images/ico_inventories.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a.collapsed:hover {
-			background-image: url(../images/ico_inventories_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a {
-			background: url(../images/ico_transactions_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a.collapsed {
-			background-image: url(../images/ico_transactions.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a.collapsed:hover {
-			background-image: url(../images/ico_transactions_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a {
-			background: url(../images/ico_settings_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a.collapsed {
-			background-image: url(../images/ico_settings.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a.collapsed:hover {
-			background-image: url(../images/ico_settings_on.png)
-		}
 		html body #wrapper #sidebar-wrapper .sidebar-nav .panel ul li a {
 			color: #a7abac;
 			margin: 20px 0 20px 15px
@@ -358,36 +313,6 @@
 			display: inline-block;
 			margin: 5px 7px
 		}
-		html body .table-container .table-controls .table-actions a.btn-maximize {
-			width: 17px;
-			height: 17px;
-			background: url(../images/ico3.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-minimize {
-			width: 17px;
-			height: 17px;
-			background: url(../images/ico2.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-print {
-			width: 21px;
-			height: 17px;
-			background: url(../images/ico_print.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-edit {
-			width: 16px;
-			height: 17px;
-			background: url(../images/ico_edit.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-delete {
-			width: 14px;
-			height: 18px;
-			background: url(../images/ico_delete.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-popout {
-			width: 16px;
-			height: 16px;
-			background: url(../images/ico1.png) no-repeat
-		}
 		html body table :not (.table-condensed) {
 			margin-bottom
 			: 0! important	
@@ -469,7 +394,6 @@
 			padding-left: 20px;
 			color: #55a4d3;
 			font-size: 12px;
-			background: url(../images/ico_plus.png) 0 0 no-repeat
 		}
 		html body h1 {
 			font-size: 24px;
@@ -551,51 +475,6 @@
 		}
 		html body #wrapper #sidebar-wrapper .sidebar-nav .panel ul {
 			list-style-type: none
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a {
-			background: url(../images/ico_dashboard_on.png) 20px 18px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a.collapsed {
-			background: url(../images/ico_dashboard.png) 20px 18px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.dashboard>a.collapsed:hover {
-			background-image: url(../images/ico_dashboard_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a {
-			background: url(../images/ico_transactions_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a.collapsed {
-			background-image: url(../images/ico_transactions.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.transactions>a.collapsed:hover {
-			background-image: url(../images/ico_transactions_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a {
-			background: url(../images/ico_inventories_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a.collapsed {
-			background-image: url(../images/ico_inventories.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.inv>a.collapsed:hover {
-			background-image: url(../images/ico_inventories_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a {
-			background: url(../images/ico_transactions_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a.collapsed {
-			background-image: url(../images/ico_transactions.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.hid>a.collapsed:hover {
-			background-image: url(../images/ico_transactions_on.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a {
-			background: url(../images/ico_settings_on.png) 20px 16px no-repeat
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a.collapsed {
-			background-image: url(../images/ico_settings.png)
-		}
-		html body #wrapper #sidebar-wrapper .sidebar-nav .panel.settings>a.collapsed:hover {
-			background-image: url(../images/ico_settings_on.png)
 		}
 		html body #wrapper #sidebar-wrapper .sidebar-nav .panel ul li a {
 			color: #a7abac;
@@ -737,37 +616,6 @@
 			display: inline-block;
 			margin: 5px 7px
 		}
-		html body .table-container .table-controls .table-actions a.btn-maximize {
-			width: 17px;
-			height: 17px;
-			background: url(../images/ico3.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-minimize {
-			width: 17px;
-			height: 17px;
-			background: url(../images/ico2.png) no-repeat
-		}
-		
-		html body .table-container .table-controls .table-actions a.btn-print {
-			width: 21px;
-			height: 17px;
-			background: url(../images/ico_print.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-edit {
-			width: 16px;
-			height: 17px;
-			background: url(../images/ico_edit.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-delete {
-			width: 14px;
-			height: 18px;
-			background: url(../images/ico_delete.png) no-repeat
-		}
-		html body .table-container .table-controls .table-actions a.btn-popout {
-			width: 16px;
-			height: 16px;
-			background: url(../images/ico1.png) no-repeat
-		}
 		html body table :not (.table-condensed){
 			margin-bottom: 0!important
 		}
@@ -876,7 +724,6 @@
 			padding-left: 20px;
 			color: #55a4d3;
 			font-size: 12px;
-			background: url(../images/ico_plus.png) 0 0 no-repeat
 		}
 		html body h1 {
 			font-size: 24px;
@@ -919,14 +766,14 @@
 						<li><a href="adminRankList?m_rankNum=2">관리 스탭</a></li>
 						<li><a href="adminRankList?m_rankNum=3">일반 회원</a></li>
 						<li><a href="adminRankList?m_rankNum=4">대기 회원</a></li>
-						<li><a href="adminUpdRank">등급 변경</a></li>
+						<li><a href="adminUpdRank">정보 변경</a></li>
 					</ul>
 				</li>
 				<li class="panel transactions">
 					<a data-toggle="collapse" class="collapsed" data-parent="#menu-accordion"
-						href="#transactions-link">게시글 관리<span class="glyphicon  arrow"></span></a>
+						href="#transactions-link">게시글 관리<span class="glyphicon arrow"></span></a>
 					<ul id="transactions-link" class="collapse">
-						<li><a href="#">공지사항</a></li>
+						<li><a href="adminNoticeMain?b_category=공지사항&b_article=공지">공지사항</a></li>
 						<li><a href="#">질문응답</a></li>
 					</ul>
 				</li>

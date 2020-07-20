@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>boardList</title>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- sortabl 설정 -->
 <script type="text/javascript">
 	//	category 위치 변동
@@ -123,29 +126,6 @@
 </style>
 </head>
 <body>
-		<div id="wrapper" class="">
-		<c:import url="../default/adminHeader.jsp"/>
-		<!-- PAGE CONTENT -->
-		<div id="page-content-wrapper">
-			<div id="topbar">
-				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'"><b>관리자 페이지</b></h1>
-				</div>
-				<div class="pull-right">
-					<div id="header_user" style="padding-right: 20px;">
-						<a href="login"><b>회원 페이지</b></a>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-
-			<div id="main-content">
-				<div class="content-body">
-					<div class="col-lg-12 main-box-container">
-						<div class="box">
-						
-						
-						
 	<div style="width: 330px;">
 		<button onclick="listSave()">저장하기</button>
 		<div id="move">
@@ -165,6 +145,5 @@
 			</c:forEach>
 		</div>
 	</div>
-	</div></div></div></div></div></div>
 </body>
 </html>

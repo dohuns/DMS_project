@@ -1,7 +1,6 @@
 package com.KG.service.admin.member;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +11,33 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminRankServImpl implements AdminService {
+public class AdminSearchServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
 	@Override
 	public void execute(Model model) {
-		Map<String, Object> map = model.asMap();
-		MemberDTO memberDTO = (MemberDTO) map.get("dto");
-
-		int m_rankNum = memberDTO.getM_rankNum();
+		Map<String, Object> modelMap = model.asMap();
+		MemberDTO memberDTO = (MemberDTO) modelMap.get("dto");
+		String searchOption = (String) modelMap.get("searchOption");
+		String keyword = (String) modelMap.get("keyword");
 		int pageNum = memberDTO.getPageNum();
-		int getRankCount = adminDAO.getRankCount(m_rankNum);
+		int start = pageNum * 15 + 1;
+		int end = pageNum * 15 + 15;
 
+		// 검색된 회원수 계산
 		HashMap<String, Object> hash = new HashMap<String, Object>();
-		hash.put("start", pageNum * 15 + 1);
-		hash.put("end", pageNum * 15 + 15);
-		hash.put("m_rankNum", m_rankNum);
+		hash.put("searchOption", searchOption);
+		hash.put("keyword", keyword);
 
-		model.addAttribute("rankList", adminDAO.rankList(hash));
+		int getRankCount = adminDAO.getSearchCount(hash);
+		hash.put("getRankCount", getRankCount);
+
+		// 페이징 처리 후 데이터 출력
+		hash.put("start", start);
+		hash.put("end", end);
+
+		model.addAttribute("searchList", adminDAO.searchList(hash));
 		model.addAttribute("getRankCount", getRankCount);
 		model.addAttribute("totalNum", (getRankCount % 15 == 0 ? getRankCount / 15 : getRankCount / 15 + 1) );
 	}

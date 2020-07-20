@@ -89,7 +89,7 @@ public class BoardController {
 		return "board/myWrite";
 	}
 	
-	// 내가 쓴 게시글 목록
+	// 내가 쓴 댓글 목록
 	@RequestMapping("myReply")
 	public String myReply(Model model, HttpSession session) {
 		try {
@@ -102,7 +102,7 @@ public class BoardController {
 		return "board/myReply";
 	}
 	
-	// 내가 쓴 게시글 목록
+	// 내가 쓴 댓글 게시글 목록
 	@RequestMapping("myReplyWrite")
 	public String myReplyWrite(Model model, HttpSession session) {
 		try {

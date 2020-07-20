@@ -4,19 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	<link
-		href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-		rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
+	<script src="//code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		// 체크박스 전체 선택 및 해제 버튼
 		function rankChkAll() {
 			if( $('#rankChk').is(':checked')) {
-				$("input[name=m_id]").prop("checked", true);
+				$("input[name=m_idChk]").prop("checked", true);
 			} else {
-				$("input[name=m_id]").prop("checked", false);
+				$("input[name=m_idChk]").prop("checked", false);
 			}
 		}
 
@@ -40,6 +35,17 @@
 			$('#upd-Rank').modal('show'); 
 		}
 		</script>
+
+	<style>
+		.searchBtn {
+			border: 1px solid;
+			border-color: #55a4d3;
+			border-radius: 3px;
+			background-color: #55a4d3;
+			color: white;
+			height: 26px;
+		}
+	</style>
 	<meta charset="UTF-8">
 	<title>등급 변경</title>
 </head>
@@ -54,7 +60,7 @@
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
-						<a href="login"><b>회원 페이지</b></a>
+						<a href="login"><b>등급 변경 페이지</b></a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -65,7 +71,12 @@
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
 							<div class="box-head clearfix">
-								<h1 class="pull-left"><b>정보 변경</b></h1>
+								<div class="actions pull-left">
+									<form action="#">
+										<input type="text" id="keyword" name="keyword" style="margin-top: 8px; width: 200px;">
+										<button type="submit" class="searchBtn"><i class="glyphicon glyphicon-search"></i></button>
+									</form>
+								</div>
 								<div class="actions pull-right">
 									<a href="javascript:;" type="button" id="updRankBtn"
 										class="btn btn-sm" title="Change Rank"

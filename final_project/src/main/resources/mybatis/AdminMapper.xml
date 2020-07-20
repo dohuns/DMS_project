@@ -10,10 +10,27 @@
 	</select>
 
 	<!-- 등급별 회원 목록 -->
-	<select id="selectRankList" resultType="memberDTO">
-		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum
-		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)
-		WHERE m_rankNum = #{m_rankNum}
+	<select id="selectRankList" parameterType="hashMap" resultType="memberDTO">
+		SELECT B.* FROM (
+			SELECT ROWNUM m_rn, A.* FROM
+				(SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)A 
+			WHERE m_rankNum = #{m_rankNum} )B
+		WHERE m_rn BETWEEN #{start} and #{end}
+	</select>
+
+	<!-- 검색한 회원 정보 수 -->
+	<select id="getSearchCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE ${searchOption} LIKE '%'||#{keyword}||'%'
+	</select>
+
+	<!-- 회원 정보 검색 -->
+	<select id="selectSearchList" parameterType="hashMap" resultType="memberDTO">
+		SELECT B.* FROM (
+			SELECT ROWNUM m_rn, A.* FROM
+				(SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)A 
+			WHERE ${searchOption} LIKE '%'||#{keyword}||'%' )B
+		WHERE m_rn BETWEEN #{start} and #{end}
 	</select>
 
 	<!-- 회원 정보 추가 -->
@@ -53,4 +70,5 @@
 	<select id="getRankCount" resultType="int">
 		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>
+
 </mapper>

@@ -36,47 +36,33 @@
 	function reset(cate, art) {
 		let html = ""
 		$("#List").html(html)
-		$
-				.each(
-						cate,
-						function(index, cate) {
-							html += "<hr id='main'>";
-							html += "<div style='display: flex;'>";
-							html += "<div id='menu' style='width: 65%;'>"
-									+ cate.b_category + "</div>";
-							html += "<div id='menu' style='width: 35%;' align='right'>";
-							html += "<button onclick='categoryDel(`"
-									+ cate.b_category + "`)'>-</button>";
-							html += "<button onclick='articleIns(`"
-									+ cate.b_category + "`)'>+</button>";
-							html += "<button onclick='categoryUpd(`"
-									+ cate.b_category + "`)'>수정</button>";
-							html += "</div>";
-							html += "</div>";
-							html += "<hr id='sub'>";
-							$
-									.each(
-											art,
-											function(index, art) {
-												if (cate.b_category == art.b_category) {
-													html += "<div style='display: flex;'>";
-													html += "<div id='menu' style='width: 65%;'>"
-															+ art.b_article
-															+ "</div>";
-													html += "<div id='menu' style='width: 35%;' align='right'>";
-													html += "<button onclick='articleDel(`"
-															+ cate.b_category
-															+ "`,`"
-															+ art.b_article
-															+ "`)'>-</button>";
-													html += "<button onclick='articleUpd(`"
-															+ art.b_article
-															+ "`)'>수정</button>";
-													html += "</div>";
-													html += "</div>";
-												}
-											});
-						})
+		$.each(cate, function(index, cate) {
+			html += "<hr id='main'>";
+			html += "<div style='display: flex;'>";
+			html += "<div id='menu' style='width: 65%;'>"
+					+ cate.b_category + "</div>";
+			html += "<div id='menu' style='width: 35%;' align='right'>";
+			html += "<button onclick='categoryDel(`"
+					+ cate.b_category + "`)'>-</button>";
+			html += "<button onclick='articleIns(`"
+					+ cate.b_category + "`)'>+</button>";
+			html += "<button onclick='categoryUpd(`"
+					+ cate.b_category + "`)'>수정</button>";
+			html += "</div>";
+			html += "</div>";
+			html += "<hr id='sub'>";
+				$.each(art, function(index, art) {
+					if (cate.b_category == art.b_category) {
+						html += "<div style='display: flex;'>";
+						html += "<div id='menu' style='width: 65%;'>" + art.b_article + "</div>";
+						html += "<div id='menu' style='width: 35%;' align='right'>";
+						html += "<button onclick='articleDel(`" + cate.b_category + "`,`" + art.b_article + "`)'>-</button>";
+						html += "<button onclick='articleUpd(`" + art.b_article + "`)'>수정</button>";
+						html += "</div>";
+						html += "</div>";
+					}
+				});
+			})
 		$("#List").html(html)
 	}
 
@@ -292,40 +278,12 @@ hr#sub {
 </style>
 </head>
 <body onload="AllList()">
-	<div id="wrapper" class="">
-		<c:import url="../default/adminHeader.jsp" />
-		<!-- PAGE CONTENT -->
-		<div id="page-content-wrapper">
-			<div id="topbar">
-				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'">
-						<b>관리자 페이지</b>
-					</h1>
-				</div>
-				<div class="pull-right">
-					<div id="header_user" style="padding-right: 20px;">
-						<a href="login"><b>회원 페이지</b></a>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-
-			<div id="main-content">
-				<div class="content-body">
-					<div class="col-lg-12 main-box-container">
-						<div class="box">
-							<div style="width: 400px;">
-								<div align="right">
-									<button onclick="categoryIns()">Category 추가</button>
-								</div>
-								<div>
-									<div id="List"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div style="width: 400px;">
+		<div align="right">
+			<button onclick="categoryIns()">Category 추가</button>
+		</div>
+		<div>
+			<div id="List"></div>
 		</div>
 	</div>
 </body>
