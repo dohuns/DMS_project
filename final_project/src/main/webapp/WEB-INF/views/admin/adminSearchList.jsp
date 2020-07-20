@@ -231,6 +231,14 @@
 			color: white;
 			height: 26px;
 		}
+
+		tr>th {
+			text-align: center;
+		}
+
+		.banana {
+			text-align: center;
+		}
 	</style>
 
 	<meta charset="UTF-8">
@@ -312,8 +320,8 @@
 													<td>${list.m_nick}</td>
 													<td>${list.m_name}</td>
 													<td>${list.m_email}</td>
-													<td>${list.m_rank}</td>
-													<td style="text-align: left">
+													<td class="banana">${list.m_rank}</td>
+													<td class="banana">
 														<span class="btn btn-xs btn-success" data-toggle="modal"
 															id="updButton" title="회원 정보 수정"
 															onclick="updMember('${list.m_id}')">수정</span>
