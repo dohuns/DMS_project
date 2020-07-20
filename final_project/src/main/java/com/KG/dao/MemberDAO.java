@@ -72,5 +72,10 @@ public class MemberDAO {
 	public int addMember(MemberDTO memberDTO) {
 		return sqlSession.insert(namespace+".addMember",memberDTO);
 	}
+	
+	// 이메일로 정보 가져오기
+	public MemberDTO getMember(String email) {
+		return sqlSession.selectOne(namespace + ".getMember" , email);
+	}
 
 }

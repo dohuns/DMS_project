@@ -38,7 +38,11 @@ public class CommentDeleteServImpl implements CommentService{
 
 	@Override
 	public int execute_int(Model model) {
-		// TODO Auto-generated method stub
+		Map<String, Object> map = model.asMap();
+		CommentDTO dto = (CommentDTO)map.get("dto");
+		int c_boardNum = dao.selectBoardNum(dto.getC_comNum()).getC_boardNum();
+		dao.commentDelete(dto.getC_comNum());
+		dao.downComCount(c_boardNum);
 		return 0;
 	}
 	

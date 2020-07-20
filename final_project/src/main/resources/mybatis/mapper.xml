@@ -32,4 +32,8 @@
 		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , '일반회원' , 3)
 	</insert>
 	
+	<!-- 이메일로 정보 가져오기 -->
+	<select id="getMember" resultType="memberDTO">
+		SELECT * FROM member WHERE m_email=#{email}
+	</select>
 </mapper>

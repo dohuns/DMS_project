@@ -1,7 +1,9 @@
 package com.KG.dto;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CommentDTO {
 	
@@ -45,9 +47,20 @@ public class CommentDTO {
 	public void setC_content(String c_content) {
 		this.c_content = c_content;
 	}
+	public String getDate() throws ParseException {
+
+		String today1 = new SimpleDateFormat("yy.MM.dd").format(new Date());
+		String article = new SimpleDateFormat("yy.MM.dd").format(c_date);
+		if(today1.equals(article)) { 
+			return new SimpleDateFormat("HH:mm").format(c_date);
+		}
+		return new SimpleDateFormat("yyyy.MM.dd").format(c_date);
+	}
+
 	public String getC_date() {
 		return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(c_date);
 	}
+
 	public void setC_date(Timestamp c_date) {
 		this.c_date = c_date;
 	}
