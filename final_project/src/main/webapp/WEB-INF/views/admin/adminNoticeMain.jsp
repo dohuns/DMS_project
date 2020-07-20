@@ -20,12 +20,25 @@
 			margin-left: 10px;
 		}
 
+		.searchBar {
+			margin-top: 6px;
+			width: 200px;
+		}
+
 		a:hover, a:focus, a:visited {
 			color: #727272;
 			font-weight: bolder;
 			text-decoration: underline;
 		}
 	</style>
+	<script>
+		function deleteAlert(b_num) {
+			var message = confirm("게시글을 삭제하시겠습니까?");
+			if(message == true) {
+				location.href = "delNotice?b_num=" + b_num;
+			}
+		}
+	</script>
 </head>
 <body>
 	<div id="wrapper" class="">
@@ -64,10 +77,12 @@
 							<div class="box-head clearfix">
 								<div class="actions pull-left">
 									<form action="#">
-										<input type="text" id="keyword" onkeyup="showData(this.value)"
-											style="margin-top: 5px; width: 200px;">
+										<input type="text" id="keyword" onkeyup="showData(this.value)" class="searchBar">
 										<button type="button" class="searchBtn"><i class="glyphicon glyphicon-search"></i></button>
 									</form>
+								</div>
+								<div class="actions pull-right">
+									<a href="#" class="btn btn-add">글 작성</a>
 								</div>
 							</div>
 
@@ -94,7 +109,8 @@
 													<td>${list.b_nick}</td>
 													<td class="banana">${list.b_date}</td>
 													<td class="banana">
-														<span class="btn btn-xs btn-danger" onclick="#">삭제</span>
+														<span class="btn btn-xs btn-success" onclick="#">수정</span>
+														<span class="btn btn-xs btn-danger" onclick="deleteAlert(${list.b_num})">삭제</span>
 													</td>
 												</tr>
 											</c:forEach>

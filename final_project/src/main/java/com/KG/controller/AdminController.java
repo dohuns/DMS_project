@@ -13,6 +13,7 @@ import com.KG.service.admin.member.AdminChkListServImpl;
 import com.KG.service.admin.member.AdminDelAllServImpl;
 import com.KG.service.admin.member.AdminDelServImpl;
 import com.KG.service.admin.member.AdminInsertServImpl;
+import com.KG.service.admin.member.AdminNoticeDelServImpl;
 import com.KG.service.admin.member.AdminNoticeServImpl;
 import com.KG.service.admin.member.AdminRankServImpl;
 import com.KG.service.admin.member.AdminRankUpdServImpl;
@@ -146,6 +147,15 @@ public class AdminController {
 		boardServ = (AdminNoticeServImpl) AC.ac.getBean("adminNoticeServImpl");
 		boardServ.execute_Boo(model);
 		return "admin/adminNoticeMain";
+	}
+
+	// 공지사항 : 게시글 삭제
+	@RequestMapping("delNotice")
+	public String delNotice(Model model, int b_num) {
+		model.addAttribute("b_num", b_num);
+		boardServ = (AdminNoticeDelServImpl) AC.ac.getBean("adminNoticeDelServImpl");
+		boardServ.execute_Boo(model);
+		return "redirect:adminNoticeMain";
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
