@@ -189,5 +189,6 @@ public class MemberController {
 		memServ.execute_Boo(model);
 		return "redirect:login";
 	}
+	
 
 }

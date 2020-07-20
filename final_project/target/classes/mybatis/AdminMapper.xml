@@ -71,10 +71,4 @@
 		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>
 
-	<!-- PAGING -->
-	<select id="selectPage" parameterType="hashMap" resultType="memberDTO">
-		SELECT ROWNUM m_rn, m_id, m_pw, m_name, m_nick, m_birth, m_email, m_rank, m_rankNum
-		FROM (SELECT * FROM member ORDER BY m_rankNum, m_birth, m_id)
-		WHERE m_rankNum = #{m_rankNum}
-	</select>
 </mapper>

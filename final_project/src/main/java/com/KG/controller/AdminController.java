@@ -149,13 +149,12 @@ public class AdminController {
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
-
 	// 관리자페이지 > 게시판 목록
 	@RequestMapping("boardList")
 	public String boardList(Model model) {
 		return "admin/boardList";
 	}
-
+	
 	// 관리자페이지 > 게시판 위치 수정
 	@RequestMapping("boardChange")
 	public String boardChange(Model model) {
@@ -163,5 +162,7 @@ public class AdminController {
 		model.addAttribute("category",boaSideServ.execute_Str(model));
 		return "admin/boardChange";
 	}
-
+	
+	
+	
 }
