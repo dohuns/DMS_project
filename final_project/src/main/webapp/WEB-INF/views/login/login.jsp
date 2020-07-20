@@ -154,11 +154,16 @@ function makeToken() {
 				<h2>로그인 페이지</h2>
 				<hr class="colorgraph">
 				<div class="form-group">
-                    <input type="text" name="m_id" id="m_id" class="form-control input-lg" placeholder="ID를 입력해주세요">
+                    <input type="text" name="m_id" id="m_id" class="form-control input-lg" placeholder="ID를 입력해주세요" value="${param.m_id}">
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="margin-bottom: 10px;">
                     <input type="password" name="m_pw" id="m_pw" class="form-control input-lg" placeholder="비밀번호를 입력해주세요">
 				</div>
+				<div style="margin-bottom: 5px;">
+                   	<c:if test="${login == 'fail'}">
+	                    <label> 아이디 또는 비밀번호가 일치하지 않습니다.</label>
+                   	</c:if>
+                </div>
 				<span class="button-checkbox">
 					<button type="button" class="btn" data-color="info">아이디 저장하기</button>
                     <input type="checkbox" name="remember_me" id="remember_me" class="hidden">

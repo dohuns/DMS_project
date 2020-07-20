@@ -48,9 +48,15 @@ public class loginController {
 	};
 	
     @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView login(HttpSession session) {
+    public ModelAndView login(HttpSession session , 
+    		@RequestParam(required = false) String m_id , Model model) {
         /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        
+        System.out.println("id : " + m_id);
+		if(m_id != null) {
+			model.addAttribute("login" , "fail");
+		}
         
         /* 생성한 인증 URL을 View로 전달 */
         return new ModelAndView("login/login", "url", naverAuthUrl);

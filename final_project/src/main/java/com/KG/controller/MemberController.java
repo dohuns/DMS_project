@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.MemberDTO;
 import com.KG.service.member.MemberService;
@@ -35,13 +36,8 @@ public class MemberController {
 //	메인페이지
 	@RequestMapping("/")
 	public String Home() {
+		System.out.println("gkdl");
 		return "home";
-	}
-
-//	로그인페이지
-	@RequestMapping("login")
-	public String login() {
-		return "login/login";
 	}
 
 	// 로그아웃
@@ -62,7 +58,7 @@ public class MemberController {
 			return "redirect:/";
 		} catch (Exception e) {
 		}
-		return "login/login";
+		return "redirect:login?m_id="+memberDTO.getM_id();
 	}
 
 //	아이디 찾기 페이지
