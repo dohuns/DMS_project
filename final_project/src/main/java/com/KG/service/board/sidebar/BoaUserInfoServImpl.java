@@ -23,10 +23,10 @@ public class BoaUserInfoServImpl implements BoardSidebarService {
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpSession session = (HttpSession)map.get("session");
-		String m_nick = (String)session.getAttribute("m_nick");
-		model.addAttribute("userInfo" , boardDAO.userInfo(m_nick));
-		model.addAttribute("boardcount" , boardDAO.boardCount(m_nick));
-		model.addAttribute("replycount" , boardDAO.replyCount(m_nick));
+		String m_id = (String)session.getAttribute("m_id");
+		model.addAttribute("userInfo" , boardDAO.userInfo(m_id));
+		model.addAttribute("boardcount" , boardDAO.boardCount(m_id));
+		model.addAttribute("replycount" , boardDAO.replyCount(m_id));
 		return false;
 	}
 

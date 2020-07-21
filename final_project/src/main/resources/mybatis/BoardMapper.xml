@@ -23,17 +23,17 @@
 	
 	
 	<!-- 사이드바 닉네임으로 정보 가져오기 -->
-	<select resultType="memberDTO" id="userInfo">SELECT * FROM member WHERE m_nick=#{m_nick} </select>
+	<select resultType="memberDTO" id="userInfo">SELECT * FROM member WHERE m_id=#{m_id} </select>
 	
 	<!-- 사이드바 작성한 게시글 수 가져오기 -->
-	<select resultType="int" id="boardCount">SELECT COUNT(*) FROM board where b_nick=#{m_nick} </select>
+	<select resultType="int" id="boardCount">SELECT COUNT(*) FROM board where b_id=#{m_id} </select>
 	
 	<!-- 사이드바 작성한 댓글 수 가져오기 -->
-	<select resultType="int" id="replyCount">SELECT COUNT(*) FROM reply where c_nick=#{m_nick} </select>
+	<select resultType="int" id="replyCount">SELECT COUNT(*) FROM reply where c_id=#{m_id} </select>
 	
 	
 	<!-- 유저가 작성한 게시글 가져오기 -->
-	<select id="userBoardList" resultType="boardDTO">SELECT * FROM board where b_nick=#{m_nick} ORDER by b_date DESC </select>
+	<select id="userBoardList" resultType="boardDTO">SELECT * FROM board where b_id=#{m_id} ORDER by b_date DESC </select>
 	
 	
 	<!-- 글번호로 게시글 가져오기 -->

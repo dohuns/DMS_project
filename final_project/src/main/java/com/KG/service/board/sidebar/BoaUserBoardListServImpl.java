@@ -25,8 +25,8 @@ public class BoaUserBoardListServImpl implements BoardSidebarService {
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpSession session = (HttpSession)map.get("session");
-		String m_nick = (String)session.getAttribute("m_nick");
-		model.addAttribute("myList" , boardDAO.userBoardList(m_nick));
+		String m_id = (String)session.getAttribute("m_id");
+		model.addAttribute("myList" , boardDAO.userBoardList(m_id));
 		return false;
 	}
 
@@ -44,8 +44,8 @@ public class BoaUserBoardListServImpl implements BoardSidebarService {
 	public List<BoardDTO> execute_List(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpSession session = (HttpSession)map.get("session");
-		String m_nick = (String)session.getAttribute("m_nick");
-		return boardDAO.userBoardList(m_nick);
+		String m_id = (String)session.getAttribute("m_id");
+		return boardDAO.userBoardList(m_id);
 	}
 
 }
