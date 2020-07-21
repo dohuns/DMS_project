@@ -71,9 +71,18 @@ hr#sub {
 								<ul>
 									<li>
 										<div>
+										<c:choose>
+											<c:when test="${userInfo.m_picture != null}">
+											<img
+												src="/movie/resources/memberImage/${userInfo.m_picture}"
+												width="58" height="58" alt="프로필사진">
+											</c:when>
+											<c:otherwise>
 											<img
 												src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
 												width="58" height="58" alt="프로필사진">
+											</c:otherwise>
+										</c:choose>
 										</div>
 										<div>
 											<strong>${userInfo.m_nick }</strong>
