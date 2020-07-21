@@ -26,6 +26,7 @@ import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.comment.ComBoardListServImpl;
 import com.KG.service.comment.ComListServImpl;
 import com.KG.service.comment.CommentService;
 
@@ -108,8 +109,8 @@ public class BoardController {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
+			comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
+			comServ.execute(model);
 		} catch (Exception e) {
 		}
 		return "board/myReplyWrite";

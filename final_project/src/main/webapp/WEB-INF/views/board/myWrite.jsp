@@ -72,7 +72,7 @@
 										<input type="checkbox" class="chkBox" value="${list.b_num }">
 									</div>
 									<div style="width: 70px;">${list.b_num }</div>
-									<div><a href="/movie/board/show?b_num=${list.b_num }">${list.b_title }</a></div>
+									<div><a href="/movie/board/show?b_num=${list.b_num }">${list.b_title } <span style="color: red;">[${list.b_comCount }]</span></a></div>
 								</div></td>
 							<td align="center">${list.b_date }</td>
 							<td align="center">${list.b_hit }</td>

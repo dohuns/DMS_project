@@ -1,5 +1,6 @@
 package com.KG.service.comment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.CommentDAO;
+import com.KG.dto.BoardDTO;
 import com.KG.dto.CommentDTO;
 
 @Service
-public class ComListServImpl implements CommentService{
+public class ComBoardListServImpl implements CommentService {
 
 	@Autowired
 	CommentDAO dao;
@@ -22,9 +24,16 @@ public class ComListServImpl implements CommentService{
 	@Override
 	public boolean execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		HttpSession session = (HttpSession)map.get("session");
-		String c_id = (String)session.getAttribute("m_id");
-		model.addAttribute("myComList" , dao.selectId(c_id));
+		HttpSession session = (HttpSession) map.get("session");
+		String c_id = (String) session.getAttribute("m_id");
+		ArrayList<BoardDTO> myComBoardList = new ArrayList<BoardDTO>();
+
+		List<CommentDTO> ComBoardNum = dao.selectComBoardNum(c_id);
+
+		for (int i = 0; i < dao.selectComBoardNum(c_id).size(); i++) {
+			myComBoardList.add(dao.selectBoardNumList(ComBoardNum.get(i).getC_boardNum()));
+		}
+		model.addAttribute("myComBoardList", myComBoardList);
 		return false;
 	}
 
@@ -38,6 +47,4 @@ public class ComListServImpl implements CommentService{
 		return 0;
 	}
 
-	
-	
 }

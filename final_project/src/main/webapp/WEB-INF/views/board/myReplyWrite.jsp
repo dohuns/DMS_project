@@ -13,38 +13,6 @@
 		$("#myReply").attr("style", "color:black;");
 		$("#myReplyWrite").attr("style", "color:#5bc0de;");
 	});
-	//	체크된 값 삭제
-	function myWriteDelete() {
-		var confirm_val = confirm("선택한 게시글을 삭제하시겠습니까?");
-		if (confirm_val) {
-			var selectcheck = new Array();
-
-			$("input[class='chkBox']:checked").each(function() {
-				$.ajax({
-					url : "myWriteDelete",
-					type : "get",
-					data : {
-						b_num : $(this).attr("value")
-					},
-					success : function() {
-						console.log("삭제 성공")
-					}
-				});
-			});
-			location.reload();
-		}
-	}
-
-	//	체크박스 전체 선택
-	$(function() {
-		$("#allCheck").click(function() {
-			if ($("#allCheck").prop("checked")) {
-				$("input[type=checkbox]").prop("checked", true);
-			} else {
-				$("input[type=checkbox]").prop("checked", false);
-			}
-		})
-	})
 </script>
 </head>
 <body>
@@ -65,18 +33,15 @@
 		</thead>
 		<tbody>
 			<c:choose>
-				<c:when test="${myList != '[]'}">
-					<c:forEach var="list" items="${myList}">
+				<c:when test="${myComBoardList != '[]'}">
+					<c:forEach var="list" items="${myComBoardList}">
 						<tr>
 							<td colspan="1" align="left"><div
 									style="display: flex; font-size: 15px; height: 35px; align-items: center;">
-									<div style="width: 30px;">
-										<input type="checkbox" class="chkBox" value="${list.b_num }">
-									</div>
 									<div style="width: 70px;">${list.b_num }</div>
-									<div>${list.b_title }</div>
+									<div><a href="/movie/board/show?b_num=${list.b_num }">${list.b_title } <span style="color: red;">[${list.b_comCount}]</span></a></div>
 								</div></td>
-							<td align="center">${list.b_date }</td>
+							<td align="center">${list.b_nick }</td>
 							<td align="center">${list.b_date }</td>
 							<td align="center">${list.b_hit }</td>
 						</tr>
@@ -84,7 +49,7 @@
 					<tr>
 						<td colspan="4">
 							<div style="display: flex; margin-top: 10px;">
-								<div align="right">
+								<div style="width: 100%;" align="right">
 									<a href="#" class="btn btn-info btn-sm" style="color: white;">글
 										쓰기</a>
 								</div>

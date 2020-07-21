@@ -44,14 +44,24 @@
 		UPDATE board SET b_comCount = b_comCount-1 WHERE b_num = #{boardNum}
 	</update>
 	
-	<!-- 닉네임으로 게시글 검색 -->
-	<select id="selectNick" resultType="commentDTO">
-		SELECT * FROM reply WHERE C_NICK = #{c_nick}
+	<!-- 아이디로 게시글 검색 -->
+	<select id="selectId" resultType="commentDTO">
+		SELECT * FROM reply WHERE C_ID = #{c_id}
 	</select>
 
 	<!-- 닉네임으로 게시글 검색 -->
 	<select id="selectBoardNum" resultType="commentDTO">
 		SELECT * FROM reply WHERE c_comNum = #{c_comNum}
+	</select>
+	
+	<!-- 닉네임으로 게시글 검색 -->
+	<select id="selectComBoardNum" resultType="commentDTO">
+		SELECT distinct C_BOARDNUM FROM reply WHERE C_ID = #{c_id}
+	</select>
+	
+	<!-- 닉네임으로 게시글 검색 -->
+	<select id="selectBoardNumList" resultType="boardDTO">
+		SELECT * FROM board where b_num = #{c_boardNum}
 	</select>
 	
 </mapper>

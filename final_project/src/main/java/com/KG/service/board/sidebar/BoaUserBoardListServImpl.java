@@ -26,7 +26,6 @@ public class BoaUserBoardListServImpl implements BoardSidebarService {
 		Map<String, Object> map = model.asMap();
 		HttpSession session = (HttpSession)map.get("session");
 		String m_nick = (String)session.getAttribute("m_nick");
-		System.out.println(boardDAO.userBoardList(m_nick));
 		model.addAttribute("myList" , boardDAO.userBoardList(m_nick));
 		return false;
 	}
