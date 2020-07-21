@@ -53,11 +53,15 @@ public class BoardDAO {
 	
 	
 	/////////////////////////// 나의 활동 /////////////////////////////////
-	// 사이드바 작성 댓글 수
-	public List<BoardDTO> userBoardList(String m_nick) {
-		return sqlSession.selectList(namespace + ".userBoardList", m_nick);
+	// 내가 쓴 게시글
+	public List<BoardDTO> userBoardList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".userBoardList", hash);
 	}
 	
+	// 내가 쓴 게시글 카운터
+	public int userBoardListCount(String b_id) {
+		return sqlSession.selectOne(namespace + ".userBoardListCount", b_id);
+	}
 	////////////////////////////////////////////////////////////////////
 	
 	

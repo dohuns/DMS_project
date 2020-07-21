@@ -48,6 +48,18 @@
 </script>
 </head>
 <body>
+
+	<c:choose>
+		<c:when test="${param.artiNum == null}">
+			<c:set var="artiNum" value="0" />
+			<c:set var="next" value="0" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="artiNum" value="${param.artiNum}" />
+			<c:set var="next" value="${param.next}" />
+		</c:otherwise>
+	</c:choose>
+
 	<table style='width: 860px;'>
 		<colgroup>
 			<col>
@@ -111,5 +123,37 @@
 			</c:choose>
 		</tbody>
 	</table>
+	
+	
+	<div class="text-center">
+		<ul class="pagination">
+			<%-- 이전 버튼 --%>
+			<li><c:if test="${artiNum>9}">
+					<a href="myList?page=1&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+				</c:if></li>
+			<%--게시판 15개 나눈 모음(?) 번호 --%>
+			<c:choose>
+				<c:when test="${count > next*10+10 }">
+					<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1"
+						var="cnt">
+						<li
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							href="myList?page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach begin="${next*10+1}" end="${count}" step="1" var="cnt">
+						<li
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							href="myList?page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			<%-- 다음 버튼 --%>
+			<li><c:if test="${count > next*10+10 }">
+					<a href="myList?page=1&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+				</c:if></li>
+		</ul>
+	</div>
 </body>
 </html>

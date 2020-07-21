@@ -1,5 +1,6 @@
 package com.KG.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -57,9 +58,14 @@ public class CommentDAO {
 		return sqlSession.update(namespace + ".downComCount" , boardNum);
 	}
 	
-	// 닉네임으로 게시글 검색
-	public List<CommentDTO> selectId(String c_id) {
-		return sqlSession.selectList(namespace + ".selectId" , c_id);
+	// 아이디로 게시글 검색
+	public List<CommentDTO> selectId(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectId" , hash);
+	}
+	
+	// 아이디로 게시글 카운터
+	public int selectIdConut(String c_id) {
+		return sqlSession.selectOne(namespace + ".selectIdCount" , c_id);
 	}
 		
 	// 작성 댓글 검색
@@ -68,8 +74,8 @@ public class CommentDAO {
 	}
 	
 	// 댓글단 게시글 검색
-	public List<CommentDTO> selectComBoardNum(String c_id) {
-		return sqlSession.selectList(namespace + ".selectComBoardNum" , c_id);
+	public List<CommentDTO> selectComBoardNum(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectComBoardNum" , hash);
 	}
 	
 	// 댓글단 게시글 검색
