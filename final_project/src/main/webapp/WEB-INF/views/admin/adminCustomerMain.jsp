@@ -106,7 +106,7 @@
 															<c:when test="${list.cus_reNum == 0}">
 																<span class="btn btn-xs btn-success" onclick="#">답변 대기</span>
 															</c:when>
-															<c:when test="${list.cus_reNum > 0}">
+															<c:when test="${list.cus_reNum == 1}">
 																<span class="btn btn-xs btn-danger" onclick="#" disabled>답변 완료</span>
 															</c:when>
 															<c:otherwise>

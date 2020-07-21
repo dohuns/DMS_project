@@ -21,13 +21,13 @@ public class CustomerListServImpl implements CustomerService {
 		CustomerDTO customerDTO = (CustomerDTO) map.get("dto");
 
 		int pageNum = customerDTO.getPageNum();
-		int cus_reNum = customerDTO.getCus_reNum();
-		int pageCount = customerDAO.getCustomerCount(cus_reNum);
+		int cus_categoryNum = customerDTO.getCus_categoryNum();
+		int pageCount = customerDAO.getCustomerCount(cus_categoryNum);
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		hash.put("start", pageNum * 15 + 1);
 		hash.put("end", pageNum * 15 + 15);
-		hash.put("cus_reNum", cus_reNum);
+		hash.put("cus_categoryNum", cus_categoryNum);
 
 		model.addAttribute("customerList", customerDAO.customerList(hash));
 		model.addAttribute("pageCount", pageCount);

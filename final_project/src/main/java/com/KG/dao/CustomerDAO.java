@@ -25,7 +25,7 @@ public class CustomerDAO {
 	}
 
 	// 고객센터 게시글 개수
-	public int getCustomerCount(int cus_reNum) {
-		return sqlSession.selectOne(namespace + ".selectCustomerCount", cus_reNum);
+	public int getCustomerCount(int cus_categoryNum) {
+		return sqlSession.selectOne(namespace + ".selectCustomerCount", cus_categoryNum);
 	}
 }

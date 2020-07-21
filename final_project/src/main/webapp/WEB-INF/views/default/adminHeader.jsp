@@ -774,9 +774,9 @@
 						href="#transactions-link">고객센터<span class="glyphicon arrow"></span></a>
 					<ul id="transactions-link" class="collapse">
 						<li><a href="adminCustomerMain">전체 목록</a></li>
-						<li><a href="adminCustomerMain?cus_reNum=0">답변 대기</a></li>
-						<li><a href="adminCustomerMain?cus_reNum=1">답변 완료</a></li>
-						<li><a href="adminCustomerMain?cus_reNum=-1">답변 보류</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=0">불량 행위 신고</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=1">계정 도용 신고</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=2">계정 정지 문의</a></li>
 					</ul>
 				</li>
 				<li class="panel settings">
