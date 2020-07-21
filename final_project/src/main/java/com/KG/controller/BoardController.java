@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
@@ -139,13 +140,16 @@ public class BoardController {
 
 	// 글쓰기 저장
 	@RequestMapping("/board/write_save")
-	public String board_wrtieSave(Model model, BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
+	public String board_wrtieSave(Model model, BoardDTO dto,
+			HttpSession session , MultipartHttpServletRequest request) throws UnsupportedEncodingException {
 
+		System.out.println("글쓰기 들어옴");
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("session", session);
+		model.addAttribute("request" , request);
 		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
 		boaServ.execute_Boo(model);
 

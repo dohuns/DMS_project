@@ -2,6 +2,7 @@ package com.KG.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,5 +198,18 @@ public class BoardDAO {
 	}
 
 	
+	
+	/////////////////////// 업로드 관련 ////////////////////////////////
+	
+	// 파일 업로드(글쓰기)
+	public int insertFile(Map<String, Object> map) {
+		return sqlSession.insert(namespace + ".insertFile" , map);
+	}
+	
+	// 첨부파일 조회
+	public List<Map<String, Object>> selectFileList(int f_boardNum) {
+		return sqlSession.selectList(namespace + ".selectFileList" , f_boardNum);
+	}
+	///////////////////////////////////////////////////////////////
 
 }

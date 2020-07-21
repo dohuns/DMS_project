@@ -82,11 +82,14 @@
 	</select>
 	
 	<!-- 글 쓰기(저장) -->
-	<insert id="boardWrite">
-		INSERT INTO board 
-			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
-		VALUES 
-			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
+	<insert id="boardWrite" useGeneratedKeys="true" keyProperty="b_num">
+		<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+			SELECT b_numSQ.nextval FROM dual
+		</selectKey>	
+			INSERT INTO board 
+				(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
+			VALUES 
+				(#{b_category} , #{b_article} , #{b_num} , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
 	</insert>
 	<!-- ///////////////////////////////////////////////////////////////// -->
 	
@@ -243,4 +246,23 @@
 	<update id="sortNumPlus">
 		UPDATE board SET b_sortNum = b_sortNum + 1 WHERE b_group=#{b_group} and b_sortNum &gt; #{b_sortNum}
 	</update>
+	
+	<!-- ////////////////////////////////// 업로드 관련 /////////////////////////////////// -->
+	
+	<!-- 글쓰기 떄 파일 업로드 -->
+	<insert id="insertFile">
+		INSERT INTO saveFile(
+			f_no , f_boardNum , f_oriName , f_modiName , f_size
+		) VALUES (
+			f_noSQ.nextval , #{f_boardNum} , #{f_oriName} , #{f_modiName} , #{f_size} 
+		)
+	</insert>
+	
+	<!-- 첨부파일 조회 -->
+	<select id="selectFileList" resultType="hashMap">
+		SELECT F_NO , F_ORINAME , ROUND(F_SIZE/1024,1) AS f_SIZE
+			FROM saveFile 
+		WHERE f_boardNum = #{f_boardNum} and f_del = 'N' 
+	</select>
+	<!-- /////////////////////////////////////////////////////////////////////////////// -->
 </mapper>

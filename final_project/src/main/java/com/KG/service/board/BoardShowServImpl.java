@@ -1,5 +1,6 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class BoardShowServImpl implements BoardService{
 		int b_num = (Integer)map.get("b_num");
 		
 		BoardDTO dto = boardDAO.showBoard(b_num);
+		List<Map<String, Object>> list = boardDAO.selectFileList(b_num);
 		
+		model.addAttribute("fileList" , list);
 		model.addAttribute("boardInfo" , dto);
 		model.addAttribute("memberInfo" , boardDAO.userInfo(dto.getB_nick()));
 		

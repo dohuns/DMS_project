@@ -485,7 +485,6 @@ textarea:focus {
 				<input type="hidden" id="b_id" name="b_id" value="${boardInfo.b_id}">
 				<div style="height: 40px;">
 					<div style="height:15px; margin-bottom:2px;">
-						<img alt="" src="/movie/resources/picture/${memberInfo.m_picture}">
 						<a href="#"><b style="color: black;">${boardInfo.b_nick}</b></a>
 						<label class="lb2">${memberInfo.m_rank}</label>
 					<br style="margin: 0px;">
@@ -507,10 +506,17 @@ textarea:focus {
 					</div>
 				</div>
 				
+				<span>파일 목록</span>
+				<div>
+					<c:forEach var="file" items="${fileList}">
+						<a href="#" onclick="fn_fileDown('${file.F_NO}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
+					</c:forEach>
+				</div>
+				
 				<!-- 좋아요 + 댓글 수  -->
 				<div style="margin-top: 20px;">
 					<a href="#">
-						<img src="commentImg.png" style="width:20px;">
+						<img src="/movie/resources/commentImg.png" style="width:20px;">
 						<span style="color:black;">댓글</span>
 						<strong style="color:black;" id="c_count"></strong>
 					</a>

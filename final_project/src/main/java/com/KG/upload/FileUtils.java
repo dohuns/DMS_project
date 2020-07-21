@@ -16,17 +16,13 @@ import com.KG.dto.MemberDTO;
 
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "C:\\mp\\file\\"; // 파일이 저장될 위치
+	
 	
 	// 게시글 업로드
 	public List<Map<String, Object>> parseInsertFileBoard(BoardDTO boardDTO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
-		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
-			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
-			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
-		*/
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\"; // 파일이 저장될 위치
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
@@ -68,11 +64,7 @@ public class FileUtils {
 	public List<Map<String, Object>> parseInsertFileMember(MemberDTO memberDTO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
-		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
-			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
-			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
-		 */
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\memberImage\\"; // 파일이 저장될 위치
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
 		

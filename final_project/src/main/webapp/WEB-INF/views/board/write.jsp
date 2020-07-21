@@ -40,7 +40,7 @@
 				<div align="center">
 					<h1> 글쓰기 페이지 </h1>
 					<div align="left">
-						<form action="write_save" id="fo">
+						<form action="write_save" id="fo" method="post" enctype="multipart/form-data">
 							<!-- 게시판 선택 -->
 							<div>
 								<h5>게시판</h5>
@@ -58,6 +58,7 @@
 								</select>
 								<!-- 게시판 카테고리 hidden으로 보내기 -->
 								<input type="hidden" name="b_category" value="${param.b_category}">
+								<input type="file" name="uploadFile">
 							</div>
 							<!-- 제목 입력 -->
 							<div>
