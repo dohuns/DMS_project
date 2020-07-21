@@ -103,10 +103,11 @@ hr#sub {
 					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
 					하기</div></a>
 			<div>
-				<form action="#">
+				<form action="/movie/board/search_list">
 					<div class="input-group">
+					<input type="hidden" name="b_search" value="title">
 						<input type="text" class="form-control" style="height: 28px;"
-							placeholder="Search">
+							placeholder="Search" name="b_content">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit" style="height: 28px;">
 								<i class="glyphicon glyphicon-search"></i>
