@@ -118,11 +118,15 @@ public class AdminController {
 
 	// 회원 정보 삭제
 	@RequestMapping("delMember")
-	public String delMember(Model model, String m_id) {
+	public String delMember(Model model, String m_id, int m_rankNum) {
 		model.addAttribute("m_id", m_id);
 		adminServ = (AdminDelServImpl) AC.ac.getBean("adminDelServImpl");
 		adminServ.execute(model);
-		return "redirect:admin";
+		if(m_rankNum > 0) {
+			return "redirect:adminRankList?pageNum=0&m_rankNum=" + m_rankNum;
+		} else {
+			return "redirect:adminSelectList";
+		}
 	}
 
 	// 회원 정보 선택 삭제

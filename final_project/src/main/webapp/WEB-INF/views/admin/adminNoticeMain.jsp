@@ -5,7 +5,7 @@
 <html>
 <head>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
-	<title>공지사항</title>
+	<title>고객센터</title>
 	<style>
 		tr>th {
 			text-align: center;

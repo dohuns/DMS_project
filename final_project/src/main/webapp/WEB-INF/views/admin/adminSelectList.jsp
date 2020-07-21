@@ -10,7 +10,7 @@
 		function deleteAlert(m_id, m_nick) {
 			var message = confirm(m_nick + " [ " + m_id + " ] " + '님의 회원정보를 삭제하시겠습니까?');
 			if(message == true) {
-				location.href = "delMember?m_id=" + m_id;
+				location.href = "delMember?m_id=" + m_id + "&m_rankNum=0";
 			}
 		}
 	</script>

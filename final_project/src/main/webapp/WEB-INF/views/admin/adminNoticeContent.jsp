@@ -346,18 +346,36 @@
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
 							<div class="box-head clearfix toolbarSize">
-								<h1 class="pull-left"><b>공지사항</b></h1>
+								<h1 class="pull-left"><b><a href="list?b_category=${boardInfo.b_category}&b_article=${boardInfo.b_article}">
+						${boardInfo.b_article}
+					</a></b></h1>
+							</div>
+							<div class="box-content">
+								<div class="table-container">
+									<table id="edit_account" class="table is-datatable dataTable">
+										<thead>
+											<tr>
+												<th>TEST</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>TEST</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+
 
 
 	<!-- body -->
 	<div class="container">
+		<!-- 버튼 -->
 		<div class="btnTopBox">
 			<div style="float: left;">
 				<button type="button" id="btnMD01"class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
@@ -472,5 +490,12 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+			</div>
+	</div>
+	
 </body>
 </html>
