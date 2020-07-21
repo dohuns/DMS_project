@@ -7,14 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.KG.dto.BoardDTO;
+import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminChkListServImpl;
 import com.KG.service.admin.member.AdminDelAllServImpl;
 import com.KG.service.admin.member.AdminDelServImpl;
 import com.KG.service.admin.member.AdminInsertServImpl;
-import com.KG.service.admin.member.AdminNoticeDelServImpl;
-import com.KG.service.admin.member.AdminNoticeServImpl;
 import com.KG.service.admin.member.AdminRankServImpl;
 import com.KG.service.admin.member.AdminRankUpdServImpl;
 import com.KG.service.admin.member.AdminSearchServImpl;
@@ -22,14 +20,16 @@ import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdServImpl;
 import com.KG.service.board.BoardService;
-import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.customer.CustomerListServImpl;
+import com.KG.service.customer.CustomerService;
 
 @Controller
 public class AdminController {
 	AdminService adminServ;
 	BoardService boardServ;
+	CustomerService customerServ;
 	BoardSidebarService boaSideServ;
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -140,42 +140,13 @@ public class AdminController {
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	// 게시글 관리 > 공지사항
-	@RequestMapping("adminNoticeMain")
-	public String adminNoticeMain(Model model, BoardDTO dto,
-				@RequestParam(defaultValue = "공지사항") String b_category,
-				@RequestParam(defaultValue = "공지") String b_article) {
-		model.addAttribute("dto", dto);
-		dto.setB_article(b_article);
-		dto.setB_category(b_category);
-
-		boardServ = (AdminNoticeServImpl) AC.ac.getBean("adminNoticeServImpl");
-		boardServ.execute_Boo(model);
-		return "admin/adminNoticeMain";
-	}
-
 	// 게시글 관리 > 고객센터
 	@RequestMapping("adminCustomerMain")
-	public String adminCustomerMain(Model model) {
+	public String adminCustomerMain(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		customerServ = (CustomerListServImpl) AC.ac.getBean("customerListServImpl");
+		customerServ.execute(model);
 		return "admin/adminCustomerMain";
-	}
-
-	// 공지사항 : 게시글 보기
-	@RequestMapping("adminNoticeContent")
-	public String adminNoticeContent(Model model, @RequestParam("b_num") int b_num) {
-		model.addAttribute("b_num", b_num);
-		boardServ = (BoardShowServImpl) AC.ac.getBean("boardShowServImpl");
-		boardServ.execute_Boo(model);
-		return "admin/adminNoticeContent";
-	}
-
-	// 공지사항 : 게시글 삭제
-	@RequestMapping("delNotice")
-	public String delNotice(Model model, int b_num) {
-		model.addAttribute("b_num", b_num);
-		boardServ = (AdminNoticeDelServImpl) AC.ac.getBean("adminNoticeDelServImpl");
-		boardServ.execute_Boo(model);
-		return "redirect:adminNoticeMain";
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -192,7 +163,5 @@ public class AdminController {
 		model.addAttribute("category",boaSideServ.execute_Str(model));
 		return "admin/boardChange";
 	}
-	
-	
 	
 }

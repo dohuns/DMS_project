@@ -760,7 +760,7 @@
 				<li class="sidebar-brand"><a href="admin"> DO.MI.SU </a></li>
 				<li class="panel dashboard">
 					<a data-toggle="collapse" class="active" data-parent="#menu-accordion"
-						href="#dashboard-link">회원 관리 <span class="glyphicon arrow"></span></a>
+						href="#dashboard-link">회원관리 <span class="glyphicon arrow"></span></a>
 					<ul id="dashboard-link" class="collapse">
 						<li><a href="adminSelectList" class="active">전체 목록</a></li>
 						<li><a href="adminRankList?m_rankNum=2">관리 스탭</a></li>
@@ -771,9 +771,12 @@
 				</li>
 				<li class="panel transactions">
 					<a data-toggle="collapse" class="collapsed" data-parent="#menu-accordion"
-						href="#transactions-link">게시글 관리<span class="glyphicon arrow"></span></a>
+						href="#transactions-link">고객센터<span class="glyphicon arrow"></span></a>
 					<ul id="transactions-link" class="collapse">
-						<li><a href="adminCustomerMain">고객센터</a></li>
+						<li><a href="adminCustomerMain">전체 목록</a></li>
+						<li><a href="adminCustomerMain?cus_reNum=0">답변 대기</a></li>
+						<li><a href="adminCustomerMain?cus_reNum=1">답변 완료</a></li>
+						<li><a href="adminCustomerMain?cus_reNum=-1">답변 보류</a></li>
 					</ul>
 				</li>
 				<li class="panel settings">

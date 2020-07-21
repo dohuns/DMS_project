@@ -94,36 +94,28 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="select-checkbox no-filter"></td>
-												<td class="no-filter banana">cus_num</td>
-												<td>[cus_category] cus_title</td>
-												<td>m_id(세션)</td>
-												<td class="banana">cus_date</td>
-												<td class="banana">
-													<span class="btn btn-xs btn-success" onclick="#">답변 대기</span>
-												</td>
-											</tr>
-											<tr>
-												<td class="select-checkbox no-filter"></td>
-												<td class="no-filter banana">cus_num</td>
-												<td>[cus_category] cus_title</td>
-												<td>m_id(세션)</td>
-												<td class="banana">cus_date</td>
-												<td class="banana">
-													<span class="btn btn-xs btn-danger" onclick="#" disabled>답변 완료</span>
-												</td>
-											</tr>
-											<tr>
-												<td class="select-checkbox no-filter"></td>
-												<td class="no-filter banana">cus_num</td>
-												<td>[cus_category] cus_title</td>
-												<td>m_id(세션)</td>
-												<td class="banana">cus_date</td>
-												<td class="banana">
-													<span class="btn btn-xs btn-default" onclick="#">답변 보류</span>
-												</td>
-											</tr>
+											<c:forEach var="list" items="${customerList}">
+												<tr>
+													<td class="select-checkbox no-filter"></td>
+													<td class="no-filter">${list.cus_num}</td>
+													<td>${list.cus_title}</td>
+													<td>${list.cus_nick}</td>
+													<td>${list.cus_date}</td>
+													<td>
+														<c:choose>
+															<c:when test="${list.cus_reNum == 0}">
+																<span class="btn btn-xs btn-success" onclick="#">답변 대기</span>
+															</c:when>
+															<c:when test="${list.cus_reNum > 0}">
+																<span class="btn btn-xs btn-danger" onclick="#" disabled>답변 완료</span>
+															</c:when>
+															<c:otherwise>
+																<span class="btn btn-xs btn-default" onclick="#">답변 보류</span>
+															</c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -135,7 +127,7 @@
 									<!-- 이전 버튼 -->
 									<li>
 										<c:if test="${pageNum > 9}">
-											<a href="adminNoticeMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+											<a href="adminCustomerMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 										</c:if>
 									</li>
 									<!-- 번호 출력 -->
@@ -143,14 +135,14 @@
 										<c:when test="${totalNum > next * 10 + 10}">
 											<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+													<a href="adminCustomerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
 											<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+													<a href="adminCustomerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:otherwise>
@@ -158,7 +150,7 @@
 									<!-- 다음 버튼 -->
 									<li>
 										<c:if test="${totalNum > next * 10 + 10 }">
-											<a href="adminNoticeMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+											<a href="adminCustomerMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 										</c:if>
 									</li>
 								</ul>

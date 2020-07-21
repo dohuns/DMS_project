@@ -3,4 +3,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.KG.mybatis.myMapper">
 
+	<!-- 답변별 게시글 목록 -->
+	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
+		SELECT B.* FROM (
+			SELECT ROWNUM cus_rn, A.* FROM
+				(SELECT * FROM customer ORDER BY cus_num, cus_date)A 
+			WHERE cus_reNum = #{cus_reNum} )B 
+		WHERE cus_rn BETWEEN #{start} and #{end}
+	</select>
+
+	<!-- 답변별 게시글 개수 -->
+	<select id="selectCustomerCount" resultType="int">
+		SELECT COUNT(*) FROM customer WHERE cus_reNum = #{cus_reNum}
+	</select>
 </mapper>
