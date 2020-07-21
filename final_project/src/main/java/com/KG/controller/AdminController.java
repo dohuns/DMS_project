@@ -154,6 +154,12 @@ public class AdminController {
 		return "admin/adminNoticeMain";
 	}
 
+	// 게시글 관리 > 고객센터
+	@RequestMapping("adminCustomerMain")
+	public String adminCustomerMain(Model model) {
+		return "admin/adminCustomerMain";
+	}
+
 	// 공지사항 : 게시글 보기
 	@RequestMapping("adminNoticeContent")
 	public String adminNoticeContent(Model model, @RequestParam("b_num") int b_num) {
