@@ -1,7 +1,9 @@
 package com.KG.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Random;
 
 import javax.mail.Session;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.KG.dto.BoardDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.member.MemberService;
 import com.KG.service.member.MemFindIdServImpl;
@@ -178,9 +183,11 @@ public class MemberController {
 	}
 
 //	회원가입
-	@PostMapping("chk_reigst")
-	public String chk_reigst(Model model, MemberDTO memberDTO) {
-		model.addAttribute("memberDTO", memberDTO);
+	@RequestMapping("chk_reigst")
+	public String chk_reigst(Model model , MemberDTO dto , MultipartHttpServletRequest request) {
+		System.out.println("하이");
+		model.addAttribute("memberDTO", dto);
+		model.addAttribute("request" , request);
 		memServ = (MemChkRegistServImpl) AC.ac.getBean("memChkRegistServImpl");
 		memServ.execute_Boo(model);
 		return "redirect:login";

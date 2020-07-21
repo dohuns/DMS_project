@@ -1,5 +1,7 @@
 package com.KG.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,6 +73,14 @@ public class MemberDAO {
 	// 회원가입
 	public int addMember(MemberDTO memberDTO) {
 		return sqlSession.insert(namespace+".addMember",memberDTO);
+	}
+	// 프로필 사진 업로드
+	public int insertFile(Map<String, Object> map) {
+		return sqlSession.insert(namespace + ".insertFile" , map);
+	}
+	// 아이디로 연결된 사진 가져오기
+	public String getPicture(String m_id) {
+		return sqlSession.selectOne(namespace + ".getPicture" , m_id);
 	}
 	
 	// 이메일로 정보 가져오기
