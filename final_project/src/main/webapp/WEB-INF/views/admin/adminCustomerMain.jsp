@@ -23,24 +23,6 @@
 		a:hover, a:focus, a:visited {
 			text-decoration: underline;
 		}
-
-		.searchBtn {
-			border: 1px solid;
-			border-color: #55a4d3;
-			border-radius: 3px;
-			background-color: #55a4d3;
-			color: white;
-			height: 26px;
-		}
-
-		.searchBar {
-			margin-top: 8px;
-			width: 200px;
-		}
-
-		.toolbarSize {
-			height: 56px;
-		}
 	</style>
 
 </head>
@@ -64,7 +46,18 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'"><b>고객센터</b></h1>
+					<h1 class="company-name"><b>고객센터</b></h1>
+						<c:choose>
+							<c:when test="${param.cus_categoryNum == 0}">
+								불량 행위 신고
+							</c:when>
+							<c:when test="${param.cus_categoryNum == 1}">
+								계정 도용 신고
+							</c:when>
+							<c:otherwise>
+								계정 정지 문의
+							</c:otherwise>
+						</c:choose>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
@@ -97,11 +90,11 @@
 											<c:forEach var="list" items="${customerList}">
 												<tr>
 													<td class="select-checkbox no-filter"></td>
-													<td class="no-filter">${list.cus_num}</td>
+													<td class="no-filter">${list.cus_num }</td>
 													<td>${list.cus_title}</td>
 													<td>${list.cus_nick}</td>
-													<td>${list.cus_date}</td>
-													<td>
+													<td class="banana">${list.cus_date}</td>
+													<td class="banana">
 														<c:choose>
 															<c:when test="${list.cus_reNum == 0}">
 																<span class="btn btn-xs btn-success" onclick="#">답변 대기</span>

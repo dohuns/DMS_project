@@ -7,7 +7,7 @@
 	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
-				(SELECT * FROM customer ORDER BY cus_num, cus_date)A 
+				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A 
 			WHERE cus_categoryNum = #{cus_categoryNum} )B 
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
