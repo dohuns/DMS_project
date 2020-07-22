@@ -39,6 +39,12 @@ public class MemberController {
 	}
 
 //	로그인페이지
+	@RequestMapping("header")
+	public String header() {
+		return "default/header";
+	}
+
+	//	로그인페이지
 	@RequestMapping("login")
 	public String login() {
 		return "login/login";
