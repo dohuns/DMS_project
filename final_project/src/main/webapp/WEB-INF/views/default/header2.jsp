@@ -32,27 +32,19 @@
 			color: #FFFFFF;
 			font-weight: bold;
 			text-decoration: none;
- 			background-color: #5bc0de;
-			border-color: #5bc0de;
+ 			background-color: #242156;
+			border-color: #242156;
 		}
 
 		.navbar-default,
 		.navbar-default .navbar-nav>li>a:hover,
 		.navbar-default .navbar-nav>li>a:active,
 		.navbar-default .navbar-nav>li>a:visited {
-			margin-bottom: 0px;
-			color: #FFFFFF;
-		}
-
-		.navbar-dmsHeader {
-			height: 200px;
+			color: #FFFFFF; 
 		}
 	</style>
 </head>
 <body>
-		<nav class="navbar-dmsHeader" align="center">
-			<img alt="" src="/movie/resources/headerImage/navbar_header.png" width="1280px">
-		</nav>
 	<header>
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
@@ -74,6 +66,8 @@
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
 						<li><a href="movie">영화</a></li>
+						<li><a href="#">게임</a></li>
+						<li><a href="#">고양이</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>
