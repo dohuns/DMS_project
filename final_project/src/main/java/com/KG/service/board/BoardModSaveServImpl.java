@@ -1,17 +1,25 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
+import com.KG.upload.FileUtils;
 
 @Service
 public class BoardModSaveServImpl implements BoardService{
 
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Autowired
 	BoardDAO dao;
 	
@@ -20,8 +28,28 @@ public class BoardModSaveServImpl implements BoardService{
 		
 		Map<String, Object> map = model.asMap();
 		BoardDTO dto = (BoardDTO) map.get("dto");
+		String[] files = (String[]) map.get("files");
+		String[] fileNames = (String[]) map.get("fileNames");
+		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
 		
 		dao.modifyBoard(dto);
+		
+		// 파일들 업로드 
+		try {
+			List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(dto, files, fileNames, request);
+			Map<String, Object> tempMap = null;
+			
+			for(int i=0; i<list.size(); i++) {
+				tempMap = list.get(i);
+				if(tempMap.get("f_del").equals("Y")) {
+					dao.insertFile(tempMap);
+				} else {
+					dao.updateFile((Integer)tempMap.get("f_no"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return false;
 	}

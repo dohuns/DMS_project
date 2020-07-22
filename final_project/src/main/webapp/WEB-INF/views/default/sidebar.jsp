@@ -75,7 +75,7 @@ hr#sub {
 											<c:when test="${userInfo.m_picture != null}">
 											<img
 												src="/movie/resources/memberImage/${userInfo.m_picture}"
-												width="58" height="58" alt="프로필사진">
+												width="58" height="58" alt="프로필사진" style="border-radius: 100%">
 											</c:when>
 											<c:otherwise>
 											<img

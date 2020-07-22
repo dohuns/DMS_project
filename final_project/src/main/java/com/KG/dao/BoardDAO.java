@@ -210,6 +210,16 @@ public class BoardDAO {
 	public List<Map<String, Object>> selectFileList(int f_boardNum) {
 		return sqlSession.selectList(namespace + ".selectFileList" , f_boardNum);
 	}
+	
+	// 첨부파일 다운로드
+	public Map<String, Object> selectFileInfo(int f_no) {
+		return sqlSession.selectOne(namespace + ".selectFileInfo" , f_no);
+	}
+	
+	// 첨부파일 수정 
+	public int updateFile(int f_no) {
+		return sqlSession.update(namespace + ".updateFile" , f_no);
+	}
 	///////////////////////////////////////////////////////////////
 
 }

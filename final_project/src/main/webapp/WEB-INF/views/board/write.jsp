@@ -9,6 +9,17 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+.fileBox{
+	border: 1px solid #eee;
+	width:470px;
+	border-radius : 20px;
+	min-height: 50px;
+	padding: 10px 0 10px 10px;
+	margin-top: 10px;
+}
+</style>
+
 <script type="text/javascript">
 	
 	function write_save() {
@@ -27,6 +38,12 @@
 			$("#fo").submit();
 		}
 	}
+	$(function() {
+		var fileIndex = 1;
+		$("#fileAdd_btn").on("click" , function() {
+			$(".fileBox").append("");
+		});
+	})
 </script>
 </head>
 <body>
@@ -58,7 +75,6 @@
 								</select>
 								<!-- 게시판 카테고리 hidden으로 보내기 -->
 								<input type="hidden" name="b_category" value="${param.b_category}">
-								<input type="file" name="uploadFile">
 							</div>
 							<!-- 제목 입력 -->
 							<div>
@@ -72,6 +88,18 @@
 								<textarea rows="15" cols="50" name="b_content" id="b_content" class="form-control"
 									style="resize:none;"></textarea>
 							</div>
+							<!-- 첨부파일 & 이미지 -->
+							<div style="margin-top:10px;">
+								<button id="fileAdd_btn" type="button">파일 추가</button>							
+								<!-- 파일 목록 -->
+								<div class="fileBox">
+									asd<br>
+									asd<br>
+									asad<br>
+									asd<br>
+								</div>
+							</div>
+							
 							<!-- 버튼 -->
 							<div align="right" style="padding-top: 10px;">
 								<button type="button" class="btn btn-success" onclick="write_save()">글 작성</button>

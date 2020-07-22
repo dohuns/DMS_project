@@ -103,6 +103,46 @@ public class FileUtils {
 		return list;
 	}
 	
+	// 첨부파일 수정
+	public List<Map<String, Object>> parseUpdateFileInfo(BoardDTO boardDTO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception{ 
+		
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\";
+		
+		Iterator<String> iterator = mpRequest.getFileNames();
+		MultipartFile multipartFile = null; 
+		String originalFileName = null; 
+		String originalFileExtension = null; 
+		String storedFileName = null; 
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null; 
+		int bno = boardDTO.getB_num();
+		while(iterator.hasNext()){ 
+			multipartFile = mpRequest.getFile(iterator.next());
+			if(multipartFile.isEmpty() == false){
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+				multipartFile.transferTo(new File(filePath + storedFileName));
+				listMap = new HashMap<String,Object>();
+				listMap.put("f_del", "Y");
+				listMap.put("f_boardNum", bno);
+				listMap.put("f_oriName", originalFileName);
+				listMap.put("f_modiName", storedFileName);
+				listMap.put("f_size", multipartFile.getSize());
+				list.add(listMap);
+			}
+		}
+		if(files != null && fileNames != null){
+			for(int i = 0; i<fileNames.length; i++) {
+					listMap = new HashMap<String,Object>();
+                    listMap.put("f_del", "N");
+					listMap.put("f_no", files[i]);
+					list.add(listMap);
+			}
+		}
+		return list;
+	}
+	
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}

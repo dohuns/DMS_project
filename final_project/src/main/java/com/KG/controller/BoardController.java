@@ -3,6 +3,7 @@ package com.KG.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardDeleteServImpl;
+import com.KG.service.board.BoardFileDownServImpl;
 import com.KG.service.board.BoardModSaveServImpl;
 import com.KG.service.board.BoardModifyServImpl;
 import com.KG.service.board.BoardReplySaveServImpl;
@@ -196,8 +198,14 @@ public class BoardController {
 
 	// 게시글 수정
 	@RequestMapping("/board/modify_save")
-	public String modify_save(Model model, BoardDTO dto) {
+	public String modify_save(Model model, BoardDTO dto, 
+			@RequestParam("fileNoDel[]") String[] files , 
+			@RequestParam("fileNameDel[]") String[] fileNames , 
+			MultipartHttpServletRequest request) {
 		model.addAttribute("dto", dto);
+		model.addAttribute("files" , files);
+		model.addAttribute("fileNames" , fileNames);
+		model.addAttribute("request" , request);
 
 		boaServ = (BoardModSaveServImpl) AC.ac.getBean("boardModSaveServImpl");
 		boaServ.execute_Boo(model);
@@ -246,5 +254,16 @@ public class BoardController {
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
 		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+	}
+	
+	// 첨부파일 다운로드
+	@RequestMapping("/board/file_down")
+	public void file_down(Model model , HttpServletResponse response , @RequestParam("f_no") int f_no) {
+		
+		model.addAttribute("response" , response);
+		model.addAttribute("f_no" , f_no);
+		boaServ = (BoardFileDownServImpl) AC.ac.getBean("boardFileDownServImpl");
+		boaServ.execute_Boo(model);
+		
 	}
 }

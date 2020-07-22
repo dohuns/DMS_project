@@ -451,6 +451,14 @@ textarea:focus {
 			});		
 		}
 	}
+	
+	// 파일 다운로드
+	function fileDown(fileNo) {
+		console.log("들어옴")
+		$("#f_no").val(fileNo);
+		$("#fileForm").submit();
+
+	}
 </script>
 </head>
 <body>
@@ -509,10 +517,15 @@ textarea:focus {
 				<span>파일 목록</span>
 				<div>
 					<c:forEach var="file" items="${fileList}">
-						<a href="#" onclick="fn_fileDown('${file.F_NO}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
+						<a href="#" onclick="fileDown('${file.F_NO}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
 					</c:forEach>
 				</div>
-				
+				<!-- 파일 정보 -->
+				<div>
+					<form action="file_down" method="POST" id="fileForm">
+						<input type="hidden" id="f_no" name="f_no"/>
+					</form>
+				</div>				
 				<!-- 좋아요 + 댓글 수  -->
 				<div style="margin-top: 20px;">
 					<a href="#">

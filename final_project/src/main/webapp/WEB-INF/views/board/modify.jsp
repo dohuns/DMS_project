@@ -10,6 +10,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<style type="text/css">
+.fileBox{
+	border: 1px solid #eee;
+	width:470px;
+	border-radius : 20px;
+	min-height: 50px;
+	padding: 10px 0 10px 10px;
+	margin-top: 10px;
+}
+</style>
+
 <script type="text/javascript">
 $(function() {
 	var ta = $("#b_content").val()
@@ -30,6 +41,26 @@ function write_save() {
 		$("#fo").submit();
 	}
 }
+
+// 업로드 추가 삭제
+$(function() {
+	var fileIndex = 1;
+	$("#fileAdd_btn").on("click" , function() {
+		$(".fileBox").append("<div id='fileDiv_"+(fileIndex++)+"'><input type='file' name='file_"+(fileIndex++)+"' style='display:inline-block'>"+"<button type='button'id='fileDel_btn_"+(fileIndex++)+"' onclick='newFileDel("+fileIndex+")'>"+"삭제"+"</button></div>");
+	});
+});
+function newFileDel(index) {
+	$("#fileDiv_"+(index-3)).remove();
+}
+var fileNoArr = new Array();
+var fileNameArr = new Array();
+
+function exFileDel(value , name) {
+	fileNoArr.push(value);
+	fileNameArr.push(name);
+	$("#fileNoDel").val(fileNoArr);
+	$("#filenameDel").val(fileNameArr);
+}
 </script>
 </head>
 <body>
@@ -38,7 +69,7 @@ function write_save() {
 		<div align="center">
 			<h1> 수정 페이지 </h1>
 			<div align="left">
-				<form action="modify_save" id="fo">
+				<form action="modify_save" id="fo" method="post" enctype="multipart/form-data">
 					<!-- 게시판 선택 -->
 					<div>
 						<h5>게시판</h5>
@@ -67,6 +98,25 @@ function write_save() {
 						<textarea rows="15" cols="50" name="b_content" id="b_content" class="form-control"
 						style="resize:none;">${boardList.b_content}</textarea>
 					</div>
+					
+					<!-- 첨부파일 & 이미지 -->
+					<div style="margin-top:10px;">
+						<button id="fileAdd_btn" type="button">파일 추가</button>							
+						<!-- 파일 목록 -->
+						<div class="fileBox">
+							<input type="hidden" id="fileNoDel" name="fileNoDel[]">
+							<input type="hidden" id="filenameDel" name="fileNameDel[]">
+							<c:forEach var="file" items="${fileList}" varStatus="var">
+								<div>
+									<input type="hidden" id="f_no" name="f_no_${var.index}" value="${file.F_NO}">
+									<input type="hidden" id="f_name" name="f_name" value="f_no_${var.index}">
+									<a href="#" id="fileName" onclick="return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)
+									<button id="fileDel" onclick="exFileDel('${file.F_NO}','f_no_${var.index}')" type="button">삭제</button><br>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+					
 					<!-- 버튼 -->
 					<div align="right" style="padding-top: 10px;">
 						<button type="button" class="btn btn-success" onclick="write_save()">수정</button>
@@ -76,6 +126,9 @@ function write_save() {
 			</div>
 		</div>
 	</div>
-
+<div>
+	<input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>
+	<button type='button' style='float:right;' id='fileDel_btn'>삭제</button>
+</div>
 </body>
 </html>
