@@ -25,7 +25,6 @@ public class BoardModifyServImpl implements BoardService{
 		
 		//업로드 파일 리스트
 		List<Map<String, Object>> fileList = dao.selectFileList(num);
-		System.out.println("ser : " + fileList.get(0).get("F_ORINAME"));
 		model.addAttribute("fileList" , fileList);
 		
 		return false;

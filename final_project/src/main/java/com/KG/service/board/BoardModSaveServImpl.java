@@ -44,7 +44,7 @@ public class BoardModSaveServImpl implements BoardService{
 				if(tempMap.get("f_del").equals("Y")) {
 					dao.insertFile(tempMap);
 				} else {
-					dao.updateFile((Integer)tempMap.get("f_no"));
+					dao.updateFile(tempMap);
 				}
 			}
 		} catch (Exception e) {

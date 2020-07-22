@@ -217,8 +217,8 @@ public class BoardDAO {
 	}
 	
 	// 첨부파일 수정 
-	public int updateFile(int f_no) {
-		return sqlSession.update(namespace + ".updateFile" , f_no);
+	public int updateFile(Map<String, Object> map) {
+		return sqlSession.update(namespace + ".updateFile" , map);
 	}
 	///////////////////////////////////////////////////////////////
 
