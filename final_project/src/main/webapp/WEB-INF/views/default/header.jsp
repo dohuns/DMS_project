@@ -50,8 +50,8 @@
 	</style>
 </head>
 <body>
-		<nav class="navbar-dmsHeader" align="center">
-			<img alt="" src="/movie/resources/headerImage/navbar_header.png" width="1280px">
+		<nav class="navbar-dmsHeader">
+			여기에 뭘 넣을지 고민해봅시다.
 		</nav>
 	<header>
 		<nav class="navbar navbar-default" role="navigation">

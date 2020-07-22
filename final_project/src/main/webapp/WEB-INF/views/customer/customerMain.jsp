@@ -1,113 +1,293 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>고객센터</title>
-	<link
-		href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"
-		rel="stylesheet" id="bootstrap-css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="//code.jquery.com/jquery-latest.min.js"></script>
-<style>
-body {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-}
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<style>
+		.mt-60 {
+			margin-top: 60px;
+		}
 
-main {
-	flex: 1 0 auto;
-}
+		.section-block-grey {
+			padding: 90px 0px 90px 0px;
+			background-color: #f9f9f9;
+		}
 
-.brand-logo>img {
-	width: 50px;
-	height: 50px;
-	margin-top: 5px;
-}
-/* PARALLAX */
-.prof-user {
-	height: 270px !important;
-}
+		.serv-section-2 {
+			position: relative;
+			border: 1px solid #eee;
+			background: #fff;
+			box-shadow: 0px 10px 30px 0px rgba(50, 50, 50, 0.16);
+			border-radius: 5px;
+			overflow: hidden;
+			padding: 30px;
+		}
 
-.parallax>img {
-	/* opacity: .5; 
-	- Para hacer la imagen, como marca de agua 
-	*/
-	
-}
-/* Menu - profile */
-.bg-card-user {
-	background: rgba(0, 77, 64, .5);
-	padding: 15px 0;
-}
+		.serv-section-2:before {
+			position: absolute;
+			top: 0;
+			right: 0px;
+			z-index: 0;
+			content: " ";
+			width: 120px;
+			height: 120px;
+			background: #f5f5f5;
+			border-bottom-left-radius: 136px;
+			transition: all 0.4s ease-in-out;
+			-webkit-transition: all 0.4s ease-in-out;
+		}
 
-.truncate>img {
-	width: 120px;
-}
-/* Promoción */
-.promo i {
-	margin: 10px 0;
-	color: #FFF;
-	font-size: 7rem;
-	display: block;
-}
+		.serv-section-2-icon {
+			position: absolute;
+			top: 18px;
+			right: 22px;
+			max-width: 100px;
+			z-index: 1;
+			text-align: center;
+		}
 
-.promo-caption {
-	font-size: 1.7rem;
-	font-weight: 500;
-	margin-top: 5px;
-	margin-bottom: 0;
-}
+		.serv-section-2-icon i {
+			color: #5BC0DE;
+			font-size: 48px;
+			line-height: 65px;
+			transition: all 0.4s ease-in-out;
+			-webkit-transition: all 0.4s ease-in-out;
+		}
 
-.promo .light {
-	padding: 2px 10px;
-}
-/* FOOTER */
-footer .foot-text {
-	margin-top: 10px;
-}
-</style>
-<script>
-	
-</script>
+		.serv-section-desc {
+			position: relative;
+		}
+
+		.serv-section-2 h4 {
+			color: #333;
+			font-size: 20px;
+			font-weight: 500;
+			line-height: 1.5;
+		}
+
+		.serv-section-2 h5 {
+			color: #333;
+			font-size: 17px;
+			font-weight: 400;
+			line-height: 1;
+			margin-top: 5px;
+		}
+
+		.section-heading-line-left {
+			content: '';
+			display: block;
+			width: 100px;
+			height: 3px;
+			background: #5BC0DE;
+			border-radius: 25%;
+			margin-top: 15px;
+			margin-bottom: 5px;
+		}
+
+		.serv-section-2 p {
+			margin-top: 25px;
+			padding-right: 50px;
+		}
+
+		.serv-section-2:hover .serv-section-2-icon i {
+			color: #FFFFFF;
+		}
+
+		.serv-section-2:hover:before {
+			background: #5BC0DE;
+		}
+
+		.h5 {
+			font-size: 3;
+		}
+
+		.is-color {
+			background-color: #FFFFFF;
+		}
+
+		tr>th, td {
+			text-align: center;
+		}
+
+		.tdClass {
+			text-align: left;
+		}
+	</style>
+
+	<!-- 문의 내역 STYLE -->
+	<style>
+		.text-primary {
+    		color: #4e73df;
+		}
+		.font-weight-bold {
+		    font-weight: 700;
+		}
+		.card {
+		    position: relative;
+		    display: flex;
+		    flex-direction: column;
+		    min-width: 0;
+		    word-wrap: break-word;
+		    background-color: #fff;
+		    background-clip: border-box;
+		    border: 1px solid #e3e6f0;
+		    border-radius: 0.35rem;
+		    margin:20px auto;
+		}
+		.card-header {
+		    padding: 0.75rem 1.25rem;
+		    margin-bottom: 0;
+		    background-color: #f8f9fc;
+		    border-bottom: 1px solid #e3e6f0;
+		}
+		.shadow {
+		    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+		}
+		.display-flex {
+		    display: flex;
+		}
+		.align-center {
+		    align-items: center;
+		}
+		.ml-auto {
+		    margin-left: auto !important;
+		}
+		.form-control {
+		    display: block;
+		    width: 100%;
+		    height: calc(1.5em + 0.75rem + 2px);
+		    padding: 0.375rem 0.75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #6e707e;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #d1d3e2;
+		    border-radius: 0.35rem;
+		    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+		.card-body {
+		    flex: 1 1 auto;
+		    padding: 1.25rem;
+		}
+		.table-responsive {
+		    display: block;
+		    width: 100%;
+		    overflow-x: auto;
+		}
+		.table-responsive > .table-bordered {
+		    border: 0;
+		}
+		.table-bordered th, .table-bordered td {
+		    border: 1px solid #e3e6f0;
+		}
+		.table thead th {
+		    vertical-align: middle;
+		    border-bottom: 2px solid #e3e6f0;
+		}
+		.table-bordered thead th, .table-bordered thead td {
+		    border-bottom-width: 2px;
+		}
+		.table-bordered thead th {
+		    background: #5BC0DE;
+		    color: #fff;
+		}
+	</style>
 </head>
 <body>
-	<div class="row">
-		<div class="col xl12 l12 m12 s12">
-			<div class="card-panel center teal">
-				<span class="white-text"> 고객센터를 통해 궁금증을 해결하세요. 이외 고객센터에 관련된 사항 등 기록 예정 </span>
-			</div>
-		</div>
+	<c:import url="../default/header.jsp" />
 
-		<div class="col xl4 l4 m12 12">
-			<div class="card-panel center promo blue-grey darken-3 white-text">
-				<i class="material-icons">flash_on</i>
-				<p class="promo-caption">불량 행위 신고</p>
-				<p class="light center">부적절한 게시글 / 댓글 / 닉네임 / .. 
-				게시글 수를 맞추지않으면 모양이 틀어진다/p>
+	<div class="section-block-grey">
+		<div class="container">
+			<h1 align="center"><b>고객센터</b></h1>
+			<div class="row mt-60">
+				<div class="col-md-4 col-sm-12 col-12">
+					<div class="serv-section-2">
+						<div class="serv-section-2-icon">
+							<i class="fas fa-gem"></i>
+						</div>
+						<div class="serv-section-desc">
+							<h4><b>일반 문의</b></h4>
+							<font class="h5">로그인 / 가입 / 탈퇴</font>
+						</div>
+						<div class="section-heading-line-left"></div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12 col-12">
+					<div class="serv-section-2 serv-section-2-act">
+						<div class="serv-section-2-icon serv-section-2-icon-act">
+							<i class="fas fa-shield-alt"></i>
+						</div>
+						<div class="serv-section-desc">
+							<h4><b>신고 접수</b></h4>
+							<font class="h5">비매너 회원 신고</font>
+						</div>
+						<div class="section-heading-line-left"></div>
+
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12 col-12">
+					<div class="serv-section-2 serv-section-2-act">
+						<div class="serv-section-2-icon serv-section-2-icon-act">
+							<i class="far fa-clock"></i>
+						</div>
+						<div class="serv-section-desc">
+							<h4><b>계정 문의</b></h4>
+							<font class="h5">이용제한 / 계정정지</font>
+						</div>
+						<div class="section-heading-line-left"></div>
+
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col xl4 l4 m12 12">
-			<div class="card-panel center promo blue-grey darken-3 white-text">
-				<i class="material-icons">group</i>
-				<p class="promo-caption">가입 / 변경 / 탈퇴</p>
-				<p class="light center">등록된 이메일 주소를 변경하거나 탈퇴하고 싶은 경우,
-				가입이 제대로 진행되지 않는 경우 기입할 예정</p>
-			</div>
-		</div>
-		<div class="col xl4 l4 m12 12">
-			<div class="card-panel center promo blue-grey darken-3 white-text">
-				<i class="material-icons">settings</i>
-				<p class="promo-caption">계정 정지 문의</p>
-				<p class="light center">카카오 문의 이용제한/보호조치 참조하여 기록
-				아에이오우</p>
+		<div class="section-block-grey">
+			<div class="container">
+				<div id="main-content">
+					<div class="content-body">
+						<div class="main-box-container">
+							<div class="box">
+								<div class="card shadow mb-4">
+									<div class="card-header py-3">
+										<div class="display-flex align-center">
+											<h4><b>문의 내역</b></h4>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th width="10%">번호</th>
+														<th width="60%">제목</th>
+														<th width="15%">날짜</th>
+														<th width="15%">상태</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>TEST</td>
+														<td class="tdClass">TEST</td>
+														<td>TEST</td>
+														<td>TEST</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 </body>
 </html>
