@@ -16,7 +16,9 @@ import com.KG.dto.MemberDTO;
 
 @Component("fileUtils")
 public class FileUtils {
-	
+	// F_MARK 1 -> 첨부파일 , 
+	// 		  2 -> 이미지 첨부파일(게시내용 이미지),
+	// 	      3 -> 프로필 사진
 	
 	// 게시글 업로드
 	public List<Map<String, Object>> parseInsertFileBoard(BoardDTO boardDTO, 
@@ -55,6 +57,7 @@ public class FileUtils {
 				listMap.put("f_oriName", originalFileName);
 				listMap.put("f_modiName", storedFileName);
 				listMap.put("f_size", multipartFile.getSize());
+				listMap.put("f_mark" , 1);
 				list.add(listMap);
 			}
 		}
@@ -97,6 +100,7 @@ public class FileUtils {
 				listMap.put("f_oriName", originalFileName);
 				listMap.put("f_modiName", storedFileName);
 				listMap.put("f_size", multipartFile.getSize());
+				listMap.put("f_mark", 3);
 				list.add(listMap);
 			}
 		}

@@ -252,9 +252,9 @@
 	<!-- 글쓰기 떄 파일 업로드 -->
 	<insert id="insertFile">
 		INSERT INTO saveFile(
-			f_no , f_boardNum , f_oriName , f_modiName , f_size
+			f_no , f_boardNum , f_oriName , f_modiName , f_size , f_mark
 		) VALUES (
-			f_noSQ.nextval , #{f_boardNum} , #{f_oriName} , #{f_modiName} , #{f_size} 
+			f_noSQ.nextval , #{f_boardNum} , #{f_oriName} , #{f_modiName} , #{f_size} , #{f_mark} 
 		)
 	</insert>
 	
