@@ -232,12 +232,23 @@
     }
 	
 	$(function() {
-	    $("#imgInp").change(function() {
-	    	console.log("누름~")
-	        readURL(this);
+	    $("#fileInput").change(function() {
+	    	readURL(this);
 	    });
 	})
 
+	
+	// input text에 파일 이름 띄워주기(프로필 사진)
+	function inputName() {
+		if(window.FileReader) {
+			var filename = $("#fileInput")[0].files[0].name;
+		} else {
+			var filename = $("#fileInput").val().split('/').pop().split('\\').pop();
+		}
+		
+		$("#userfile").val(filename);
+		
+	}
 	
 	
 	
@@ -342,9 +353,23 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="file" name="picture" id="imgInp">
+								<div class="form-group">
+									<input type="file" id="fileInput" data-class-button="btn btn-default" data-class-input="form-control"
+										data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position:absolute;
+										 clip:rect(0px 0px 0px 0px);" onchange="inputName()" name="picture">
+									<div class="bootstrap-filestyle input-group">
+										<input type="text" id="userfile" class="form-control" name="userfile" disabled="">
+										<span class="group-span-filestyle input-group-btn" tabindex="0">
+											<label for="fileInput" class="btn btn-default" style="padding: 0 0 0 0; width:50px; height:34px;">
+												<span class="glyphicon fa fa-upload">
+													<img src="/img/upload.png" width="45px" height="30px">
+												</span>
+											</label>
+										</span>
+									</div>
 									<img id="foo" width="58" height="58" class="upImg"
 									src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"/>
+								</div>
 							</td>
 						</tr>
 						<!-- 이메일 -->

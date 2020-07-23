@@ -60,7 +60,7 @@ $(function() {
 				'<span class="group-span-filestyle input-group-btn" tabindex="0">' + 
 				'<label for="fileInput_'+fileIndex+'" class="btn btn-default" style="padding: 0 0 0 0; width:50px; height:34px;">' + 
 				'<span class="glyphicon fa fa-upload">' + 
-				'<img src="/movie/resources/upload.png" width="45px" height="30px">' + 
+				'<img src="/img/upload.png" width="45px" height="30px">' + 
 				'</span>' + 
 				'</label>' + 
 				'</span>' + 
@@ -167,20 +167,6 @@ function chkReset(index) {
 								</div>
 							</c:forEach>
 							<button type="button" onclick="chkReset()" class="btn btn-success btn-sm">선택 해제</button>
-<!-- 							<div class="form-group"> -->
-<!-- 								<input type="file" id="fileInput" data-class-button="btn btn-default" data-class-input="form-control" -->
-<!-- 									data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position:absolute; clip:rect(0px 0px 0px 0px);"> -->
-<!-- 								<div class="bootstrap-filestyle input-group"> -->
-<!-- 									<input type="text" id="userfile" class="form-control" name="userfile" disabled=""> -->
-<!-- 									<span class="group-span-filestyle input-group-btn" tabindex="0"> -->
-<!-- 										<label for="fileInput" class="btn btn-default" style="padding: 0 0 0 0; width:50px; height:34px;"> -->
-<!-- 											<span class="glyphicon fa fa-upload"> -->
-<!-- 												<img src="/movie/resources/upload.png" width="45px" height="30px"> -->
-<!-- 											</span> -->
-<!-- 										</label> -->
-<!-- 									</span> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
 						</div>
 					</div>
 					

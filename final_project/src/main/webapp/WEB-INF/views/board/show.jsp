@@ -268,7 +268,7 @@ textarea:focus {
 						html += '<div style="float:right">'
 						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
 						if(list[i].c_id == "${sessionScope.m_id}") {
-							html += '<img src="/movie/resources/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
+							html += '<img src="/img/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
 						}
 						html += '</div>'
 						html += '</div>';
@@ -529,7 +529,7 @@ textarea:focus {
 				<!-- 좋아요 + 댓글 수  -->
 				<div style="margin-top: 20px;">
 					<a href="#">
-						<img src="/movie/resources/commentImg.png" style="width:20px;">
+						<img src="/img/commentImg.png" style="width:20px;">
 						<span style="color:black;">댓글</span>
 						<strong style="color:black;" id="c_count"></strong>
 					</a>

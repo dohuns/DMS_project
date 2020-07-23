@@ -185,7 +185,6 @@ public class MemberController {
 //	회원가입
 	@RequestMapping("chk_reigst")
 	public String chk_reigst(Model model , MemberDTO dto , MultipartHttpServletRequest request) {
-		System.out.println("하이");
 		model.addAttribute("memberDTO", dto);
 		model.addAttribute("request" , request);
 		memServ = (MemChkRegistServImpl) AC.ac.getBean("memChkRegistServImpl");

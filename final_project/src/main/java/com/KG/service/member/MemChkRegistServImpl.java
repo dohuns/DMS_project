@@ -41,7 +41,6 @@ public class MemChkRegistServImpl implements MemberService{
 			e.printStackTrace();
 		}
 		memberDTO.setM_picture(memberDAO.getPicture(memberDTO.getM_id()));
-		
 		memberDAO.addMember(memberDTO);
 		
 		

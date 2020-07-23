@@ -38,12 +38,49 @@
 			$("#fo").submit();
 		}
 	}
+	
+	// 업로드 추가 삭제
 	$(function() {
 		var fileIndex = 1;
 		$("#fileAdd_btn").on("click" , function() {
-			$(".fileBox").append("");
+			
+			$(".fileBox").append(
+					'<div class="form-group" id="fileDiv_'+(fileIndex)+'">' +
+					'<input type="file" id="fileInput_'+fileIndex+'" data-class-button="btn btn-default" data-class-input="form-control" name="file_'+(fileIndex)+'"' +
+					'data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position:absolute; clip:rect(0px 0px 0px 0px);" onchange="inputName('+fileIndex+')">' + 
+					'<div class="bootstrap-filestyle input-group">' +
+					'<input type="text" id="userfile_'+(fileIndex)+'" class="form-control" name="userfile" disabled="">' + 
+					'<span class="group-span-filestyle input-group-btn" tabindex="0">' + 
+					'<label for="fileInput_'+fileIndex+'" class="btn btn-default" style="padding: 0 0 0 0; width:50px; height:34px;">' + 
+					'<span class="glyphicon fa fa-upload">' + 
+					'<img src="/img/upload.png" width="45px" height="30px">' + 
+					'</span>' + 
+					'</label>' + 
+					'</span>' + 
+					'</div>' + 
+					"<button type='button'id='fileDel_btn_"+(fileIndex)+"' onclick='newFileDel("+(fileIndex++)+")'"+
+					" class='btn btn-danger btn-sm'>삭제</button></div>" + 
+					'</div>'
+			);
 		});
-	})
+	});
+
+	// input text에 파일 이름 띄워주기
+	function inputName(index) {
+		if(window.FileReader) {
+			var filename = $("#fileInput_"+index)[0].files[0].name;
+		} else {
+			var filename = $("#fileInput_"+index).val().split('/').pop().split('\\').pop();
+		}
+		
+		$("#userfile_"+index).val(filename);
+	}
+
+
+	// 파일 등록 추가 한 div삭제
+	function newFileDel(index) {
+		$("#fileDiv_"+index).remove();
+	}
 </script>
 </head>
 <body>
@@ -90,13 +127,9 @@
 							</div>
 							<!-- 첨부파일 & 이미지 -->
 							<div style="margin-top:10px;">
-								<button id="fileAdd_btn" type="button">파일 추가</button>							
+								<button id="fileAdd_btn" type="button" class="btn btn-info btn-sm">파일 추가</button>							
 								<!-- 파일 목록 -->
 								<div class="fileBox">
-									asd<br>
-									asd<br>
-									asad<br>
-									asd<br>
 								</div>
 							</div>
 							
