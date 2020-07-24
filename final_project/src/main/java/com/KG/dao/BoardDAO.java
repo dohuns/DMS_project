@@ -208,6 +208,7 @@ public class BoardDAO {
 	
 	// 첨부파일 조회
 	public List<Map<String, Object>> selectFileList(int f_boardNum) {
+		System.out.println("번호 : " + f_boardNum);
 		return sqlSession.selectList(namespace + ".selectFileList" , f_boardNum);
 	}
 	
@@ -217,8 +218,13 @@ public class BoardDAO {
 	}
 	
 	// 첨부파일 수정 
-	public int updateFile(Map<String, Object> map) {
-		return sqlSession.update(namespace + ".updateFile" , map);
+	public int deleteFile(Map<String, Object> map) {
+		return sqlSession.delete(namespace + ".deleteFile" , map);
+	}
+	
+	// 게시글 삭제 시 첨부파일 삭제
+	public int allFileDel(BoardDTO dto) {
+		return sqlSession.delete(namespace + ".allFileDel" , dto);
 	}
 	///////////////////////////////////////////////////////////////
 

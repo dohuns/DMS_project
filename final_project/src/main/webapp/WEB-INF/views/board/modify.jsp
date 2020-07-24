@@ -162,7 +162,7 @@ function chkReset(index) {
 									<input type="hidden" id="f_no" name="f_no_${var.index}" value="${file.F_NO}">
 									<input type="hidden" id="f_name" name="f_name" value="f_no_${var.index}">
 									<label id="fileName${var.index}" class="a-oriName" >${file.F_ORINAME}</label>(${file.F_SIZE}kb)
-									<button id="fileDel" onclick="exFileDel('${file.F_NO}','f_no_${var.index}','${var.index}')"
+									<button id="fileDel" onclick="exFileDel('${file.F_NO}','${file.F_MODINAME}','${var.index}')"
 									 type="button" class="btn btn-danger btn-sm" style="right: 0px;">삭제 선택</button><br>
 								</div>
 							</c:forEach>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class BoardModSaveServImpl implements BoardService{
 		String[] files = (String[]) map.get("files");
 		String[] fileNames = (String[]) map.get("fileNames");
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
+		HttpSession session = (HttpSession)map.get("session");
+		
+		dto.setB_id((String)session.getAttribute("m_id"));
 		
 		dao.modifyBoard(dto);
 		
@@ -44,7 +48,7 @@ public class BoardModSaveServImpl implements BoardService{
 				if(tempMap.get("f_del").equals("Y")) {
 					dao.insertFile(tempMap);
 				} else {
-					dao.updateFile(tempMap);
+					dao.deleteFile(tempMap);
 				}
 			}
 		} catch (Exception e) {

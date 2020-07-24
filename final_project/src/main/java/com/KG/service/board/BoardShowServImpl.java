@@ -27,7 +27,6 @@ public class BoardShowServImpl implements BoardService{
 		
 		BoardDTO dto = boardDAO.showBoard(b_num);
 		List<Map<String, Object>> list = boardDAO.selectFileList(b_num);
-		
 		model.addAttribute("fileList" , list);
 		model.addAttribute("boardInfo" , dto);
 		model.addAttribute("memberInfo" , boardDAO.userInfo(dto.getB_nick()));

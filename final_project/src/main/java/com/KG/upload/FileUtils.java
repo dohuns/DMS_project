@@ -24,7 +24,7 @@ public class FileUtils {
 	public List<Map<String, Object>> parseInsertFileBoard(BoardDTO boardDTO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
-		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\"; // 파일이 저장될 위치
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\" +  boardDTO.getB_id() + "\\"; // 파일이 저장될 위치
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
@@ -110,7 +110,7 @@ public class FileUtils {
 	// 첨부파일 수정
 	public List<Map<String, Object>> parseUpdateFileInfo(BoardDTO boardDTO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception{ 
 		
-		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\";
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\" + boardDTO.getB_id() + "\\";
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
 		MultipartFile multipartFile = null; 
@@ -133,6 +133,7 @@ public class FileUtils {
 				listMap.put("f_oriName", originalFileName);
 				listMap.put("f_modiName", storedFileName);
 				listMap.put("f_size", multipartFile.getSize());
+				listMap.put("f_mark" , 2);
 				list.add(listMap);
 			}
 		}
@@ -141,10 +142,20 @@ public class FileUtils {
 					listMap = new HashMap<String,Object>();
                     listMap.put("f_del", "N");
 					listMap.put("f_no", files[i]);
+					new File(filePath + fileNames[i]).delete();
 					list.add(listMap);
 			}
 		}
 		return list;
+	}
+	
+	// 게시글 삭제 시 첨부파일 전부 삭제
+	public void parseDeleteFile(BoardDTO dto , List<Map<String, Object>> list) {
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\" + dto.getB_id() + "\\";
+		
+		for(int i=0; i<list.size(); i++) {
+			new File(filePath + list.get(i).get("F_MODINAME")).delete();
+		}
 	}
 	
 	public static String getRandomString() {

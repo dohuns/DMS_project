@@ -201,12 +201,14 @@ public class BoardController {
 	public String modify_save(Model model, BoardDTO dto, 
 			@RequestParam("fileNoDel[]") String[] files , 
 			@RequestParam("fileNameDel[]") String[] fileNames , 
-			MultipartHttpServletRequest request) {
+			MultipartHttpServletRequest request , 
+			HttpSession session) {
 		model.addAttribute("dto", dto);
 		model.addAttribute("files" , files);
 		model.addAttribute("fileNames" , fileNames);
 		model.addAttribute("request" , request);
-
+		model.addAttribute("session" , session);
+		
 		boaServ = (BoardModSaveServImpl) AC.ac.getBean("boardModSaveServImpl");
 		boaServ.execute_Boo(model);
 
@@ -216,10 +218,11 @@ public class BoardController {
 
 	// 게시글 삭제
 	@RequestMapping("/board/delete")
-	public String delete(Model model, BoardDTO dto) throws UnsupportedEncodingException {
+	public String delete(Model model, BoardDTO dto , HttpSession session) throws UnsupportedEncodingException {
 
 		model.addAttribute("dto", dto);
-
+		model.addAttribute("session" , session);
+		
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 

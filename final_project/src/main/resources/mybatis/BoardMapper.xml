@@ -260,7 +260,7 @@
 	
 	<!-- 첨부파일 조회 -->
 	<select id="selectFileList" resultType="hashMap">
-		SELECT F_NO , F_ORINAME , ROUND(F_SIZE/1024,1) AS f_SIZE
+		SELECT F_NO , F_ORINAME , ROUND(F_SIZE/1024,1) AS f_SIZE , F_MODINAME
 			FROM saveFile 
 		WHERE f_boardNum = #{f_boardNum} and f_del = 'N' 
 			ORDER BY f_no ASC
@@ -274,11 +274,16 @@
 			WHERE f_no = #{f_no}
 	</select>
 	
-	<!-- 첨부파일 수정 -->
-	<update id="updateFile">
-		UPDATE saveFile SET
-			f_del = 'Y'
-		WHERE f_no = #{f_no}
-	</update>
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteFile">
+		DELETE FROM saveFile
+			WHERE f_no = #{f_no}
+	</delete>
+	
+	<!-- 게시글 삭제 시 첨부파일 전부 삭제 -->
+	<delete id="allFileDel">
+		DELETE FROM saveFile
+			WHERE f_boardNum = #{b_num}
+	</delete>
 	<!-- /////////////////////////////////////////////////////////////////////////////// -->
 </mapper>
