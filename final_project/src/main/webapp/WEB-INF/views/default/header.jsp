@@ -87,7 +87,6 @@
 							<c:when test="${sessionScope.m_nick == null}">
 								<li><a href="/movie/login">로그인</a></li>
 								<li><a href="/movie/regist_email">회원가입</a></li>
-								<li><a href="customerMain">고객센터</a></li>
 							</c:when>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>

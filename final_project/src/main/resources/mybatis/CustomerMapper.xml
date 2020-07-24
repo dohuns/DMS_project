@@ -16,4 +16,15 @@
 	<select id="selectCustomerCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
+
+	<!-- 문의 접수 -->
+	<insert id="insertInquiry" parameterType="customerDTO">
+		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
+		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
+	</insert>
+
+	<!-- 문의 내역 - 아이디 조회 -->
+	<select id="selectInquiry" resultType="customerDTO">
+		SELECT * FROM customer WHERE cus_id = #{cus_id}
+	</select>
 </mapper>

@@ -273,12 +273,26 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>TEST</td>
-														<td class="tdClass">TEST</td>
-														<td>TEST</td>
-														<td>TEST</td>
-													</tr>
+													<c:forEach var="list" items="${inquiryList}">
+														<tr>
+															<td>${list.cus_num}</td>
+															<td class="tdClass"><b>[ ${list.cus_category} ]</b>&nbsp; ${list.cus_title}</td>
+															<td>${list.cus_date}</td>
+															<td>
+																<c:choose>
+																	<c:when test="${list.cus_reNum == 0}">
+																		<span class="btn btn-xs btn-success">답변 대기</span>
+																	</c:when>
+																	<c:when test="${list.cus_reNum == 1}">
+																		<span class="btn btn-xs btn-danger">답변 완료</span>
+																	</c:when>
+																	<c:otherwise>
+																		<span class="btn btn-xs btn-default">답변 보류</span>
+																	</c:otherwise>
+																</c:choose>
+															</td>
+														</tr>
+													</c:forEach>
 												</tbody>
 											</table>
 										</div>

@@ -9,7 +9,7 @@ public class CustomerDTO {
 	private int cus_reNum;				// 답글 번호
 	private int cus_categoryNum;		// 카테고리 번호
 	private String cus_category;		// 카테고리 명
-	private String cus_nick;			// 닉네임
+	private String cus_id;				// 닉네임
 	private String cus_pw;				// 비밀번호
 	private String cus_title;			// 제목
 	private String cus_email;			// 이메일
@@ -57,12 +57,12 @@ public class CustomerDTO {
 		this.cus_category = cus_category;
 	}
 
-	public String getCus_nick() {
-		return cus_nick;
+	public String getCus_id() {
+		return cus_id;
 	}
 
-	public void setCus_nick(String cus_nick) {
-		this.cus_nick = cus_nick;
+	public void setCus_id(String cus_id) {
+		this.cus_id = cus_id;
 	}
 
 	public String getCus_pw() {

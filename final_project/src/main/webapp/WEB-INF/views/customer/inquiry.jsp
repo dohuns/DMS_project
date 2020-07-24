@@ -48,18 +48,19 @@
 				<div class="main-box-container">
 					<div class="box">
 						<div class="col-md-8 col-md-offset-2">
-							<form action="" method="POST">
-
+							<form action="inquiryChk" method="GET">
 								<div class="form-group has-error">
 									<small> * <b>계정 문의</b>의 경우, <b>문의하려는 계정의 이메일 주소</b>를 제대로 기입해주세요.</small><p>
 									<small> * <b>신고 접수</b>의 경우, 신고회원의 <b>닉네임 혹은 아이디</b>를 제대로 기입해주세요.</small><p>
+									<input type="hidden" name="cus_categoryNum" value="${param.cus_categoryNum}" />
 									<input type="text" class="form-control" name="cus_category" readonly="readonly"
 										value='<c:out value="${param.cus_categoryNum == 0 ? '일반문의' : (param.cus_categoryNum == 1 ? '신고접수' : '계정문의') }" />' />
 								</div>
 
 								<div class="form-group">
-									<label for="nick">닉네임 <span class="require">*</span></label>
-									<input type="text" class="form-control" name="cus_nick" required />
+									<label for="id">아이디 <span class="require"></span></label>
+									<input type="text" class="form-control" name="cus_id"
+										value="${session_id}" required />
 								</div>
 
 								<div class="form-group">

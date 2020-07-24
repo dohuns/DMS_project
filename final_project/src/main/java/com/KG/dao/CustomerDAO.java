@@ -28,4 +28,21 @@ public class CustomerDAO {
 	public int getCustomerCount(int cus_categoryNum) {
 		return sqlSession.selectOne(namespace + ".selectCustomerCount", cus_categoryNum);
 	}
+
+	// 문의 접수
+	public int insertInquiry(CustomerDTO dto) {
+		return sqlSession.insert(namespace + ".insertInquiry", dto);
+	}
+
+	// 이메일 찾기
+	public String selectEmail(String cus_id) {
+		return sqlSession.selectOne(namespace + ".selectEmail", cus_id);
+	}
+
+	// 문의 내역 - 아이디 조회
+	public List<CustomerDTO> selectInquiry(String cus_id) {
+		return sqlSession.selectList(namespace + ".selectInquiry", cus_id);
+	}
+
+
 }
