@@ -13,6 +13,10 @@
 			margin-top: 60px;
 		}
 
+		.pt-40 {
+			padding-top: 40px;
+		}
+
 		.section-block-grey {
 			padding: 90px 0px 90px 0px;
 			background-color: #f9f9f9;
@@ -203,12 +207,11 @@
 <body>
 	<c:import url="../default/header.jsp" />
 
-	<div class="section-block-grey">
 		<div class="container">
-			<h1 align="center"><b>고객센터</b></h1>
+			<h1 align="center" class="pt-40"><b>고객센터</b></h1>
 			<div class="row mt-60">
 				<div class="col-md-4 col-sm-12 col-12">
-					<div class="serv-section-2">
+					<div class="serv-section-2" onclick="location.href='inquiry?cus_categoryNum=0'">
 						<div class="serv-section-2-icon">
 							<i class="fas fa-gem"></i>
 						</div>
@@ -220,7 +223,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-12 col-12">
-					<div class="serv-section-2 serv-section-2-act">
+					<div class="serv-section-2 serv-section-2-act" onclick="location.href='inquiry?cus_categoryNum=1'">
 						<div class="serv-section-2-icon serv-section-2-icon-act">
 							<i class="fas fa-shield-alt"></i>
 						</div>
@@ -233,7 +236,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-12 col-12">
-					<div class="serv-section-2 serv-section-2-act">
+					<div class="serv-section-2 serv-section-2-act" onclick="location.href='inquiry?cus_categoryNum=2'">
 						<div class="serv-section-2-icon serv-section-2-icon-act">
 							<i class="far fa-clock"></i>
 						</div>
@@ -242,7 +245,6 @@
 							<font class="h5">이용제한 / 계정정지</font>
 						</div>
 						<div class="section-heading-line-left"></div>
-
 					</div>
 				</div>
 			</div>
@@ -288,6 +290,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

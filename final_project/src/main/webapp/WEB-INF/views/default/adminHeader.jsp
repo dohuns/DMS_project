@@ -773,10 +773,10 @@
 					<a data-toggle="collapse" class="collapsed" data-parent="#menu-accordion"
 						href="#transactions-link">고객센터<span class="glyphicon arrow"></span></a>
 					<ul id="transactions-link" class="collapse">
-						<li><a href="customerMain">고객센터</a></li>
-						<li><a href="adminCustomerMain?cus_categoryNum=0">불량 행위 신고</a></li>
-						<li><a href="adminCustomerMain?cus_categoryNum=1">계정 도용 신고</a></li>
-						<li><a href="adminCustomerMain?cus_categoryNum=2">계정 정지 문의</a></li>
+						<li><a href="customerMain">고객 센터</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=0">일반 문의</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=1">신고 접수</a></li>
+						<li><a href="adminCustomerMain?cus_categoryNum=2">계정 문의</a></li>
 					</ul>
 				</li>
 				<li class="panel settings">

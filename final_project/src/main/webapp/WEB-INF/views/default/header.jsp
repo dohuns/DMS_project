@@ -81,16 +81,19 @@
 							<c:when test="${sessionScope.m_rankNum == 1}">
 								<li><a href="/movie/admin">관리자 페이지</a></li>
 								<li><a href="/movie/logout">로그아웃</a></li>
+								<li><a href="customerMain">고객센터</a></li>
 							</c:when>
 							<%-- 세션이 없는 경우 로그인, 회원가입 출력 --%>
 							<c:when test="${sessionScope.m_nick == null}">
 								<li><a href="/movie/login">로그인</a></li>
 								<li><a href="/movie/regist_email">회원가입</a></li>
+								<li><a href="customerMain">고객센터</a></li>
 							</c:when>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>
 								<li><a href="/myPage">내정보</a></li>
 								<li><a href="/movie/logout">로그아웃</a></li>
+								<li><a href="customerMain">고객센터</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
