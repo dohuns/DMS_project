@@ -87,7 +87,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="list" items="${customerList}">
+											<c:forEach var="list" items="${selectInquiry}">
 												<tr>
 													<td class="select-checkbox no-filter"></td>
 													<td class="no-filter">${list.cus_num }</td>

@@ -1,5 +1,6 @@
 package com.KG.service.customer;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,7 @@ import com.KG.dao.CustomerDAO;
 import com.KG.dto.CustomerDTO;
 
 @Service
-public class CustomerMainServImpl implements CustomerService {
+public class CustomerMyInquiryServImpl implements CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
 
@@ -23,11 +24,17 @@ public class CustomerMainServImpl implements CustomerService {
 		HttpSession session = (HttpSession) map.get("session");
 
 		String cus_id = (String) session.getAttribute("m_id");
-
 		int pageNum = customerDTO.getPageNum();
-		int getCount = customerDAO.getInquiryCount(cus_id);
+		int pageCount = customerDAO.getInquiryCount(cus_id);
 
-		model.addAttribute("inquiryList", customerDAO.selectInquiry(cus_id));
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+		hash.put("start", pageNum * 15 + 1);
+		hash.put("end", pageNum * 15 + 15);
+		hash.put("cus_id", cus_id);
+
+		model.addAttribute("selectInquiry", customerDAO.selectInquiry(hash));
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("totalNum", (pageCount % 15 == 0 ? pageCount / 15 : pageCount / 15 + 1));
 	}
 
 	@Override

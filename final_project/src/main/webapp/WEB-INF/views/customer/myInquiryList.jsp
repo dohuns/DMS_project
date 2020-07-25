@@ -310,7 +310,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${AllCustomerList}">
+													<c:forEach var="list" items="${selectInquiry}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
 															<td class="tdClass">${list.cus_title}</td>
@@ -330,7 +330,7 @@
 											<!-- 이전 버튼 -->
 											<li>
 												<c:if test="${pageNum > 9}">
-													<a class="b" href="customerMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+													<a class="b" href="myInquiryList?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 												</c:if>
 											</li>
 											<!-- 번호 출력 -->
@@ -338,14 +338,14 @@
 												<c:when test="${totalNum > next * 10 + 10}">
 													<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="myInquiryList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
 													<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="myInquiryList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:otherwise>
@@ -353,7 +353,7 @@
 											<!-- 다음 버튼 -->
 											<li>
 												<c:if test="${totalNum > next * 10 + 10 }">
-													<a class="b" href="customerMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+													<a class="b" href="myInquiryList?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 												</c:if>
 											</li>
 										</ul>

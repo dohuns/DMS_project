@@ -45,9 +45,9 @@ public class CustomerDAO {
 		return sqlSession.insert(namespace + ".insertInquiry", dto);
 	}
 
-	// 회원 페이지 > 고객센터 : 회원별 문의내역 조회
-	public List<CustomerDTO> selectInquiry(String cus_id) {
-		return sqlSession.selectList(namespace + ".selectInquiry", cus_id);
+	// 회원 페이지 > 고객센터 : 회원별 문의내역 조회(아이디 조회)
+	public List<CustomerDTO> selectInquiry(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectInquiry", hash);
 	}
 
 	// 회원 페이지 > 고객센터 : 회원별 문의내역 개수 조회
