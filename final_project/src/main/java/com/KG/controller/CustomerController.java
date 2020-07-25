@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.CustomerDTO;
+import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerInquiryServImpl;
 import com.KG.service.customer.CustomerListServImpl;
 import com.KG.service.customer.CustomerMyInquiryServImpl;
@@ -25,7 +26,7 @@ public class CustomerController {
 		return "customer/customerMain";
 	}
 
-	// 고객센터 메인 페이지2
+	// 고객센터 내 문의글 보기
 	@RequestMapping("myInquiryList")
 	public String myInquiryList(Model model, HttpSession session, CustomerDTO dto) {
 		model.addAttribute("session", session);
@@ -50,4 +51,12 @@ public class CustomerController {
 		return "redirect:customerMain";
 	}
 
+	// 고객센터 문의글 확인
+	@RequestMapping("inquiryContent")
+	public String inquiryContent(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
+		customerServ.execute(model);
+		return "customer/inquiryContent";
+	}
 }

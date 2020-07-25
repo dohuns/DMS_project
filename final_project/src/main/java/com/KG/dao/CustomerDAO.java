@@ -40,9 +40,14 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".AllCustomerCount");
 	}
 
-	// 회원 페이지 > 고객센터 : 1:1문의 접수
+	// 회원 페이지 > 고객센터 : 1:1 문의글 접수
 	public int insertInquiry(CustomerDTO dto) {
 		return sqlSession.insert(namespace + ".insertInquiry", dto);
+	}
+
+	// 회원 페이지 > 고객센터 : 1:1 문의글 출력
+	public CustomerDTO selectInquiryContent(int cus_num) {
+		return sqlSession.selectOne(namespace + ".selectInquiryContent", cus_num);
 	}
 
 	// 회원 페이지 > 고객센터 : 회원별 문의내역 조회(아이디 조회)

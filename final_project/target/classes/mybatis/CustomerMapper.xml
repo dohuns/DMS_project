@@ -38,6 +38,11 @@
 		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
 	</insert>
 
+	<!-- 문의글 출력 -->
+	<select id="selectInquiryContent" resultType="customerDTO">
+		SELECT * FROM customer WHERE cus_num = #{cus_num}
+	</select>
+
 	<!-- 회원별 문의 내역 출력(아이디 조회) -->
 	<select id="selectInquiry" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
@@ -51,9 +56,6 @@
 	<select id="selectInquiryCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_id = #{cus_id}
 	</select>
-
-
-
 
 
 </mapper>

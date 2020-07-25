@@ -139,6 +139,11 @@
 			text-decoration: none;
 			color: black;
 		}
+
+		td.tdClass>a, td.tdClass>a:hover, td.tdClass>a:focus, td.tdClass>a:visited {
+			color: black;
+			text-decoration: none;
+		}
 	</style>
 
 	<!-- 문의 내역 STYLE -->
@@ -293,7 +298,7 @@
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">
-												<a href="myInquiryList"><b>내 문의보기</b></a>
+												<a href="customerMain"><b>모든 글 보기</b></a>
 											</div>
 										</div>
 									</div>
@@ -304,19 +309,31 @@
 													<tr>
 														<th width="7%">번   호</th>
 														<th width="60%">제   목</th>
-														<th width="11%">닉네임</th>
 														<th width="11%">항   목</th>
 														<th width="11%">날   짜</th>
+														<th width="11%">상   태</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="list" items="${selectInquiry}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
-															<td class="tdClass">${list.cus_title}</td>
-															<td>${list.cus_nick}</td>
+															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
 															<td><small>${list.cus_category}</small></td>
 															<td><small>${list.cus_date}</small></td>
+															<td>
+																<c:choose>
+																	<c:when test="${list.cus_reNum == 0}">
+																		<span class="btn btn-xs btn-success" disabled>답변 대기</span>
+																	</c:when>
+																	<c:when test="${list.cus_reNum == 1}">
+																		<span class="btn btn-xs btn-danger" disabled>답변 완료</span>
+																	</c:when>
+																	<c:otherwise>
+																		<span class="btn btn-xs btn-default" disabled>답변 보류</span>
+																	</c:otherwise>
+																</c:choose>
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>

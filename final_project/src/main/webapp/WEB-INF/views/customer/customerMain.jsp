@@ -139,6 +139,11 @@
 			text-decoration: none;
 			color: black;
 		}
+
+		td.tdClass>a, td.tdClass>a:hover, td.tdClass>a:focus, td.tdClass>a:visited {
+			color: black;
+			text-decoration: none;
+		}
 	</style>
 
 	<!-- 문의 내역 STYLE -->
@@ -221,6 +226,7 @@
 		    color: #fff;
 		}
 	</style>
+
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
@@ -293,7 +299,15 @@
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">
-												<a href="myInquiryList"><b>내 문의보기</b></a>
+												<c:choose>
+													<c:when test="${sessionScope.m_id ne null}">
+														<a href="myInquiryList"><b>내 문의보기</b></a>
+														<a href="#" onclick="ajaxTest('${sessionScope.m_id}')"><b>도전해볼것</b></a>
+													</c:when>
+													<c:otherwise>
+														비회원
+													</c:otherwise>
+												</c:choose>
 											</div>
 										</div>
 									</div>
@@ -313,7 +327,7 @@
 													<c:forEach var="list" items="${AllCustomerList}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
-															<td class="tdClass">${list.cus_title}</td>
+															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
 															<td>${list.cus_nick}</td>
 															<td><small>${list.cus_category}</small></td>
 															<td><small>${list.cus_date}</small></td>

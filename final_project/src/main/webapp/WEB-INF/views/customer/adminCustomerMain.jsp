@@ -47,17 +47,20 @@
 			<div id="topbar">
 				<div class="pull-left">
 					<h1 class="company-name"><b>고객센터</b></h1>
-						<c:choose>
-							<c:when test="${param.cus_categoryNum == 0}">
-								불량 행위 신고
-							</c:when>
-							<c:when test="${param.cus_categoryNum == 1}">
-								계정 도용 신고
-							</c:when>
-							<c:otherwise>
-								계정 정지 문의
-							</c:otherwise>
-						</c:choose>
+					<label>
+					<c:out value="${param.cus_categoryNum == 0 ? '일반 문의' : param.cus_categoryNum == 1 ? '신고 접수' : '계정 문의' }" />
+					</label>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${param.cus_categoryNum == 0}"> --%>
+<!-- 								일반 문의 -->
+<%-- 							</c:when> --%>
+<%-- 							<c:when test="${param.cus_categoryNum == 1}"> --%>
+<!-- 								신고 접수 -->
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<!-- 								계정 문의 -->
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
