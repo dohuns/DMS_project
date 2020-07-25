@@ -19,8 +19,14 @@ public class CustomerMainServImpl implements CustomerService {
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
+		CustomerDTO customerDTO = (CustomerDTO) map.get("dto");
 		HttpSession session = (HttpSession) map.get("session");
+
 		String cus_id = (String) session.getAttribute("m_id");
+
+		int pageNum = customerDTO.getPageNum();
+		int getCount = customerDAO.getInquiryCount(cus_id);
+
 		model.addAttribute("inquiryList", customerDAO.selectInquiry(cus_id));
 	}
 

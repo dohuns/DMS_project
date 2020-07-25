@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.CustomerDTO;
 import com.KG.service.customer.CustomerInquiryServImpl;
+import com.KG.service.customer.CustomerListServImpl;
 import com.KG.service.customer.CustomerMainServImpl;
 import com.KG.service.customer.CustomerService;
 
@@ -17,8 +18,18 @@ public class CustomerController {
 
 	// 고객센터 메인 페이지
 	@RequestMapping("customerMain")
-	public String customerMain(Model model, HttpSession session) {
+	public String customerMain(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		customerServ = (CustomerListServImpl) AC.ac.getBean("customerListServImpl");
+		customerServ.execute(model);
+		return "customer/customerMain";
+	}
+
+	// 고객센터 메인 페이지2
+	@RequestMapping("customerMain2")
+	public String customerMain2(Model model, HttpSession session, CustomerDTO dto) {
 		model.addAttribute("session", session);
+		model.addAttribute("dto", dto);
 		customerServ = (CustomerMainServImpl) AC.ac.getBean("customerMainServImpl");
 		customerServ.execute(model);
 		return "customer/customerMain";
@@ -34,6 +45,7 @@ public class CustomerController {
 	@RequestMapping("inquiryChk")
 	public String inquiryChk(Model model, CustomerDTO dto) {
 		model.addAttribute("dto", dto);
+		System.out.println(dto.getCus_id());
 		customerServ = (CustomerInquiryServImpl) AC.ac.getBean("customerInquiryServImpl");
 		customerServ.execute(model);
 		return "redirect:customerMain";

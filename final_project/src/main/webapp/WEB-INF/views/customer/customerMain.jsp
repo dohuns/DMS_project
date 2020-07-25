@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>고객센터</title>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css?after">
 	<style>
 		.mt-60 {
 			margin-top: 60px;
@@ -119,7 +119,25 @@
 		}
 
 		.tdClass {
+			text-indent: 10px;
 			text-align: left;
+		}
+
+		.pagination>.active>a.b, 
+		.pagination>.active>span, 
+		.pagination>.active>a.b:hover, 
+		.pagination>.active>span:hover, 
+		.pagination>.active>a.b:focus, 
+		.pagination>.active>span:focus {
+			background-color: #5BC0DE;
+			border-color: #5BC0DE;
+		}
+
+		.inq-c, .inq-c>a, .inq-c>a:hover, .inq-c>a:focus {
+			padding-right: 5px;
+			padding-top: 20px;
+			text-decoration: none;
+			color: black;
 		}
 	</style>
 
@@ -207,6 +225,19 @@
 <body>
 	<c:import url="../default/header.jsp" />
 
+	<!-- PAGING -->
+	<c:choose>
+		<c:when test="${param.pageNum == null}">
+			<c:set var="pageNum" value="0" />
+			<c:set var="next" value="0" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="pageNum" value="${param.pageNum}" />
+			<c:set var="next" value="${param.next}" />
+		</c:otherwise>
+	</c:choose>
+
+		<!-- CONTENT -->
 		<div class="container">
 			<h1 align="center" class="pt-40"><b>고객센터</b></h1>
 			<div class="row mt-60">
@@ -257,8 +288,13 @@
 							<div class="box">
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
-										<div class="display-flex align-center">
+										<div class="pull-left">
 											<h4><b>문의 내역</b></h4>
+										</div>
+										<div class="pull-right">
+											<div id="header_user" class="inq-c">
+												<a href="#"><b>내 문의보기</b></a>
+											</div>
 										</div>
 									</div>
 									<div class="card-body">
@@ -266,37 +302,63 @@
 											<table class="table table-bordered">
 												<thead>
 													<tr>
-														<th width="10%">번호</th>
-														<th width="60%">제목</th>
-														<th width="15%">날짜</th>
-														<th width="15%">상태</th>
+														<th width="7%">번   호</th>
+														<th width="60%">제   목</th>
+														<th width="11%">닉네임</th>
+														<th width="11%">항   목</th>
+														<th width="11%">날   짜</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${inquiryList}">
+													<c:forEach var="list" items="${AllCustomerList}">
 														<tr>
-															<td>${list.cus_num}</td>
-															<td class="tdClass"><b>[ ${list.cus_category} ]</b>&nbsp; ${list.cus_title}</td>
-															<td>${list.cus_date}</td>
-															<td>
-																<c:choose>
-																	<c:when test="${list.cus_reNum == 0}">
-																		<span class="btn btn-xs btn-success">답변 대기</span>
-																	</c:when>
-																	<c:when test="${list.cus_reNum == 1}">
-																		<span class="btn btn-xs btn-danger">답변 완료</span>
-																	</c:when>
-																	<c:otherwise>
-																		<span class="btn btn-xs btn-default">답변 보류</span>
-																	</c:otherwise>
-																</c:choose>
-															</td>
+															<td><small>${list.cus_num}</small></td>
+															<td class="tdClass">${list.cus_title}</td>
+															<td>${list.cus_nick}</td>
+															<td><small>${list.cus_category}</small></td>
+															<td><small>${list.cus_date}</small></td>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 										</div>
 									</div>
+
+									<!-- PAGING -->
+									<div class="text-center">
+										<ul class="pagination">
+											<!-- 이전 버튼 -->
+											<li>
+												<c:if test="${pageNum > 9}">
+													<a class="b" href="customerMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+												</c:if>
+											</li>
+											<!-- 번호 출력 -->
+											<c:choose>
+												<c:when test="${totalNum > next * 10 + 10}">
+													<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
+														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
+															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+														</li>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
+														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
+															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+														</li>
+													</c:forEach>
+												</c:otherwise>
+											</c:choose>
+											<!-- 다음 버튼 -->
+											<li>
+												<c:if test="${totalNum > next * 10 + 10 }">
+													<a class="b" href="customerMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+												</c:if>
+											</li>
+										</ul>
+									</div>
+
 								</div>
 							</div>
 						</div>

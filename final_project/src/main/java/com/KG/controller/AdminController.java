@@ -22,7 +22,7 @@ import com.KG.service.admin.member.AdminUpdServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
-import com.KG.service.customer.CustomerListServImpl;
+import com.KG.service.customer.CustomerAdminListServImpl;
 import com.KG.service.customer.CustomerService;
 
 @Controller
@@ -144,7 +144,7 @@ public class AdminController {
 	@RequestMapping("adminCustomerMain")
 	public String adminCustomerMain(Model model, CustomerDTO dto) {
 		model.addAttribute("dto", dto);
-		customerServ = (CustomerListServImpl) AC.ac.getBean("customerListServImpl");
+		customerServ = (CustomerAdminListServImpl) AC.ac.getBean("customerAdminListServImpl");
 		customerServ.execute(model);
 		return "admin/adminCustomerMain";
 	}

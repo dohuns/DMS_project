@@ -58,9 +58,18 @@
 								</div>
 
 								<div class="form-group">
-									<label for="id">아이디 <span class="require"></span></label>
-									<input type="text" class="form-control" name="cus_id"
-										value="${session_id}" required />
+									<label for="id">닉네임 <span class="require"></span></label>
+									<input type="text" class="form-control" name="cus_nick" required />
+
+									<!-- 세션값이 존재하는 경우 아이디 값을 담아서 전송, 없으면 비회원 기입 후 전송 -->
+									<c:choose>
+										<c:when test="${sessionScope.m_id eq null}">
+											<input type="hidden" name="cus_id" value="비회원" />
+										</c:when>
+										<c:otherwise>
+											<input type="hidden" name="cus_id" value="${sessionScope.m_id}" />
+										</c:otherwise>
+									</c:choose>
 								</div>
 
 								<div class="form-group">

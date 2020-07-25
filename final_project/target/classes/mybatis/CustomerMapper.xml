@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.KG.mybatis.myMapper">
 
-	<!-- 답변별 게시글 목록 -->
+	<!-- 관리자 페이지 : 답변별 문의글 목록 -->
 	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
@@ -12,19 +12,44 @@
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 답변별 게시글 개수 -->
+	<!-- 관리자 페이지 : 답변별 문의글 개수 -->
 	<select id="selectCustomerCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
 
+	<!-- 회원 페이지 -->
+
+	<!-- 전체 문의글 출력 -->
+	<select id="AllCustomerList" parameterType="hashmap" resultType="customerDTO">
+		SELECT B.* FROM (
+			SELECT ROWNUM cus_rn, A.* FROM
+				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A )B 
+		WHERE cus_rn BETWEEN #{start} and #{end}
+	</select>
+
+	<!-- 전체 문의글 개수 -->
+	<select id="AllCustomerCount" resultType="int">
+		SELECT COUNT(*) FROM customer
+	</select>
+
 	<!-- 문의 접수 -->
 	<insert id="insertInquiry" parameterType="customerDTO">
-		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
-		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
+		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
+		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
 	</insert>
 
-	<!-- 문의 내역 - 아이디 조회 -->
+	<!-- 문의 내역 출력(아이디 조회) -->
 	<select id="selectInquiry" resultType="customerDTO">
 		SELECT * FROM customer WHERE cus_id = #{cus_id}
 	</select>
+
+	<!-- 문의 내역 개수 -->
+	<select id="selectInquiryCount" resultType="int">
+		SELECT COUNT(*) FROM customer WHERE cus_id = #{cus_id}
+	</select>
+
+
+
+
+
 </mapper>
