@@ -161,6 +161,11 @@ public class BoardDAO {
 	///////////////////////////////////////////////
 	
 	// 게시글 상세보기
+	public void hitUp(int b_num) {
+		sqlSession.update(namespace +".hitUp" , b_num);
+	}
+	
+	// 게시글 상세보기
 	public BoardDTO showBoard(int b_num) {
 		return sqlSession.selectOne(namespace +".showBoard" , b_num);
 	}
