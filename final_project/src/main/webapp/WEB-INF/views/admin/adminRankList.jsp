@@ -7,10 +7,10 @@
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
 	<!-- 회원 정보 삭제 -->
 	<script>
-		function deleteAlert(m_id, m_nick) {
+		function deleteAlert(m_id, m_nick, m_rankNum) {
 			var message = confirm(m_nick + " [ " + m_id + " ] " + '님의 회원정보를 삭제하시겠습니까?');
 			if(message == true) {
-				location.href = "delMember?m_id=" + m_id;
+				location.href = "delMember?m_id=" + m_id + "&m_rankNum=" + m_rankNum;
 			}
 		}
 	</script>
@@ -341,7 +341,7 @@
 															id="updButton" title="회원 정보 수정"
 															onclick="updMember('${list.m_id}')">수정</span>
 														<span class="btn btn-xs btn-danger"
-															onclick="deleteAlert('${list.m_id}', '${list.m_nick}')">삭제</span>
+															onclick="deleteAlert('${list.m_id}', '${list.m_nick}', '${list.m_rankNum}')">삭제</span>
 													</td>
 												</tr>
 											</c:forEach>

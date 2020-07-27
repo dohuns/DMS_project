@@ -6,9 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
+<style>
+.upImg{
+	margin-top: 10px;
+	border-radius: 100%;
+}
+</style>
 <script>
 	// 아이디 중복체크 
 	function chk_id() {
@@ -212,6 +220,35 @@
 			}
 		});
 	});
+	// 이미지 미리 띄워주기
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#foo').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+	
+	$(function() {
+	    $("#fileInput").change(function() {
+	    	readURL(this);
+	    });
+	})
+
+	
+	// input text에 파일 이름 띄워주기(프로필 사진)
+	function inputName() {
+		if(window.FileReader) {
+			var filename = $("#fileInput")[0].files[0].name;
+		} else {
+			var filename = $("#fileInput").val().split('/').pop().split('\\').pop();
+		}
+		
+		$("#userfile").val(filename);
+		
+	}
 	
 	
 	
@@ -223,7 +260,7 @@
 			<div align="center">
 				<h1>회원가입 페이지</h1>
 			</div>
-			<form action="../chk_reigst" method="POST">
+			<form action="../chk_reigst" method="POST" enctype="multipart/form-data">
 				<div align="center">
 					<table style="width:550px; padding: 20px; border-width: 500px;">
 						<!-- 아이디 -->
@@ -310,6 +347,31 @@
 						<tr>
 							<td><label id="label_date"></label></td>
 						</tr>
+						<!-- 프사 -->
+						<tr>
+							<td><strong>프로필 사진</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-group">
+									<input type="file" id="fileInput" data-class-button="btn btn-default" data-class-input="form-control"
+										data-icon-name="fa fa-upload" class="form-control" tabindex="-1" style="position:absolute;
+										 clip:rect(0px 0px 0px 0px);" onchange="inputName()" name="picture">
+									<div class="bootstrap-filestyle input-group">
+										<input type="text" id="userfile" class="form-control" name="userfile" disabled="">
+										<span class="group-span-filestyle input-group-btn" tabindex="0">
+											<label for="fileInput" class="btn btn-default" style="padding: 0 0 0 0; width:50px; height:34px;">
+												<span class="glyphicon fa fa-upload">
+													<img src="/img/upload.png" width="45px" height="30px">
+												</span>
+											</label>
+										</span>
+									</div>
+									<img id="foo" width="58" height="58" class="upImg"
+									src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"/>
+								</div>
+							</td>
+						</tr>
 						<!-- 이메일 -->
 						<tr>
 							<td><strong>이메일</strong></td>
@@ -327,6 +389,9 @@
 					</table>
 				</div>
 			</form>
+			<script>
+				
+			</script>
 		</div>
 	</div>
 

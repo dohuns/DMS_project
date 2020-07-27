@@ -59,7 +59,7 @@ hr#sub {
 <body>
 	<div>
 		<div
-			style="background-color: white; width: 300px; border-top: solid 2px #000000;">
+			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
@@ -71,9 +71,18 @@ hr#sub {
 								<ul>
 									<li>
 										<div>
-											<img
-												src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-												width="58" height="58" alt="프로필사진">
+											<c:choose>
+												<c:when test="${userInfo.m_picture != null}">
+												<img
+													src="/img/memberImage/${userInfo.m_picture}"
+													width="58" height="58" alt="프로필사진" style="border-radius: 100%">
+												</c:when>
+												<c:otherwise>
+												<img
+													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
+													width="58" height="58" alt="프로필사진">
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div>
 											<strong>${userInfo.m_nick }</strong>
@@ -93,7 +102,7 @@ hr#sub {
 				</c:when>
 				<c:otherwise>
 					<a href="login"><div align="center"
-							style="background-color: green; padding: 5px 0; margin: 5px 0;">로그인
+							style="background-color: green; padding: 5px 0; margin: 0px 0;">로그인
 							하기</div></a>
 				</c:otherwise>
 			</c:choose>

@@ -27,9 +27,31 @@
 	<update id="findPw_change" parameterType="memberDTO">
 		update member set m_pw = #{m_pw} where m_id = #{m_id} and m_name = #{m_name} and m_email = #{m_email}
 	</update>
+	<!-- 이메일로 정보 가져오기 -->
+	<select id="getMember" resultType="memberDTO">
+		SELECT * FROM member WHERE m_email=#{email}
+	</select>
 	<!-- 회원 가입  -->
 	<insert id="addMember" parameterType="memberDTO">
-		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , '일반회원' , 3)
+		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , '일반회원' , 3 , #{m_picture})
 	</insert>
+	
+	
+	<!-- /////////////////////////////////////////////////////////// -->
+	<!-- 이미지 업로드 관련 -->
+	<!-- 프로필 사진 업로드 -->
+	<insert id="insertFile">
+		INSERT INTO saveFile(
+			f_no , f_memberId , f_oriName , f_modiName , f_size , f_mark
+		) VALUES (
+			f_noSQ.nextval , #{f_memberId} , #{f_oriName} , #{f_modiName} , #{f_size} , #{f_mark}
+		)
+	</insert>	
+	
+	<!-- 아이디로 연결된 사진 가져오기 -->
+	<select id="getPicture" resultType="String">
+		SELECT f_modiName FROM saveFile WHERE f_memberId = #{m_Id}
+	</select>
+	<!-- ////////////////////////////////////////////////////////////////////// -->
 	
 </mapper>

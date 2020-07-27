@@ -91,11 +91,14 @@
 	</select>
 	
 	<!-- 글 쓰기(저장) -->
-	<insert id="boardWrite">
-		INSERT INTO board 
-			(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
-		VALUES 
-			(#{b_category} , #{b_article} , b_numSQ.nextval , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
+	<insert id="boardWrite" useGeneratedKeys="true" keyProperty="b_num">
+		<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+			SELECT b_numSQ.nextval FROM dual
+		</selectKey>	
+			INSERT INTO board 
+				(b_category, b_article , b_num , b_title, b_content, b_nick, b_date, b_hit, b_renum, b_sortnum, b_group, b_id, b_comCount)
+			VALUES 
+				(#{b_category} , #{b_article} , #{b_num} , #{b_title} , #{b_content} , #{b_nick} , sysdate , 0 , 0 , 0, b_numSQ.currval, #{b_id}, 0)
 	</insert>
 	<!-- ///////////////////////////////////////////////////////////////// -->
 	
@@ -210,6 +213,10 @@
 	
 	
 	<!-- 게시물 보기 -->
+	<update id="hitUp" parameterType="int">
+		UPDATE BOARD set B_HIT = B_HIT+1 where b_num = #{b_num}
+	</update>
+	
 	<select id="showBoard" resultType="boardDTO">
 		SELECT * FROM board 
 			WHERE b_num = #{b_num}
@@ -252,4 +259,44 @@
 	<update id="sortNumPlus">
 		UPDATE board SET b_sortNum = b_sortNum + 1 WHERE b_group=#{b_group} and b_sortNum &gt; #{b_sortNum}
 	</update>
+	
+	<!-- ////////////////////////////////// 업로드 & 다운로드 관련 /////////////////////////////////// -->
+	
+	<!-- 글쓰기 떄 파일 업로드 -->
+	<insert id="insertFile">
+		INSERT INTO saveFile(
+			f_no , f_boardNum , f_oriName , f_modiName , f_size , f_mark
+		) VALUES (
+			f_noSQ.nextval , #{f_boardNum} , #{f_oriName} , #{f_modiName} , #{f_size} , #{f_mark} 
+		)
+	</insert>
+	
+	<!-- 첨부파일 조회 -->
+	<select id="selectFileList" resultType="hashMap">
+		SELECT F_NO , F_ORINAME , ROUND(F_SIZE/1024,1) AS f_SIZE , F_MODINAME
+			FROM saveFile 
+		WHERE f_boardNum = #{f_boardNum} and f_del = 'N' 
+			ORDER BY f_no ASC
+	</select>
+	
+	<!-- 첨부파일 다운 -->
+	<select id="selectFileInfo" resultType="hashMap">
+		SELECT 
+			f_modiName , f_oriName 
+		FROM saveFile
+			WHERE f_no = #{f_no}
+	</select>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteFile">
+		DELETE FROM saveFile
+			WHERE f_no = #{f_no}
+	</delete>
+	
+	<!-- 게시글 삭제 시 첨부파일 전부 삭제 -->
+	<delete id="allFileDel">
+		DELETE FROM saveFile
+			WHERE f_boardNum = #{b_num}
+	</delete>
+	<!-- /////////////////////////////////////////////////////////////////////////////// -->
 </mapper>

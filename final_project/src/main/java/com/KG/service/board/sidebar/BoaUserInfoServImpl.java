@@ -26,7 +26,9 @@ public class BoaUserInfoServImpl implements BoardSidebarService {
 		String m_id = (String)session.getAttribute("m_id");
 		model.addAttribute("userInfo" , boardDAO.userInfo(m_id));
 		model.addAttribute("boardcount" , boardDAO.boardCount(m_id));
+		System.out.println("side :"+boardDAO.boardCount(m_id));
 		model.addAttribute("replycount" , boardDAO.replyCount(m_id));
+		System.out.println("side :"+boardDAO.replyCount(m_id));
 		return false;
 	}
 

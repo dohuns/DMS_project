@@ -5,7 +5,7 @@
 <html>
 <head>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
-	<title>공지사항</title>
+	<title>고객센터</title>
 	<style>
 		tr>th {
 			text-align: center;
@@ -17,15 +17,14 @@
 
 		.mango {
 			color: #727272;
-			margin-left: 10px;
+			margin-left: 20px;
 		}
 
 		a:hover, a:focus, a:visited {
-			color: #727272;
-			font-weight: bolder;
 			text-decoration: underline;
 		}
 	</style>
+
 </head>
 <body>
 	<div id="wrapper" class="">
@@ -47,7 +46,18 @@
 		<div id="page-content-wrapper">
 			<div id="topbar">
 				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'"><b>공지사항</b></h1>
+					<h1 class="company-name"><b>고객센터</b></h1>
+						<c:choose>
+							<c:when test="${param.cus_categoryNum == 0}">
+								불량 행위 신고
+							</c:when>
+							<c:when test="${param.cus_categoryNum == 1}">
+								계정 도용 신고
+							</c:when>
+							<c:otherwise>
+								계정 정지 문의
+							</c:otherwise>
+						</c:choose>
 				</div>
 				<div class="pull-right">
 					<div id="header_user" style="padding-right: 20px;">
@@ -61,20 +71,11 @@
 				<div class="content-body">
 					<div class="col-lg-12 main-box-container">
 						<div class="box">
-							<div class="box-head clearfix">
-								<div class="actions pull-left">
-									<form action="#">
-										<input type="text" id="keyword" onkeyup="showData(this.value)"
-											style="margin-top: 5px; width: 200px;">
-										<button type="button" class="searchBtn"><i class="glyphicon glyphicon-search"></i></button>
-									</form>
-								</div>
-							</div>
 
 							<!-- 공지사항 출력 -->
 							<div class="box-content">
 								<div class="table-container">
-									<table id="admin_Notice" class="table is-datatable dataTable">
+									<table id="admin_Customer" class="table is-datatable dataTable test">
 										<thead>
 											<tr>
 												<th class="select-checkbox no-filter"></th>
@@ -86,15 +87,25 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="list" items="${noticeList}">
+											<c:forEach var="list" items="${customerList}">
 												<tr>
 													<td class="select-checkbox no-filter"></td>
-													<td class="no-filter banana">${list.b_num}</td>
-													<td><a href="#" class="mango">${list.b_title}</a></td>
-													<td>${list.b_nick}</td>
-													<td class="banana">${list.b_date}</td>
+													<td class="no-filter">${list.cus_num }</td>
+													<td>${list.cus_title}</td>
+													<td>${list.cus_nick}</td>
+													<td class="banana">${list.cus_date}</td>
 													<td class="banana">
-														<span class="btn btn-xs btn-danger" onclick="#">삭제</span>
+														<c:choose>
+															<c:when test="${list.cus_reNum == 0}">
+																<span class="btn btn-xs btn-success" onclick="#">답변 대기</span>
+															</c:when>
+															<c:when test="${list.cus_reNum == 1}">
+																<span class="btn btn-xs btn-danger" onclick="#" disabled>답변 완료</span>
+															</c:when>
+															<c:otherwise>
+																<span class="btn btn-xs btn-default" onclick="#">답변 보류</span>
+															</c:otherwise>
+														</c:choose>
 													</td>
 												</tr>
 											</c:forEach>
@@ -109,7 +120,7 @@
 									<!-- 이전 버튼 -->
 									<li>
 										<c:if test="${pageNum > 9}">
-											<a href="adminNoticeMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+											<a href="adminCustomerMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 										</c:if>
 									</li>
 									<!-- 번호 출력 -->
@@ -117,14 +128,14 @@
 										<c:when test="${totalNum > next * 10 + 10}">
 											<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+													<a href="adminCustomerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
 											<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 												<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a href="adminNoticeMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+													<a href="adminCustomerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
 										</c:otherwise>
@@ -132,7 +143,7 @@
 									<!-- 다음 버튼 -->
 									<li>
 										<c:if test="${totalNum > next * 10 + 10 }">
-											<a href="adminNoticeMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+											<a href="adminCustomerMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 										</c:if>
 									</li>
 								</ul>

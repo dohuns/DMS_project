@@ -43,9 +43,7 @@ public class MemberRestController {
 		try {
 			memServ = (MemFindIdServImpl) AC.ac.getBean("memFindIdServImpl");
 			memServ.execute_Boo(model);
-			System.out.println(memServ.execute_Boo(model));
 			if (memServ.execute_Boo(model) == true) {
-				System.out.println(memberDTO.getM_email());
 				return strJson;
 			}
 		} catch (Exception e) {
@@ -66,14 +64,11 @@ public class MemberRestController {
 		try {
 			memServ = (MemFindPwServImpl) AC.ac.getBean("memFindPwServImpl");
 			memServ.execute_Boo(model);
-			System.out.println(memServ.execute_Boo(model));
 			if (memServ.execute_Boo(model) == true) {
-				System.out.println(memberDTO.getM_email());
 				return strJson;
 			}
 		} catch (Exception e) {
 		}
-		System.out.println("확인 실패");
 		strJson = "실패";
 		return strJson;
 	}
@@ -125,8 +120,6 @@ public class MemberRestController {
 	// 이메일 중복 체크
 	@GetMapping(value = "chkEmail", produces = "application/json; charset=UTF-8")
 	public String chkEmail(@RequestParam("m_email") String m_email, Model model) {
-		System.out.println("중복체크당");
-		System.out.println("con mail : " + m_email);
 		model.addAttribute("m_email" , m_email);
 		
 		memServ = (MemChkEmailServImpl)AC.ac.getBean("memChkEmailServImpl");

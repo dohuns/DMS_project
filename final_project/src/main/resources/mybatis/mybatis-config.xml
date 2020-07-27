@@ -8,5 +8,6 @@
 		<typeAlias alias="memberDTO" type="com.KG.dto.MemberDTO" />
 		<typeAlias alias="boardDTO" type="com.KG.dto.BoardDTO" />
 		<typeAlias alias="commentDTO" type="com.KG.dto.CommentDTO"/>
+		<typeAlias alias="customerDTO" type="com.KG.dto.CustomerDTO"/>
 	</typeAliases>
 </configuration>
