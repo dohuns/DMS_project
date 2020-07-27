@@ -44,14 +44,33 @@
 		UPDATE board SET b_comCount = b_comCount-1 WHERE b_num = #{boardNum}
 	</update>
 	
-	<!-- 닉네임으로 게시글 검색 -->
-	<select id="selectNick" resultType="commentDTO">
-		SELECT * FROM reply WHERE C_NICK = #{c_nick}
+	<!-- 아이디로 게시글 검색 -->
+	<select id="selectId" parameterType="hashMap" resultType="commentDTO">
+		SELECT B.* FROM (
+			SELECT rownum rn, A.* FROM (SELECT * FROM reply WHERE C_ID = #{c_id} ORDER by C_BOARDNUM DESC)A
+		)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 아이디로 게시글 카운터 검색 -->
+	<select id="selectIdCount" resultType="int">
+		SELECT count(*) FROM reply WHERE C_ID = #{c_id}
 	</select>
 
-	<!-- 닉네임으로 게시글 검색 -->
+	<!-- 댓글 번호로 댓글 정보 조회 -->
 	<select id="selectBoardNum" resultType="commentDTO">
 		SELECT * FROM reply WHERE c_comNum = #{c_comNum}
+	</select>
+	
+	<!-- 아이디로 댓글 정보 조회 -->
+	<select id="selectComBoardNum" parameterType="hashMap" resultType="commentDTO">
+		SELECT B.* FROM (
+			SELECT rownum rn, A.* FROM (SELECT distinct C_BOARDNUM FROM reply WHERE C_ID = #{c_id} ORDER by C_BOARDNUM DESC)A
+		)B WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 댓글 게시판 번호로 board 정보 조회 -->
+	<select id="selectBoardNumList" resultType="boardDTO">
+		SELECT * FROM board where b_num = #{c_boardNum}
 	</select>
 	
 </mapper>

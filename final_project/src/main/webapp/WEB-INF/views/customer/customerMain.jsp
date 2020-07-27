@@ -110,6 +110,10 @@
 			font-size: 3;
 		}
 
+		.h4-s {
+			margin-top: 11px;
+		}
+
 		.is-color {
 			background-color: #FFFFFF;
 		}
@@ -143,6 +147,11 @@
 		td.tdClass>a, td.tdClass>a:hover, td.tdClass>a:focus, td.tdClass>a:visited {
 			color: black;
 			text-decoration: none;
+		}
+
+		.search-s {
+			width: 35%;
+			margin-bottom: 56px;
 		}
 	</style>
 
@@ -226,13 +235,6 @@
 		    color: #fff;
 		}
 	</style>
-	<script>
-		function ajaxTest() {
-			$("#aa").remove();
-			var html = "hello";
-			$("#bb").html(html);
-		}
-	</script>
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
@@ -302,26 +304,22 @@
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
 										<div class="pull-left">
-											<h4><b>문의 내역</b></h4>
+											<h4 class="h4-s"><b>문의 내역</b></h4>
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">
 												<c:choose>
 													<c:when test="${sessionScope.m_id ne null}">
 														<a href="myInquiryList"><b>내 문의보기</b></a>
-														<a href="#" onclick="ajaxTest('${sessionScope.m_id}')"><b>도전해볼것</b></a>
 													</c:when>
 													<c:otherwise>
-														비회원
+														* 비회원은 하단 검색란에 닉네임을 검색해주세요.
 													</c:otherwise>
 												</c:choose>
 											</div>
 										</div>
 									</div>
-									<div id="bb">
-									
-									</div>
-									<div id="aa">
+
 									<div class="card-body">
 										<div class="table-responsive">
 											<table class="table table-bordered">
@@ -383,7 +381,25 @@
 											</li>
 										</ul>
 									</div>
-</div>
+
+										<!-- SEARCH -->
+									<div align="center">
+										<div class="search-s">
+											<div id="custom-search-input">
+												<form action="">
+													<div class="input-group">
+														<input type="text" class="search-query form-control" placeholder="닉네임을 입력해주세요." />
+														<span class="input-group-btn">
+															<button class="btn btn-default" type="button">
+																<span class=" glyphicon glyphicon-search"></span>
+															</button>
+														</span>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>

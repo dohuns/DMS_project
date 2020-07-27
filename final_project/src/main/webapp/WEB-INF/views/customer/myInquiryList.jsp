@@ -110,6 +110,10 @@
 			font-size: 3;
 		}
 
+		.h4-s {
+			margin-top: 11px;
+		}
+
 		.is-color {
 			background-color: #FFFFFF;
 		}
@@ -294,7 +298,7 @@
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
 										<div class="pull-left">
-											<h4><b>문의 내역</b></h4>
+											<h4 class="h4-s"><b>문의 내역</b></h4>
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">

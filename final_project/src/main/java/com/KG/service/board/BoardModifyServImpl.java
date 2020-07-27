@@ -1,5 +1,6 @@
 package com.KG.service.board;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class BoardModifyServImpl implements BoardService{
 		
 		model.addAttribute("boardList" , dao.showBoard(num));
 		model.addAttribute("articleAll" , dao.getArticle());
+		
+		//업로드 파일 리스트
+		List<Map<String, Object>> fileList = dao.selectFileList(num);
+		model.addAttribute("fileList" , fileList);
 		
 		return false;
 	}

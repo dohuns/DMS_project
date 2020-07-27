@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.MemberDTO;
-import com.KG.service.member.MemberService;
-import com.KG.service.member.MemFindIdServImpl;
-import com.KG.service.member.MemFindPwServImpl;
 import com.KG.service.member.MemChkLoginServImpl;
 import com.KG.service.member.MemChkRegistServImpl;
+import com.KG.service.member.MemFindIdServImpl;
+import com.KG.service.member.MemFindPwServImpl;
+import com.KG.service.member.MemberService;
 
 @Controller
 public class MemberController {
@@ -35,15 +35,16 @@ public class MemberController {
 //	메인페이지
 	@RequestMapping("/")
 	public String Home() {
+		System.out.println("gkdl");
 		return "home";
 	}
-
-//	로그인페이지
-	@RequestMapping("login")
-	public String login() {
-		return "login/login";
+	
+//	헤더
+	@RequestMapping("header")
+	public String header() {
+		return "default/header";
 	}
-
+	
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
@@ -62,7 +63,7 @@ public class MemberController {
 			return "redirect:/";
 		} catch (Exception e) {
 		}
-		return "login/login";
+		return "redirect:login?m_id="+memberDTO.getM_id();
 	}
 
 //	아이디 찾기 페이지
@@ -182,9 +183,10 @@ public class MemberController {
 	}
 
 //	회원가입
-	@PostMapping("chk_reigst")
-	public String chk_reigst(Model model, MemberDTO memberDTO) {
-		model.addAttribute("memberDTO", memberDTO);
+	@RequestMapping("chk_reigst")
+	public String chk_reigst(Model model , MemberDTO dto , MultipartHttpServletRequest request) {
+		model.addAttribute("memberDTO", dto);
+		model.addAttribute("request" , request);
 		memServ = (MemChkRegistServImpl) AC.ac.getBean("memChkRegistServImpl");
 		memServ.execute_Boo(model);
 		return "redirect:login";

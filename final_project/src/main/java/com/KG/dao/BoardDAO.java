@@ -2,6 +2,7 @@ package com.KG.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,15 @@ public class BoardDAO {
 	
 	
 	/////////////////////////// 나의 활동 /////////////////////////////////
-	// 사이드바 작성 댓글 수
-	public List<BoardDTO> userBoardList(String m_nick) {
-		return sqlSession.selectList(namespace + ".userBoardList", m_nick);
+	// 내가 쓴 게시글
+		public List<BoardDTO> userBoardList(HashMap<String, Object> hash) {
+			return sqlSession.selectList(namespace + ".userBoardList", hash);
+		}
+
+	// 내가 쓴 게시글 카운터
+	public int userBoardListCount(String b_id) {
+		return sqlSession.selectOne(namespace + ".userBoardListCount", b_id);
 	}
-	
 	////////////////////////////////////////////////////////////////////
 	
 	
@@ -155,6 +160,11 @@ public class BoardDAO {
 		return sqlSession.selectOne(namespace + ".WsearchCount" , hash);
 	} 
 	///////////////////////////////////////////////
+
+	// 게시글 조회수
+	public void hitUp(int b_num) {
+		sqlSession.update(namespace +".hitUp" , b_num);
+	}
 	
 	// 게시글 상세보기
 	public BoardDTO showBoard(int b_num) {
@@ -197,5 +207,34 @@ public class BoardDAO {
 	}
 
 	
+	
+	/////////////////////// 업로드 관련 ////////////////////////////////
+	
+	// 파일 업로드(글쓰기)
+	public int insertFile(Map<String, Object> map) {
+		return sqlSession.insert(namespace + ".insertFile" , map);
+	}
+	
+	// 첨부파일 조회
+	public List<Map<String, Object>> selectFileList(int f_boardNum) {
+		System.out.println("번호 : " + f_boardNum);
+		return sqlSession.selectList(namespace + ".selectFileList" , f_boardNum);
+	}
+	
+	// 첨부파일 다운로드
+	public Map<String, Object> selectFileInfo(int f_no) {
+		return sqlSession.selectOne(namespace + ".selectFileInfo" , f_no);
+	}
+	
+	// 첨부파일 수정 
+	public int deleteFile(Map<String, Object> map) {
+		return sqlSession.delete(namespace + ".deleteFile" , map);
+	}
+	
+	// 게시글 삭제 시 첨부파일 삭제
+	public int allFileDel(BoardDTO dto) {
+		return sqlSession.delete(namespace + ".allFileDel" , dto);
+	}
+	///////////////////////////////////////////////////////////////
 
 }

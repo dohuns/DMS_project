@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +33,9 @@ public class loginController {
 
 	@Autowired
 	overlapEmail over;
+	@Autowired
+	autoLogin auto;
+	
 	
 	
 	/* NaverLoginBO */
@@ -43,9 +48,14 @@ public class loginController {
 	};
 	
     @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView login(HttpSession session) {
+    public ModelAndView login(HttpSession session , 
+    		@RequestParam(required = false) String m_id , Model model) {
         /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        
+		if(m_id != null) {
+			model.addAttribute("login" , "fail");
+		}
         
         /* 생성한 인증 URL을 View로 전달 */
         return new ModelAndView("login/login", "url", naverAuthUrl);
@@ -72,21 +82,33 @@ public class loginController {
 		model.addAttribute("result" , apiResult);
 		
 		model.addAttribute("email" , email);
+
 		if(over.execute(model)) {
 			return "member/regist";
 		}
-		return "googleFail";
+		return "redirect:/login/autoLogin?e_mail="+email;
 	}
 	
 	////////////////////////////////// 구글 ///////////////////////////////
 	@RequestMapping("login/googleCallback")
-	public String googleLogin(@RequestParam(required = false) String email , Model model ) {
+	public String googleLogin(@RequestParam(required = false) String email , Model model ) throws UnsupportedEncodingException {
 		
 		model.addAttribute("email" , email);
-		
 		if(over.execute(model)) {
 			return "member/regist";
 		}
-		return "googleFail";
+		return "redirect:/login/autoLogin?e_mail="+email;
+	}
+	
+	/////////////////////////////// 가입되어 있으면 자동 로그인 ////////////////////////////
+	@RequestMapping("/login/autoLogin")
+	public String autoLogin(Model model, @RequestParam("e_mail") String email, HttpSession session) {
+		
+		model.addAttribute("email" , email);
+		model.addAttribute("session" , session);
+		
+		auto.execute(model);
+		
+		return "redirect:/";
 	}
 }

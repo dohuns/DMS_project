@@ -13,6 +13,16 @@ public class MemberDTO {
 	private Date m_birth;
 	private String m_email;
 	private String m_rank;
+	private String m_picture;
+	
+	public String getM_picture() {
+		return m_picture;
+	}
+
+	public void setM_picture(String m_picture) {
+		this.m_picture = m_picture;
+	}
+
 	private int m_rankNum;
 	private int pageNum;
 
