@@ -226,7 +226,13 @@
 		    color: #fff;
 		}
 	</style>
-
+	<script>
+		function ajaxTest() {
+			$("#aa").remove();
+			var html = "hello";
+			$("#bb").html(html);
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
@@ -292,6 +298,7 @@
 					<div class="content-body">
 						<div class="main-box-container">
 							<div class="box">
+
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
 										<div class="pull-left">
@@ -311,6 +318,10 @@
 											</div>
 										</div>
 									</div>
+									<div id="bb">
+									
+									</div>
+									<div id="aa">
 									<div class="card-body">
 										<div class="table-responsive">
 											<table class="table table-bordered">
@@ -372,7 +383,7 @@
 											</li>
 										</ul>
 									</div>
-
+</div>
 								</div>
 							</div>
 						</div>
