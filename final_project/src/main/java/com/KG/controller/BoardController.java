@@ -3,10 +3,6 @@ package com.KG.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import javax.mail.Session;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -24,7 +20,6 @@ import com.KG.service.board.BoardReplySaveServImpl;
 import com.KG.service.board.BoardReplyServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
-import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
@@ -41,7 +36,7 @@ public class BoardController {
 	BoardService boaServ;
 	BoardSidebarService boaSideServ;
 	CommentService comServ;
-
+	
 	@RequestMapping("movie")
 	public String movie() {
 		return "movie/home";
@@ -80,7 +75,7 @@ public class BoardController {
 		}
 		return "board/myList";
 	}
-
+	
 	// 내가 쓴 게시글 목록
 	@RequestMapping("myWrite")
 	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO) {
@@ -93,7 +88,7 @@ public class BoardController {
 		}
 		return "board/myWrite";
 	}
-
+	
 	// 내가 쓴 댓글 목록
 	@RequestMapping("myReply")
 	public String myReply(Model model, HttpSession session, BoardDTO boardDTO) {
@@ -106,7 +101,7 @@ public class BoardController {
 		}
 		return "board/myReply";
 	}
-
+	
 	// 내가 쓴 댓글 게시글 목록
 	@RequestMapping("myReplyWrite")
 	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO) {
@@ -173,32 +168,10 @@ public class BoardController {
 
 	// 게시글 보기
 	@RequestMapping("/board/show")
-	public String show(Model model, @RequestParam("b_num") int b_num, HttpServletResponse response,
-			HttpServletRequest request, HttpSession session) {
+	public String show(Model model, @RequestParam("b_num") int b_num) {
+
 		model.addAttribute("b_num", b_num);
 
-		String m_id = (String) session.getAttribute("m_id");
-		String cook = b_num + m_id;
-
-//		조회수 증가
-		int hit = 0;
-		// 저장된 쿠키 불러오기
-		Cookie[] cookies = request.getCookies();
-		if (request.getCookies() != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				Cookie cookieCk = cookies[i];
-				if (cookieCk.getName().equals(cook)) {
-					hit = 1;
-				}
-			}
-		}
-		if (hit == 0) {
-			Cookie cookie = new Cookie(b_num + m_id, b_num + m_id);
-			cookie.setMaxAge(60 * 60 * 24);
-			response.addCookie(cookie);
-			boaServ = (BoardShowHitServImpl) AC.ac.getBean("boardShowHitServImpl");
-			boaServ.execute_Boo(model);
-		}
 		boaServ = (BoardShowServImpl) AC.ac.getBean("boardShowServImpl");
 		boaServ.execute_Boo(model);
 
