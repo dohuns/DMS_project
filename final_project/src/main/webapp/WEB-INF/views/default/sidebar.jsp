@@ -59,7 +59,7 @@ hr#sub {
 <body>
 	<div>
 		<div
-			style="background-color: white; width: 300px; border-top: solid 2px #000000;">
+			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
@@ -71,18 +71,18 @@ hr#sub {
 								<ul>
 									<li>
 										<div>
-										<c:choose>
-											<c:when test="${userInfo.m_picture != null}">
-											<img
-												src="/img/memberImage/${userInfo.m_picture}"
-												width="58" height="58" alt="프로필사진" style="border-radius: 100%">
-											</c:when>
-											<c:otherwise>
-											<img
-												src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-												width="58" height="58" alt="프로필사진">
-											</c:otherwise>
-										</c:choose>
+											<c:choose>
+												<c:when test="${userInfo.m_picture != null}">
+												<img
+													src="/img/memberImage/${userInfo.m_picture}"
+													width="58" height="58" alt="프로필사진" style="border-radius: 100%">
+												</c:when>
+												<c:otherwise>
+												<img
+													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
+													width="58" height="58" alt="프로필사진">
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div>
 											<strong>${userInfo.m_nick }</strong>
@@ -102,7 +102,7 @@ hr#sub {
 				</c:when>
 				<c:otherwise>
 					<a href="login"><div align="center"
-							style="background-color: green; padding: 5px 0; margin: 5px 0;">로그인
+							style="background-color: green; padding: 5px 0; margin: 0px 0;">로그인
 							하기</div></a>
 				</c:otherwise>
 			</c:choose>
@@ -112,10 +112,11 @@ hr#sub {
 					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
 					하기</div></a>
 			<div>
-				<form action="#">
+				<form action="/movie/board/search_list">
 					<div class="input-group">
+					<input type="hidden" name="b_search" value="title">
 						<input type="text" class="form-control" style="height: 28px;"
-							placeholder="Search">
+							placeholder="Search" name="b_content">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit" style="height: 28px;">
 								<i class="glyphicon glyphicon-search"></i>

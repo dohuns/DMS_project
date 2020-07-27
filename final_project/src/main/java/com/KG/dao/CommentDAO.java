@@ -1,5 +1,6 @@
 package com.KG.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.KG.dto.BoardDTO;
 import com.KG.dto.CommentDTO;
 
 @Repository
@@ -56,14 +58,29 @@ public class CommentDAO {
 		return sqlSession.update(namespace + ".downComCount" , boardNum);
 	}
 	
-	// 닉네임으로 게시글 검색
-	public List<CommentDTO> selectNick(String c_nick) {
-		return sqlSession.selectList(namespace + ".selectNick" , c_nick);
+	// 아이디로 게시글 검색
+	public List<CommentDTO> selectId(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectId" , hash);
 	}
 	
-	// 닉네임으로 게시글 검색
+	// 아이디로 게시글 카운터
+	public int selectIdConut(String c_id) {
+		return sqlSession.selectOne(namespace + ".selectIdCount" , c_id);
+	}
+		
+	// 작성 댓글 검색
 	public CommentDTO selectBoardNum(int c_comnum) {
 		return sqlSession.selectOne(namespace + ".selectBoardNum" , c_comnum);
+	}
+	
+	// 댓글단 게시글 검색
+	public List<CommentDTO> selectComBoardNum(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".selectComBoardNum" , hash);
+	}
+	
+	// 댓글단 게시글 검색
+	public BoardDTO selectBoardNumList(int c_boardNum) {
+		return sqlSession.selectOne(namespace + ".selectBoardNumList" , c_boardNum);
 	}
 	
 } 

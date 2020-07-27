@@ -3,6 +3,8 @@ package com.KG.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +25,7 @@ import com.KG.service.board.BoardReplySaveServImpl;
 import com.KG.service.board.BoardReplyServImpl;
 import com.KG.service.board.BoardSearchServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
@@ -52,7 +55,6 @@ public class BoardController {
 			model.addAttribute("session", session);
 			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
 			boaSideServ.execute_Boo(model);
-			boaSideServ.execute_Int(model);
 		} catch (Exception e) {
 		}
 		try {
@@ -81,10 +83,11 @@ public class BoardController {
 	
 	// 내가 쓴 게시글 목록
 	@RequestMapping("myWrite")
-	public String myWrite(Model model, HttpSession session) {
+	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
+			model.addAttribute("boardDTO", boardDTO);
 			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
 			boaSideServ.execute_Boo(model);
 		} catch (Exception e) {
@@ -94,10 +97,11 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 목록
 	@RequestMapping("myReply")
-	public String myReply(Model model, HttpSession session) {
+	public String myReply(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
+			model.addAttribute("boardDTO", boardDTO);
 			comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
 			comServ.execute(model);
 		} catch (Exception e) {
@@ -107,10 +111,11 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 게시글 목록
 	@RequestMapping("myReplyWrite")
-	public String myReplyWrite(Model model, HttpSession session) {
+	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
+			model.addAttribute("boardDTO", boardDTO);
 			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
 			boaSideServ.execute_Boo(model);
 		} catch (Exception e) {
@@ -173,16 +178,38 @@ public class BoardController {
 	}
 
 	// 게시글 보기
-	@RequestMapping("/board/show")
-	public String show(Model model, @RequestParam("b_num") int b_num) {
+		@RequestMapping("/board/show")
+		public String show(Model model, @RequestParam("b_num") int b_num, HttpServletResponse response,
+				HttpServletRequest request, HttpSession session) {
+			model.addAttribute("b_num", b_num);
 
-		model.addAttribute("b_num", b_num);
+			String m_id = (String) session.getAttribute("m_id");
+			String cook = b_num + m_id;
 
-		boaServ = (BoardShowServImpl) AC.ac.getBean("boardShowServImpl");
-		boaServ.execute_Boo(model);
+//			조회수 증가
+			int hit = 0;
+			// 저장된 쿠키 불러오기
+			Cookie[] cookies = request.getCookies();
+			if (request.getCookies() != null) {
+				for (int i = 0; i < cookies.length; i++) {
+					Cookie cookieCk = cookies[i];
+					if (cookieCk.getName().equals(cook)) {
+						hit = 1;
+					}
+				}
+			}
+			if (hit == 0) {
+				Cookie cookie = new Cookie(b_num + m_id, b_num + m_id);
+				cookie.setMaxAge(60 * 60 * 24);
+				response.addCookie(cookie);
+				boaServ = (BoardShowHitServImpl) AC.ac.getBean("boardShowHitServImpl");
+				boaServ.execute_Boo(model);
+			}
+			boaServ = (BoardShowServImpl) AC.ac.getBean("boardShowServImpl");
+			boaServ.execute_Boo(model);
 
-		return "board/show";
-	}
+			return "board/show";
+		}
 
 	// 게시글 수정 페이지
 	@RequestMapping("/board/modify")

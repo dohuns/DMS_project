@@ -1,12 +1,9 @@
 package com.KG.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Random;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,17 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.KG.dto.BoardDTO;
 import com.KG.dto.MemberDTO;
-import com.KG.service.member.MemberService;
-import com.KG.service.member.MemFindIdServImpl;
-import com.KG.service.member.MemFindPwServImpl;
 import com.KG.service.member.MemChkLoginServImpl;
 import com.KG.service.member.MemChkRegistServImpl;
+import com.KG.service.member.MemFindIdServImpl;
+import com.KG.service.member.MemFindPwServImpl;
+import com.KG.service.member.MemberService;
 
 @Controller
 public class MemberController {
@@ -44,7 +38,13 @@ public class MemberController {
 		System.out.println("gkdl");
 		return "home";
 	}
-
+	
+//	헤더
+	@RequestMapping("header")
+	public String header() {
+		return "default/header";
+	}
+	
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
