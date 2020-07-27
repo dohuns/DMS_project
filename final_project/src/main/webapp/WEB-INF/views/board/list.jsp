@@ -166,6 +166,11 @@ a:hover, a:focus {
 					<c:forEach var="dto" items="${listAll}">
 						<tr>
 							<td>
+								<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}" class="a1">
+									${dto.b_article}
+								</a>
+							</td>
+							<td>
 								<c:choose>
 									<c:when test="${dto.b_reNum == 0 }">
 										<div>
@@ -184,12 +189,6 @@ a:hover, a:focus {
 										</div>
 									</c:otherwise>
 								</c:choose>
-							</td>
-							<td>
-								<a href="show?b_num=${dto.b_num}" class="a1">
-									${dto.b_title} 
-								</a>
-								<label class="lb1">[${dto.b_comCount}]</label>
 							</td>
 							<td>${dto.b_nick}</td>
 							<td>${dto.b_date}</td>

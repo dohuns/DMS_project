@@ -32,19 +32,27 @@
 			color: #FFFFFF;
 			font-weight: bold;
 			text-decoration: none;
- 			background-color: #242156;
-			border-color: #242156;
+ 			background-color: #5bc0de;
+			border-color: #5bc0de;
 		}
 
 		.navbar-default,
 		.navbar-default .navbar-nav>li>a:hover,
 		.navbar-default .navbar-nav>li>a:active,
 		.navbar-default .navbar-nav>li>a:visited {
-			color: #FFFFFF; 
+			margin-bottom: 0px;
+			color: #FFFFFF;
+		}
+
+		.navbar-dmsHeader {
+			height: 200px;
 		}
 	</style>
 </head>
 <body>
+		<nav class="navbar-dmsHeader">
+			여기에 뭘 넣을지 고민해봅시다.
+		</nav>
 	<header>
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">
@@ -66,8 +74,6 @@
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
 						<li><a href="movie">영화</a></li>
-						<li><a href="#">게임</a></li>
-						<li><a href="#">고양이</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>
@@ -75,16 +81,19 @@
 							<c:when test="${sessionScope.m_rankNum == 1}">
 								<li><a href="/movie/admin">관리자 페이지</a></li>
 								<li><a href="/movie/logout">로그아웃</a></li>
+								<li><a href="/movie/customerMain">고객센터</a></li>
 							</c:when>
 							<%-- 세션이 없는 경우 로그인, 회원가입 출력 --%>
 							<c:when test="${sessionScope.m_nick == null}">
 								<li><a href="/movie/login">로그인</a></li>
 								<li><a href="/movie/regist_email">회원가입</a></li>
+								<li><a href="/movie/customerMain">고객센터</a></li>
 							</c:when>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>
 								<li><a href="/myPage">내정보</a></li>
 								<li><a href="/movie/logout">로그아웃</a></li>
+								<li><a href="/movie/customerMain">고객센터</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

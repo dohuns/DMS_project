@@ -95,10 +95,12 @@
 	padding: 0 0 0 50px; 
 }
 .commentArea {
-	padding: 12px 23px 10px 20px;
+	display : flex;
+	padding: 12px 23px 10px 0px;
 	width: 950px;
 }
 .commentArea-reply {
+	display : flex;
 	padding: 12px 23px 10px 0px;
 	padding-left: 50px;
 	width: 950px;
@@ -137,6 +139,9 @@ textarea:focus {
 .delComment{
 	padding: 12px 23px 10px 0px;
 	width: 950px;
+}
+.profilePic {
+	margin: 10px 12px 10px 10px;
 }
 
 
@@ -226,6 +231,7 @@ textarea:focus {
 					})
 					for(var i=0; i<list.length; i++) {
 						
+						
 						// 덧글은 들여쓰기 + 자신글은 배경색 넣기
 						if(list[i].c_reNum == 0) {
 							if("${sessionScope.m_id}" != list[i].c_id) {
@@ -258,7 +264,23 @@ textarea:focus {
 							}
 							
 						}
-						html += '<div style="margin-bottom: 5px; display:inline-block">';
+						html += '<div class="profilePic">';
+						
+						// 프로필 사진 넣기
+						html += '<a href="#">';
+						if("${memberInfo.m_picture}" != null) {
+							html += '<img src="/img/memberImage/${memberInfo.m_picture}"';
+							html += 'width="40" height="40" alt="프로필사진" style="border-radius: 100%">';
+						} else {
+							html += '<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"';
+							html += 'width="40" height="40" alt="프로필사진">';
+						}
+						html += '</a>'
+						
+						html += '</div>';
+						
+						html += '<div>';
+						html += '<div style="display:inline-block">';
 						// 게시자와 댓글작성자가 같으면 작성자 표시
 						if($("#b_id").val() == list[i].c_id) {
 							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a><span class="mylb">작성자</span>';
@@ -268,14 +290,14 @@ textarea:focus {
 						html += '<div style="float:right">'
 						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
 						if(list[i].c_id == "${sessionScope.m_id}") {
-							html += '<img src="/movie/resources/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
+							html += '<img src="/img/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
 						}
 						html += '</div>'
 						html += '</div>';
 						html += '<div>';
 						html += '<span class="c-content">' + list[i].c_content + '</span>';
 						html += '</div>';
-						html += '<div style="margin-top: 7px;">';
+						html += '<div>';
 						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
 						if("${sessionScope.m_nick}" == "") {
 							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')">답글 쓰기</span>';
@@ -288,6 +310,7 @@ textarea:focus {
 								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
 							}
 						}
+						html += '</div>';
 						html += '</div>';
 						html += '</div>';
 						html += '</div>';
@@ -451,6 +474,14 @@ textarea:focus {
 			});		
 		}
 	}
+	
+	// 파일 다운로드
+	function fileDown(fileNo) {
+		console.log("들어옴")
+		$("#f_no").val(fileNo);
+		$("#fileForm").submit();
+
+	}
 </script>
 </head>
 <body>
@@ -481,17 +512,38 @@ textarea:focus {
 				<div style="margin-top:0px;">
 					<label class="lb_title">${boardInfo.b_title}</label>				
 				</div>
-				<!-- 닉네임 + 등급  -->
+				
 				<input type="hidden" id="b_id" name="b_id" value="${boardInfo.b_id}">
-				<div style="height: 40px;">
-					<div style="height:15px; margin-bottom:2px;">
-						<a href="#"><b style="color: black;">${boardInfo.b_nick}</b></a>
-						<label class="lb2">${memberInfo.m_rank}</label>
-					<br style="margin: 0px;">
+				
+				<div style="height: 40px; display:flex;">
+					<!-- 프로필 사진 -->
+					<div style="margin-right: 10px;">
+						<a href="#">
+							<c:choose>
+								<c:when test="${memberInfo.m_picture != null}">
+								<img
+									src="/img/memberImage/${memberInfo.m_picture}"
+									width="36" height="36" alt="프로필사진" style="border-radius: 100%">
+								</c:when>
+								<c:otherwise>
+								<img
+									src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
+									width="36" height="36" alt="프로필사진">
+								</c:otherwise>
+							</c:choose>
+						</a>		
 					</div>
-					<div style="height:15px;">
-						<label class="lb3">${boardInfo.getDate()}</label>
-						<label class="lb3">조회 ${boardInfo.b_hit}</label>
+					<!-- 닉네임 + 등급  -->
+					<div>
+						<div style="height:15px; margin-bottom:2px;">
+							<a href="#"><b style="color: black;">${boardInfo.b_nick}</b></a>
+							<label class="lb2">${memberInfo.m_rank}</label>
+						<br style="margin: 0px;">
+						</div>
+						<div style="height:15px;">
+							<label class="lb3">${boardInfo.getDate()}</label>
+							<label class="lb3">조회 ${boardInfo.b_hit}</label>
+						</div>
 					</div>
 				</div>
 				
@@ -506,10 +558,22 @@ textarea:focus {
 					</div>
 				</div>
 				
+				<span>파일 목록</span>
+				<div>
+					<c:forEach var="file" items="${fileList}">
+						<a href="#" onclick="fileDown('${file.F_NO}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
+					</c:forEach>
+				</div>
+				<!-- 파일 정보 -->
+				<div>
+					<form action="file_down" method="POST" id="fileForm">
+						<input type="hidden" id="f_no" name="f_no"/>
+					</form>
+				</div>				
 				<!-- 좋아요 + 댓글 수  -->
 				<div style="margin-top: 20px;">
 					<a href="#">
-						<img src="/movie/resources/commentImg.png" style="width:20px;">
+						<img src="/img/commentImg.png" style="width:20px;">
 						<span style="color:black;">댓글</span>
 						<strong style="color:black;" id="c_count"></strong>
 					</a>
