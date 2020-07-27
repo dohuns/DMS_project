@@ -270,10 +270,10 @@ textarea:focus {
 						html += '<a href="#">';
 						if("${memberInfo.m_picture}" != null) {
 							html += '<img src="/img/memberImage/${memberInfo.m_picture}"';
-							html += 'width="40" height="40" alt="프로필사진" style="border-radius: 100%">';
+							html += 'width="40" height="40" style="border-radius: 100%">';
 						} else {
 							html += '<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"';
-							html += 'width="40" height="40" alt="프로필사진">';
+							html += 'width="40" height="40">';
 						}
 						html += '</a>'
 						
@@ -476,9 +476,10 @@ textarea:focus {
 	}
 	
 	// 파일 다운로드
-	function fileDown(fileNo) {
+	function fileDown(fileNo , userId) {
 		console.log("들어옴")
 		$("#f_no").val(fileNo);
+		$("#f_id").val(userId);
 		$("#fileForm").submit();
 
 	}
@@ -514,7 +515,6 @@ textarea:focus {
 				</div>
 				
 				<input type="hidden" id="b_id" name="b_id" value="${boardInfo.b_id}">
-				
 				<div style="height: 40px; display:flex;">
 					<!-- 프로필 사진 -->
 					<div style="margin-right: 10px;">
@@ -523,12 +523,12 @@ textarea:focus {
 								<c:when test="${memberInfo.m_picture != null}">
 								<img
 									src="/img/memberImage/${memberInfo.m_picture}"
-									width="36" height="36" alt="프로필사진" style="border-radius: 100%">
+									width="36" height="36" style="border-radius: 100%">
 								</c:when>
 								<c:otherwise>
 								<img
 									src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-									width="36" height="36" alt="프로필사진">
+									width="36" height="36">
 								</c:otherwise>
 							</c:choose>
 						</a>		
@@ -561,13 +561,14 @@ textarea:focus {
 				<span>파일 목록</span>
 				<div>
 					<c:forEach var="file" items="${fileList}">
-						<a href="#" onclick="fileDown('${file.F_NO}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
+						<a href="#" onclick="fileDown('${file.F_NO}','${boardInfo.b_id}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
 					</c:forEach>
 				</div>
 				<!-- 파일 정보 -->
 				<div>
 					<form action="file_down" method="POST" id="fileForm">
 						<input type="hidden" id="f_no" name="f_no"/>
+						<input type="hidden" id="f_id" name="f_id"/>
 					</form>
 				</div>				
 				<!-- 좋아요 + 댓글 수  -->

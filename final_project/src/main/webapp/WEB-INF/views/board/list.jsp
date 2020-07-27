@@ -94,6 +94,7 @@ a:hover, a:focus {
 					<tr>
 						<td colspan="5" align="right">
 							<a href="write?b_category=${param.b_category}&b_article=${param.b_article}" class="btn btn-info btn-sm">글 쓰기</a>
+							<a href="write2" class="btn btn-info btn-sm">글 쓰기22</a>
 						</td>
 					</tr>
 				</table>		

@@ -75,12 +75,12 @@ hr#sub {
 												<c:when test="${userInfo.m_picture != null}">
 												<img
 													src="/img/memberImage/${userInfo.m_picture}"
-													width="58" height="58" alt="프로필사진" style="border-radius: 100%">
+													width="58" height="58" style="border-radius: 100%">
 												</c:when>
 												<c:otherwise>
 												<img
 													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-													width="58" height="58" alt="프로필사진">
+													width="58" height="58">
 												</c:otherwise>
 											</c:choose>
 										</div>

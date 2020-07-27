@@ -45,43 +45,6 @@ public class BoardRestController {
 		comServ.execute_int(model);
 	}
 
-	// 단일파일업로드
-	@RequestMapping("/photoUpload")
-	public String photoUpload(HttpServletRequest request, PhotoVo vo) {
-		String callback = vo.getCallback();
-		String callback_func = vo.getCallback_func();
-		String file_result = "";
-		try {
-			if (vo.getUploadInputBox() != null && vo.getUploadInputBox().getOriginalFilename() != null
-					&& !vo.getUploadInputBox().getOriginalFilename().equals("")) {
-				// 파일이 존재하면
-				String original_name = vo.getUploadInputBox().getOriginalFilename();
-				String ext = original_name.substring(original_name.lastIndexOf(".") + 1);
-				// 파일 기본경로
-				String defaultPath = request.getSession().getServletContext().getRealPath("/");
-				// 파일 기본경로 _ 상세경로
-				String path = defaultPath + "resource" + File.separator + "photo_upload" + File.separator;
-				File file = new File(path);
-				System.out.println("path:" + path);
-				// 디렉토리 존재하지 않을경우 디렉토리 생성
-				if (!file.exists()) {
-					file.mkdirs();
-				}
-				// 서버에 업로드 할 파일명(한글문제로 인해 원본파일은 올리지 않는것이 좋음)
-				String realname = UUID.randomUUID().toString() + "." + ext;
-				///////////////// 서버에 파일쓰기 /////////////////
-				vo.getUploadInputBox().transferTo(new File(path + realname));
-				file_result += "&bNewLine=true&sFileName=" + original_name + "&sFileURL=/resource/photo_upload/"
-						+ realname;
-			} else {
-				file_result += "&errstr=error";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "redirect:" + callback + "?callback_func=" + callback_func + file_result;
-	}
-
 	// 다중파일업로드
 	@RequestMapping("/multiplePhotoUpload")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
@@ -95,6 +58,7 @@ public class BoardRestController {
 			// 파일명을 받는다 - 일반 원본파일명
 
 			String filename = request.getHeader("file-name");
+			System.out.println("getHeader : " + filename);
 
 			// 파일 확장자
 
@@ -107,19 +71,18 @@ public class BoardRestController {
 			// 파일 기본경로
 
 			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+			System.out.println("파일 기본경로 : " + dftFilePath);
 
 			// 파일 기본경로 _ 상세경로
 
-			String filePath = dftFilePath + "resource" + File.separator + "photo_upload" + File.separator;
-
-			System.out.println(filePath);
+			String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\boardImage\\";
+			System.out.println("파일 상세경로 : " + filePath);
+			
 
 			File file = new File(filePath);
 
 			if (!file.exists()) {
-
 				file.mkdirs();
-
 			}
 
 			String realFileNm = "";
@@ -131,6 +94,8 @@ public class BoardRestController {
 			realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 
 			String rlFileNm = filePath + realFileNm;
+			System.out.println("rlFilename : " + rlFileNm);
+			System.out.println("나머지 : " + realFileNm);
 
 			///////////////// 서버에 파일쓰기 /////////////////
 
@@ -163,13 +128,15 @@ public class BoardRestController {
 			// 정보 출력
 
 			sFileInfo += "&bNewLine=true";
+			System.out.println("1상황 : " + sFileInfo);
 
 			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 
 			sFileInfo += "&sFileName=" + filename;
-			;
+			System.out.println("2상황 : " + sFileInfo);
 
 			sFileInfo += "&sFileURL=" + "/first/resource/photo_upload/" + realFileNm;
+			System.out.println("3상황 : " + sFileInfo);
 
 			PrintWriter print = response.getWriter();
 

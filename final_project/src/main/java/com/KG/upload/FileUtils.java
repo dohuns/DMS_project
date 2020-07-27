@@ -7,6 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -156,6 +160,52 @@ public class FileUtils {
 		for(int i=0; i<list.size(); i++) {
 			new File(filePath + list.get(i).get("F_MODINAME")).delete();
 		}
+	}
+	
+	// 게시글 이미지 등록하기
+	public List<Map<String, Object>> parseInsertImageBoard(BoardDTO boardDTO, 
+			MultipartHttpServletRequest mpRequest , 
+			HttpServletRequest request , 
+			HttpServletResponse response) throws Exception{
+		
+		String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\boardImage\\" +  boardDTO.getB_id() + "\\"; // 파일이 저장될 위치
+		
+		Iterator<String> iterator = mpRequest.getFileNames();
+		
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Map<String, Object> listMap = null;
+		
+		int bno = boardDTO.getB_num();
+		
+		File file = new File(filePath);
+		if(file.exists() == false) {
+			file.mkdirs();
+		}
+		
+		while(iterator.hasNext()) {
+			multipartFile = mpRequest.getFile(iterator.next());
+			if(multipartFile.isEmpty() == false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+				
+				file = new File(filePath + storedFileName);
+				multipartFile.transferTo(file);
+				listMap = new HashMap<String, Object>();
+				listMap.put("f_boardNum", bno);
+				listMap.put("f_oriName", originalFileName);
+				listMap.put("f_modiName", storedFileName);
+				listMap.put("f_size", multipartFile.getSize());
+				listMap.put("f_mark" , 1);
+				list.add(listMap);
+			}
+		}
+		return list;
 	}
 	
 	public static String getRandomString() {

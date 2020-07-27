@@ -144,11 +144,16 @@ public class BoardController {
 		boaServ.execute_Boo(model);
 		return "board/write";
 	}
-
+	// 테스트용
+	@RequestMapping("/board/write2")
+	public String board_write2() {
+		return "board/write2";
+	}
 	// 글쓰기 저장
 	@RequestMapping("/board/write_save")
 	public String board_wrtieSave(Model model, BoardDTO dto,
-			HttpSession session , MultipartHttpServletRequest request) throws UnsupportedEncodingException {
+			HttpSession session , MultipartHttpServletRequest mpRequest,
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
 		System.out.println("글쓰기 들어옴");
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
@@ -156,7 +161,10 @@ public class BoardController {
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("session", session);
-		model.addAttribute("request" , request);
+		model.addAttribute("mpRequest" , mpRequest);
+		model.addAttribute("request" , request); 
+		model.addAttribute("response" , response);
+		
 		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
 		boaServ.execute_Boo(model);
 
@@ -288,10 +296,14 @@ public class BoardController {
 	
 	// 첨부파일 다운로드
 	@RequestMapping("/board/file_down")
-	public void file_down(Model model , HttpServletResponse response , @RequestParam("f_no") int f_no) {
+	public void file_down(Model model , HttpServletResponse response , 
+			@RequestParam("f_no") int f_no, 
+			@RequestParam("f_id") String f_id) {
 		
 		model.addAttribute("response" , response);
 		model.addAttribute("f_no" , f_no);
+		model.addAttribute("f_id" , f_id);
+		
 		boaServ = (BoardFileDownServImpl) AC.ac.getBean("boardFileDownServImpl");
 		boaServ.execute_Boo(model);
 		
