@@ -29,6 +29,8 @@ th, td {
 </style>
 </head>
 <body>
+
+
 	<!-- 로그인 확인 -->
 	<c:if test="${sessionScope.m_nick == null}">
 		<script type="text/javascript">

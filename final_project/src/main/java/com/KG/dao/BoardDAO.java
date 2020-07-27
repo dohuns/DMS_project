@@ -35,29 +35,33 @@ public class BoardDAO {
 	}
 	
 	// 사이드바 정보
-	public MemberDTO userInfo(String m_nick) {
-		return sqlSession.selectOne(namespace + ".userInfo", m_nick);
+	public MemberDTO userInfo(String m_id) {
+		return sqlSession.selectOne(namespace + ".userInfo", m_id);
 	}
 	
 	// 사이드바 작성 게시글 수
-	public int boardCount(String m_nick) {
-		return sqlSession.selectOne(namespace + ".boardCount", m_nick);
+	public int boardCount(String m_id) {
+		return sqlSession.selectOne(namespace + ".boardCount", m_id);
 	}
 
 	// 사이드바 작성 댓글 수
-	public int replyCount(String m_nick) {
-		return sqlSession.selectOne(namespace + ".replyCount", m_nick);
+	public int replyCount(String m_id) {
+		return sqlSession.selectOne(namespace + ".replyCount", m_id);
 	}
 	////////////////////////////////////////////////////////////////////
 	
 	
 	
 	/////////////////////////// 나의 활동 /////////////////////////////////
-	// 사이드바 작성 댓글 수
-	public List<BoardDTO> userBoardList(String m_nick) {
-		return sqlSession.selectList(namespace + ".userBoardList", m_nick);
+	// 내가 쓴 게시글
+	public List<BoardDTO> userBoardList(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".userBoardList", hash);
 	}
 	
+	// 내가 쓴 게시글 카운터
+	public int userBoardListCount(String b_id) {
+		return sqlSession.selectOne(namespace + ".userBoardListCount", b_id);
+	}
 	////////////////////////////////////////////////////////////////////
 	
 	

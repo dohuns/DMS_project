@@ -26,6 +26,7 @@ import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.comment.ComBoardListServImpl;
 import com.KG.service.comment.ComListServImpl;
 import com.KG.service.comment.CommentService;
 
@@ -66,7 +67,6 @@ public class BoardController {
 	@RequestMapping("myList")
 	public String myList(Model model, HttpSession session) {
 		try {
-//	         유저 닉네임으로 회원정보 가져오기
 			model.addAttribute("session", session);
 			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
 			boaSideServ.execute_Boo(model);
@@ -78,10 +78,10 @@ public class BoardController {
 	
 	// 내가 쓴 게시글 목록
 	@RequestMapping("myWrite")
-	public String myWrite(Model model, HttpSession session) {
+	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
-//	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
+			model.addAttribute("boardDTO", boardDTO);
 			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
 			boaSideServ.execute_Boo(model);
 		} catch (Exception e) {
@@ -91,10 +91,10 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 목록
 	@RequestMapping("myReply")
-	public String myReply(Model model, HttpSession session) {
+	public String myReply(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
-//	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
+			model.addAttribute("boardDTO", boardDTO);
 			comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
 			comServ.execute(model);
 		} catch (Exception e) {
@@ -104,12 +104,12 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 게시글 목록
 	@RequestMapping("myReplyWrite")
-	public String myReplyWrite(Model model, HttpSession session) {
+	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO) {
 		try {
-//	         유저 닉네임으로 게시글 가져오기
 			model.addAttribute("session", session);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
+			model.addAttribute("boardDTO", boardDTO);
+			comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
+			comServ.execute(model);
 		} catch (Exception e) {
 		}
 		return "board/myReplyWrite";
