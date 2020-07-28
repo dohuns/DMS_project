@@ -135,7 +135,7 @@ public class BoardRestController {
 			sFileInfo += "&sFileName=" + filename;
 			System.out.println("2상황 : " + sFileInfo);
 
-			sFileInfo += "&sFileURL=" + "/first/resource/photo_upload/" + realFileNm;
+			sFileInfo += "&sFileURL=" + "/img/boardImage/" + realFileNm;
 			System.out.println("3상황 : " + sFileInfo);
 
 			PrintWriter print = response.getWriter();
