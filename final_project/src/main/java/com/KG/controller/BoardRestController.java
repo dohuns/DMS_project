@@ -128,15 +128,12 @@ public class BoardRestController {
 			// 정보 출력
 
 			sFileInfo += "&bNewLine=true";
-			System.out.println("1상황 : " + sFileInfo);
 
 			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 
 			sFileInfo += "&sFileName=" + filename;
-			System.out.println("2상황 : " + sFileInfo);
 
 			sFileInfo += "&sFileURL=" + "/img/boardImage/" + realFileNm;
-			System.out.println("3상황 : " + sFileInfo);
 
 			PrintWriter print = response.getWriter();
 

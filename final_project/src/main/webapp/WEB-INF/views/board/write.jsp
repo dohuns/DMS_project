@@ -23,13 +23,15 @@
 <script type="text/javascript">
 	
 	function write_save() {
+		oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
 		var str = $("#b_content").val();
 		
 		if($("#b_title").val() == "") {
-			alert("제목을 입력해주세요!");
-			$("#b_title").focus();
-		} else if($("#b_content").val() == "") {
-			alert("내용을 작성해주세요!");
+			alert("제목을 작성해주세요!");
+		} else if($("#b_title").val() == ""  || $("#b_title").val() == null ||
+				$("#b_title").val() == '&nbsp;' || $("#b_title").val() == '<p>&nbsp;</p>') {
+			alert("내용을 입력해주세요!");
+			oEditors.getById["b_content"].exec("FOCUS"); //포커싱
 			$("#b_content").focus();
 		} else {
 			// 줄 개행 인식
@@ -82,6 +84,19 @@
 		$("#fileDiv_"+index).remove();
 	}
 </script>
+<!-- 네이버 스마트 에디터 -->
+<script type="text/javascript" src="/movie/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+var oEditors = [];
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "b_content",
+          sSkinURI: "/img/smartEditor/SmartEditor2Skin.html"
+      });
+});
+</script>
+
 </head>
 <body>
 	<!-- header -->
@@ -90,9 +105,9 @@
 	<!-- body -->
 	<c:choose>
 		<c:when test="${sessionScope.m_nick != null}">	
-			<div class="container" style="width:500px;">
+			<div class="container" style="width: 800px;">
 				<div align="center">
-					<h1> 글쓰기 페이지 </h1>
+					<h1>글쓰기 페이지</h1>
 					<div align="left">
 						<form action="write_save" id="fo" method="post" enctype="multipart/form-data">
 							<!-- 게시판 선택 -->
@@ -116,14 +131,14 @@
 							<!-- 제목 입력 -->
 							<div>
 								<h5>글 제목</h5>
-								<input type="text" name="b_title" id="b_title" placeholder="게시글 제목을 입력하세요"
-									class="form-control">
+								<input type="text" name="b_title" id="b_title"
+									placeholder="게시글 제목을 입력하세요" class="form-control" >
 							</div>
 							<!-- 내용 입력 -->
 							<div>
 								<h5>글 내용</h5>
-								<textarea rows="15" cols="50" name="b_content" id="b_content" class="form-control"
-									style="resize:none;"></textarea>
+								<textarea rows="15" cols="50" name="b_content" id="b_content"
+									class="form-control" style="resize: none; width: 765px;"></textarea>
 							</div>
 							<!-- 첨부파일 & 이미지 -->
 							<div style="margin-top:10px;">
