@@ -1,7 +1,9 @@
 package com.KG.upload;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -165,6 +167,10 @@ public class FileUtils {
 	
 	
 	public static String getRandomString() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
+		SimpleDateFormat formatter = new SimpleDateFormat("YYMMddHHmmss");
+
+		String today = formatter.format(new Date());
+		
+		return today + "-" + UUID.randomUUID().toString();
 	}
 }

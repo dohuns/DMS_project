@@ -103,6 +103,9 @@ $(function(){
 	<c:import url="../default/header.jsp" />
 	
 	<!-- body -->
+	<c:forEach var="test" items="${list}">
+		${test}
+	</c:forEach>
 	<c:choose>
 		<c:when test="${sessionScope.m_nick != null}">	
 			<div class="container" style="width: 800px;">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -558,7 +559,9 @@ textarea:focus {
 					</div>
 				</div>
 				
-				<span>파일 목록</span>
+				<c:if test="${fn:length(fileList) > 0 }">
+					<span>파일 목록</span>
+				</c:if>
 				<div>
 					<c:forEach var="file" items="${fileList}">
 						<a href="#" onclick="fileDown('${file.F_NO}','${boardInfo.b_id}'); return false;">${file.F_ORINAME}</a>(${file.F_SIZE}kb)<br>
