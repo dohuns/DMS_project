@@ -233,8 +233,8 @@ textarea:focus {
 						
 						
 						// 덧글은 들여쓰기 + 자신글은 배경색 넣기
-						if(list[i].c_reNum == 0) {
-							if("${sessionScope.m_id}" != list[i].c_id) {
+						if(list[i].C_RENUM == 0) {
+							if("${sessionScope.m_id}" != list[i].C_ID) {
 								html += '<div class="commentArea">';
 							} else {
 								html += '<div class="commentArea" style="background:#F5F6F8;">';
@@ -242,14 +242,14 @@ textarea:focus {
 						} else {
 							if(i>0) {
 								var z = i-1;
-								if(list[i].c_reNum == 1 && list[i].c_group != list[z].c_group) {
+								if(list[i].C_RENUM == 1 && list[i].C_GROUP != list[z].C_GROUP) {
 									html += '<div class="delComment">';
 									html += '<label>삭제 된 댓글입니다.</label>';
 									html += '</div>';
 									html += '<hr class="hr2">';
 								}
 							} else {
-								if(list[i].c_reNum == 1) {
+								if(list[i].C_RENUM == 1) {
 									html += '<div class="delComment">';
 									html += '<label>삭제 된 댓글입니다.</label>';
 									html += '</div>';
@@ -257,7 +257,7 @@ textarea:focus {
 								}
 							}
 							
-							if("${sessionScope.m_id}" != list[i].c_id) {
+							if("${sessionScope.m_id}" != list[i].C_ID) {
 								html += '<div class="commentArea-reply">';
 							} else {
 								html += '<div class="commentArea-reply" style="background:#F5F6F8;">';
@@ -268,8 +268,8 @@ textarea:focus {
 						
 						// 프로필 사진 넣기
 						html += '<a href="#">';
-						if("${memberInfo.m_picture}" != null) {
-							html += '<img src="/img/memberImage/${memberInfo.m_picture}"';
+						if(list[i].M_PICTURE != null && list[i].M_PICTURE != "" && typeof list[i].M_PICTURE != "undefined") {
+							html += '<img src="/img/memberImage/' + list[i].M_PICTURE + '"';
 							html += 'width="40" height="40" style="border-radius: 100%">';
 						} else {
 							html += '<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"';
@@ -282,32 +282,32 @@ textarea:focus {
 						html += '<div>';
 						html += '<div style="display:inline-block">';
 						// 게시자와 댓글작성자가 같으면 작성자 표시
-						if($("#b_id").val() == list[i].c_id) {
-							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a><span class="mylb">작성자</span>';
+						if($("#b_id").val() == list[i].C_ID) {
+							html += '<a href="#"><span class="c-nick">' + list[i].C_NICK + '</span></a><span class="mylb">작성자</span>';
 						} else {
-							html += '<a href="#"><span class="c-nick">' + list[i].c_nick + '</span></a>';
+							html += '<a href="#"><span class="c-nick">' + list[i].C_NICK + '</span></a>';
 						}
 						html += '<div style="float:right">'
 						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
-						if(list[i].c_id == "${sessionScope.m_id}") {
-							html += '<img src="/img/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].c_comNum+',${param.b_num})">'
+						if(list[i].C_ID == "${sessionScope.m_id}") {
+							html += '<img src="/img/deleteBtn.png" class="deleteBtn" onclick="commentDelete('+list[i].C_COMNUM+',${param.b_num})">'
 						}
 						html += '</div>'
 						html += '</div>';
 						html += '<div>';
-						html += '<span class="c-content">' + list[i].c_content + '</span>';
+						html += '<span class="c-content">' + list[i].C_CONTENT + '</span>';
 						html += '</div>';
 						html += '<div>';
-						html += '<span class="lb3" style="margin-right:10px;">' + list[i].c_date + '</span>';
+						html += '<span class="lb3" style="margin-right:10px;">' + list[i].C_DATE + '</span>';
 						if("${sessionScope.m_nick}" == "") {
-							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\')">답글 쓰기</span>';
+							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\')">답글 쓰기</span>';
 						} else {
 							if(i == 0){
 								var j = 0;
-								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}else if(i != list.length-1) {
 								var j = i+1;
-								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].c_comNum + ', \''+ list[i].c_nick +'\','+list[j].c_reNum+','+list[i].c_group+')">답글 쓰기</span>';
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}
 						}
 						html += '</div>';
@@ -315,14 +315,14 @@ textarea:focus {
 						html += '</div>';
 						html += '</div>';
 						if(i != list.length-1) {
-							if(list[i].c_reNum == 0) {
+							if(list[i].C_RENUM == 0) {
 								html += '<hr class="hr1">'
 							} else {
 								html += '<hr class="hr2">';
 							}
 						}
 						// 답글 창 div
-						html += '<div id="div'+list[i].c_comNum+'">';
+						html += '<div id="div'+list[i].C_COMNUM+'">';
 						html += '</div>';
 						
 					}

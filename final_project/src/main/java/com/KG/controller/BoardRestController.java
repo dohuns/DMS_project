@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,26 +59,12 @@ public class BoardRestController {
 			// 파일명을 받는다 - 일반 원본파일명
 
 			String filename = request.getHeader("file-name");
-			System.out.println("getHeader : " + filename);
-
-			// 파일 확장자
-
-			String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
-
-			// 확장자를소문자로 변경
-
-			filename_ext = filename_ext.toLowerCase();
-
-			// 파일 기본경로
-
-			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-			System.out.println("파일 기본경로 : " + dftFilePath);
 
 			// 파일 기본경로 _ 상세경로
 
-			String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\boardImage\\";
-			System.out.println("파일 상세경로 : " + filePath);
+			String datePath = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			
+			String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\boardImage\\" + datePath + "\\";
 
 			File file = new File(filePath);
 
@@ -87,15 +74,12 @@ public class BoardRestController {
 
 			String realFileNm = "";
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
 
-			String today = formatter.format(new java.util.Date());
+			String today = formatter.format(new Date());
 
-			realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
-
+			realFileNm = today + "-"+ UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 			String rlFileNm = filePath + realFileNm;
-			System.out.println("rlFilename : " + rlFileNm);
-			System.out.println("나머지 : " + realFileNm);
 
 			///////////////// 서버에 파일쓰기 /////////////////
 
@@ -133,7 +117,7 @@ public class BoardRestController {
 
 			sFileInfo += "&sFileName=" + filename;
 
-			sFileInfo += "&sFileURL=" + "/img/boardImage/" + realFileNm;
+			sFileInfo += "&sFileURL=" + "/img/boardImage/" + datePath + "/" + realFileNm;
 
 			PrintWriter print = response.getWriter();
 

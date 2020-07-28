@@ -1,6 +1,7 @@
 package com.KG.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -47,7 +48,7 @@ public class CommentController {
 		
 		model.addAttribute("dto", dto);
 		comServ = (CommentListServImpl)AC.ac.getBean("commentListServImpl");
-		List<CommentDTO> list = comServ.execute_list(model);
+		List<Map<String, Object>> list = comServ.execute_list(model);
 	
 		ObjectMapper mapper = new ObjectMapper();
 		

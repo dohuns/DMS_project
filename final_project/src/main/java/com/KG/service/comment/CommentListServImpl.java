@@ -24,7 +24,7 @@ public class CommentListServImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentDTO> execute_list(Model model) {
+	public List<Map<String, Object>> execute_list(Model model) {
 		
 		Map<String, Object> map = model.asMap();
 		CommentDTO dto = (CommentDTO)map.get("dto");
