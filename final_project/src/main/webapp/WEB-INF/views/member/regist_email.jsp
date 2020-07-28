@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,16 +37,25 @@
 </script>
 </head>
 <body>
-	<div id="div1">
-		<div>
+	<c:if test="${sessionScope.m_id != null}">
+		<script type="text/javascript">
+			alert("정상적인 경로를 이용해주세요")
+			location.href = "/movie"
+		</script>
+	</c:if>
+	<c:import url="/header" />
+	<div align="center" style="margin-top: 80px;">
+	<div id="div1" style="width: 500px;">
+		<div style="margin-bottom: 50px;">
 			<h1>이메일 인증 페이지</h1>
 		</div>
-		<div>
+		<div align="left">
 			<form action="email_certify" id="fo" method="POST">
-				이메일 : <input type="text" id="m_email" name="m_email" placeholder="이메일을 입력하세요"> <br>
-				<button type="button" onclick="chkEmail()">이메일 인증받기</button>
+				<input type="text" id="m_email" name="m_email" placeholder="가입하실 이메일을 입력하세요" class="form-control"> <br>
+				<button type="button" onclick="chkEmail()" class="btn btn-info">이메일 인증받기</button>
 			</form>
 		</div>
+	</div>
 	</div>
 	
 
