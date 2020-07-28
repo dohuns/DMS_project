@@ -170,11 +170,14 @@ textarea:focus {
 	});
 	// 댓글 내용 작성여부 + 댓글 작성
 	function commentWriter() {
+		var papering = $("#papering").val();
 		if($("#comment_content").val() == "") { // 댓글내용 없을 때
-			alert("내용을 입력해주세요!!");			
+			alert("내용을 입력해주세요!!");	
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else { // 댓글 작성
 			var formData = $("#fo").serializeArray();
-			
+			$("#papering").attr("value","1");
 			$.ajax({
 				url : "comment_save",
 				type : "POST",
@@ -183,6 +186,7 @@ textarea:focus {
 				success : function(arg) {
 					getCommentList();
 					$("#comment_content").val("");
+			$("#papering").attr("value","0");
 				},
 				error : function() {
 					alert("실패!");
@@ -434,9 +438,13 @@ textarea:focus {
 	
 	// 대댓글 남기기
 	function RecommentWriter() {
+		var papering = $("#papering").val();
 		if($("#Recomment_content").val() == "") { // 댓글내용 없을 때
-			alert("내용을 입력해주세요!!");			
+			alert("내용을 입력해주세요!!");	
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else { // 댓글 작성
+			$("#papering").attr("value","1");
 			var formData = $("#fo").serializeArray();
 			console.log(formData);
 			
@@ -449,6 +457,7 @@ textarea:focus {
 					getCommentList();
 					$("#comment_content").val("");
 					$("#openReply").remove();
+					$("#papering").attr("value","0");
 				},
 				error : function() {
 					alert("실패!");
@@ -485,6 +494,7 @@ textarea:focus {
 </script>
 </head>
 <body>
+<input type="hidden" id="papering" value="0">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
 

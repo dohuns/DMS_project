@@ -23,6 +23,7 @@
 <script type="text/javascript">
 	
 	function write_save() {
+		var papering = $("#papering").val();
 		var str = $("#b_content").val();
 		
 		if($("#b_title").val() == "") {
@@ -31,7 +32,10 @@
 		} else if($("#b_content").val() == "") {
 			alert("내용을 작성해주세요!");
 			$("#b_content").focus();
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else {
+			$("#papering").attr("value","1");
 			// 줄 개행 인식
 			str = str.replace(/(?:\r\n|\r|\n)/g , '<br/>');
 			$("#b_content").val(str);
@@ -84,6 +88,7 @@
 </script>
 </head>
 <body>
+<input type="hidden" id="papering" value="0">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
 	
