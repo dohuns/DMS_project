@@ -60,4 +60,15 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".selectInquiryCount", cus_id);
 	}
 
+	// 회원 페이지 > 고객센터 : 닉네임 검색
+	public List<CustomerDTO> inquirySearch(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".inquirySearch", hash);
+	}
+
+	// 회원 페이지 > 고객센터 : 검색 결과 개수 조회
+	public int inquirySearchCount(String cus_nick) {
+		return sqlSession.selectOne(namespace + ".inquirySearchCount", cus_nick);
+	}
+
+
 }

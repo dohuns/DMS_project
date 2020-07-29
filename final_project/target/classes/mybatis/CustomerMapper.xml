@@ -17,8 +17,8 @@
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
 
-	<!-- 회원 페이지 -->
 
+	<!-- 회원 페이지 -->
 	<!-- 전체 문의글 출력 -->
 	<select id="AllCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
@@ -57,5 +57,17 @@
 		SELECT COUNT(*) FROM customer WHERE cus_id = #{cus_id}
 	</select>
 
+	<!-- 회원페이지 : 닉네임 검색 -->
+	<select id="inquirySearch" parameterType="hashmap" resultType="customerDTO">
+		SELECT B.* FROM (
+			SELECT ROWNUM cus_rn, A.* FROM
+				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A
+			WHERE cus_nick LIKE '%'||#{cus_nick}||'%' )B 
+		WHERE cus_rn BETWEEN #{start} and #{end}
+	</select>
 
+	<!-- 회원페이지 : 검색 결과 개수 -->
+	<select id="inquirySearchCount" resultType="int">
+		SELECT COUNT(*) FROM customer WHERE cus_nick LIKE '%'||#{cus_nick}||'%'
+	</select>
 </mapper>

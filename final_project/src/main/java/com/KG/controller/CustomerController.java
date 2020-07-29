@@ -11,6 +11,7 @@ import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerInquiryServImpl;
 import com.KG.service.customer.CustomerListServImpl;
 import com.KG.service.customer.CustomerMyInquiryServImpl;
+import com.KG.service.customer.CustomerSearchServImpl;
 import com.KG.service.customer.CustomerService;
 
 @Controller
@@ -59,4 +60,16 @@ public class CustomerController {
 		customerServ.execute(model);
 		return "customer/inquiryContent";
 	}
+
+	// 고객센터 닉네임 검색
+	@RequestMapping("inquirySearch")
+	public String inquirySearch(Model model, CustomerDTO dto, String cus_nick) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_nick", cus_nick);
+		customerServ = (CustomerSearchServImpl) AC.ac.getBean("customerSearchServImpl");
+		customerServ.execute(model);
+		return "customer/inquirySearch";
+	}
+
+
 }

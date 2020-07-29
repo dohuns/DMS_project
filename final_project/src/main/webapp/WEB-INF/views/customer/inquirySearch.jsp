@@ -308,14 +308,7 @@
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">
-												<c:choose>
-													<c:when test="${sessionScope.m_id ne null}">
-														<a href="myInquiryList"><b>내 문의보기</b></a>
-													</c:when>
-													<c:otherwise>
-														* 비회원은 하단 검색란에 닉네임을 검색해주세요.
-													</c:otherwise>
-												</c:choose>
+												<a href="customerMain"><b>전체 문의보기</b></a>
 											</div>
 										</div>
 									</div>
@@ -334,7 +327,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${AllCustomerList}">
+													<c:forEach var="list" items="${searchList}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
 															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
@@ -367,7 +360,7 @@
 											<!-- 이전 버튼 -->
 											<li>
 												<c:if test="${pageNum > 9}">
-													<a class="b" href="customerMain?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+													<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 												</c:if>
 											</li>
 											<!-- 번호 출력 -->
@@ -375,14 +368,14 @@
 												<c:when test="${totalNum > next * 10 + 10}">
 													<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
 													<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="customerMain?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:otherwise>
@@ -390,7 +383,7 @@
 											<!-- 다음 버튼 -->
 											<li>
 												<c:if test="${totalNum > next * 10 + 10 }">
-													<a class="b" href="customerMain?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+													<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 												</c:if>
 											</li>
 										</ul>
@@ -403,7 +396,7 @@
 												<form action="inquirySearch">
 													<div class="input-group">
 														<input type="text" class="search-query form-control" name="cus_nick"
-															placeholder="닉네임을 입력해주세요." required="required"/>
+															placeholder="닉네임을 입력해주세요." required="required" />
 														<span class="input-group-btn">
 															<button class="btn btn-default" type="submit">
 																<span class=" glyphicon glyphicon-search"></span>
