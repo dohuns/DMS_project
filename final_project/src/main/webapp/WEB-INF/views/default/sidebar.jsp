@@ -61,7 +61,7 @@ hr#sub {
 		<div
 			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
 			<c:choose>
-				<c:when test="${sessionScope.m_nick != null}">
+				<c:when test="${sessionScope.m_id != null}">
 					<div>
 						<div align="center" style="padding-top: 5px;">
 							<h4 class="d-none">나의 활동</h4>
@@ -72,9 +72,9 @@ hr#sub {
 									<li>
 										<div>
 											<c:choose>
-												<c:when test="${userInfo.m_picture != null}">
+												<c:when test="${myInfo.m_picture != null}">
 												<img
-													src="/img/memberImage/${userInfo.m_picture}"
+													src="/img/memberImage/${myInfo.m_picture}"
 													width="58" height="58" alt="프로필사진" style="border-radius: 100%">
 												</c:when>
 												<c:otherwise>
@@ -85,16 +85,16 @@ hr#sub {
 											</c:choose>
 										</div>
 										<div>
-											<strong>${userInfo.m_nick }</strong>
+											<strong>${myInfo.m_nick }</strong>
 										</div>
 									</li>
-									<li>${userInfo.m_rank}</li>
+									<li>${myInfo.m_rank}</li>
 								</ul>
 							</div>
 							<div>
 								<ul>
-									<li><b><a href="myList?page=1">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
-									<li><b><a href="myList?page=2">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
+									<li><b><a href="myList?id=${myInfo.m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li><b><a href="myList?id=${myInfo.m_id }&page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
@@ -108,7 +108,7 @@ hr#sub {
 			</c:choose>
 			<a href="#"><div align="center"
 					style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">게시글
-					글쓰기</div></a> <a href="#"><div align="center"
+					글쓰기</div></a> <a href="https://service.dongledongle.com/DMS_project"><div align="center"
 					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
 					하기</div></a>
 			<div>

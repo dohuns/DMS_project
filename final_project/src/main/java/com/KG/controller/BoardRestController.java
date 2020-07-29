@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,8 @@ public class BoardRestController {
 
 //	내 작성글 삭제
 	@RequestMapping(value = "myWriteDelete", produces = "application/json;charset=utf-8")
-	public void myWriteDelete(Model model,BoardDTO dto) {
+	public void myWriteDelete(Model model,BoardDTO dto, HttpSession session) {
+		model.addAttribute("session",session);
 		model.addAttribute("dto",dto);
 		boaServ = (BoardDeleteServImpl) AC.ac.getBean("boardDeleteServImpl");
 		boaServ.execute_Boo(model);

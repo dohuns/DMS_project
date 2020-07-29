@@ -129,8 +129,8 @@
 		.pagination>.active>span:hover, 
 		.pagination>.active>a.b:focus, 
 		.pagination>.active>span:focus {
-			background-color: #5BC0DE;
-			border-color: #5BC0DE;
+/* 			background-color: #5BC0DE; */
+/* 			border-color: #5BC0DE; */
 		}
 
 		.inq-c, .inq-c>a, .inq-c>a:hover, .inq-c>a:focus {

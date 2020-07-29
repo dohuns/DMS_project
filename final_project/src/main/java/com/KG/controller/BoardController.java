@@ -29,9 +29,11 @@ import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
+import com.KG.service.board.sidebar.BoaMyInfoServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.comment.ComBoardListServImpl;
 import com.KG.service.comment.ComListServImpl;
 import com.KG.service.comment.CommentService;
 
@@ -53,7 +55,7 @@ public class BoardController {
 		try {
 //	         유저 닉네임으로 회원정보 가져오기
 			model.addAttribute("session", session);
-			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+			boaSideServ = (BoaMyInfoServImpl) AC.ac.getBean("boaMyInfoServImpl");
 			boaSideServ.execute_Boo(model);
 		} catch (Exception e) {
 		}
@@ -69,13 +71,13 @@ public class BoardController {
 
 	// 내가 쓴글 틀
 	@RequestMapping("myList")
-	public String myList(Model model, HttpSession session) {
+	public String myList(Model model, HttpSession session, HttpServletRequest request) {
 		try {
 //	         유저 닉네임으로 회원정보 가져오기
+			model.addAttribute("id", request.getParameter("id"));
 			model.addAttribute("session", session);
 			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
 			boaSideServ.execute_Boo(model);
-			boaSideServ.execute_Int(model);
 		} catch (Exception e) {
 		}
 		return "board/myList";
@@ -83,9 +85,10 @@ public class BoardController {
 	
 	// 내가 쓴 게시글 목록
 	@RequestMapping("myWrite")
-	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO) {
+	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
+			model.addAttribute("id", request.getParameter("id"));
 			model.addAttribute("session", session);
 			model.addAttribute("boardDTO", boardDTO);
 			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
@@ -97,9 +100,10 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 목록
 	@RequestMapping("myReply")
-	public String myReply(Model model, HttpSession session, BoardDTO boardDTO) {
+	public String myReply(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
 		try {
 //	         유저 닉네임으로 게시글 가져오기
+			model.addAttribute("id", request.getParameter("id"));
 			model.addAttribute("session", session);
 			model.addAttribute("boardDTO", boardDTO);
 			comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
@@ -111,13 +115,13 @@ public class BoardController {
 	
 	// 내가 쓴 댓글 게시글 목록
 	@RequestMapping("myReplyWrite")
-	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO) {
+	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
 		try {
-//	         유저 닉네임으로 게시글 가져오기
+			model.addAttribute("id", request.getParameter("id"));
 			model.addAttribute("session", session);
 			model.addAttribute("boardDTO", boardDTO);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
+			comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
+			comServ.execute(model);
 		} catch (Exception e) {
 		}
 		return "board/myReplyWrite";
