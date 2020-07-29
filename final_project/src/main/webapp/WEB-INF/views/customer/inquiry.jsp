@@ -36,6 +36,14 @@
 		$(function() {
 			$("textarea[name=cus_content]").text(" - 문제 발생 일시 : \n - 문의 내용 : \n");
 		});
+
+		function openChkFunc() {
+			$("#cus_pw").attr("readonly",true);
+		}
+
+		function closeChkFunc() {
+			$("#cus_pw").attr("readonly",false);
+		}
 	</script>
 </head>
 <body>
@@ -88,10 +96,17 @@
 								</div>
 
 								<div class="form-group">
+									<label><input type="radio" name="radioChk" value="openRadio"
+										onclick="openChkFunc()"> 전체 공개</label> &nbsp;&nbsp;
+									<label><input type="radio" name="radioChk" value="close"
+										onclick="closeChkFunc()" checked="checked"> 비공개</label>
+								</div>
+
+								<div class="form-group">
 									<label for="pw">비밀번호 <span class="require">*</span>
 										<small>해당 게시글을 확인할 수 있는 비밀번호입니다.</small>
 									</label>
-									<input type="text" class="form-control" name="cus_pw" required />
+									<input type="text" class="form-control" name="cus_pw" id="cus_pw" required />
 								</div>
 
 								<div class="form-group bt-a">

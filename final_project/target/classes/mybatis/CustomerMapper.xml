@@ -17,7 +17,6 @@
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
 
-
 	<!-- 회원 페이지 : 전체 문의글 목록 조회 -->
 	<select id="AllCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
@@ -33,8 +32,16 @@
 
 	<!-- 회원 페이지 : 문의 접수 -->
 	<insert id="insertInquiry" parameterType="customerDTO">
-		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
-		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
+		<choose>
+			<when test="cus_pw eq '' and cus_pw eq null">
+				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_title, cus_email, cus_content, cus_date)
+				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
+			</when>
+			<otherwise>
+				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
+				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
+			</otherwise>
+		</choose>
 	</insert>
 
 	<!-- 회원 페이지 : 문의 페이지 출력 -->
