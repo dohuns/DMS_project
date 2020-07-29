@@ -51,7 +51,7 @@
 	SELECT B.* FROM (
 		SELECT rownum rn, A.* FROM (
 			SELECT * FROM board 
-				WHERE b_category=#{category} and b_article=#{article} and b_title is not null
+				WHERE b_article=#{article} and b_title is not null
 				ORDER BY b_group DESC , b_sortnum ASC
 			)A
 	)B WHERE rn BETWEEN #{start} and #{end}
