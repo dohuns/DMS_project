@@ -9,7 +9,8 @@
 		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 		id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<style>
 		.row.heading h2 {
 			color: #fff;
@@ -92,7 +93,7 @@
 		.our-webcoderskull .cnt-block figure {
 			width: 148px;
 			height: 148px;
-			border-radius: 100%;
+/* 			border-radius: 100%; */
 			display: inline-block;
 			margin-bottom: 15px;
 		}
@@ -100,7 +101,7 @@
 		.our-webcoderskull .cnt-block img {
 			width: 148px;
 			height: 148px;
-			border-radius: 100%;
+/* 			border-radius: 100%; */
 		}
 
 		.our-webcoderskull .cnt-block h3 {
@@ -146,6 +147,47 @@
 			color: #025a8e;
 		}
 	</style>
+	<script type="text/javascript">
+	
+	// 페이지 접근 시 
+	$(function() {
+		boxOffice();
+	});
+	
+	// 영화 정보 가져오기(api)
+	function boxOffice() {
+		// 박스 오피스 가져오기
+		$.ajax({
+			url:"dayOffice",
+			type:"POST",
+			success:function(list) {
+				for(var i=0; i<4; i++) {
+					$("#p"+(i+1)).text(list[i].movieNm);
+					searchMovieData(list[i].movieNm , i);
+				}
+			}, error:function() {
+				alert("박스 오피스 실패!!")
+			}
+		});
+	}
+	
+	function searchMovieData(movieNm , index) {
+		// 영화 포스터 가져오기
+		$.ajax({
+			url:"searchMovie",
+			type:"POST",
+			data:"movieNm=" + movieNm,
+			success:function(poster) {
+				$("#im"+(index+1)).attr("src" , poster)
+			}, 
+			error:function() {
+				alert("포스터 실패!!")
+			}
+		
+		});
+		
+	}
+	</script>
 </head>
 <body>
 	<section class="our-webcoderskull padding-lg">
@@ -159,49 +201,49 @@
 				<li class="col-12 col-md-6 col-lg-3">
 					<div class="cnt-block equal-hight" style="height: 349px;">
 						<figure>
-							<img src="http://www.webcoderskull.com/img/team4.png"
-								class="img-responsive" alt="">
+							<img src=""
+								class="img-responsive" id="im1">
 						</figure>
 						<h3>
 							<a href="#">링크1</a>
 						</h3>
-						<p>내용1</p>
+						<p id="p1">내용1</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
 					<div class="cnt-block equal-hight" style="height: 349px;">
 						<figure>
-							<img src="http://www.webcoderskull.com/img/team1.png"
-								class="img-responsive" alt="">
+							<img src=""
+								class="img-responsive" id="im2">
 						</figure>
 						<h3>
 							<a href="#">링크2</a>
 						</h3>
-						<p>내용2</p>
+						<p id="p2">내용2</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
 					<div class="cnt-block equal-hight" style="height: 349px;">
 						<figure>
-							<img src="http://www.webcoderskull.com/img/team4.png"
-								class="img-responsive" alt="">
+							<img src=""
+								class="img-responsive" id="im3">
 						</figure>
 						<h3>
 							<a href="#">링크3</a>
 						</h3>
-						<p>내용3</p>
+						<p id="p3">내용3</p>
 					</div>
 				</li>
 				<li class="col-12 col-md-6 col-lg-3">
 					<div class="cnt-block equal-hight" style="height: 349px;">
 						<figure>
-							<img src="http://www.webcoderskull.com/img/team2.png"
-								class="img-responsive" alt="">
+							<img src=""
+								class="img-responsive" id="im4">
 						</figure>
 						<h3>
 							<a href="#">링크4</a>
 						</h3>
-						<p>내용4</p>
+						<p id="p4">내용4</p>
 					</div>
 				</li>
 			</ul>

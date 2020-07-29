@@ -28,8 +28,8 @@
 		
 		if($("#b_title").val() == "") {
 			alert("제목을 작성해주세요!");
-		} else if($("#b_title").val() == ""  || $("#b_title").val() == null ||
-				$("#b_title").val() == '&nbsp;' || $("#b_title").val() == '<p>&nbsp;</p>') {
+		} else if(str == ""  || str == null ||
+				str == '&nbsp;' || str == '<p>&nbsp;</p>') {
 			alert("내용을 입력해주세요!");
 			oEditors.getById["b_content"].exec("FOCUS"); //포커싱
 			$("#b_content").focus();

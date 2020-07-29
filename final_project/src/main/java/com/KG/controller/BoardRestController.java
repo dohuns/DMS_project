@@ -23,8 +23,12 @@ import com.KG.dto.PhotoVo;
 import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardImageServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.DayBoxOfficeServImpl;
+import com.KG.service.board.SearchMovieServImpl;
 import com.KG.service.comment.CommentDeleteServImpl;
 import com.KG.service.comment.CommentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class BoardRestController {
@@ -56,7 +60,31 @@ public class BoardRestController {
 
 		boaServ = (BoardImageServImpl)AC.ac.getBean("boardImageServImpl");
 		boaServ.execute_Boo(model);
+	}
+	
+	// 일일 박스 오피스 가져오기
+	@RequestMapping(value = "dayOffice" , produces = "application/json;charset=utf-8")
+	public String dayOffice(Model model) {
+		
+		boaServ = (DayBoxOfficeServImpl)AC.ac.getBean("dayBoxOfficeServImpl");
+		
+		return boaServ.execute_Str(model);
+	}
+	
+	// 포스터 가져오기
+	@RequestMapping(value = "searchMovie" , produces = "application/json;charset=utf-8")
+	public String searchMovie(Model model , String movieNm) throws JsonProcessingException {
 
+		model.addAttribute("movieNm" , movieNm);
+		
+		boaServ = (SearchMovieServImpl)AC.ac.getBean("searchMovieServImpl");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String strJson = mapper.writeValueAsString(boaServ.execute_Str(model));
+		
+		
+		return strJson;
 	}
 
 }

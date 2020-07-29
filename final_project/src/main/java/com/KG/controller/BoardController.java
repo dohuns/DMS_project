@@ -142,7 +142,6 @@ public class BoardController {
 		model.addAttribute("dto", dto);
 		boaServ = (BoardCateListServImpl) AC.ac.getBean("boardCateListServImpl");
 		boaServ.execute_Boo(model);
-		boaServ.execute_Str(model);
 		return "board/write";
 	}
 	// 글쓰기 저장
