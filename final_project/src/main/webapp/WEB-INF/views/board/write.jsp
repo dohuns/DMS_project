@@ -24,12 +24,15 @@
 	
 	function write_save() {
 		var papering = $("#papering").val();
-		var str = $("#b_content").val();
-		
-		if($("#b_title").val() == "") {
+		var title = $("#b_title").val();
+		var content = $("#b_content").val();
+		title = title.trim();
+		content = content.trim();
+		console.log(content)
+		if(title == "" || title =="&nbsp;") {
 			alert("제목을 입력해주세요!");
 			$("#b_title").focus();
-		} else if($("#b_content").val() == "") {
+		} else if(content == "" || content =="&nbsp;") {
 			alert("내용을 작성해주세요!");
 			$("#b_content").focus();
 		} else if(papering != 0) {
@@ -37,8 +40,9 @@
 		} else {
 			$("#papering").attr("value","1");
 			// 줄 개행 인식
-			str = str.replace(/(?:\r\n|\r|\n)/g , '<br/>');
-			$("#b_content").val(str);
+			content = content.replace(/(?:\r\n|\r|\n)/g , '<br/>');
+			$("#b_title").val(title);
+			$("#b_content").val(content);
 			$("#fo").submit();
 		}
 	}
