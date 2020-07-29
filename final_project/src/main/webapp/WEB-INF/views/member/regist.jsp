@@ -22,6 +22,11 @@
 	// 아이디 중복체크 
 	function chk_id() {
 		var id = $("#m_id").val();
+		if (id == "") {
+			alert("아이디를 입력해주세요")
+		}else if(id.matches(" ")){
+			alert("공백을 제거 해주세요")
+		}else{
 		$.ajax({
 			url:"../overlapId",
 			type:"GET",
@@ -45,6 +50,7 @@
 				alert("실패!!")
 			}
 		});
+		}
  	}
 	// 닉네임 중복 체크
 	function chk_nick() {
@@ -112,6 +118,10 @@
 	
 	//비밀번호 확인 체크
 	function pwSameChk() {
+		var pw = $('#m_pw').val().replace(/ /gi, '');
+        $('#m_pw').val(pw);
+		var Rpw = $('#m_Rpw').val().replace(/ /gi, '');
+        $('#m_Rpw').val(Rpw);
 		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val() && $("#label_pw").text() == "") {
 			$("#label_Rpw").text("일치~");
 			$("#label_Rpw").css({
@@ -189,6 +199,8 @@
 	$(function(){
 		// 아이디 제한
 		$("#m_id").on('keyup' , function() {
+			var id = $('#m_id').val().replace(/ /gi, '');
+	        $('#m_id').val(id);
 			if($(this).val().length > 16) {
 				console.log("아이디")
 				$("#label_id").text("아이디는 16자 이하로 작성해주세요")
@@ -200,6 +212,8 @@
 		});
 		// 닉네임 제한
 		$("#m_nick").on('keyup' , function() {
+			var nick = $('#m_nick').val().replace(/ /gi, '');
+	        $('#m_nick').val(nick);
 			if($(this).val().length > 8) {
 				console.log("닉네임")
 				$("#label_nick").text("닉네임은 8자 이하로 작성해주세요")
@@ -211,6 +225,8 @@
 		});
 		// 이름 제한
 		$("#m_name").on('keyup' , function() {
+			var name = $('#m_name').val().replace(/ /gi, '');
+	        $('#m_name').val(name);
 			if($(this).val().length > 6) {
 				$(this).val($(this).val().substring(0,6));
 				console.log("이름")
