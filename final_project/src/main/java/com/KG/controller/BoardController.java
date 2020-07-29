@@ -42,6 +42,11 @@ public class BoardController {
 	BoardSidebarService boaSideServ;
 	CommentService comServ;
 	
+	@RequestMapping("test02")
+	public String test02() {
+		return "default/test02";
+	}
+	
 	@RequestMapping("movie")
 	public String movie() {
 		return "movie/home";
