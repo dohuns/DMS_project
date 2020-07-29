@@ -29,6 +29,14 @@
 			text-align: right;
 		}
 	</style>
+	<script>
+		function delInquiry(cus_num) {
+			var message = confirm("게시글을 삭제하시겠습니까?");
+			if(message) {
+				location.href = "deleteInquiry?cus_num=" + cus_num;
+			}
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
@@ -43,6 +51,7 @@
 								<div class="form-group has-error">
 									<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 									<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />
+									<input type="hidden" name="cus_num" value="${param.cus_num}" />
 									<input type="text" class="form-control" name="cus_category" readonly="readonly"
 										value="${inquiryContent.cus_category}" />
 								</div>
@@ -72,7 +81,8 @@
 								</div>
 
 								<div class="form-group bt-a">
-									<button type="button" class="btn btn-default">삭   제</button>
+									<button type="button" class="btn btn-default"
+										onclick="delInquiry(${param.cus_num})">삭   제</button>
 									<button type="submit" class="btn bBtn">수   정</button>
 								</div>
 

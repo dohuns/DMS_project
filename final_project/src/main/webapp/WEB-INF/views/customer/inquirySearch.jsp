@@ -144,9 +144,14 @@
 			color: black;
 		}
 
-		td.tdClass>a, td.tdClass>a:hover, td.tdClass>a:focus, td.tdClass>a:visited {
+		td.tdClass>a, td.tdClass>a:focus, td.tdClass>a:visited {
 			color: black;
 			text-decoration: none;
+		}
+
+		.tdClass > a:hover {
+			text-decoration: underline;
+			font-weight: 600;
 		}
 
 		.search-s {

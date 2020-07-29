@@ -70,5 +70,9 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".inquirySearchCount", cus_nick);
 	}
 
+	// 문의글 삭제
+	public int deleteInquiry(int cus_num) {
+		return sqlSession.delete(namespace + ".deleteInquiry", cus_num);
+	}
 
 }

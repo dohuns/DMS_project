@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.CustomerDTO;
 import com.KG.service.customer.CustomerContentServImpl;
+import com.KG.service.customer.CustomerDeleteServImpl;
 import com.KG.service.customer.CustomerInquiryServImpl;
 import com.KG.service.customer.CustomerListServImpl;
 import com.KG.service.customer.CustomerMyInquiryServImpl;
@@ -71,5 +72,13 @@ public class CustomerController {
 		return "customer/inquirySearch";
 	}
 
+	// 문의글 삭제
+	@RequestMapping("deleteInquiry")
+	public String deleteInquiry(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerDeleteServImpl) AC.ac.getBean("customerDeleteServImpl");
+		customerServ.execute(model);
+		return "redirect:customerMain";
+	}
 
 }
