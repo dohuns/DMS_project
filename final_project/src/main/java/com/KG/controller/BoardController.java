@@ -46,6 +46,10 @@ public class BoardController {
 	public String test02() {
 		return "default/test02";
 	}
+	@RequestMapping("test03")
+	public String test03() {
+		return "default/test03";
+	}
 	
 	@RequestMapping("movie")
 	public String movie() {

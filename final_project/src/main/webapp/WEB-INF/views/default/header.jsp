@@ -50,9 +50,7 @@
 	</style>
 </head>
 <body>
-		<nav class="navbar-dmsHeader">
-			여기에 뭘 넣을지 고민해봅시다.
-		</nav>
+
 	<header>
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container">

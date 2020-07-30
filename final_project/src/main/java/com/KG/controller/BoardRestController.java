@@ -76,7 +76,7 @@ public class BoardRestController {
 	public String searchMovie(Model model , String movieNm) throws JsonProcessingException {
 
 		model.addAttribute("movieNm" , movieNm);
-		
+		System.out.println("movie : " + movieNm);
 		boaServ = (SearchMovieServImpl)AC.ac.getBean("searchMovieServImpl");
 		
 		ObjectMapper mapper = new ObjectMapper();
