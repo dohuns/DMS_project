@@ -31,7 +31,6 @@
 			text-align: right;
 		}
 	</style>
-	<!-- textArea 기본 값 지정 -->
 	<script>
 		$(function() {
 			$("textarea[name=cus_content]").text(" - 문제 발생 일시 : \n - 문의 내용 : \n");
@@ -96,15 +95,13 @@
 								</div>
 
 								<div class="form-group">
-									<label><input type="radio" name="radioChk" value="openRadio"
-										onclick="openChkFunc()"> 전체 공개</label> &nbsp;&nbsp;
-									<label><input type="radio" name="radioChk" value="close"
-										onclick="closeChkFunc()" checked="checked"> 비공개</label>
+									<label><input type="radio" name="cus_pub" value="open"> 전체 공개</label> &nbsp;&nbsp;
+									<label><input type="radio" name="cus_pub" value="close" checked="checked"> 비공개</label>
 								</div>
 
 								<div class="form-group">
 									<label for="pw">비밀번호 <span class="require">*</span>
-										<small>해당 게시글을 확인할 수 있는 비밀번호입니다.</small>
+										<small>해당 게시글을 수정/삭제할 수 있는 비밀번호입니다. </small>
 									</label>
 									<input type="text" class="form-control" name="cus_pw" id="cus_pw" required />
 								</div>

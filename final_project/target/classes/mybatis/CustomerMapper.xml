@@ -32,16 +32,8 @@
 
 	<!-- 회원 페이지 : 문의 접수 -->
 	<insert id="insertInquiry" parameterType="customerDTO">
-		<choose>
-			<when test="cus_pw eq '' and cus_pw eq null">
-				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_title, cus_email, cus_content, cus_date)
-				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
-			</when>
-			<otherwise>
-				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_date)
-				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, SYSDATE)
-			</otherwise>
-		</choose>
+				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_pub, cus_date)
+				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_pub}, #{cus_content}, SYSDATE)
 	</insert>
 
 	<!-- 회원 페이지 : 문의 페이지 출력 -->
@@ -82,7 +74,7 @@
 		DELETE FROM customer WHERE cus_num = #{cus_num}
 	</delete>
 
-	<!-- 회원 페이지 : 비밀글 확인 -->
+	<!-- 회원 페이지 : 비밀번호 확인 -->
 	<select id="contentPwChk" resultType="String">
 		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
 	</select>

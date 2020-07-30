@@ -250,7 +250,7 @@
 		}
 	</style>
 
-	<!-- 비밀글 : 비밀번호 비교 -->
+	<!-- 비밀글 : 비밀번호 확인 -->
 	<script>
 		function contentPwChk(cus_num, cus_pw) {
 			$("#openPwChk").remove();
@@ -395,9 +395,9 @@
 															<td><small>${list.cus_num}</small></td>
 															<td class="tdClass">
 																<c:choose>
-																	<c:when test="${list.cus_pw ne null}">
+																	<c:when test="${list.cus_pub eq 'close'}">
 																		<a onclick="contentPwChk(${list.cus_num},${list.cus_pw})">${list.cus_title}</a>
-																		<span class="glyphicon glyphicon-lock"></span>
+																		<span class="glyphicon glyphicon-lock"></span> &nbsp;
 																	</c:when>
 																	<c:otherwise>
 																		<a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a>

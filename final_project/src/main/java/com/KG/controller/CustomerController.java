@@ -93,7 +93,7 @@ public class CustomerController {
 		if(result == 1) {
 			return "redirect:inquiryContent";
 		} else {
-			return "redirect:customerMain";
+			return "customer/message";
 		}
 	}
 }
