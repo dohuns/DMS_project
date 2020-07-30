@@ -75,4 +75,8 @@ public class CustomerDAO {
 		return sqlSession.delete(namespace + ".deleteInquiry", cus_num);
 	}
 
+	// 비밀글 비밀번호 확인
+	public String contentPwChk(int cus_num) {
+		return sqlSession.selectOne(namespace + ".contentPwChk", cus_num);
+	}
 }

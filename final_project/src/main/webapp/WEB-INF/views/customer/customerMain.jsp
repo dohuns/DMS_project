@@ -151,12 +151,21 @@
 
 		.tdClass > a:hover {
 			text-decoration: underline;
+			cursor: pointer;
 			font-weight: 600;
 		}
 
 		.search-s {
 			width: 35%;
 			margin-bottom: 56px;
+		}
+
+		.bBtn {
+			border: 1px solid;
+			border-color: #55a4d3;
+			border-radius: 3px;
+			background-color: #5BC0DE;
+			color: white;
 		}
 	</style>
 
@@ -240,6 +249,47 @@
 		    color: #fff;
 		}
 	</style>
+
+	<!-- 비밀글 : 비밀번호 비교 -->
+	<script>
+		function contentPwChk(cus_num, cus_pw) {
+			$("#openPwChk").remove();
+			console.log("cus_num : " + cus_num + ", cus_pw : " + cus_pw);
+			var html =
+				'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">' +
+				'<div class="card shadow mb-4" id="openPw">' +
+				'	<div class="col-md-4 col-md-offset-4">' +
+				'		<div>' +
+				'			<div class="panel-body">' +
+				'				<div class="text-center">' +
+				'					<h4 style="margin:20px 0px;"><i class="fa fa-lock fa-4x"></i></h4>' +
+				'					<p>이 글은 비밀글입니다.</p>' +
+				'					<p><b>비밀번호를 입력해주세요.</b></p>' +
+				'					<div class="panel-body">' +
+				'						<form id="PwChk-form" role="form" autocomplete="off" class="form"' +
+				'							action="contentPwChk" method="GET">' +
+				'							<div class="form-group">' +
+				'								<div class="input-group">' +
+				'									<span class="input-group-addon"><i class="glyphicon fa fa-lock color-blue"></i></span>' +
+				'									<input id="inputPw" name="inputPw" class="form-control" type="password">' +
+				'									<input type="hidden" name="cus_num" value="' + cus_num +'">' +
+				'								</div>' +
+				'							</div>' +
+				'							<div class="form-group">' +
+				'								<input name="recover-submit" class="btn btn-s bBtn" value="확인" type="submit">' +
+				'								<input name="recover-submit" class="btn btn-s btn-default"' +
+				'									value="목록" type="button" onclick="location.href=`customerMain`">' +
+				'							</div>' +
+				'						</form>' +
+				'					</div>' +
+				'				</div>' +
+				'			</div>' +
+				'		</div>' +
+				'	</div>' +
+				'</div>';
+			$("#openPw").html(html);
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
@@ -306,7 +356,8 @@
 						<div class="main-box-container">
 							<div class="box">
 
-								<div class="card shadow mb-4">
+								<div id="openPw"></div>
+								<div class="card shadow mb-4" id="openPwChk">
 									<div class="card-header py-3">
 										<div class="pull-left">
 											<h4 class="h4-s"><b>문의 내역</b></h4>
@@ -342,7 +393,17 @@
 													<c:forEach var="list" items="${AllCustomerList}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
-															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+															<td class="tdClass">
+																<c:choose>
+																	<c:when test="${list.cus_pw ne null}">
+																		<a onclick="contentPwChk(${list.cus_num},${list.cus_pw})">${list.cus_title}</a>
+																		<span class="glyphicon glyphicon-lock"></span>
+																	</c:when>
+																	<c:otherwise>
+																		<a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a>
+																	</c:otherwise>
+																</c:choose>
+															</td>
 															<td>${list.cus_nick}</td>
 															<td><small>${list.cus_category}</small></td>
 															<td><small>${list.cus_date}</small></td>

@@ -10,15 +10,13 @@ import com.KG.dao.CustomerDAO;
 import com.KG.dto.CustomerDTO;
 
 @Service
-public class CustomerDeleteServImpl implements CustomerService {
+public class CustomerPwChkServImpl implements CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
 
 	@Override
 	public void execute(Model model) {
-		Map<String, Object> map = model.asMap();
-		int cus_num = (Integer) map.get("cus_num");
-		customerDAO.deleteInquiry(cus_num);
+		
 	}
 
 	@Override
@@ -28,7 +26,15 @@ public class CustomerDeleteServImpl implements CustomerService {
 
 	@Override
 	public int chkList(Model model) {
-		return 0;
-	}
+		Map<String, Object> map = model.asMap();
+		int cus_num = (Integer) map.get("cus_num");
+		String inputPw = (String) map.get("inputPw");
+		String dbPw = customerDAO.contentPwChk(cus_num);
 
+		if(dbPw.equals(inputPw)) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }

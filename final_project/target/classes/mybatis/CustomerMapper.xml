@@ -82,6 +82,10 @@
 		DELETE FROM customer WHERE cus_num = #{cus_num}
 	</delete>
 
+	<!-- 회원 페이지 : 비밀글 확인 -->
+	<select id="contentPwChk" resultType="String">
+		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
+	</select>
 
 
 
