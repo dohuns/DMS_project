@@ -31,7 +31,12 @@ border : 6px solid black;
 }
 .movieText {
 color: black;
-font-size: 17px; 
+font-size: 13px; 
+}
+.movieTitle {
+color: black;
+font-size: 20px;
+font-weight: bold;
 }
 .movieRankArea ul {
 list-style-type: none;
@@ -53,7 +58,7 @@ text-decoration: none;
 
 </style>
 <script type="text/javascript">
-	
+	var maxLength = '';
 	// 페이지 접근 시 
 	$(function() {
 		boxOffice();
@@ -66,57 +71,79 @@ text-decoration: none;
 			url:"dayOffice",
 			type:"POST",
 			success:function(list) {
+				var base = '';
+				base += '<a class="direcBtn" onclick="prevMovie()">&lt;</a>' + 
+						'<ul id="movieRank">' + 
+						'</ul>' + 
+						'<a class="direcBtn" onclick="nextMovie()">&gt;</a>' ;
+				$(".movieRankArea").html(base);
 				var html = '';
-				for(var i=0; i<1; i+=4) {
+				for(var i=0; i<9; i+=4) {
 					// movieNm , rank , openDt
-					html += '<li>' + 
+					html += '<li style="display:none;" id="li'+ i +'">' + 
 							'	<div class="movieList">' + 
 							'		<div style="display: block;">'	+
-							'			<label class="movieText">'+ list[i].rank +'위</label>' + 		
+							'			<label class="movieTitle">'+ list[i].rank +'위</label>' + 		
 							'			<figure class="movieImage">' +
-							'				<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1099/109982_P03_133458.jpg" width=200px;>' +
+							'				<a id="a'+ i +'" target="_blank">' + 
+							'					<img id="im'+ i +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1099/109982_P03_133458.jpg" width=200px;>' +
+							'				</a>' + 
 							'			</figure>' + 
 							'			<div style="display: grid; margin-top: 10px;">' + 
-							'				<label class="movieText">제목 : '+ list[i].movieNm +'</label>' + 
+							'				<label class="movieTitle">'+ list[i].movieNm +'</label>' + 
 							'				<label class="movieText">개봉일 : '+ list[i].openDt +'</label>' + 
 							'			</div>' +
 							'		</div>'	+
 							'		<div style="display: block;">' + 
-							'			<label class="movieText">'+ list[i+1].rank +'위</label>' + 
+							'			<label class="movieTitle">'+ list[i+1].rank +'위</label>' + 
 							'			<figure class="movieImage">' + 
-							'				<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1028/102875_P42_100733.jpg" width=200px;>' + 
+							'				<a id="a'+ (i+1) +'" target="_blank">' + 
+							'					<img id="im'+ (i+1) +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1028/102875_P42_100733.jpg" width=200px;>' + 
+							'				</a>' +
 							'			</figure>' + 
 							'			<div style="display: grid; margin-top: 10px;">'	+	
-							'				<label class="movieText">제목 : '+ list[i+1].movieNm +'</label>' + 
+							'				<label class="movieTitle">'+ list[i+1].movieNm +'</label>' + 
 							'				<label class="movieText">개봉일 : '+ list[i+1].openDt +'</label>' +
 							'			</div>' + 
-							'		</div>' + 
-							'		<div style="display: block;">' + 
-							'			<label class="movieText">'+ list[i+2].rank +'위</label>' + 
+							'		</div>';
+						if(i<8) {
+					html +=	'		<div style="display: block;">' + 
+							'			<label class="movieTitle">'+ list[i+2].rank +'위</label>' + 
 							'			<figure class="movieImage">' + 
-							'				<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1142/114276_P04_111037.jpg" width=200px;>' +
+							'				<a id="a'+ (i+2) +'" target="_blank">' + 
+							'					<img id="im'+ (i+2) +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1142/114276_P04_111037.jpg" width=200px;>' +
+							'				</a>' +
 							'			</figure>' + 
 							'			<div style="display: grid; margin-top: 10px;">' +
-							'				<label class="movieText">제목 : '+ list[i+2].movieNm +'</label>' + 
+							'				<label class="movieTitle">'+ list[i+2].movieNm +'</label>' + 
 							'				<label class="movieText">개봉일 : '+ list[i+2].openDt +'</label>' + 
 							'			</div>' + 
 							'		</div>' + 
 							'		<div style="display: block;">' + 
-							'			<label class="movieText">'+ list[i+3].rank +'위</label>' + 
+							'			<label class="movieTitle">'+ list[i+3].rank +'위</label>' + 
 							'			<figure class="movieImage">' + 
-							'				<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1300/130013_P05_132145.jpg" width=200px;>' + 
+							'				<a id="a'+ (i+3) +'" target="_blank">' + 
+							'					<img id="im'+ (i+3) +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1300/130013_P05_132145.jpg" width=200px;>' + 
+							'				</a>' + 
 							'			</figure>' + 
 							'			<div style="display: grid; margin-top: 10px;">' + 
-							'				<label class="movieText">제목 : '+ list[i+3].movieNm +'</label>' + 
+							'				<label class="movieTitle">'+ list[i+3].movieNm +'</label>' + 
 							'				<label class="movieText">개봉일 : '+ list[i+3].openDt +'</label>' + 
 							'			</div>'	+ 
 							'		</div>' + 
 							'	</div>'+
 							'</li>' ;
-							$("#movieRank").html(html);
+						}
+						$("#movieRank").html(html);
 					// 포스터 가져오기
 					searchMovieData(list[i].movieNm , i);
+					searchMovieData(list[i+1].movieNm , (i+1));
+					if(i<8) {
+						searchMovieData(list[i+2].movieNm , (i+2));
+						searchMovieData(list[i+3].movieNm , (i+3));
+					}
 				}
+				$("#li0").fadeIn();
 			}, error:function() {
 				alert("박스 오피스 실패!!")
 			}
@@ -129,9 +156,14 @@ text-decoration: none;
 			url:"searchMovie",
 			type:"POST",
 			data:"movieNm=" + movieNm,
-			success:function(poster) {
-				$("#im"+(index+1)).attr("src" , poster)
-				console.log("이건 : " + poster);
+			
+			success:function(list) {
+				console.log(list.image)
+				var html2 = '';
+				for(var i=0; i<list.length; i++) {
+					$("#im"+index).attr("src" , list[i].image);
+					$("#a"+index).attr("href", list[i].link);
+				} 
 			}, 
 			error:function() {
 				alert("포스터 실패!!")
@@ -140,51 +172,35 @@ text-decoration: none;
 		});
 		
 	}
+	
 	// 롤링 배너
-	$(function(){
-		var nowNum = 0;
-		var bannerObj = $('.row li');
-		var maxLength = bannerObj.length;
-		var timer = 2500; // 자동 롤링되는 타임 설정
-		var autoRun = setInterval(function(){rollingFn('right');},timer);
-		var stopBtn = $('.stopBtn');
-		var playBtn = $('.playBtn');
-		bannerObj.eq(nowNum).fadeIn();
-		$('.nextBtn').bind('click',function(){
-			rollingFn('right');
-		});
-		$('.prevBtn').bind('click',function(){
-			rollingFn('left');
-		});
-		stopBtn.bind('click',function(){
-			stopAndGoFn(true);
-		});
-		playBtn.bind('click',function(){
-			stopAndGoFn(false);
-		});
-		function rollingFn(direction){
-			if(direction=='right'){
-				nowNum = nowNum+1;
-				if(nowNum>maxLength-1){
-					nowNum = 0;
-				}
-			}else{
-				nowNum = nowNum-1;
-				if(nowNum<0){
-					nowNum = maxLength-1;
-				}
+	var nowNum = 0;
+		
+	// 오른쪽 방향키 눌렀을 때 
+	function nextMovie() {
+		rollingFn('right');
+	}
+	// 왼쪽 방향키 눌렀을 때 
+	function prevMovie() {
+		rollingFn('left');
+	}
+		
+    // 방향키 눌렀을 때 li 전환
+	function rollingFn(direction){
+		$("#li"+nowNum).hide();
+		if(direction=='right'){
+			nowNum = nowNum+4;
+			if(nowNum>8){
+				nowNum = 0;
 			}
-			bannerObj.hide().eq(nowNum).fadeIn();
-		}
-		function stopAndGoFn(bool){
-			if(bool==true){
-				clearInterval(autoRun);
-			}else if(bool==false){
-				clearInterval(autoRun);			
-				autoRun = setInterval(function(){rollingFn('right');},timer);
+		}else{
+			nowNum = nowNum-4;
+			if(nowNum<0){
+				nowNum = 8;
 			}
 		}
-	});
+		$("#li"+nowNum).fadeIn();
+	}
 </script>
 
 </head>
@@ -192,54 +208,16 @@ text-decoration: none;
 	<section class="our-webcoderskull padding-lg" >
 		<div class="container">
 			<div align="center">
-				<h2 style="color: white;">일일 박스 오피스</h2>
+				<h2 >일일 박스 오피스</h2>
 			</div>
 
 		<!-- 영화 차트 순위권 출력 -->
-		
 		<div class="movieRankArea">
-			<a class="direcBtn">&lt;</a>
-			<ul id="movieRank">
-<!-- 				<li> -->
-<!-- 					<div class="movieList"> -->
-<!-- 						<div style="display: block;"> -->
-<!-- 							<label class="movieText">1위</label> -->
-<!-- 							<figure class="movieImage"> -->
-<!-- 								<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1099/109982_P03_133458.jpg" width=200px;> -->
-<!-- 							</figure> -->
-<!-- 							<div style="display: grid; margin-top: 10px;"> -->
-<!-- 								<label class="movieText">제목 : 테이큰3</label> -->
-<!-- 								<label class="movieText">개봉일 : 2014-11-27</label> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<label class="movieText">2위</label> -->
-<!-- 							<figure class="movieImage"> -->
-<!-- 								<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1028/102875_P42_100733.jpg" width=200px;> -->
-<!-- 							</figure> -->
-<!-- 							<label class="movieText">제목 : 국제시장</label> -->
-<!-- 							<label class="movieText">개봉일 : 2014-11-27</label> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<label class="movieText">3위</label> -->
-<!-- 							<figure class="movieImage"> -->
-<!-- 								<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1142/114276_P04_111037.jpg" width=200px;> -->
-<!-- 							</figure> -->
-<!-- 							<label class="movieText">제목 : 마다가스카3</label> -->
-<!-- 							<label class="movieText">개봉일 : 2014-11-27</label> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<label class="movieText">4위</label> -->
-<!-- 							<figure class="movieImage"> -->
-<!-- 								<img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1300/130013_P05_132145.jpg" width=200px;> -->
-<!-- 							</figure> -->
-<!-- 							<label class="movieText">제목 : 님아 그강</label> -->
-<!-- 							<label class="movieText">개봉일 : 2014-11-27</label> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</li> -->
+			<ul id=movieRank>
 			</ul>
-			<a class="direcBtn">&gt;</a>
+			<div align="center">
+				<h1>영화 정보 불러오는중~</h1>
+			</div>
 		</div>
 	</div>
 	</section>

@@ -71,20 +71,15 @@ public class BoardRestController {
 		return boaServ.execute_Str(model);
 	}
 	
-	// 포스터 가져오기
+	// 포스터&링크 가져오기
 	@RequestMapping(value = "searchMovie" , produces = "application/json;charset=utf-8")
 	public String searchMovie(Model model , String movieNm) throws JsonProcessingException {
 
 		model.addAttribute("movieNm" , movieNm);
-		System.out.println("movie : " + movieNm);
 		boaServ = (SearchMovieServImpl)AC.ac.getBean("searchMovieServImpl");
 		
-		ObjectMapper mapper = new ObjectMapper();
 		
-		String strJson = mapper.writeValueAsString(boaServ.execute_Str(model));
-		
-		
-		return strJson;
+		return boaServ.execute_Str(model);
 	}
 
 }

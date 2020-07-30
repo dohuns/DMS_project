@@ -2,6 +2,8 @@ package com.KG.service.board;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,11 +21,15 @@ public class DayBoxOfficeServImpl implements BoardService{
 		BufferedInputStream reader = null;
 		
 		try {
+			
+			Date bdate = new Date(new Date().getTime() - (1000*60*60*24-1));
+			String today = new SimpleDateFormat("yyyyMMdd").format(bdate);
+			System.out.println("어제 : " + today);
 			URL url = new URL(
 					"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
 					+ "searchDailyBoxOfficeList.json" 
 					+ "?key=a0063402c67e8984aba680399775818a"
-					+ "&targetDt=20150101");
+					+ "&targetDt=" + today);
 			reader = new BufferedInputStream(url.openStream());
 			StringBuffer buffer = new StringBuffer();
 			int i;
@@ -56,7 +62,7 @@ public class DayBoxOfficeServImpl implements BoardService{
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String strJson = mapper.writeValueAsString(array);
-			
+			System.out.println(strJson);
 			return strJson;
 			
 		} catch (Exception e) {

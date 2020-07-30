@@ -19,6 +19,9 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class SearchMovieServImpl implements BoardService{
 	
@@ -95,7 +98,6 @@ public class SearchMovieServImpl implements BoardService{
         }
 
         String apiURL = "https://openapi.naver.com/v1/search/movie?query=" + text + "&display=1&sort=date";    // json 결과
-        //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -106,16 +108,17 @@ public class SearchMovieServImpl implements BoardService{
 		try {
 			JSONObject jsonobject = (JSONObject)jsonparser.parse(responseBody);
 			JSONArray json = (JSONArray)jsonobject.get("items");
+			System.out.println("배열 : " + json);
+//			for(int i=0; i<1; i++) {
+//				JSONObject movieList = (JSONObject)json.get(i);
+//			}
 			
-			String poster = null;
+			ObjectMapper mapper = new ObjectMapper();
 			
-			for(int i=0; i<1; i++) {
-				JSONObject movieList = (JSONObject)json.get(i);
-				poster = (String) movieList.get("image");
-			}
+			String strJson = mapper.writeValueAsString(json);
 			
-			return poster;
-		} catch (ParseException e) {
+			return strJson;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "";

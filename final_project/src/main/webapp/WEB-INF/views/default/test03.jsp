@@ -13,7 +13,7 @@ a:visited{color:#000;text-decoration:none}
 /* slideul */
 .slideWrap{position:relative;z-index:1;width:100%;height:300px;overflow:hidden}
 .slideUl{position:absolute;z-index:2;top:0;left:0;width:100%;height:100%}
-.slideUl li{display:none;position:absolute;z-index:2;top:0;left:0;width:90%;height:80%;padding:10% 5%;text-align:center;}
+.slideUl li{display:none}
 .slideUl li.banner1{background:yellow}
 .slideUl li.banner2{background:skyblue}
 .slideUl li.banner3{background:pink}
@@ -42,7 +42,9 @@ a:visited{color:#000;text-decoration:none}
 $(function(){
 	var nowNum = 0;
 	var bannerObj = $('.slideUl li');
+	console.log("li : " + bannerObj);
 	var maxLength = bannerObj.length;
+	console.log("length : " + maxLength);
 	var timer = 1000; // 자동 롤링되는 타임 설정
 	var autoRun = setInterval(function(){rollingFn('right');},timer);
 	var stopBtn = $('.stopBtn');
