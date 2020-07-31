@@ -16,14 +16,16 @@
 <title>DOMISU 영화 예매</title>
 </head>
 <body>
-	<c:import url="default/header.jsp" />
-	<div style="display: flex;">
-		<div>
-			<c:import url="/sidebar" />
-		</div>
-		<div style="background-color: gray; width: 200px; height: 800px;">
+	<div class="container">
+		<c:import url="default/header.jsp" />
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
+				<c:import url="/movie"/>
+			</div>
 		</div>
 	</div>
-
 </body>
 </html>

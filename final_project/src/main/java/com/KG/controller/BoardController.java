@@ -53,7 +53,7 @@ public class BoardController {
 	
 	@RequestMapping("movie")
 	public String movie() {
-		return "movie/home";
+		return "default/movieMain";
 	}
 
 	// 사이드바 출력

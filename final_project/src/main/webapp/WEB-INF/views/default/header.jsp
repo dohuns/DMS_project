@@ -21,8 +21,8 @@
 			background-color: transparent;
 		}
 
-		.navbar>.container .navbar-brand-centered,
-		.navbar>.container-fluid .navbar-brand-centered {
+		.navbar>.main-header .navbar-brand-centered,
+		.navbar>.main-header-fluid .navbar-brand-centered {
 			color: #FFFFFF;
 			margin-left: -100px;
 		}
@@ -51,9 +51,9 @@
 </head>
 <body>
 
-	<header>
+	<header style="margin-bottom:20px; width:1080px;">
 		<nav class="navbar navbar-default" role="navigation">
-			<div class="container">
+			<div class="main-header">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"

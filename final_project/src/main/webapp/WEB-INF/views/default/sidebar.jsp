@@ -57,7 +57,7 @@ hr#sub {
 </style>
 </head>
 <body>
-	<div>
+	<div style="margin-right: 20px;">
 		<div
 			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
 			<c:choose>
@@ -101,16 +101,23 @@ hr#sub {
 					</div>
 				</c:when>
 				<c:otherwise>
-					<a href="login"><div align="center"
-							style="background-color: green; padding: 5px 0; margin: 0px 0;">로그인
-							하기</div></a>
+					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
+						<a href="login">
+								로그인하기
+						</a>
+					</div>
 				</c:otherwise>
 			</c:choose>
-			<a href="#"><div align="center"
-					style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">게시글
-					글쓰기</div></a> <a href="#"><div align="center"
-					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
-					하기</div></a>
+			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
+				<a href="#">
+					게시글글쓰기
+				</a>
+			</div> 
+			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
+				<a href="#">
+					채팅하기
+				</a>
+			</div>
 			<div>
 				<form action="/movie/board/search_list">
 					<div class="input-group">
