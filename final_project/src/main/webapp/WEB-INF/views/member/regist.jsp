@@ -24,8 +24,6 @@
 		var id = $("#m_id").val();
 		if (id == "") {
 			alert("아이디를 입력해주세요")
-		}else if(id.matches(" ")){
-			alert("공백을 제거 해주세요")
 		}else{
 		$.ajax({
 			url:"../overlapId",
@@ -55,6 +53,9 @@
 	// 닉네임 중복 체크
 	function chk_nick() {
 		var nick = $("#m_nick").val();
+		if (nick == "") {
+			alert("닉네임를 입력해주세요")
+		}else{
 		$.ajax({
 			url:"../overlapNick",
 			type:"GET",
@@ -78,6 +79,7 @@
 				alert("실패!!");
 			}
 		});
+		}
 	}
 	
 	// input 공백 체크(id,label,column명(한글))
