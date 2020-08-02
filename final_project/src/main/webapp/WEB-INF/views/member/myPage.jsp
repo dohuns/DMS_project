@@ -46,6 +46,7 @@
 							"color" : "red"
 						})
 					}
+					buttonAble();
 				},
 				error : function() {
 					alert("실패!!");
@@ -82,10 +83,10 @@
 
 	//회원가입 버튼 활성화 
 	function buttonAble() {
-		if ($("#m_pw").val() != "" && $("m_Rpw").val() != ""
-				&& $("#m_name").val() != "" && $("#m_date").val() != ""
-				&& $("#label_nick").text() == "사용가능한 닉네임 입니다.") {
-
+		if ($("#m_name").val() != ""
+				&& $("#m_date").val() != ""
+				&& ($("#label_nick").text() == "사용가능한 닉네임 입니다." || $("#m_nick")
+						.val() == '${m_nick}')) {
 			$("#btn-regist").prop("disabled", false);
 		} else {
 			$("#btn-regist").prop("disabled", true);
@@ -172,7 +173,13 @@ a:link, a:visited, a:active, a:hover {
 }
 </style>
 </head>
-<body>
+<body onload="buttonAble()">
+	<c:if test="${sessionScope.m_id == null}">
+		<script type="text/javascript">
+			alert("정상적인 경로를 이용해주세요")
+			location.href = "/movie"
+		</script>
+	</c:if>
 	<c:import url="/header" />
 	<div align="center" style="padding-top: 50px;">
 		<div style="display: flex; width: 900px;">
@@ -181,13 +188,15 @@ a:link, a:visited, a:active, a:hover {
 					<b>내정보관리</b>
 				</h3>
 				<hr>
-				<div style="margin-bottom: 20px; color: #5bc0de">
+				<div style="margin-top: 20px; color: #5bc0de">
 					<h4>
 						<b>개인정보변경</b>
 					</h4>
 				</div>
-				<a href="myPagePwChang"><div>
+				<a href="myPagePwChang"><div style="margin-top: 20px;">
 						<h4>비밀번호변경</h4>
+					</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
+						<h4>회원탈퇴</h4>
 					</div></a>
 			</div>
 			<div style="width: 600px; padding-bottom: 100px;">
@@ -195,7 +204,7 @@ a:link, a:visited, a:active, a:hover {
 					<h1>개인정보변경</h1>
 					<hr style="border: solid 1px #ddd;">
 				</div>
-				<form action="chk_reigst" method="POST"
+				<form action="myPageChangCk" method="post"
 					enctype="multipart/form-data">
 					<div align="center">
 						<table style="width: 550px; padding: 20px; border-width: 500px;">
@@ -204,12 +213,8 @@ a:link, a:visited, a:active, a:hover {
 								<td><strong>아이디</strong></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="m_id" id="m_id"
-									value="${m_id }" class="form-control" onblur="chkId()" readonly>
-								</td>
-							</tr>
-							<tr>
-								<td><label id="label_id"></label></td>
+								<td><input type="text" name="m_id" value="${m_id }"
+									class="form-control" readonly></td>
 							</tr>
 							<!-- 이름 -->
 							<tr>
@@ -252,11 +257,18 @@ a:link, a:visited, a:active, a:hover {
 								<td><label id="label_date"></label></td>
 							</tr>
 							<!-- 프사 -->
+
 							<tr>
-								<td><strong>프로필 사진${m_picture }</strong></td>
+								<td><strong>프로필 사진</strong></td>
 							</tr>
 							<tr>
 								<td>
+
+
+
+
+
+
 									<div>
 										<input type="file" id="fileInput"
 											data-class-button="btn btn-default"
@@ -276,11 +288,21 @@ a:link, a:visited, a:active, a:hover {
 											</label>
 											</span>
 										</div>
-										<img id="foo" width="58" height="58" class="upImg"
-											src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" />
+										<c:choose>
+											<c:when test="${m_picture != null}">
+												<img id="foo" width="58" height="58" class="upImg"
+													src="/img/memberImage/${m_picture}" />
+											</c:when>
+											<c:otherwise>
+												<img id="foo" width="58" height="58" class="upImg"
+													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" />
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</td>
 							</tr>
+
+
 							<!-- 이메일 -->
 							<tr>
 								<td><strong>이메일</strong></td>

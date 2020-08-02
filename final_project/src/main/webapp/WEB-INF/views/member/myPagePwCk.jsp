@@ -11,7 +11,7 @@
 <body>
 	<script>
 		alert("비밀번호를 확인해주세요")
-		location.href = "/movie/myPageCk"
+		history.go(-1);
 	</script>
 </body>
 </html>

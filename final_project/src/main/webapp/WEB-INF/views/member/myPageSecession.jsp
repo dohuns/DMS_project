@@ -7,14 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	function pwCh() {
-		if ($("#m_pw").val() == "") {
-			alert("비밀번호를 입력해주세요")
-		} else {
-			pwCk.submit();
-		}
+<script type="text/javascript">
+	function memberDel() {
+		if(confirm("탈퇴시 같은 아이디로 재가입이 불가능합니다.\n정말 탈퇴하시겠습니까?") == true){
+	        alert("회원이 탈퇴되었습니다.");
+	        location.href = "memberDel"
+	    }
+
 	}
+	
+	function main() {
+		location.href="/movie"	
+	}
+
 </script>
 <style type="text/css">
 a:link, a:visited, a:active, a:hover {
@@ -38,31 +43,24 @@ a:link, a:visited, a:active, a:hover {
 					<b>내정보관리</b>
 				</h3>
 				<hr>
+				<a href="myPageCk"><div style="margin-top: 20px;"><h4>개인정보변경</h4></div></a>
+				<a href="myPagePwChang"><div div style="margin-top: 20px;"><h4>비밀번호변경</h4></div></a>
 				<div style="margin-top: 20px; color: #5bc0de">
-					<h4>
-						<b>개인정보변경</b>
-					</h4>
+					<h4>회원탈퇴</h4>
 				</div>
-				<a href="myPagePwChang"><div style="margin-top: 20px;">
-						<h4>비밀번호변경</h4>
-					</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
-						<h4>회원탈퇴</h4>
-					</div></a>
 			</div>
 			<div style="width: 600px; padding-bottom: 100px;">
 				<div align="left" style="margin-bottom: 30px;">
-					<h1>개인정보변경</h1>
+					<h1>회원탈퇴</h1>
 					<hr style="border: solid 1px #ddd;">
-				</div>
-				<div align="center" style="border: 1px solid #eee; padding: 30px;">
-					<form action="myPagePwCk" id="pwCk" method="get"
-						style="display: flex;">
-						<span style="font-size: 17px; width: 25%; margin-top: 5px;">비밀번호
-							확인</span>&nbsp;&nbsp;<input type="password" name="m_pw" id="m_pw"
-							class="form-control" style="width: 58%;">&nbsp;&nbsp;
-						<button type="button" onclick="pwCh()" class="btn btn-info"
-							style="width: 15%;">확인</button>
-					</form>
+					<div align="center">
+					<div style="width: 500px;">
+						<div align="center">
+							<button onclick="memberDel()" id="btn-regist" class="btn btn-info" style="background-color: red; border: 1px solid red;">회원탈퇴</button>
+							<button onclick="main()" id="btn-regist" class="btn btn-info" style="background-color: #5bc0de; border: 1px solid #5bc0de;">메인으로</button>
+						</div>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -117,14 +117,11 @@ a:link, a:visited, a:active, a:hover {
 					<b>내정보관리</b>
 				</h3>
 				<hr>
-				<a href="myPageCk"><div>
-						<h4>개인정보변경</h4>
-					</div></a>
+				<a href="myPageCk"><div style="margin-top: 20px;"><h4>개인정보변경</h4></div></a>
 				<div style="margin-top: 20px; color: #5bc0de">
-					<h4>
-						<b>비밀번호변경</b>
-					</h4>
+					<h4><b>비밀번호변경</b></h4>
 				</div>
+				<a href="myPageSecessionCk"><div style="margin-top: 20px;"><h4>회원탈퇴</h4></div></a>
 			</div>
 			<div style="width: 600px; padding-bottom: 100px;">
 				<div align="left" style="margin-bottom: 30px;">
