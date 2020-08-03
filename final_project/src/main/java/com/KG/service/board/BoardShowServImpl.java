@@ -29,7 +29,7 @@ public class BoardShowServImpl implements BoardService{
 		List<Map<String, Object>> list = boardDAO.selectFileList(b_num);
 		model.addAttribute("fileList" , list);
 		model.addAttribute("boardInfo" , dto);
-		model.addAttribute("memberInfo" , boardDAO.userInfo(dto.getB_nick()));
+		model.addAttribute("memberInfo" , boardDAO.userInfo(dto.getB_id()));
 		
 		return false;
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,14 +33,18 @@ $(function() {
 	$("#b_content").val(ta);
 })
 function write_save() {
+	oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
+	var str = $("#b_content").val();
+	
 	if($("#b_title").val() == "") {
-		alert("제목을 입력하세요!");
-	} else if($("#b_content").val() == "") { 
-		alert("내용을 입력하세요!");
+		alert("제목을 작성해주세요!");
+	} else if($("#b_title").val() == ""  || $("#b_title").val() == null ||
+			$("#b_title").val() == '&nbsp;' || $("#b_title").val() == '<p>&nbsp;</p>') {
+		alert("내용을 입력해주세요!");
+		oEditors.getById["b_content"].exec("FOCUS"); //포커싱
+		$("#b_content").focus();
 	} else {
 		// 줄 개행 인식
-		var str = $("#b_content").val();
-		
 		str = str.replace(/(?:\r\n|\r|\n)/g , '<br/>');
 		$("#b_content").val(str);
 		$("#fo").submit();
@@ -113,10 +118,23 @@ function chkReset(index) {
 }
 
 </script>
+
+<!-- 네이버 스마트 에디터 -->
+<script type="text/javascript" src="/movie/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+var oEditors = [];
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "b_content",
+          sSkinURI: "/img/smartEditor/SmartEditor2Skin.html"
+      });
+});
+</script>
 </head>
 <body>
 
-	<div class="container" style="width:500px;">
+	<div class="container" style="width:800px;">
 		<div align="center">
 			<h1> 수정 페이지 </h1>
 			<div align="left">
@@ -147,7 +165,7 @@ function chkReset(index) {
 					<div>
 						<h5>글 내용</h5>
 						<textarea rows="15" cols="50" name="b_content" id="b_content" class="form-control"
-						style="resize:none;">${boardList.b_content}</textarea>
+						style="resize:none; width:765px;">${boardList.b_content}</textarea>
 					</div>
 					
 					<!-- 첨부파일 & 이미지 -->
@@ -166,7 +184,9 @@ function chkReset(index) {
 									 type="button" class="btn btn-danger btn-sm" style="right: 0px;">삭제 선택</button><br>
 								</div>
 							</c:forEach>
-							<button type="button" onclick="chkReset()" class="btn btn-success btn-sm">선택 해제</button>
+							<c:if test="${fn:length(fileList) > 0}">
+								<button type="button" onclick="chkReset()" class="btn btn-success btn-sm">선택 해제</button>
+							</c:if>
 						</div>
 					</div>
 					

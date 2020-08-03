@@ -46,86 +46,86 @@ public class BoardController {
 	
 	@RequestMapping("movie")
 	public String movie() {
-		return "movie/home";
+		return "default/movieMain";
 	}
 
 	// 사이드바 출력
-	@RequestMapping("sidebar")
-	public String sidebar(Model model, HttpSession session) {
-		try {
-//	         유저 닉네임으로 회원정보 가져오기
-			model.addAttribute("session", session);
-			boaSideServ = (BoaMyInfoServImpl) AC.ac.getBean("boaMyInfoServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		@RequestMapping("sidebar")
+		public String sidebar(Model model, HttpSession session) {
+			try {
+//		         유저 닉네임으로 회원정보 가져오기
+				model.addAttribute("session", session);
+				boaSideServ = (BoaMyInfoServImpl) AC.ac.getBean("boaMyInfoServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			try {
+//		         게시판 list 가져오기
+				boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
+				boaSideServ.execute_Str(model);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "default/sidebar";
 		}
-		try {
-//	         게시판 list 가져오기
-			boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
-			boaSideServ.execute_Str(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "default/sidebar";
-	}
 
-	// 내가 쓴글 틀
-	@RequestMapping("myList")
-	public String myList(Model model, HttpSession session, HttpServletRequest request) {
-		try {
-//	         유저 닉네임으로 회원정보 가져오기
-			model.addAttribute("id", request.getParameter("id"));
-			model.addAttribute("session", session);
-			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		// 내가 쓴글 틀
+		@RequestMapping("myList")
+		public String myList(Model model, HttpSession session, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 회원정보 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			return "board/myList";
 		}
-		return "board/myList";
-	}
-	
-	// 내가 쓴 게시글 목록
-	@RequestMapping("myWrite")
-	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
-		try {
-//	         유저 닉네임으로 게시글 가져오기
-			model.addAttribute("id", request.getParameter("id"));
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 게시글 목록
+		@RequestMapping("myWrite")
+		public String myWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 게시글 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			return "board/myWrite";
 		}
-		return "board/myWrite";
-	}
-	
-	// 내가 쓴 댓글 목록
-	@RequestMapping("myReply")
-	public String myReply(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
-		try {
-//	         유저 닉네임으로 게시글 가져오기
-			model.addAttribute("id", request.getParameter("id"));
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
-			comServ.execute(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 댓글 목록
+		@RequestMapping("myReply")
+		public String myReply(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 게시글 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
+				comServ.execute(model);
+			} catch (Exception e) {
+			}
+			return "board/myReply";
 		}
-		return "board/myReply";
-	}
-	
-	// 내가 쓴 댓글 게시글 목록
-	@RequestMapping("myReplyWrite")
-	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
-		try {
-			model.addAttribute("id", request.getParameter("id"));
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
-			comServ.execute(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 댓글 게시글 목록
+		@RequestMapping("myReplyWrite")
+		public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
+				comServ.execute(model);
+			} catch (Exception e) {
+			}
+			return "board/myReplyWrite";
 		}
-		return "board/myReplyWrite";
-	}
 
 //=======================================================================================	
 	// 게시글 목록
@@ -148,19 +148,21 @@ public class BoardController {
 		boaServ.execute_Boo(model);
 		return "board/write";
 	}
-
 	// 글쓰기 저장
 	@RequestMapping("/board/write_save")
 	public String board_wrtieSave(Model model, BoardDTO dto,
-			HttpSession session , MultipartHttpServletRequest request) throws UnsupportedEncodingException {
+			HttpSession session , MultipartHttpServletRequest mpRequest,
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		System.out.println("글쓰기 들어옴");
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("session", session);
-		model.addAttribute("request" , request);
+		model.addAttribute("mpRequest" , mpRequest);
+		model.addAttribute("request" , request); 
+		model.addAttribute("response" , response);
+		
 		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
 		boaServ.execute_Boo(model);
 
@@ -292,10 +294,14 @@ public class BoardController {
 	
 	// 첨부파일 다운로드
 	@RequestMapping("/board/file_down")
-	public void file_down(Model model , HttpServletResponse response , @RequestParam("f_no") int f_no) {
+	public void file_down(Model model , HttpServletResponse response , 
+			@RequestParam("f_no") int f_no, 
+			@RequestParam("f_id") String f_id) {
 		
 		model.addAttribute("response" , response);
 		model.addAttribute("f_no" , f_no);
+		model.addAttribute("f_id" , f_id);
+		
 		boaServ = (BoardFileDownServImpl) AC.ac.getBean("boardFileDownServImpl");
 		boaServ.execute_Boo(model);
 		

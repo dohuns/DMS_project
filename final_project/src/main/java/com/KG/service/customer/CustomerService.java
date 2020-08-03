@@ -9,4 +9,6 @@ public interface CustomerService {
 	public void execute(Model model);
 
 	public CustomerDTO customerList(Model model);
+
+	public int chkList(Model model);
 }

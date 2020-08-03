@@ -50,7 +50,7 @@ public class ComListServImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentDTO> execute_list(Model model) {
+	public List<Map<String, Object>> execute_list(Model model) {
 		return null;
 	}
 

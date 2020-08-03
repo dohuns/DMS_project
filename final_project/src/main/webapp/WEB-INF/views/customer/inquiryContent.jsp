@@ -29,11 +29,52 @@
 			text-align: right;
 		}
 	</style>
+
+	<!-- 비밀번호 확인 -->
+	<script>
+		function contentPwChk(cus_num, cus_pw) {
+			$("#openPwChk").remove();
+			console.log("content_ cus_num : " + cus_num + ", cus_pw : " + cus_pw);
+			var html =
+				'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">' +
+				'<div class="container" id="openPwChk">' +
+				'	<div class="col-md-4 col-md-offset-4">' +
+				'		<div>' +
+				'			<div class="panel-body">' +
+				'				<div class="text-center">' +
+				'					<h4 style="margin:20px 0px;"><i class="fa fa-lock fa-4x"></i></h4>' +
+				'					<p><b>비밀번호를 입력해주세요.</b></p>' +
+				'					<div class="panel-body">' +
+				'						<form id="PwChk-form" role="form" autocomplete="off" class="form"' +
+				'							action="deletePwChk" method="GET">' +
+				'							<div class="form-group">' +
+				'								<div class="input-group">' +
+				'									<span class="input-group-addon"><i class="glyphicon fa fa-lock color-blue"></i></span>' +
+				'									<input id="inputPw" name="inputPw" class="form-control" type="password">' +
+				'									<input type="hidden" name="cus_num" value="' + cus_num +'">' +
+				'								</div>' +
+				'							</div>' +
+				'							<div class="form-group">' +
+				'								<input name="recover-submit" class="btn btn-s bBtn" value="확인" type="submit">' +
+				'								<input name="recover-submit" class="btn btn-s btn-default"' +
+				'									value="목록" type="button" onclick="location.href=`customerMain`">' +
+				'							</div>' +
+				'						</form>' +
+				'					</div>' +
+				'				</div>' +
+				'			</div>' +
+				'		</div>' +
+				'	</div>' +
+				'</div>';
+			$("#openPw").html(html);
+		}
+	</script>
 </head>
 <body>
 	<c:import url="../default/header.jsp" />
-	<!--  -->
-	<div class="container">
+
+	<div id="openPw"></div>
+	<div class="container" id="openPwChk">
 		<div class="row mt-60">
 			<div class="content-body">
 				<div class="main-box-container">
@@ -43,6 +84,7 @@
 								<div class="form-group has-error">
 									<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 									<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />
+									<input type="hidden" name="cus_num" value="${param.cus_num}" />
 									<input type="text" class="form-control" name="cus_category" readonly="readonly"
 										value="${inquiryContent.cus_category}" />
 								</div>
@@ -72,7 +114,8 @@
 								</div>
 
 								<div class="form-group bt-a">
-									<button type="button" class="btn btn-default">삭   제</button>
+									<button type="button" class="btn btn-default"
+										onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
 									<button type="submit" class="btn bBtn">수   정</button>
 								</div>
 

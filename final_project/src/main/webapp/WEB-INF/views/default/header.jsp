@@ -21,8 +21,8 @@
 			background-color: transparent;
 		}
 
-		.navbar>.container .navbar-brand-centered,
-		.navbar>.container-fluid .navbar-brand-centered {
+		.navbar>.main-header .navbar-brand-centered,
+		.navbar>.main-header-fluid .navbar-brand-centered {
 			color: #FFFFFF;
 			margin-left: -100px;
 		}
@@ -50,12 +50,10 @@
 	</style>
 </head>
 <body>
-		<nav class="navbar-dmsHeader">
-			여기에 뭘 넣을지 고민해봅시다.
-		</nav>
-	<header>
+
+	<header style="margin-bottom:20px; width:1080px;">
 		<nav class="navbar navbar-default" role="navigation">
-			<div class="container">
+			<div class="main-header">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -73,7 +71,7 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="navbar-brand-centered">
 					<ul class="nav navbar-nav">
-						<li><a href="movie">영화</a></li>
+						<li><a href="/movie/movie">영화</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:choose>

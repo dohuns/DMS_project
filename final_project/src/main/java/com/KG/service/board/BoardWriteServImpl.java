@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +31,18 @@ public class BoardWriteServImpl implements BoardService{
 		Map<String, Object> map = model.asMap();
 		BoardDTO boardDTO = (BoardDTO) map.get("dto");
 		HttpSession session = (HttpSession)map.get("session");
-		MultipartHttpServletRequest request = (MultipartHttpServletRequest)map.get("request");
+		MultipartHttpServletRequest mpRequest = (MultipartHttpServletRequest)map.get("mpRequest");
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		boardDTO.setB_nick((String)session.getAttribute("m_nick"));
 		boardDTO.setB_id((String)session.getAttribute("m_id"));
 		
 		boardDAO.boardWrite(boardDTO);
+		
+		// 첨부파일 등록
 		try {
-			List<Map<String,Object>> list = fileUtils.parseInsertFileBoard(boardDTO, request);
+			List<Map<String,Object>> list = fileUtils.parseInsertFileBoard(boardDTO, mpRequest);
 			int size = list.size();
 			for(int i=0; i<size; i++){ 
 				boardDAO.insertFile(list.get(i));
@@ -44,6 +50,9 @@ public class BoardWriteServImpl implements BoardService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// 이미지 등록하기
+		
 		
 		return false;
 	}

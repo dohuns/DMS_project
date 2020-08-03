@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.CustomerDTO;
 import com.KG.service.customer.CustomerContentServImpl;
+import com.KG.service.customer.CustomerDeleteServImpl;
 import com.KG.service.customer.CustomerInquiryServImpl;
 import com.KG.service.customer.CustomerListServImpl;
 import com.KG.service.customer.CustomerMyInquiryServImpl;
+import com.KG.service.customer.CustomerPwChkServImpl;
+import com.KG.service.customer.CustomerSearchServImpl;
 import com.KG.service.customer.CustomerService;
 
 @Controller
@@ -59,4 +62,46 @@ public class CustomerController {
 		customerServ.execute(model);
 		return "customer/inquiryContent";
 	}
+
+	// 고객센터 닉네임 검색
+	@RequestMapping("inquirySearch")
+	public String inquirySearch(Model model, CustomerDTO dto, String cus_nick) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_nick", cus_nick);
+		customerServ = (CustomerSearchServImpl) AC.ac.getBean("customerSearchServImpl");
+		customerServ.execute(model);
+		return "customer/inquirySearch";
+	}
+
+	// 문의글 삭제 전 비밀번호 확인
+	@RequestMapping("deletePwChk")
+	public String deleteInquiry(Model model, int cus_num, String inputPw) {
+		model.addAttribute("cus_num", cus_num);
+		model.addAttribute("inputPw", inputPw);
+		customerServ = (CustomerPwChkServImpl) AC.ac.getBean("customerPwChkServImpl");
+
+		if((customerServ.chkList(model)) == 1) {
+			customerServ = (CustomerDeleteServImpl) AC.ac.getBean("customerDeleteServImpl");
+			customerServ.execute(model);
+			return "redirect:customerMain";
+		}
+		return "customer/message";
+	}
+
+	// 비밀글 확인
+	@RequestMapping("contentPwChk")
+	public String contentPwChk(Model model, int cus_num, String inputPw) {
+		model.addAttribute("inputPw", inputPw);
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerPwChkServImpl) AC.ac.getBean("customerPwChkServImpl");
+
+		if((customerServ.chkList(model)) == 1) {
+			return "redirect:inquiryContent";
+		}
+			return "customer/message";
+	}
+
+
+
+
 }
