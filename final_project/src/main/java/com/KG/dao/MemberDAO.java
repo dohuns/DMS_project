@@ -76,6 +76,16 @@ public class MemberDAO {
 		return sqlSession.insert(namespace+".addMember",memberDTO);
 	}
 	
+	// 회원정보 수정
+	public void memberUp(MemberDTO memberDTO) {
+		sqlSession.update(namespace+".memberUp",memberDTO);
+	}
+
+	// 회원탈퇴
+	public void memberDel(MemberDTO memberDTO) {
+		sqlSession.update(namespace+".memberDel",memberDTO);
+	}
+	
 	//////////////////////////////// 업로드 관련////////////////////////////////
 	// 프로필 사진 업로드
 	public int insertFile(Map<String, Object> map) {

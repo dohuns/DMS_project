@@ -54,6 +54,12 @@ hr#main {
 hr#sub {
 	border: solid 1px #f0f0f0;
 }
+ul#myInfo{
+padding-inline-start : 30px;
+}
+ul#myInfoWrite{
+padding-inline-start : 20px;
+}
 </style>
 </head>
 <body>
@@ -68,13 +74,13 @@ hr#sub {
 						</div>
 						<div>
 							<div>
-								<ul>
+								<ul id="myInfo">
 									<li>
 										<div>
 											<c:choose>
-												<c:when test="${userInfo.m_picture != null}">
+												<c:when test="${myInfo.m_picture != null}">
 												<img
-													src="/img/memberImage/${userInfo.m_picture}"
+													src="/img/memberImage/${myInfo.m_picture}"
 													width="58" height="58" style="border-radius: 100%">
 												</c:when>
 												<c:otherwise>
@@ -85,16 +91,16 @@ hr#sub {
 											</c:choose>
 										</div>
 										<div>
-											<strong>${userInfo.m_nick }</strong>
+											<strong>${myInfo.m_nick }</strong>
 										</div>
 									</li>
-									<li>${userInfo.m_rank}</li>
+									<li>${myInfo.m_rank}</li>
 								</ul>
 							</div>
 							<div>
-								<ul>
-									<li><b><a href="myList?page=1">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
-									<li><b><a href="myList?page=2">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
+								<ul id="myInfoWrite">
+									<li><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li><b><a href="myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
@@ -108,16 +114,16 @@ hr#sub {
 					</div>
 				</c:otherwise>
 			</c:choose>
+				<a href="#">
 			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
-				<a href="#">
 					게시글글쓰기
-				</a>
 			</div> 
-			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
-				<a href="#">
-					채팅하기
 				</a>
+				<a href="#">
+			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
+					채팅하기
 			</div>
+				</a>
 			<div>
 				<form action="/movie/board/search_list">
 					<div class="input-group">

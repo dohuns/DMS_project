@@ -1,17 +1,9 @@
 package com.KG.controller;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.BoardDTO;
 import com.KG.dto.CommentDTO;
-import com.KG.dto.PhotoVo;
 import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardImageServImpl;
 import com.KG.service.board.BoardService;
@@ -28,7 +19,6 @@ import com.KG.service.board.SearchMovieServImpl;
 import com.KG.service.comment.CommentDeleteServImpl;
 import com.KG.service.comment.CommentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class BoardRestController {
@@ -37,7 +27,8 @@ public class BoardRestController {
 
 //	내 작성글 삭제
 	@RequestMapping(value = "myWriteDelete", produces = "application/json;charset=utf-8")
-	public void myWriteDelete(Model model,BoardDTO dto) {
+	public void myWriteDelete(Model model,BoardDTO dto, HttpSession session) {
+		model.addAttribute("session",session);
 		model.addAttribute("dto",dto);
 		boaServ = (BoardDeleteServImpl) AC.ac.getBean("boardDeleteServImpl");
 		boaServ.execute_Boo(model);

@@ -25,10 +25,8 @@ public class ComListServImpl implements CommentService {
 	@Override
 	public boolean execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		HttpSession session = (HttpSession) map.get("session");
+		String c_id = (String) map.get("id");
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-
-		String c_id = (String) session.getAttribute("m_id");
 
 		// artiNum 불러오기
 		int artiNum = boardDTO.getArtiNum();

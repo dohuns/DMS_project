@@ -171,10 +171,14 @@ textarea:focus {
 	});
 	// 댓글 내용 작성여부 + 댓글 작성
 	function commentWriter() {
+		var papering = $("#papering").val();
 		if($("#comment_content").val() == "") { // 댓글내용 없을 때
-			alert("내용을 입력해주세요!!");			
+			alert("내용을 입력해주세요!!");
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else { // 댓글 작성
 			var formData = $("#fo").serializeArray();
+			$("#papering").attr("value","1");
 			
 			$.ajax({
 				url : "comment_save",
@@ -184,6 +188,7 @@ textarea:focus {
 				success : function(arg) {
 					getCommentList();
 					$("#comment_content").val("");
+					$("#papering").attr("value","0");
 				},
 				error : function() {
 					alert("실패!");
@@ -268,7 +273,7 @@ textarea:focus {
 						html += '<div class="profilePic">';
 						
 						// 프로필 사진 넣기
-						html += '<a href="#">';
+						html += '<a href="/movie/myList?id='+list[i].C_ID+'&page=1">';
 						if(list[i].M_PICTURE != null && list[i].M_PICTURE != "" && typeof list[i].M_PICTURE != "undefined") {
 							html += '<img src="/img/memberImage/' + list[i].M_PICTURE + '"';
 							html += 'width="40" height="40" style="border-radius: 100%">';
@@ -284,9 +289,9 @@ textarea:focus {
 						html += '<div style="display:inline-block">';
 						// 게시자와 댓글작성자가 같으면 작성자 표시
 						if($("#b_id").val() == list[i].C_ID) {
-							html += '<a href="#"><span class="c-nick">' + list[i].C_NICK + '</span></a><span class="mylb">작성자</span>';
+							html += '<a href="/movie/myList?id='+list[i].C_ID+'&page=1"><span class="c-nick">' + list[i].C_NICK + '</span></a><span class="mylb">작성자</span>';
 						} else {
-							html += '<a href="#"><span class="c-nick">' + list[i].C_NICK + '</span></a>';
+							html += '<a href="/movie/myList?id='+list[i].C_ID+'&page=1"><span class="c-nick">' + list[i].C_NICK + '</span></a>';
 						}
 						html += '<div style="float:right">'
 						// 댓글작성자와 사용자가 같으면 삭제 버튼 추가
@@ -435,11 +440,16 @@ textarea:focus {
 	
 	// 대댓글 남기기
 	function RecommentWriter() {
+		var papering = $("#papering").val();
+		
 		if($("#Recomment_content").val() == "") { // 댓글내용 없을 때
-			alert("내용을 입력해주세요!!");			
+			alert("내용을 입력해주세요!!");		
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");	
 		} else { // 댓글 작성
 			var formData = $("#fo").serializeArray();
 			console.log(formData);
+			$("#papering").attr("value","1");
 			
 			$.ajax({
 				url : "Recomment_save",
@@ -450,6 +460,7 @@ textarea:focus {
 					getCommentList();
 					$("#comment_content").val("");
 					$("#openReply").remove();
+					$("#papering").attr("value","0");
 				},
 				error : function() {
 					alert("실패!");
@@ -487,6 +498,8 @@ textarea:focus {
 </script>
 </head>
 <body>
+	<input type="hidden" id="papering" value="0">
+
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
 
@@ -519,7 +532,7 @@ textarea:focus {
 				<div style="height: 40px; display:flex;">
 					<!-- 프로필 사진 -->
 					<div style="margin-right: 10px;">
-						<a href="#">
+						<a href="/movie/myList?id=${memberInfo.m_id }&page=1">
 							<c:choose>
 								<c:when test="${memberInfo.m_picture != null}">
 								<img
@@ -537,7 +550,7 @@ textarea:focus {
 					<!-- 닉네임 + 등급  -->
 					<div>
 						<div style="height:15px; margin-bottom:2px;">
-							<a href="#"><b style="color: black;">${boardInfo.b_nick}</b></a>
+							<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black;">${boardInfo.b_nick}</b></a>
 							<label class="lb2">${memberInfo.m_rank}</label>
 						<br style="margin: 0px;">
 						</div>

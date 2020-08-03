@@ -23,20 +23,27 @@
 <script type="text/javascript">
 	
 	function write_save() {
+		var papering = $("#papering").val();
 		oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
-		var str = $("#b_content").val();
+
+		var title = $("#b_title").val();
+		var content = $("#b_content").val();
+		title = title.trim();
 		
-		if($("#b_title").val() == "") {
+		if(title == "") {
 			alert("제목을 작성해주세요!");
-		} else if(str == ""  || str == null ||
-				str == '&nbsp;' || str == '<p>&nbsp;</p>') {
+		} else if(content == ""  || content == null ||
+				content == '&nbsp;' || content == '<p>&nbsp;</p>') {
 			alert("내용을 입력해주세요!");
 			oEditors.getById["b_content"].exec("FOCUS"); //포커싱
-			$("#b_content").focus();
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else {
+			$("#papering").attr("value","1");
 			// 줄 개행 인식
-			str = str.replace(/(?:\r\n|\r|\n)/g , '<br/>');
-			$("#b_content").val(str);
+			content = content.replace(/(?:\r\n|\r|\n)/g , '<br/>');
+			$("#b_title").val(title);
+			$("#b_content").val(content);
 			$("#fo").submit();
 		}
 	}
@@ -99,6 +106,7 @@ $(function(){
 
 </head>
 <body>
+<input type="hidden" id="papering" value="0">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
 	

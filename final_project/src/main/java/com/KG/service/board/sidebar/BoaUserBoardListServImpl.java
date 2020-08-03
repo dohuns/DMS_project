@@ -23,10 +23,9 @@ public class BoaUserBoardListServImpl implements BoardSidebarService {
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		HttpSession session = (HttpSession) map.get("session");
+		String b_id = (String) map.get("id");
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-		String b_id = (String) session.getAttribute("m_id");
-
+		
 		// artiNum 불러오기
 		int artiNum = boardDTO.getArtiNum();
 

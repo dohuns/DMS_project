@@ -29,9 +29,11 @@ import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
+import com.KG.service.board.sidebar.BoaMyInfoServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.comment.ComBoardListServImpl;
 import com.KG.service.comment.ComListServImpl;
 import com.KG.service.comment.CommentService;
 
@@ -42,95 +44,88 @@ public class BoardController {
 	BoardSidebarService boaSideServ;
 	CommentService comServ;
 	
-	@RequestMapping("test02")
-	public String test02() {
-		return "default/test02";
-	}
-	@RequestMapping("test03")
-	public String test03() {
-		return "default/test03";
-	}
-	
 	@RequestMapping("movie")
 	public String movie() {
 		return "default/movieMain";
 	}
 
 	// 사이드바 출력
-	@RequestMapping("sidebar")
-	public String sidebar(Model model, HttpSession session) {
-		try {
-//	         유저 닉네임으로 회원정보 가져오기
-			model.addAttribute("session", session);
-			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		@RequestMapping("sidebar")
+		public String sidebar(Model model, HttpSession session) {
+			try {
+//		         유저 닉네임으로 회원정보 가져오기
+				model.addAttribute("session", session);
+				boaSideServ = (BoaMyInfoServImpl) AC.ac.getBean("boaMyInfoServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			try {
+//		         게시판 list 가져오기
+				boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
+				boaSideServ.execute_Str(model);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "default/sidebar";
 		}
-		try {
-//	         게시판 list 가져오기
-			boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
-			boaSideServ.execute_Str(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "default/sidebar";
-	}
 
-	// 내가 쓴글 틀
-	@RequestMapping("myList")
-	public String myList(Model model, HttpSession session) {
-		try {
-//	         유저 닉네임으로 회원정보 가져오기
-			model.addAttribute("session", session);
-			boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
-			boaSideServ.execute_Boo(model);
-			boaSideServ.execute_Int(model);
-		} catch (Exception e) {
+		// 내가 쓴글 틀
+		@RequestMapping("myList")
+		public String myList(Model model, HttpSession session, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 회원정보 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			return "board/myList";
 		}
-		return "board/myList";
-	}
-	
-	// 내가 쓴 게시글 목록
-	@RequestMapping("myWrite")
-	public String myWrite(Model model, HttpSession session, BoardDTO boardDTO) {
-		try {
-//	         유저 닉네임으로 게시글 가져오기
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 게시글 목록
+		@RequestMapping("myWrite")
+		public String myWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 게시글 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
+				boaSideServ.execute_Boo(model);
+			} catch (Exception e) {
+			}
+			return "board/myWrite";
 		}
-		return "board/myWrite";
-	}
-	
-	// 내가 쓴 댓글 목록
-	@RequestMapping("myReply")
-	public String myReply(Model model, HttpSession session, BoardDTO boardDTO) {
-		try {
-//	         유저 닉네임으로 게시글 가져오기
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
-			comServ.execute(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 댓글 목록
+		@RequestMapping("myReply")
+		public String myReply(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+//		         유저 닉네임으로 게시글 가져오기
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				comServ = (ComListServImpl) AC.ac.getBean("comListServImpl");
+				comServ.execute(model);
+			} catch (Exception e) {
+			}
+			return "board/myReply";
 		}
-		return "board/myReply";
-	}
-	
-	// 내가 쓴 댓글 게시글 목록
-	@RequestMapping("myReplyWrite")
-	public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO) {
-		try {
-//	         유저 닉네임으로 게시글 가져오기
-			model.addAttribute("session", session);
-			model.addAttribute("boardDTO", boardDTO);
-			boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-			boaSideServ.execute_Boo(model);
-		} catch (Exception e) {
+		
+		// 내가 쓴 댓글 게시글 목록
+		@RequestMapping("myReplyWrite")
+		public String myReplyWrite(Model model, HttpSession session, BoardDTO boardDTO, HttpServletRequest request) {
+			try {
+				model.addAttribute("id", request.getParameter("id"));
+				model.addAttribute("session", session);
+				model.addAttribute("boardDTO", boardDTO);
+				comServ = (ComBoardListServImpl) AC.ac.getBean("comBoardListServImpl");
+				comServ.execute(model);
+			} catch (Exception e) {
+			}
+			return "board/myReplyWrite";
 		}
-		return "board/myReplyWrite";
-	}
 
 //=======================================================================================	
 	// 게시글 목록
@@ -159,7 +154,6 @@ public class BoardController {
 			HttpSession session , MultipartHttpServletRequest mpRequest,
 			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		System.out.println("글쓰기 들어옴");
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 

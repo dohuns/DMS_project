@@ -76,38 +76,75 @@
 		<tbody>
 			<c:choose>
 				<c:when test="${myList != '[]'}">
-					<c:forEach var="list" items="${myList}">
-						<tr>
-							<td colspan="1" align="left"><div
-									style="display: flex; font-size: 15px; height: 35px; align-items: center;">
-									<div style="width: 30px;">
-										<input type="checkbox" class="chkBox" value="${list.b_num }">
+					<c:choose>
+						<c:when test="${sessionScope.m_id eq param.id }">
+							<c:forEach var="list" items="${myList}">
+								<tr>
+									<td colspan="1" align="left"><div
+											style="display: flex; font-size: 15px; height: 35px; align-items: center;">
+											<div style="width: 30px;">
+												<input type="checkbox" class="chkBox" value="${list.b_num }">
+											</div>
+											<div style="width: 70px;">${list.b_num }</div>
+											<div>
+												<a href="/movie/board/show?b_num=${list.b_num }">${list.b_title }
+													<span style="color: red;">[${list.b_comCount }]</span>
+												</a>
+											</div>
+										</div></td>
+									<td align="center">${list.b_date }</td>
+									<td align="center">${list.b_hit }</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="3">
+									<div style="display: flex; margin-top: 10px;">
+										<div align="left"
+											style="width: 50%; height: 35px; align-items: center;">
+											<input id="allCheck" type="checkbox"> &nbsp; 전체선택
+
+										</div>
+										<div align="right" style="width: 50%">
+											<a onclick="myWriteDelete()" class="btn btn-info btn-sm"
+												style="color: white; background-color: red; border-color: red;">삭제</a>
+											<a href="#" class="btn btn-info btn-sm" style="color: white;">글
+												쓰기</a>
+										</div>
 									</div>
-									<div style="width: 70px;">${list.b_num }</div>
-									<div><a href="/movie/board/show?b_num=${list.b_num }">${list.b_title } <span style="color: red;">[${list.b_comCount }]</span></a></div>
-								</div></td>
-							<td align="center">${list.b_date }</td>
-							<td align="center">${list.b_hit }</td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="3">
-							<div style="display: flex; margin-top: 10px;">
-								<div align="left"
-									style="width: 50%; height: 35px; align-items: center;">
-									<input id="allCheck" type="checkbox"> &nbsp; 전체선택
 
-								</div>
-								<div align="right" style="width: 50%">
-									<a onclick="myWriteDelete()" class="btn btn-info btn-sm"
-										style="color: white; background-color: red; border-color: red;">삭제</a>
-									<a href="#" class="btn btn-info btn-sm" style="color: white;">글
-										쓰기</a>
-								</div>
-							</div>
+								</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="list" items="${myList}">
+								<tr>
+									<td colspan="1" align="left"><div
+											style="display: flex; font-size: 15px; height: 35px; align-items: center;">
+											<div style="width: 70px;">${list.b_num }</div>
+											<div>
+												<a href="/movie/board/show?b_num=${list.b_num }">${list.b_title }
+													<span style="color: red;">[${list.b_comCount }]</span>
+												</a>
+											</div>
+										</div></td>
+									<td align="center">${list.b_date }</td>
+									<td align="center">${list.b_hit }</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="3">
+									<div style="display: flex; margin-top: 10px;">
+										<div align="right" style="width: 100%;">
+											<a href="#" class="btn btn-info btn-sm" style="color: white;">글
+												쓰기</a>
+										</div>
+									</div>
 
-						</td>
-					</tr>
+								</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+
 				</c:when>
 				<c:otherwise>
 					<tr>
@@ -123,13 +160,14 @@
 			</c:choose>
 		</tbody>
 	</table>
-	
-	
+
+
 	<div class="text-center">
 		<ul class="pagination">
 			<%-- 이전 버튼 --%>
 			<li><c:if test="${artiNum>9}">
-					<a href="myList?page=1&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+					<a
+						href="myList?id=${param.id }&page=1&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
 				</c:if></li>
 			<%--게시판 15개 나눈 모음(?) 번호 --%>
 			<c:choose>
@@ -138,20 +176,21 @@
 						var="cnt">
 						<li
 							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
-							href="myList?page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
+							href="myList?id=${param.id }&page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<c:forEach begin="${next*10+1}" end="${count}" step="1" var="cnt">
 						<li
 							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
-							href="myList?page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
+							href="myList?id=${param.id }&page=1&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<%-- 다음 버튼 --%>
 			<li><c:if test="${count > next*10+10 }">
-					<a href="myList?page=1&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+					<a
+						href="myList?id=${param.id }&page=1&next=${next+1}&artiNum=${(next+1)*10}">»</a>
 				</c:if></li>
 		</ul>
 	</div>

@@ -3,7 +3,6 @@ package com.KG.service.board.sidebar;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoardService;
 
 @Service
-public class BoaUserInfoServImpl implements BoardSidebarService {
+public class BoaMyInfoServImpl implements BoardSidebarService {
 
 	@Autowired
 	BoardDAO boardDAO;
@@ -23,12 +22,11 @@ public class BoaUserInfoServImpl implements BoardSidebarService {
 	@Override
 	public boolean execute_Boo(Model model) {
 		Map<String, Object> map = model.asMap();
-		
-		String id = (String) map.get("id");
-		
-		model.addAttribute("userInfo" , boardDAO.userInfo(id));
-		model.addAttribute("boardcount" , boardDAO.boardCount(id));
-		model.addAttribute("replycount" , boardDAO.replyCount(id));
+		HttpSession session = (HttpSession)map.get("session");
+		String m_id = (String)session.getAttribute("m_id");
+		model.addAttribute("myInfo" , boardDAO.userInfo(m_id));
+		model.addAttribute("myBoardcount" , boardDAO.boardCount(m_id));
+		model.addAttribute("myReplycount" , boardDAO.replyCount(m_id));
 		return false;
 	}
 
