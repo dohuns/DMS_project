@@ -29,8 +29,14 @@ a:hover, a:focus {
 </head>
 <body>
 	
+	<div class="container">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
 
 	<c:choose>
 		<c:when test="${param.artiNum == null}">
@@ -48,7 +54,7 @@ a:hover, a:focus {
 
 <c:choose>
 	<c:when test="${param.b_category != null}">
-	<div class="container">
+	<div style="width: 810px;">
 		<div align="center">
 			<div align="left">
 				<h3>${param.b_article} ${b_search}(으)로 검색 한 결과</h3>
@@ -94,32 +100,37 @@ a:hover, a:focus {
 			</div>	
 		</div>
 		<%-- 게시글 나누기--%>
+	<div class="text-center">
+		<ul class="pagination">
 		<%-- 이전 버튼 --%>
-		<c:if test="${artiNum>9}">
+		<li><c:if test="${artiNum>9}">
 			<a href="search_list?b_category=${param.b_category}&b_article=${param.b_article}&
-				b_search=${param.b_search}&b_content=${param.b_content}&next=${next-1}&artiNum=${(next-1)*10+9}">&lt; 이전</a>
-		</c:if>
+				b_search=${param.b_search}&b_content=${param.b_content}&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+		</c:if></li>
 		<%--게시판 15개 나눈 모음(?) 번호 --%>
 		<c:choose>
 			<c:when test="${count > next*10+10 }">
 				<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1" var="cnt">
+					<li class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
 					<a href="search_list?b_category=${param.b_category}&b_article=${param.b_article}&
-					b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">[${cnt}]</a>
+					b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<c:forEach begin="${next*10+1}" end="${count}" step="1" var="cnt">
+					<li class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
 					<a href="search_list?b_category=${param.b_category}&b_article=${param.b_article}&
-					b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">[${cnt}]</a>
+					b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		<%-- 다음 버튼 --%>	
-		<c:if test="${count > next*10+10 }">
+		<li><c:if test="${count > next*10+10 }">
 			<a href="search_list?b_category=${param.b_category}&b_article=${param.b_article}&
-			b_search=${param.b_search}&b_content=${param.b_content}&next=${next+1}&artiNum=${(next+1)*10}">다음 &gt;</a>
-		</c:if>
-		[${artiNum+1} /${count}]
+			b_search=${param.b_search}&b_content=${param.b_content}&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+		</c:if></li>
+		</ul>
+	</div>
 	</div>
 	</c:when>
 	
@@ -127,7 +138,7 @@ a:hover, a:focus {
 	<%-- 전체 게시글 검색 --%>
 	
 	<c:otherwise>
-	<div class="container">
+	<div style="width: 810px;">
 		<div align="center">
 			<div align="left">
 				<h3>${b_search}(으)로 검색한 결과</h3>
@@ -178,29 +189,34 @@ a:hover, a:focus {
 		</div>
 				
 		<%-- 게시글 나누기--%>
+	<div class="text-center">
+		<ul class="pagination">
 		<%-- 이전 버튼 --%>
-		<c:if test="${artiNum>9}">
-			<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next-1}&artiNum=${(next-1)*10+9}">&lt; 이전</a>
-		</c:if>
+		<li><c:if test="${artiNum>9}">
+			<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+		</c:if></li>
 		<%--게시판 15개 나눈 모음(?) 번호 --%>
 		<c:choose>
 			<c:when test="${countAll > next*10+10 }">
 				<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1" var="cnt">
-					<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">[${cnt}]</a>
+					<li class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
+					<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<c:forEach begin="${next*10+1}" end="${countAll}" step="1" var="cnt">
-					<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">[${cnt}]</a>
+					<li class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
+					<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		<%-- 다음 버튼 --%>	
-		<c:if test="${countAll > next*10+10 }">
-			<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next+1}&artiNum=${(next+1)*10}">다음 &gt;</a>
-		</c:if>
-		[${artiNum+1} /${countAll}]
+		<li><c:if test="${countAll > next*10+10 }">
+			<a href="search_list?b_search=${param.b_search}&b_content=${param.b_content}&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+		</c:if></li>
 		
+		</ul>
+	</div>
 		<%-- 검색 --%>	
 		<form action="search_list" class="form-inline">
 			
@@ -223,5 +239,6 @@ a:hover, a:focus {
 	</div>
 	</c:otherwise>
 </c:choose>
+</div></div></div>
 </body>
 </html>

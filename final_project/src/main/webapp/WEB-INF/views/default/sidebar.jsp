@@ -110,19 +110,19 @@ padding-inline-start : 20px;
 								</div>
 							</div>
 								<ul id="myInfoWrite">
-									<li style="margin-top: 10px; margin-bottom: 5px;"><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
-									<li><b><a href="myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
+									<li style="margin-top: 10px; margin-bottom: 5px;"><b><a href="/movie/myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li><b><a href="/movie/myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
+						<a href="/movie/login">
 					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
-						<a href="login">
 								로그인하기
-						</a>
 					</div>
+						</a>
 				</c:otherwise>
 			</c:choose>
 				<a href="#">
@@ -130,7 +130,8 @@ padding-inline-start : 20px;
 					게시글글쓰기
 			</div> 
 				</a>
-				<a href="#">
+				<a href="https://service.dongledongle.com/DMS_project">
+<!-- 				<iframe src="https://service.dongledongle.com/DMS_project" frameborder="0" width="100%" height="500"></iframe> -->
 			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
 					채팅하기
 			</div>
@@ -151,7 +152,7 @@ padding-inline-start : 20px;
 				</form>
 			</div>
 			<div id="menu" style="margin-top: 20px;">
-				<a href="board/list?b_category=&b_article=전체">전체글 보기</a>
+				<a href="/movie/board/list?b_category=&b_article=전체">전체글 보기</a>
 			</div>
 			<div>
 				<c:forEach items="${boardCate}" var="boardCate">
@@ -168,7 +169,7 @@ padding-inline-start : 20px;
 						<c:if test="${boardCate.b_category == boardArt.b_category}">
 							<div id="menu" class="${boardCate.b_category}Close">
 								<a
-									href="board/list?b_category=${boardArt.b_category}&b_article=${boardArt.b_article}">${boardArt.b_article}</a><br>
+									href="/movie/board/list?b_category=${boardArt.b_category}&b_article=${boardArt.b_article}">${boardArt.b_article}</a><br>
 							</div>
 						</c:if>
 					</c:forEach>

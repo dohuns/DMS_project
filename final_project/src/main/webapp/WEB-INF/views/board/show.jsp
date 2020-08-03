@@ -14,17 +14,17 @@
 <style>
 .contentBox{
 	border: 1px solid #eee;
-	width:1000px;
+	width:750px;
 	border-radius : 20px;
 	margin : 10px 29px 0 33px;
 }
 .btnBotBox {
-	width:985px;
+	width:735px;
 	height: 50px;
 	margin: 10px 0 29px 38px;
 }
 .btnTopBox {
-	width:985px;
+	width:735px;
 	height: 34px;
 	margin: 29px 0 0 38px;
 }
@@ -41,23 +41,23 @@
 }
 
 .hr0 {
-	width:950px;
+	width:700px;
 	margin: 20px 0;
 }
 .hr1 {
-	width:950px;
+	width:700px;
 	margin: 0px 0;
 }
 .hr2 {
-	width:900px;
+	width:650px;
 	margin : 0 0 0 50px;
 }
 .hr3 {
-	width:900px;
+	width:650px;
 	margin : 0;
 }
 .hr4 {
-	width: 950px;
+	width: 700px;
 	margin: 0 0 0 -50px;
 }
 .board-content {
@@ -77,7 +77,7 @@
 	font-weight: 400p;
 }
 .commentWriter {
-	width : 950px;
+	width : 700px;
 	margin: 12px 0 ;
 	padding: 8px 10px 10px 10px;
 	border-radius: 6px;
@@ -92,19 +92,19 @@
 	border: 2px solid rgba(0,0,0,0.1);
 }
 .hide-Comment {
-	width : 950px;
+	width : 700px;
 	padding: 0 0 0 50px; 
 }
 .commentArea {
 	display : flex;
 	padding: 12px 23px 10px 0px;
-	width: 950px;
+	width: 700px;
 }
 .commentArea-reply {
 	display : flex;
 	padding: 12px 23px 10px 0px;
 	padding-left: 50px;
-	width: 950px;
+	width: 700px;
 }
 .mylb{
 	color:blue;
@@ -139,7 +139,7 @@ textarea:focus {
 }
 .delComment{
 	padding: 12px 23px 10px 0px;
-	width: 950px;
+	width: 700px;
 }
 .profilePic {
 	margin: 10px 12px 10px 10px;
@@ -500,11 +500,17 @@ textarea:focus {
 <body>
 	<input type="hidden" id="papering" value="0">
 
+	<div class="container">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
 
 	<!-- body -->
-	<div class="container">
+	<div>
 		<div class="btnTopBox">
 			<div style="float: left;">
 				<button type="button" id="btnMD01"class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
@@ -654,7 +660,7 @@ textarea:focus {
 			</div>
 		</div>
 	</div>
-
+</div></div></div>
 
 </body>
 </html>

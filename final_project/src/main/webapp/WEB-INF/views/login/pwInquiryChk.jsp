@@ -24,9 +24,9 @@
 			$("#label_pw").css({
 				"color" : "red"
 			})
-		}else{
+		} else {
 			$("#label_pw").text("");
-			
+
 		}
 	}
 	// 비밀번호 일치 확인
@@ -97,34 +97,39 @@
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
 
-	<div align="center">
-		<h1>비밀번호 설정하기</h1>
-		<div style="width: 500px;">
-			<form action="findPw_end_save" id="save">
-				<input type="hidden" name="m_id" value="${param.m_id }"> <input
-					type="hidden" name="m_name" value="${param.m_name }"> <input
-					type="hidden" name="m_email" value="${param.m_email }">
-				<div align="left">
-					<b>새로운 비밀번호 :</b> <input type="password" name="m_pw" id="m_pw"
-						placeholder="새로운 비밀번호" class="form-control" onblur="chkPw()"><br>
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center">
+				<h1>비밀번호 설정하기</h1>
+				<div style="width: 500px;">
+					<form action="findPw_end_save" id="save">
+						<input type="hidden" name="m_id" value="${param.m_id }"> <input
+							type="hidden" name="m_name" value="${param.m_name }"> <input
+							type="hidden" name="m_email" value="${param.m_email }">
+						<div align="left">
+							<b>새로운 비밀번호 :</b> <input type="password" name="m_pw" id="m_pw"
+								placeholder="새로운 비밀번호" class="form-control" onblur="chkPw()"><br>
+						</div>
+						<div>
+							<label id="label_pw"></label>
+						</div>
+						<div align="left">
+							<b>비밀번호 확인 :</b> <input type="password" name="m_pw_ck"
+								id="m_pw_ck" placeholder="비밀번호 확인" class="form-control"
+								onblur="chkRpw()"><br>
+						</div>
+						<div>
+							<label id="label_pw_ck"></label>
+						</div>
+						<div align="left">
+							<input type="button" onclick="submit()" value="비밀번호 변경하기"
+								id="btn-changePw" class="btn btn-info">
+						</div>
+					</form>
 				</div>
-				<div>
-					<label id="label_pw"></label>
-				</div>
-				<div align="left">
-					<b>비밀번호 확인 :</b> <input type="password" name="m_pw_ck" id="m_pw_ck"
-						placeholder="비밀번호 확인" class="form-control" onblur="chkRpw()"><br>
-				</div>
-				<div>
-					<label id="label_pw_ck"></label>
-				</div>
-				<div align="left">
-					<input type="button" onclick="submit()" value="비밀번호 변경하기"
-						id="btn-changePw" class="btn btn-info">
-				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </body>

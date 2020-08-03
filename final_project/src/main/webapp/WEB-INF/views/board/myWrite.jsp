@@ -60,7 +60,7 @@
 		</c:otherwise>
 	</c:choose>
 
-	<table style='width: 860px;'>
+	<table style='width: 760px;'>
 		<colgroup>
 			<col>
 			<col style='width: 120px'>
