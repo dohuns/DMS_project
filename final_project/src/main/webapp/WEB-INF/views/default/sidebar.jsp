@@ -59,7 +59,7 @@ hr#sub {
 <body>
 	<div style="margin-right: 20px;">
 		<div
-			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
+			style="background-color: white; width: 250px; border-top: solid 0px #000000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>

@@ -16,7 +16,7 @@
 /* 		url("http://www.webcoderskull.com/img/right-sider-banner.png") */
 /* 		no-repeat center top/cover; */
 /* background-color: #fdfcf0; */
-width: 760px;
+width: 810px;
 border : 6px solid #eee;
 
 }
@@ -58,7 +58,7 @@ margin-right: 50px;
 .leftBtn {
 cursor: pointer;
 margin-top: 350px;
-margin-left: 30px;
+margin-left: 50px;
 font-size: 100px;
 }
 .movieRankArea a {
@@ -240,7 +240,7 @@ display: block;
 				<h2 >일일 박스 오피스</h2>
 			</div>
 			<!-- 영화 차트 순위권 출력 -->
-			<div class="movieRankArea" align="center">
+			<div class="movieRankArea" >
 				<div style="width: 33%"></div>
 				<div style="width: 33%; margin-top:50px;">
 					<label style="font-size:36px;">
