@@ -38,6 +38,12 @@ th, td {
 			location.href = "login";
 		</script>
 	</c:if>
+	<c:if test="${userInfo.m_rankNum == 5}">
+		<script type="text/javascript">
+			alert("탈퇴한 회원입니다.");
+			history.go(-1);
+		</script>
+	</c:if>
 	<c:import url="../default/header.jsp" />
 	<div style="display: flex;">
 		<!-- 사이드바 -->

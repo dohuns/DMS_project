@@ -54,8 +54,9 @@ hr#main {
 hr#sub {
 	border: solid 1px #f0f0f0;
 }
-ul#myInfo{
+#myInfo{
 padding-inline-start : 30px;
+padding-bottom: 10px;
 }
 ul#myInfoWrite{
 padding-inline-start : 20px;
@@ -69,14 +70,19 @@ padding-inline-start : 20px;
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
+					<hr style="border: solid 2px #e2e2e2; margin: 0px;">
 						<div align="center" style="padding-top: 5px;">
-							<h4 class="d-none">나의 활동</h4>
+							<h4 class="d-none">나의 활동</h4><div align="center">
+								<div style="width: 220px;">
+									<hr style="border: solid 1px #f7f7f7; margin: 0px;">
+								</div>
+							</div>
 						</div>
 						<div>
-							<div>
-								<ul id="myInfo">
-									<li>
-										<div>
+							<div style="display: flex;">
+<!-- 								<ul id="myInfo"> -->
+<!-- 									<li> -->
+										<div id="myInfo" style="margin-right: 20px; margin-top: 5px;">
 											<c:choose>
 												<c:when test="${myInfo.m_picture != null}">
 												<img
@@ -90,16 +96,21 @@ padding-inline-start : 20px;
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<div>
-											<strong>${myInfo.m_nick }</strong>
+										<div style="margin-top: 15px; margin-left: 10px;">
+											<strong>${myInfo.m_nick }</strong><br>
+											${myInfo.m_rank}
 										</div>
-									</li>
-									<li>${myInfo.m_rank}</li>
-								</ul>
+<!-- 									</li> -->
+<!-- 								</ul> -->
 							</div>
 							<div>
+							<div align="center">
+								<div style="width: 220px;">
+									<hr style="border: solid 1px #f7f7f7; margin: 0px;">
+								</div>
+							</div>
 								<ul id="myInfoWrite">
-									<li><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li style="margin-top: 10px; margin-bottom: 5px;"><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
 									<li><b><a href="myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
