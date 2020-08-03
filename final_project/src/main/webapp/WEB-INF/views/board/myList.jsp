@@ -32,7 +32,7 @@ th, td {
 
 
 	<!-- 로그인 확인 -->
-	<c:if test="${sessionScope.m_nick == null}">
+	<c:if test="${sessionScope.m_id == null}">
 		<script type="text/javascript">
 			alert("로그인을 해주세요");
 			location.href = "login";
@@ -48,9 +48,17 @@ th, td {
 		<div style="width: 940px; padding: 40px;">
 			<div style="display: flex;">
 				<div>
-					<img
-						src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_120.png"
-						width="80" height="80" alt="프로필사진">
+					<c:choose>
+						<c:when test="${userInfo.m_picture != null}">
+							<img src="/img/memberImage/${userInfo.m_picture}" width="80"
+								height="80" alt="프로필사진" style="border-radius: 100%">
+						</c:when>
+						<c:otherwise>
+							<img
+								src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
+								width="80" height="80" alt="프로필사진">
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 				<div style="margin-left: 20px;">
@@ -67,13 +75,26 @@ th, td {
 				</div>
 			</div>
 			<hr>
-			<div style="font-size: 15px; color: black;">
-				<a href="myList?page=1" id="myWrite" style="color: black;">작성글</a><span
-					style="color: #eee;"> | </span><a href="myList?page=2" id="myReply"
-					style="color: black;">작성 댓글</a><span style="color: #eee;"> |
-				</span><a href="myList?page=3" id="myReplyWrite" style="color: black;">댓글단
-					글</a>
-			</div>
+			<c:choose>
+				<c:when test="${sessionScope.m_id eq param.id }">
+					<div style="font-size: 15px; color: black;">
+						<a href="myList?id=${param.id }&page=1" id="myWrite"
+							style="color: black;">작성글</a><span style="color: #eee;"> |
+						</span><a href="myList?id=${param.id }&page=2" id="myReply"
+							style="color: black;">작성 댓글</a><span style="color: #eee;">
+							| </span><a href="myList?id=${param.id }&page=3" id="myReplyWrite"
+							style="color: black;">댓글단 글</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div style="font-size: 15px; color: black;">
+						<a href="myList?id=${param.id }&page=1" id="myWrite"
+							style="color: black;">작성글</a><span style="color: #eee;"> |
+						</span><a href="myList?id=${param.id }&page=3" id="myReplyWrite"
+							style="color: black;">댓글단 글</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 
 			<div class="list" style="padding-top: 10px;">
 				<c:choose>

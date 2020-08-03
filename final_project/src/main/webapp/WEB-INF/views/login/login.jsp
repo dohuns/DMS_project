@@ -144,7 +144,6 @@ function makeToken() {
 <body>
 <c:if test="${sessionScope.m_id != null}">
 	<script type="text/javascript">
-		alert("이미 로그인 중입니다.");
 		location.href="/movie";
 	</script>
 </c:if>

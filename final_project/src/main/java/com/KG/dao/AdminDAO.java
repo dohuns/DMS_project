@@ -71,8 +71,8 @@ public class AdminDAO {
 		return sqlSession.update(namespace + ".updateRankMember", dto);
 	}
 
-	// 회원 정보 삭제
+	// 회원 정보 삭제 (삭제 시 회원 정보를 탈퇴회원으로 변경)
 	public int deleteMember(String m_id) {
-		return sqlSession.delete(namespace + ".deleteMember", m_id);
+		return sqlSession.update(namespace + ".deleteMember", m_id);
 	}
 }

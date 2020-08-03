@@ -36,6 +36,15 @@
 		INSERT INTO member values(#{m_id} , #{m_pw} , #{m_name} , #{m_nick} , #{m_birth} , #{m_email} , '일반회원' , 3 , #{m_picture})
 	</insert>
 	
+	<!-- 회원정보 수정 -->
+	<update id="memberUp" parameterType="memberDTO">
+		update member set m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}, m_picture = #{m_picture} where m_id = #{m_id}
+	</update>
+	<!-- 회원탈퇴 -->
+	<update id="memberDel" parameterType="memberDTO">
+		update member set m_rank = '탈퇴회원', m_rankNum = 5 where m_id = #{m_id}
+	</update>
+	
 	
 	<!-- /////////////////////////////////////////////////////////// -->
 	<!-- 이미지 업로드 관련 -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,9 @@
 	// 아이디 중복체크 
 	function chk_id() {
 		var id = $("#m_id").val();
+		if (id == "") {
+			alert("아이디를 입력해주세요")
+		}else{
 		$.ajax({
 			url:"../overlapId",
 			type:"GET",
@@ -44,10 +48,14 @@
 				alert("실패!!")
 			}
 		});
+		}
  	}
 	// 닉네임 중복 체크
 	function chk_nick() {
 		var nick = $("#m_nick").val();
+		if (nick == "") {
+			alert("닉네임를 입력해주세요")
+		}else{
 		$.ajax({
 			url:"../overlapNick",
 			type:"GET",
@@ -71,6 +79,7 @@
 				alert("실패!!");
 			}
 		});
+		}
 	}
 	
 	// input 공백 체크(id,label,column명(한글))
@@ -111,6 +120,10 @@
 	
 	//비밀번호 확인 체크
 	function pwSameChk() {
+		var pw = $('#m_pw').val().replace(/ /gi, '');
+        $('#m_pw').val(pw);
+		var Rpw = $('#m_Rpw').val().replace(/ /gi, '');
+        $('#m_Rpw').val(Rpw);
 		if($("#m_Rpw").val() != "" && $("#m_pw").val() == $("#m_Rpw").val() && $("#label_pw").text() == "") {
 			$("#label_Rpw").text("일치~");
 			$("#label_Rpw").css({
@@ -188,6 +201,8 @@
 	$(function(){
 		// 아이디 제한
 		$("#m_id").on('keyup' , function() {
+			var id = $('#m_id').val().replace(/ /gi, '');
+	        $('#m_id').val(id);
 			if($(this).val().length > 16) {
 				console.log("아이디")
 				$("#label_id").text("아이디는 16자 이하로 작성해주세요")
@@ -199,6 +214,8 @@
 		});
 		// 닉네임 제한
 		$("#m_nick").on('keyup' , function() {
+			var nick = $('#m_nick').val().replace(/ /gi, '');
+	        $('#m_nick').val(nick);
 			if($(this).val().length > 8) {
 				console.log("닉네임")
 				$("#label_nick").text("닉네임은 8자 이하로 작성해주세요")
@@ -210,6 +227,8 @@
 		});
 		// 이름 제한
 		$("#m_name").on('keyup' , function() {
+			var name = $('#m_name').val().replace(/ /gi, '');
+	        $('#m_name').val(name);
 			if($(this).val().length > 6) {
 				$(this).val($(this).val().substring(0,6));
 				console.log("이름")
@@ -255,8 +274,16 @@
 </script> 
 </head>
 <body>
+	<c:if test="${sessionScope.m_id != null}">
+		<script type="text/javascript">
+			alert("정상적인 경로를 이용해주세요")
+			location.href = "/movie"
+		</script>
+	</c:if>
+	<c:import url="/header" />
+	<div align="center" style="margin-top: 80px;">
 	<div class="container">
-		<div style="width:1000px;">
+		<div style="width:1000px; padding-bottom: 100px;">
 			<div align="center">
 				<h1>회원가입 페이지</h1>
 			</div>
@@ -394,6 +421,6 @@
 			</script>
 		</div>
 	</div>
-
+</div>
 </body>
 </html>

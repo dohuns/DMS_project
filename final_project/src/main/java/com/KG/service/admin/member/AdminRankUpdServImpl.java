@@ -30,8 +30,10 @@ public class AdminRankUpdServImpl implements AdminService {
 				dto.setM_rank("스탭");
 			} else if(m_rankNum == 3) {
 				dto.setM_rank("일반회원");
-			} else {
+			} else if(m_rankNum == 4) {
 				dto.setM_rank("대기회원");
+			} else {
+				dto.setM_rank("탈퇴회원");
 			}
 			System.out.println("adminrank : " + dto.getM_id() + ", " + dto.getM_rank() + ", " + dto.getM_rankNum());
 			adminDAO.updRankMember(dto);

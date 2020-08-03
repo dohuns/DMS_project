@@ -115,7 +115,7 @@
 
 								<div class="form-group bt-a">
 									<button type="button" class="btn btn-default"
-										onclick="contentPwChk(${param.cus_num},${inquiryContent.cus_pw})">삭   제</button>
+										onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
 									<button type="submit" class="btn bBtn">수   정</button>
 								</div>
 

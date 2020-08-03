@@ -10,8 +10,9 @@
 	</insert>
 	
 	<!-- 댓글 리스트 -->
-	<select id="commentList" resultType="commentDTO">
-		SELECT * FROM reply WHERE C_BOARDNUM = #{c_boardNum}
+	<select id="commentList" resultType="hashMap">
+		SELECT * FROM reply JOIN member ON reply.c_id = member.m_id
+      		WHERE C_BOARDNUM = #{c_boardNum}
 			ORDER BY c_group ASC , c_renum ASC
 	</select>
 	

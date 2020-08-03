@@ -31,7 +31,7 @@ public class CommentDeleteServImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentDTO> execute_list(Model model) {
+	public List<Map<String, Object>> execute_list(Model model) {
 		// TODO Auto-generated method stub
 		return null;
 	}

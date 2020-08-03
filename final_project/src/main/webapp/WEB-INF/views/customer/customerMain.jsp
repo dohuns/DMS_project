@@ -396,7 +396,7 @@
 															<td class="tdClass">
 																<c:choose>
 																	<c:when test="${list.cus_pub eq 'close'}">
-																		<a onclick="contentPwChk(${list.cus_num},${list.cus_pw})">${list.cus_title}</a>
+																		<a onclick="contentPwChk(${list.cus_num},'${list.cus_pw}')">${list.cus_title}</a>
 																		<span class="glyphicon glyphicon-lock"></span> &nbsp;
 																	</c:when>
 																	<c:otherwise>

@@ -58,7 +58,7 @@
 
 	<!-- 회원 정보 삭제 -->
 	<update id="deleteMember">
-		DELETE FROM member WHERE m_id = #{m_id}
+		UPDATE member SET m_rankNum = '5', m_rank = '탈퇴회원' WHERE m_id = #{m_id}
 	</update>
 
 	<!-- 회원 수 -->

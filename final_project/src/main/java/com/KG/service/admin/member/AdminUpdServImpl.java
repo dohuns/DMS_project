@@ -24,8 +24,10 @@ public class AdminUpdServImpl implements AdminService {
 			dto.setM_rank("스탭");
 		} else if (dto.getM_rankNum() == 3) {
 			dto.setM_rank("일반회원");
-		} else {
+		} else if (dto.getM_rankNum() == 4){
 			dto.setM_rank("대기회원");
+		} else {
+			dto.setM_rank("탈퇴회원");
 		}
 		adminDAO.updateMember(dto);
 	}

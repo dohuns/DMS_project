@@ -95,7 +95,7 @@
 									<label for="pw">비밀번호 <span class="require">*</span>
 										<small>해당 게시글을 수정/삭제할 수 있는 비밀번호입니다. </small>
 									</label>
-									<input type="text" class="form-control" name="cus_pw" id="cus_pw" required />
+									<input type="password" class="form-control" name="cus_pw" id="cus_pw" required />
 								</div>
 
 								<div class="form-group bt-a">

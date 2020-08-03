@@ -14,9 +14,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.MemberDTO;
@@ -24,6 +26,9 @@ import com.KG.service.member.MemChkLoginServImpl;
 import com.KG.service.member.MemChkRegistServImpl;
 import com.KG.service.member.MemFindIdServImpl;
 import com.KG.service.member.MemFindPwServImpl;
+import com.KG.service.member.MemMyPageDelServImpl;
+import com.KG.service.member.MemMyPageUpServImpl;
+import com.KG.service.member.MemPwChangServImpl;
 import com.KG.service.member.MemberService;
 
 @Controller
@@ -38,13 +43,13 @@ public class MemberController {
 		System.out.println("gkdl");
 		return "home";
 	}
-	
+
 //	헤더
 	@RequestMapping("header")
 	public String header() {
 		return "default/header";
 	}
-	
+
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
@@ -59,11 +64,12 @@ public class MemberController {
 		model.addAttribute("memberDTO", memberDTO);
 		try {
 			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
-			memServ.execute_Str(model);
-			return "redirect:/";
+			if (memServ.execute_Str(model).equals("성공")) {
+				return "redirect:/";
+			}
 		} catch (Exception e) {
 		}
-		return "redirect:login?m_id="+memberDTO.getM_id();
+		return "redirect:login?m_id=" + memberDTO.getM_id();
 	}
 
 //	아이디 찾기 페이지
@@ -184,13 +190,131 @@ public class MemberController {
 
 //	회원가입
 	@RequestMapping("chk_reigst")
-	public String chk_reigst(Model model , MemberDTO dto , MultipartHttpServletRequest request) {
+	public String chk_reigst(Model model, MemberDTO dto, MultipartHttpServletRequest request) {
 		model.addAttribute("memberDTO", dto);
-		model.addAttribute("request" , request);
+		model.addAttribute("request", request);
 		memServ = (MemChkRegistServImpl) AC.ac.getBean("memChkRegistServImpl");
 		memServ.execute_Boo(model);
 		return "redirect:login";
 	}
-	
 
+//	회원정보 수정 전 패스워드 입력 페이지
+	@RequestMapping("myPageCk")
+	public String myPageCk() {
+		return "member/myPageCk";
+	}
+
+	// 회원정보 수정 전 패스워드 확인
+	@RequestMapping("myPagePwCk")
+	public String myPagePwCk(HttpSession session, Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("session", session);
+		try {
+			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
+			if (memServ.execute_Boo(model) == true) {
+				return "redirect:myPage";
+			}
+		} catch (Exception e) {
+		}
+		return "member/myPagePwCk";
+	}
+
+	// 회원정보 수정 페이지
+	@RequestMapping("myPage")
+	public String myPage(HttpSession session, Model model, MemberDTO memberDTO) {
+		model.addAttribute("session", session);
+		model.addAttribute("memberDTO", memberDTO);
+		memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
+		memServ.execute_Int(model);
+		return "member/myPage";
+	}
+	
+	// 회원정보 수정 페이지
+	@RequestMapping("myPageChangCk")
+	public String myPageCk(Model model, MemberDTO memberDTO, MultipartHttpServletRequest request) {
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("request", request);
+		memServ = (MemMyPageUpServImpl) AC.ac.getBean("memMyPageUpServImpl");
+		memServ.execute_Boo(model);
+		return "redirect:/";
+	}
+
+	// 비밀번호 변경 페이지
+	@RequestMapping("myPagePwChang")
+	public String myPagePwChang(HttpSession session, Model model, MemberDTO memberDTO) {
+		model.addAttribute("session", session);
+		model.addAttribute("memberDTO", memberDTO);
+		try {
+			memServ = (MemPwChangServImpl) AC.ac.getBean("memPwChangServImpl");
+			memServ.execute_Boo(model);
+		} catch (Exception e) {
+		}
+		return "member/myPagePwChang";
+	}
+
+	// 비밀번호 변경하기
+	@RequestMapping("myPagePwChangCk")
+	public String myPagePwChangCk(HttpSession session, Model model, MemberDTO memberDTO, HttpServletResponse response,
+			String new_m_pw) throws IOException {
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("session", session);
+		try {
+			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
+			if (memServ.execute_Boo(model) == true) {
+				memberDTO.setM_pw(new_m_pw);
+				model.addAttribute("memberDTO", memberDTO);
+				memServ = (MemFindPwServImpl) AC.ac.getBean("memFindPwServImpl");
+				memServ.execute_Int(model);
+				return "redirect:/";
+			} else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter pw = response.getWriter();
+				pw.println("<script>alert('현재 비밀번호가 맞지 않습니다.');</script>");
+				pw.flush();
+			}
+		} catch (Exception e) {
+		}
+		return "member/myPagePwChang";
+	}
+
+	// 회원정보 수정 전 패스워드 입력 페이지
+	@RequestMapping("myPageSecession")
+	public String myPageSecession() {
+		return "member/myPageSecession";
+	}
+
+	//	회원탈퇴 페이지
+	@RequestMapping("myPageSecessionCk")
+	public String myPageSecessionCk() {
+		return "member/myPageSecessionCk";
+	}
+
+	// 회원탈퇴 비밀번호 확인
+	@RequestMapping("myPageSecessionPwCk")
+	public String myPageSecessionCk(HttpSession session, Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("session", session);
+		try {
+			memServ = (MemChkLoginServImpl) AC.ac.getBean("memChkLoginServImpl");
+			if (memServ.execute_Boo(model) == true) {
+				return "redirect:myPageSecession";
+			}
+		} catch (Exception e) {
+		}
+		return "member/myPagePwCk";
+	}
+	
+	// 회원탈퇴
+	@RequestMapping("memberDel")
+	public String memberDel(HttpSession session, Model model, MemberDTO memberDTO) {
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("session", session);
+		try {
+			memServ = (MemMyPageDelServImpl) AC.ac.getBean("memMyPageDelServImpl");
+			memServ.execute_Boo(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:logout";
+	}
 }
