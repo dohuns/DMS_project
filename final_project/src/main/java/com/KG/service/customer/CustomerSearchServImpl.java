@@ -11,26 +11,26 @@ import com.KG.dao.CustomerDAO;
 import com.KG.dto.CustomerDTO;
 
 @Service
-public class CustomerAdminListServImpl implements CustomerService {
+public class CustomerSearchServImpl implements CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
 
-	// 관리자 페이지 > 고객센터 내역 조회
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		CustomerDTO customerDTO = (CustomerDTO) map.get("dto");
 
+		String cus_nick = (String) map.get("cus_nick");
 		int pageNum = customerDTO.getPageNum();
-		int cus_categoryNum = customerDTO.getCus_categoryNum();
-		int pageCount = customerDAO.getCustomerCount(cus_categoryNum);
+		int pageCount = customerDAO.inquirySearchCount(cus_nick);
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		hash.put("start", pageNum * 15 + 1);
 		hash.put("end", pageNum * 15 + 15);
-		hash.put("cus_categoryNum", cus_categoryNum);
+		hash.put("cus_nick", cus_nick);
 
-		model.addAttribute("customerList", customerDAO.customerList(hash));
+		model.addAttribute("searchList", customerDAO.inquirySearch(hash));
+		model.addAttribute("search_nick", cus_nick);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("totalNum", (pageCount % 15 == 0 ? pageCount / 15 : pageCount / 15 + 1));
 	}

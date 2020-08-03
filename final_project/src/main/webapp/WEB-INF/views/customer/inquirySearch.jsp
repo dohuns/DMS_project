@@ -144,9 +144,19 @@
 			color: black;
 		}
 
-		td.tdClass>a, td.tdClass>a:hover, td.tdClass>a:focus, td.tdClass>a:visited {
+		td.tdClass>a, td.tdClass>a:focus, td.tdClass>a:visited {
 			color: black;
 			text-decoration: none;
+		}
+
+		.tdClass > a:hover {
+			text-decoration: underline;
+			font-weight: 600;
+		}
+
+		.search-s {
+			width: 35%;
+			margin-bottom: 56px;
 		}
 	</style>
 
@@ -295,6 +305,7 @@
 					<div class="content-body">
 						<div class="main-box-container">
 							<div class="box">
+
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
 										<div class="pull-left">
@@ -302,39 +313,42 @@
 										</div>
 										<div class="pull-right">
 											<div id="header_user" class="inq-c">
-												<a href="customerMain"><b>모든 글 보기</b></a>
+												<a href="customerMain"><b>전체 문의보기</b></a>
 											</div>
 										</div>
 									</div>
+
 									<div class="card-body">
 										<div class="table-responsive">
 											<table class="table table-bordered">
 												<thead>
 													<tr>
 														<th width="7%">번   호</th>
-														<th width="60%">제   목</th>
-														<th width="11%">항   목</th>
-														<th width="11%">날   짜</th>
-														<th width="11%">상   태</th>
+														<th width="56%">제   목</th>
+														<th width="10%">닉네임</th>
+														<th width="10%">항   목</th>
+														<th width="10%">등록일</th>
+														<th width="7%">상   태</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${selectInquiry}">
+													<c:forEach var="list" items="${searchList}">
 														<tr>
 															<td><small>${list.cus_num}</small></td>
 															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+															<td>${list.cus_nick}</td>
 															<td><small>${list.cus_category}</small></td>
 															<td><small>${list.cus_date}</small></td>
 															<td>
 																<c:choose>
 																	<c:when test="${list.cus_reNum == 0}">
-																		<span class="btn btn-xs btn-success" disabled>답변 대기</span>
+																		<span class="btn btn-xs btn-success">답변 대기</span>
 																	</c:when>
 																	<c:when test="${list.cus_reNum == 1}">
-																		<span class="btn btn-xs btn-danger" disabled>답변 완료</span>
+																		<span class="btn btn-xs btn-danger">답변 완료</span>
 																	</c:when>
 																	<c:otherwise>
-																		<span class="btn btn-xs btn-default" disabled>답변 보류</span>
+																		<span class="btn btn-xs btn-default">답변 보류</span>
 																	</c:otherwise>
 																</c:choose>
 															</td>
@@ -351,7 +365,7 @@
 											<!-- 이전 버튼 -->
 											<li>
 												<c:if test="${pageNum > 9}">
-													<a class="b" href="myInquiryList?next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
+													<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next-1}&pageNum=${(next-1) * 10 + 9}">«</a>
 												</c:if>
 											</li>
 											<!-- 번호 출력 -->
@@ -359,14 +373,14 @@
 												<c:when test="${totalNum > next * 10 + 10}">
 													<c:forEach begin="${next * 10 + 1}" end="${next * 10 + 10}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="myInquiryList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
 													<c:forEach begin="${next * 10 + 1}" end="${totalNum}" step="1" var="cnt">
 														<li class='<c:out value="${pageNum == cnt-1 ? 'active' : ''}"></c:out>'>
-															<a class="b" href="myInquiryList?next=${next}&pageNum=${cnt-1}">${cnt}</a>
+															<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next}&pageNum=${cnt-1}">${cnt}</a>
 														</li>
 													</c:forEach>
 												</c:otherwise>
@@ -374,10 +388,29 @@
 											<!-- 다음 버튼 -->
 											<li>
 												<c:if test="${totalNum > next * 10 + 10 }">
-													<a class="b" href="myInquiryList?next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
+													<a class="b" href="inquirySearch?cus_nick=${search_nick}&next=${next + 1}&pageNum=${(next + 1) * 10}">»</a>
 												</c:if>
 											</li>
 										</ul>
+									</div>
+
+									<!-- SEARCH -->
+									<div align="center">
+										<div class="search-s">
+											<div id="custom-search-input">
+												<form action="inquirySearch">
+													<div class="input-group">
+														<input type="text" class="search-query form-control" name="cus_nick"
+															placeholder="닉네임을 입력해주세요." required="required" />
+														<span class="input-group-btn">
+															<button class="btn btn-default" type="submit">
+																<span class=" glyphicon glyphicon-search"></span>
+															</button>
+														</span>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
 
 								</div>

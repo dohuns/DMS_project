@@ -10,15 +10,16 @@ import com.KG.dao.CustomerDAO;
 import com.KG.dto.CustomerDTO;
 
 @Service
-public class CustomerInquiryServImpl implements CustomerService {
+public class CustomerDeleteServImpl implements CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
 
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		CustomerDTO dto = (CustomerDTO) map.get("dto");
-		customerDAO.insertInquiry(dto);
+		int cus_num = (Integer) map.get("cus_num");
+		customerDAO.deleteInquiry(cus_num);
+		System.out.println("serv " + cus_num);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ public class CustomerDTO {
 	private String cus_email;			// 이메일
 	private String cus_content;			// 내용
 	private Date cus_date;				// 작성일
+	private String cus_pub;				// 공개 여부
 	private int pageNum;
 
 	public int getCus_rn() {
@@ -112,6 +113,14 @@ public class CustomerDTO {
 
 	public void setCus_date(Date cus_date) {
 		this.cus_date = cus_date;
+	}
+
+	public String getCus_pub() {
+		return cus_pub;
+	}
+
+	public void setCus_pub(String cus_pub) {
+		this.cus_pub = cus_pub;
 	}
 
 	public int getPageNum() {

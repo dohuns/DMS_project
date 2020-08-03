@@ -34,7 +34,7 @@
 	<script>
 		function contentPwChk(cus_num, cus_pw) {
 			$("#openPwChk").remove();
-			console.log("content_ cus_num : " + cus_num + ", cus_pw : " + cus_pw);
+			console.log("cus_num : " + cus_num + ", cus_pw : " + cus_pw);
 			var html =
 				'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">' +
 				'<div class="container" id="openPwChk">' +
@@ -46,7 +46,7 @@
 				'					<p><b>비밀번호를 입력해주세요.</b></p>' +
 				'					<div class="panel-body">' +
 				'						<form id="PwChk-form" role="form" autocomplete="off" class="form"' +
-				'							action="deletePwChk" method="GET">' +
+				'							action="deleteInquiry" method="GET">' +
 				'							<div class="form-group">' +
 				'								<div class="input-group">' +
 				'									<span class="input-group-addon"><i class="glyphicon fa fa-lock color-blue"></i></span>' +
@@ -102,6 +102,12 @@
 								</div>
 
 								<div class="form-group">
+									<label for="email">이메일 <span class="require">*</span></label>
+									<input type="text" class="form-control" name="cus_pw"
+										value="${inquiryContent.cus_pw}" readonly="readonly"/>
+								</div>
+
+								<div class="form-group">
 									<label for="title">제 목 <span class="require">*</span></label>
 									<input type="text" class="form-control" name="cus_title"
 										value="${inquiryContent.cus_title}" readonly="readonly"/>
@@ -115,7 +121,7 @@
 
 								<div class="form-group bt-a">
 									<button type="button" class="btn btn-default"
-										onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
+										onclick="contentPwChk(${param.cus_num},${inquiryContent.cus_pw})">삭   제</button>
 									<button type="submit" class="btn bBtn">수   정</button>
 								</div>
 
