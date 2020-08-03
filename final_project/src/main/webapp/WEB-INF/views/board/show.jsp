@@ -144,7 +144,17 @@ textarea:focus {
 .profilePic {
 	margin: 10px 12px 10px 10px;
 }
-
+.CLArea {
+margin-top: 20px; 
+display: flex;
+}
+.commentCount {
+width: 50%; 
+padding-top: 11px;
+}
+.likeCount {
+width: 50%;
+}
 
 </style>
 
@@ -153,6 +163,7 @@ textarea:focus {
 	$(function() {
 		getCommentList();
 		addBtn();
+		chkLike();
 	})
 	
 	// 댓글 입력에 따른 작성버튼 변화
@@ -499,14 +510,172 @@ textarea:focus {
 		$("#fileForm").submit();
 
 	}
+	
+	// 추천 버튼
+	function likeBtn() {
+		var userId = "${sessionScope.m_id}";
+		var boardNum = "${param.b_num}";
+		
+		var divLike = $("#divLike").val();
+
+		var Data = {l_id : userId , l_boardNum : boardNum};
+		if(divLike == "") {
+			// 추천 추가
+			$.ajax({
+				url : "addLike",
+				type : "POST",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#liekCount").text(arg);
+					$("#divLike").val("like");
+					$("#likeImage").attr("src" , "/img/눌림.png")
+				},
+				error : function() {
+					alert("추천 실패!!!");
+				}
+			});
+			
+		} else if (divLike == "like") {
+			// 추천 취소
+			$.ajax({
+				url : "removeLike",
+				type : "DELETE",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#liekCount").text(arg);
+					$("#divLike").val("");
+					$("#likeImage").attr("src" , "/img/like.png")
+				},
+				error : function() {
+					alert("추천 취소 실패!!!");
+				}
+			});
+		} else {
+			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+		}
+	}
+	// 비추천 버튼
+	function unlikeBtn() {
+		var userId = "${sessionScope.m_id}";
+		var boardNum = "${param.b_num}";
+		
+		var divLike = $("#divLike").val();
+
+		var Data = {l_id : userId , l_boardNum : boardNum};
+		
+		if(divLike == "") {
+			// 비추천 추가
+			$.ajax({
+				url : "addUnlike",
+				type : "POST",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#unlikeCount").text(arg);
+					$("#divLike").val("unlike");
+					$("#unlikeImage").attr("src" , "/img/눌림.png")
+				},
+				error : function() {
+					alert("비추천 실패!!!");
+				}
+			});
+		} else if(divLike == "unlike") {
+			// 비추천 취소
+			$.ajax({
+				url : "removeUnlike",
+				type : "DELETE",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#unlikeCount").text(arg);
+					$("#divLike").val("");
+					$("#unlikeImage").attr("src" , "/img/unlike.png")
+				},
+				error : function() {
+					alert("비추천 취소 실패!!!");
+				}
+			});
+		} else {
+			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+		}
+	}
+	
+	// 접속 시 추천 비추천 누른지 확인
+	function chkLike() {
+		
+		var Data = {l_id : "${sessionScope.m_id}"};
+		
+		$.ajax({
+			url : "chkLike",
+			type : "POST",
+			data : Data,
+			dataType : "text",
+			success : function(chkLike) {
+				if(chkLike == 'L') {
+					var html = '';
+					$("#divLike").val("like");
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' +
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/눌림.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				} else if(chkLike == 'U') {
+					$("#divLike").val("unlike");
+					var html = '';
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/눌림.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				} else {
+					var html = '';
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				}
+			},
+			error : function() {
+				alert("추천 구분 실패!!");
+			}
+		});		
+	}
+	
+
+	
 </script>
 </head>
 <body>
 	<input type="hidden" id="papering" value="0">
-
+	<input type="hidden" id="divLike">
+	
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
-
+	
 	<!-- body -->
 	<div class="container">
 		<div class="btnTopBox">
@@ -592,12 +761,16 @@ textarea:focus {
 					</form>
 				</div>				
 				<!-- 좋아요 + 댓글 수  -->
-				<div style="margin-top: 20px;">
-					<a href="#">
-						<img src="/img/commentImg.png" style="width:20px;">
-						<span style="color:black;">댓글</span>
-						<strong style="color:black;" id="c_count"></strong>
-					</a>
+				<div class="CLArea">
+					<div class="commentCount">
+						<a style="cursor: pointer;">
+							<img src="/img/commentImg.png" style="width:20px;">
+							<span style="color:black;">댓글</span>
+							<strong style="color:black;" id="c_count"></strong>
+						</a>
+					</div>
+					<div class="likeCount" align="right">
+					</div>
 				</div>
 				
 				<hr class="hr0">

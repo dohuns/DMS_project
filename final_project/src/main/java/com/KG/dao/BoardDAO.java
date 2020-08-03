@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.KG.dto.BoardDTO;
+import com.KG.dto.LikeDTO;
 import com.KG.dto.MemberDTO;
 
 @Repository
@@ -237,4 +238,46 @@ public class BoardDAO {
 	}
 	///////////////////////////////////////////////////////////////
 
+	
+	
+	// 추천(따봉) 추가
+	public int addLike(LikeDTO dto) {
+		return sqlSession.insert(namespace + ".addLike" , dto);
+	}
+	
+	// 추천(따봉) 개수 
+	public int likeCount(int boardNum) { 
+		return sqlSession.selectOne(namespace + ".likeCount" , boardNum);
+	}
+	
+	// 비추천(역따봉) 추가
+	public int addUnlike(LikeDTO dto) {
+		return sqlSession.insert(namespace + ".addUnlike" , dto);
+	}
+	
+	// 비추천(역따봉) 개수
+	public int unlikeCount(int boardNum) {
+		return sqlSession.selectOne(namespace + ".unlikeCount" , boardNum);
+	}
+	
+	// 추천(따봉) 취소
+	public int deleteLike(LikeDTO dto) {
+		return sqlSession.delete(namespace + ".deleteLike" , dto);
+	}
+	
+	// 비추천(역따봉) 취소
+	public int deleteUnlike(LikeDTO dto) {
+		return sqlSession.delete(namespace + ".deleteUnlike" , dto);
+	}
+	
+	// 추천 비추천 누른지 구분
+	public String getLike(String id) {
+		return sqlSession.selectOne(namespace + ".getLike" , id);
+	}
+	
+	// 추천 비추천 누른 멤버 확인(글번호)
+	public List<LikeDTO> likeMemberList(int boardNum) {
+		return sqlSession.selectList(namespace + ".likeMemberList" , boardNum);
+	}
+	
 }
