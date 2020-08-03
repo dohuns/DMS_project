@@ -1,5 +1,6 @@
 package com.KG.service.comment;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +25,17 @@ public class CommentListServImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentDTO> execute_list(Model model) {
+	public List<Map<String, Object>> execute_list(Model model) {
 		
 		Map<String, Object> map = model.asMap();
 		CommentDTO dto = (CommentDTO)map.get("dto");
+		List<Map<String, Object>> list =  dao.commentList(dto);
 		
-		return dao.commentList(dto);
+		for(Map<String, Object> map2 : list) {
+			dto.setC_date((Timestamp)map2.get("C_DATE"));
+			map2.put("C_DATE", dto.getC_date());
+		}
+		return list;
 	}
 
 	@Override

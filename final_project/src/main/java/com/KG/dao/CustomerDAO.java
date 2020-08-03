@@ -60,4 +60,23 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".selectInquiryCount", cus_id);
 	}
 
+	// 회원 페이지 > 고객센터 : 닉네임 검색
+	public List<CustomerDTO> inquirySearch(HashMap<String, Object> hash) {
+		return sqlSession.selectList(namespace + ".inquirySearch", hash);
+	}
+
+	// 회원 페이지 > 고객센터 : 검색 결과 개수 조회
+	public int inquirySearchCount(String cus_nick) {
+		return sqlSession.selectOne(namespace + ".inquirySearchCount", cus_nick);
+	}
+
+	// 문의글 삭제
+	public int deleteInquiry(int cus_num) {
+		return sqlSession.delete(namespace + ".deleteInquiry", cus_num);
+	}
+
+	// 비밀글 비밀번호 확인
+	public String contentPwChk(int cus_num) {
+		return sqlSession.selectOne(namespace + ".contentPwChk", cus_num);
+	}
 }

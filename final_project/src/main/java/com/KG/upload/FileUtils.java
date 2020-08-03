@@ -1,12 +1,18 @@
 package com.KG.upload;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -48,6 +54,7 @@ public class FileUtils {
 			if(multipartFile.isEmpty() == false) {
 				originalFileName = multipartFile.getOriginalFilename();
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				originalFileExtension = originalFileExtension.toLowerCase();
 				storedFileName = getRandomString() + originalFileExtension;
 				
 				file = new File(filePath + storedFileName);
@@ -158,7 +165,12 @@ public class FileUtils {
 		}
 	}
 	
+	
 	public static String getRandomString() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
+		SimpleDateFormat formatter = new SimpleDateFormat("YYMMddHHmmss");
+
+		String today = formatter.format(new Date());
+		
+		return today + "-" + UUID.randomUUID().toString();
 	}
 }

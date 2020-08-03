@@ -54,12 +54,18 @@ hr#main {
 hr#sub {
 	border: solid 1px #f0f0f0;
 }
+ul#myInfo{
+padding-inline-start : 30px;
+}
+ul#myInfoWrite{
+padding-inline-start : 20px;
+}
 </style>
 </head>
 <body>
-	<div>
+	<div style="margin-right: 20px;">
 		<div
-			style="background-color: white; width: 300px; border-top: solid 0px #000000;">
+			style="background-color: white; width: 250px; border-top: solid 0px #000000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
@@ -68,49 +74,56 @@ hr#sub {
 						</div>
 						<div>
 							<div>
-								<ul>
+								<ul id="myInfo">
 									<li>
 										<div>
 											<c:choose>
-												<c:when test="${userInfo.m_picture != null}">
+												<c:when test="${myInfo.m_picture != null}">
 												<img
-													src="/img/memberImage/${userInfo.m_picture}"
-													width="58" height="58" alt="프로필사진" style="border-radius: 100%">
+													src="/img/memberImage/${myInfo.m_picture}"
+													width="58" height="58" style="border-radius: 100%">
 												</c:when>
 												<c:otherwise>
 												<img
 													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-													width="58" height="58" alt="프로필사진">
+													width="58" height="58">
 												</c:otherwise>
 											</c:choose>
 										</div>
 										<div>
-											<strong>${userInfo.m_nick }</strong>
+											<strong>${myInfo.m_nick }</strong>
 										</div>
 									</li>
-									<li>${userInfo.m_rank}</li>
+									<li>${myInfo.m_rank}</li>
 								</ul>
 							</div>
 							<div>
-								<ul>
-									<li><b><a href="myList?page=1">내가 쓴 글 보기</a></b> ${boardcount} 개</li>
-									<li><b><a href="myList?page=2">내가 쓴 댓글보기</a></b> ${replycount} 개</li>
+								<ul id="myInfoWrite">
+									<li><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li><b><a href="myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<a href="login"><div align="center"
-							style="background-color: green; padding: 5px 0; margin: 0px 0;">로그인
-							하기</div></a>
+					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
+						<a href="login">
+								로그인하기
+						</a>
+					</div>
 				</c:otherwise>
 			</c:choose>
-			<a href="#"><div align="center"
-					style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">게시글
-					글쓰기</div></a> <a href="#"><div align="center"
-					style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">채팅
-					하기</div></a>
+				<a href="#">
+			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
+					게시글글쓰기
+			</div> 
+				</a>
+				<a href="#">
+			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
+					채팅하기
+			</div>
+				</a>
 			<div>
 				<form action="/movie/board/search_list">
 					<div class="input-group">

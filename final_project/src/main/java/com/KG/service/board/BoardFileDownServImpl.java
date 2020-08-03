@@ -26,6 +26,8 @@ public class BoardFileDownServImpl implements BoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletResponse response = (HttpServletResponse) map.get("response");
 		int f_no = (Integer)map.get("f_no");
+		String f_id = (String)map.get("f_id");
+		System.out.println("아이디 : " + f_id);
 		
 		Map<String, Object> resultMap =  dao.selectFileInfo(f_no);
 		String f_oriName = (String)resultMap.get("F_ORINAME");
@@ -33,7 +35,7 @@ public class BoardFileDownServImpl implements BoardService{
 		
 		try {
 			byte[] fileByte = FileUtils.readFileToByteArray(
-				new File("C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\" + f_modiName));
+				new File("C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\uploadFile\\" + f_id + "\\" + f_modiName));
 			
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);

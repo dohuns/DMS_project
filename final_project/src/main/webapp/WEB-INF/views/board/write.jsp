@@ -23,18 +23,27 @@
 <script type="text/javascript">
 	
 	function write_save() {
-		var str = $("#b_content").val();
+		var papering = $("#papering").val();
+		oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
+
+		var title = $("#b_title").val();
+		var content = $("#b_content").val();
+		title = title.trim();
 		
-		if($("#b_title").val() == "") {
-			alert("제목을 입력해주세요!");
-			$("#b_title").focus();
-		} else if($("#b_content").val() == "") {
-			alert("내용을 작성해주세요!");
-			$("#b_content").focus();
+		if(title == "") {
+			alert("제목을 작성해주세요!");
+		} else if(content == ""  || content == null ||
+				content == '&nbsp;' || content == '<p>&nbsp;</p>') {
+			alert("내용을 입력해주세요!");
+			oEditors.getById["b_content"].exec("FOCUS"); //포커싱
+		} else if(papering != 0) {
+			alert("연속적인 게시글 등록 시도로 인해\n신규 게시글이 등록되지 않았습니다.\n잠시 후 다시 등록 해주시기 바랍니다.");
 		} else {
+			$("#papering").attr("value","1");
 			// 줄 개행 인식
-			str = str.replace(/(?:\r\n|\r|\n)/g , '<br/>');
-			$("#b_content").val(str);
+			content = content.replace(/(?:\r\n|\r|\n)/g , '<br/>');
+			$("#b_title").val(title);
+			$("#b_content").val(content);
 			$("#fo").submit();
 		}
 	}
@@ -82,17 +91,34 @@
 		$("#fileDiv_"+index).remove();
 	}
 </script>
+<!-- 네이버 스마트 에디터 -->
+<script type="text/javascript" src="/movie/resources/smartEditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+var oEditors = [];
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "b_content",
+          sSkinURI: "/img/smartEditor/SmartEditor2Skin.html"
+      });
+});
+</script>
+
 </head>
 <body>
+<input type="hidden" id="papering" value="0">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
 	
 	<!-- body -->
+	<c:forEach var="test" items="${list}">
+		${test}
+	</c:forEach>
 	<c:choose>
 		<c:when test="${sessionScope.m_nick != null}">	
-			<div class="container" style="width:500px;">
+			<div class="container" style="width: 800px;">
 				<div align="center">
-					<h1> 글쓰기 페이지 </h1>
+					<h1>글쓰기 페이지</h1>
 					<div align="left">
 						<form action="write_save" id="fo" method="post" enctype="multipart/form-data">
 							<!-- 게시판 선택 -->
@@ -116,14 +142,14 @@
 							<!-- 제목 입력 -->
 							<div>
 								<h5>글 제목</h5>
-								<input type="text" name="b_title" id="b_title" placeholder="게시글 제목을 입력하세요"
-									class="form-control">
+								<input type="text" name="b_title" id="b_title"
+									placeholder="게시글 제목을 입력하세요" class="form-control" >
 							</div>
 							<!-- 내용 입력 -->
 							<div>
 								<h5>글 내용</h5>
-								<textarea rows="15" cols="50" name="b_content" id="b_content" class="form-control"
-									style="resize:none;"></textarea>
+								<textarea rows="15" cols="50" name="b_content" id="b_content"
+									class="form-control" style="resize: none; width: 765px;"></textarea>
 							</div>
 							<!-- 첨부파일 & 이미지 -->
 							<div style="margin-top:10px;">

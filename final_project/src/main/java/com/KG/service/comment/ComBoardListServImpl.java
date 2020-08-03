@@ -26,9 +26,8 @@ public class ComBoardListServImpl implements CommentService {
 	@Override
 	public boolean execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		HttpSession session = (HttpSession) map.get("session");
+		String c_id = (String) map.get("id");
 		BoardDTO boardDTO = (BoardDTO) map.get("boardDTO");
-		String c_id = (String) session.getAttribute("m_id");
 		ArrayList<BoardDTO> myComBoardList = new ArrayList<BoardDTO>();
 
 		// artiNum 불러오기
@@ -60,7 +59,7 @@ public class ComBoardListServImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentDTO> execute_list(Model model) {
+	public List<Map<String, Object>> execute_list(Model model) {
 		return null;
 	}
 

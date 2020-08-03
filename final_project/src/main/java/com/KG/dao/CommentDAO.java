@@ -2,6 +2,7 @@ package com.KG.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CommentDAO {
 	}
 	
 	// 댓글 리스트
-	public List<CommentDTO> commentList(CommentDTO dto) {
+	public List<Map<String, Object>> commentList(CommentDTO dto) {
 		return sqlSession.selectList(namespace + ".commentList" , dto); 
 	}
 	

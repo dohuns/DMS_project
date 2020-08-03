@@ -40,4 +40,9 @@ public class CustomerAdminListServImpl implements CustomerService {
 		return null;
 	}
 
+	@Override
+	public int chkList(Model model) {
+		return 0;
+	}
+
 }

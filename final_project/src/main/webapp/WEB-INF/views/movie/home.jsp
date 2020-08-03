@@ -9,7 +9,6 @@
 </head>
 <body>
 
-	<c:import url="../default/header.jsp" />
 	<c:import url="../default/movieMain.jsp" />
 
 </body>
