@@ -19,6 +19,7 @@ public class CustomerDeleteServImpl implements CustomerService {
 		Map<String, Object> map = model.asMap();
 		int cus_num = (Integer) map.get("cus_num");
 		customerDAO.deleteInquiry(cus_num);
+		System.out.println("serv " + cus_num);
 	}
 
 	@Override

@@ -35,14 +35,6 @@
 		$(function() {
 			$("textarea[name=cus_content]").text(" - 문제 발생 일시 : \n - 문의 내용 : \n");
 		});
-
-		function openChkFunc() {
-			$("#cus_pw").attr("readonly",true);
-		}
-
-		function closeChkFunc() {
-			$("#cus_pw").attr("readonly",false);
-		}
 	</script>
 </head>
 <body>

@@ -73,13 +73,19 @@ public class CustomerController {
 		return "customer/inquirySearch";
 	}
 
-	// 문의글 삭제
-	@RequestMapping("deleteInquiry")
-	public String deleteInquiry(Model model, int cus_num) {
+	// 문의글 삭제 전 비밀번호 확인
+	@RequestMapping("deletePwChk")
+	public String deleteInquiry(Model model, int cus_num, String inputPw) {
 		model.addAttribute("cus_num", cus_num);
-		customerServ = (CustomerDeleteServImpl) AC.ac.getBean("customerDeleteServImpl");
-		customerServ.execute(model);
-		return "redirect:customerMain";
+		model.addAttribute("inputPw", inputPw);
+		customerServ = (CustomerPwChkServImpl) AC.ac.getBean("customerPwChkServImpl");
+
+		if((customerServ.chkList(model)) == 1) {
+			customerServ = (CustomerDeleteServImpl) AC.ac.getBean("customerDeleteServImpl");
+			customerServ.execute(model);
+			return "redirect:customerMain";
+		}
+		return "customer/message";
 	}
 
 	// 비밀글 확인
@@ -88,12 +94,14 @@ public class CustomerController {
 		model.addAttribute("inputPw", inputPw);
 		model.addAttribute("cus_num", cus_num);
 		customerServ = (CustomerPwChkServImpl) AC.ac.getBean("customerPwChkServImpl");
-		int result = customerServ.chkList(model);
 
-		if(result == 1) {
+		if((customerServ.chkList(model)) == 1) {
 			return "redirect:inquiryContent";
-		} else {
-			return "customer/message";
 		}
+			return "customer/message";
 	}
+
+
+
+
 }
