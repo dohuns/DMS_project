@@ -16,3 +16,6 @@ RemoveLikeServImpl추가
 RemoveUnlikeServImpl추가
 ChklikeServImpl추가
 mybatis-config.xml수정
+boardController 수정
+LikeMemberListServImpl 추가
+likeMemberList.jsp 추가
