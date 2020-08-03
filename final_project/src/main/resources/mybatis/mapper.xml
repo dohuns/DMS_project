@@ -38,7 +38,9 @@
 	
 	<!-- 회원정보 수정 -->
 	<update id="memberUp" parameterType="memberDTO">
-		update member set m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}, m_picture = #{m_picture} where m_id = #{m_id}
+		update member set 
+			m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}, m_picture = #{m_picture} 
+		where m_id = #{m_id}
 	</update>
 	<!-- 회원탈퇴 -->
 	<update id="memberDel" parameterType="memberDTO">
@@ -61,6 +63,13 @@
 	<select id="getPicture" resultType="String">
 		SELECT f_modiName FROM saveFile WHERE f_memberId = #{m_Id}
 	</select>
+	
+	<!-- 프로필 사진 변경하기 -->
+	<update id="updateImage">
+		UPDATE saveFile SET 
+			f_oriName = #{f_oriName}, f_modiName = #{f_modiName}, f_size = #{f_size}, f_mark = #{f_mark}
+		WHERE f_memberId = #{f_memberId}
+	</update>
 	<!-- ////////////////////////////////////////////////////////////////////// -->
 	
 </mapper>

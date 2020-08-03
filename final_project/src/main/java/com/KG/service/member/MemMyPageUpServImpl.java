@@ -29,22 +29,19 @@ public class MemMyPageUpServImpl implements MemberService{
 		
 		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO");
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest)map.get("request");
-		
+		memberDTO.setM_picture(memberDAO.getPicture(memberDTO.getM_id()));
 		
 		try {
-			List<Map<String,Object>> list = fileUtils.parseInsertFileMember(memberDTO, request);
+			List<Map<String,Object>> list = fileUtils.parseUpdateImageMember(memberDTO, request);
 			int size = list.size();
 			for(int i=0; i<size; i++){ 
-				memberDAO.insertFile(list.get(i));
+				memberDAO.updateImage(list.get(i));
+				memberDTO.setM_picture((String) list.get(i).get("f_modiName"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		memberDTO.setM_picture(memberDAO.getPicture(memberDTO.getM_id()));
-		System.out.println(memberDTO.getM_picture());
-		if (memberDTO.getM_picture() == null) {
-			memberDTO.setM_picture("");
-		}
+
 		memberDAO.memberUp(memberDTO);
 		
 		

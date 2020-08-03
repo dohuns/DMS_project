@@ -308,11 +308,15 @@ textarea:focus {
 						if("${sessionScope.m_nick}" == "") {
 							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\')">답글 쓰기</span>';
 						} else {
+// 							console.log("i : " + i);
 							if(i == 0){
 								var j = 0;
 								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}else if(i != list.length-1) {
 								var j = i+1;
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
+							} else {
+								var j = i;
 								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}
 						}
