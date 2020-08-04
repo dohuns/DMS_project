@@ -28,7 +28,7 @@
 		</c:otherwise>
 	</c:choose>
 
-	<table style='width: 860px;'>
+	<table style='width: 760px;'>
 		<colgroup>
 			<col>
 			<col style='width: 120px'>
@@ -94,7 +94,8 @@
 		<ul class="pagination">
 			<%-- 이전 버튼 --%>
 			<li><c:if test="${artiNum>9}">
-					<a href="myList?id=${param.id }&page=3&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+					<a
+						href="myList?id=${param.id }&page=3&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
 				</c:if></li>
 			<%--게시판 15개 나눈 모음(?) 번호 --%>
 			<c:choose>
@@ -116,7 +117,8 @@
 			</c:choose>
 			<%-- 다음 버튼 --%>
 			<li><c:if test="${count > next*10+10 }">
-					<a href="myList?id=${param.id }&page=3&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+					<a
+						href="myList?id=${param.id }&page=3&next=${next+1}&artiNum=${(next+1)*10}">»</a>
 				</c:if></li>
 		</ul>
 	</div>

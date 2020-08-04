@@ -297,4 +297,50 @@
 			WHERE f_boardNum = #{b_num}
 	</delete>
 	<!-- /////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- 추천(따봉) 추가 -->
+	<insert id="addLike">
+		INSERT INTO likeData VALUES (#{l_id} , #{l_boardNum} , 'L')
+	</insert>
+	
+	<!-- 추천(따봉) 개수 -->
+	<select id="likeCount" resultType="int">
+		SELECT count(*) FROM likeData 
+			WHERE l_boardNum = #{boardNum} and l_divLike = 'L'
+	</select>
+	
+	<!-- 비추천(역따봉) 추가 -->
+	<insert id="addUnlike">
+		INSERT INTO likeData VALUES (#{l_id} , #{l_boardNum} , 'U')
+	</insert>
+	
+	<!-- 비추천(역따봉) 개수 -->
+	<select id="unlikeCount" resultType="int">
+		SELECT count(*) FROM likeData 
+			WHERE l_boardNum = #{boardNum} and l_divLike = 'U'
+	</select>
+	
+	<!-- 추천(따봉) 취소 -->
+	<delete id="deleteLike">
+		DELETE FROM likeData 
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum} and l_divLike = 'L'
+	</delete>
+	
+	<!-- 비추천(역따봉) 취소 -->
+	<delete id="deleteUnlike">
+		DELETE FROM likeData 
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum} and l_divLike = 'U'
+	</delete>
+	
+	<!-- 추천 비추천 누른지 구분 -->
+	<select id="getLike" resultType="String">
+		SELECT l_divLike FROM likeData
+			WHERE l_id = #{id}
+	</select>
+	
+	<!-- 추천 비추천 누른 멤버 리스트 -->
+	<select id="likeMemberList" resultType="likeDTO">
+		SELECT * FROM likeData 
+			WHERE l_boardNum = #{boardNum}
+	</select>
 </mapper>

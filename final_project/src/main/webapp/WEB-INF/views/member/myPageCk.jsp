@@ -30,39 +30,44 @@ a:link, a:visited, a:active, a:hover {
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
-	<div align="center" style="padding-top: 50px;">
-		<div style="display: flex; width: 900px;">
-			<div style="width: 150px; margin-right: 50px;">
-				<h3>
-					<b>내정보관리</b>
-				</h3>
-				<hr>
-				<div style="margin-top: 20px; color: #5bc0de">
-					<h4>
-						<b>개인정보변경</b>
-					</h4>
-				</div>
-				<a href="myPagePwChang"><div style="margin-top: 20px;">
-						<h4>비밀번호변경</h4>
-					</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
-						<h4>회원탈퇴</h4>
-					</div></a>
-			</div>
-			<div style="width: 600px; padding-bottom: 100px;">
-				<div align="left" style="margin-bottom: 30px;">
-					<h1>개인정보변경</h1>
-					<hr style="border: solid 1px #ddd;">
-				</div>
-				<div align="center" style="border: 1px solid #eee; padding: 30px;">
-					<form action="myPagePwCk" id="pwCk" method="get"
-						style="display: flex;">
-						<span style="font-size: 17px; width: 25%; margin-top: 5px;">비밀번호
-							확인</span>&nbsp;&nbsp;<input type="password" name="m_pw" id="m_pw"
-							class="form-control" style="width: 58%;">&nbsp;&nbsp;
-						<button type="button" onclick="pwCh()" class="btn btn-info"
-							style="width: 15%;">확인</button>
-					</form>
+
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center" style="padding-top: 50px;">
+				<div style="display: flex; width: 900px;">
+					<div style="width: 150px; margin-right: 50px;">
+						<h3>
+							<b>내정보관리</b>
+						</h3>
+						<hr>
+						<div style="margin-top: 20px; color: #5bc0de">
+							<h4>
+								<b>개인정보변경</b>
+							</h4>
+						</div>
+						<a href="myPagePwChang"><div style="margin-top: 20px;">
+								<h4>비밀번호변경</h4>
+							</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
+								<h4>회원탈퇴</h4>
+							</div></a>
+					</div>
+					<div style="width: 600px; padding-bottom: 100px;">
+						<div align="left" style="margin-bottom: 30px;">
+							<h1>개인정보변경</h1>
+							<hr style="border: solid 1px #ddd;">
+						</div>
+						<div align="center" style="border: 1px solid #eee; padding: 30px;">
+							<form action="myPagePwCk" id="pwCk" method="get"
+								style="display: flex;">
+								<span style="font-size: 17px; width: 25%; margin-top: 5px;">비밀번호
+									확인</span>&nbsp;&nbsp;<input type="password" name="m_pw" id="m_pw"
+									class="form-control" style="width: 58%;">&nbsp;&nbsp;
+								<button type="button" onclick="pwCh()" class="btn btn-info"
+									style="width: 15%;">확인</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

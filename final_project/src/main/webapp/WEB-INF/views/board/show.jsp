@@ -14,19 +14,19 @@
 <style>
 .contentBox{
 	border: 1px solid #eee;
-	width:1000px;
+	width:750px;
 	border-radius : 20px;
-	margin : 10px 29px 0 33px;
+	margin : 10px 29px 0 23px;
 }
 .btnBotBox {
-	width:985px;
+	width:735px;
 	height: 50px;
-	margin: 10px 0 29px 38px;
+	margin: 10px 0 29px 28px;
 }
 .btnTopBox {
-	width:985px;
+	width:735px;
 	height: 34px;
-	margin: 29px 0 0 38px;
+	margin: 0 0 0 28px;
 }
 .lb_title {
 	font-size: 35px;
@@ -41,23 +41,23 @@
 }
 
 .hr0 {
-	width:950px;
+	width:700px;
 	margin: 20px 0;
 }
 .hr1 {
-	width:950px;
+	width:700px;
 	margin: 0px 0;
 }
 .hr2 {
-	width:900px;
+	width:650px;
 	margin : 0 0 0 50px;
 }
 .hr3 {
-	width:900px;
+	width:650px;
 	margin : 0;
 }
 .hr4 {
-	width: 950px;
+	width: 700px;
 	margin: 0 0 0 -50px;
 }
 .board-content {
@@ -77,7 +77,7 @@
 	font-weight: 400p;
 }
 .commentWriter {
-	width : 950px;
+	width : 700px;
 	margin: 12px 0 ;
 	padding: 8px 10px 10px 10px;
 	border-radius: 6px;
@@ -92,19 +92,19 @@
 	border: 2px solid rgba(0,0,0,0.1);
 }
 .hide-Comment {
-	width : 950px;
+	width : 700px;
 	padding: 0 0 0 50px; 
 }
 .commentArea {
 	display : flex;
 	padding: 12px 23px 10px 0px;
-	width: 950px;
+	width: 700px;
 }
 .commentArea-reply {
 	display : flex;
 	padding: 12px 23px 10px 0px;
 	padding-left: 50px;
-	width: 950px;
+	width: 700px;
 }
 .mylb{
 	color:blue;
@@ -139,12 +139,22 @@ textarea:focus {
 }
 .delComment{
 	padding: 12px 23px 10px 0px;
-	width: 950px;
+	width: 700px;
 }
 .profilePic {
 	margin: 10px 12px 10px 10px;
 }
-
+.CLArea {
+margin-top: 20px; 
+display: flex;
+}
+.commentCount {
+width: 50%; 
+padding-top: 11px;
+}
+.likeCount {
+width: 50%;
+}
 
 </style>
 
@@ -153,6 +163,7 @@ textarea:focus {
 	$(function() {
 		getCommentList();
 		addBtn();
+		chkLike();
 	})
 	
 	// 댓글 입력에 따른 작성버튼 변화
@@ -308,11 +319,15 @@ textarea:focus {
 						if("${sessionScope.m_nick}" == "") {
 							html += '<span class="lb3" style="cursor: pointer; display:none" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\')">답글 쓰기</span>';
 						} else {
+// 							console.log("i : " + i);
 							if(i == 0){
 								var j = 0;
 								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}else if(i != list.length-1) {
 								var j = i+1;
+								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
+							} else {
+								var j = i;
 								html += '<span class="lb3" style="cursor: pointer;" onclick="comReply(' + list[i].C_COMNUM + ', \''+ list[i].C_NICK +'\','+list[j].C_RENUM+','+list[i].C_GROUP+')">답글 쓰기</span>';
 							}
 						}
@@ -495,16 +510,180 @@ textarea:focus {
 		$("#fileForm").submit();
 
 	}
+	
+	// 추천 버튼
+	function likeBtn() {
+		var userId = "${sessionScope.m_id}";
+		var boardNum = "${param.b_num}";
+		
+		var divLike = $("#divLike").val();
+
+		var Data = {l_id : userId , l_boardNum : boardNum};
+		if(divLike == "") {
+			// 추천 추가
+			$.ajax({
+				url : "addLike",
+				type : "POST",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#liekCount").text(arg);
+					$("#divLike").val("like");
+					$("#likeImage").attr("src" , "/img/눌림.png")
+				},
+				error : function() {
+					alert("추천 실패!!!");
+				}
+			});
+			
+		} else if (divLike == "like") {
+			// 추천 취소
+			$.ajax({
+				url : "removeLike",
+				type : "DELETE",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#liekCount").text(arg);
+					$("#divLike").val("");
+					$("#likeImage").attr("src" , "/img/like.png")
+				},
+				error : function() {
+					alert("추천 취소 실패!!!");
+				}
+			});
+		} else {
+			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+		}
+	}
+	// 비추천 버튼
+	function unlikeBtn() {
+		var userId = "${sessionScope.m_id}";
+		var boardNum = "${param.b_num}";
+		
+		var divLike = $("#divLike").val();
+
+		var Data = {l_id : userId , l_boardNum : boardNum};
+		
+		if(divLike == "") {
+			// 비추천 추가
+			$.ajax({
+				url : "addUnlike",
+				type : "POST",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#unlikeCount").text(arg);
+					$("#divLike").val("unlike");
+					$("#unlikeImage").attr("src" , "/img/눌림.png")
+				},
+				error : function() {
+					alert("비추천 실패!!!");
+				}
+			});
+		} else if(divLike == "unlike") {
+			// 비추천 취소
+			$.ajax({
+				url : "removeUnlike",
+				type : "DELETE",
+				data : Data,
+				dataType : "text",
+				success : function(arg) {
+					$("#unlikeCount").text(arg);
+					$("#divLike").val("");
+					$("#unlikeImage").attr("src" , "/img/unlike.png")
+				},
+				error : function() {
+					alert("비추천 취소 실패!!!");
+				}
+			});
+		} else {
+			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+		}
+	}
+	
+	// 접속 시 추천 비추천 누른지 확인
+	function chkLike() {
+		
+		var Data = {l_id : "${sessionScope.m_id}"};
+		
+		$.ajax({
+			url : "chkLike",
+			type : "POST",
+			data : Data,
+			dataType : "text",
+			success : function(chkLike) {
+				if(chkLike == 'L') {
+					var html = '';
+					$("#divLike").val("like");
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' +
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/눌림.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				} else if(chkLike == 'U') {
+					$("#divLike").val("unlike");
+					var html = '';
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/눌림.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				} else {
+					var html = '';
+					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
+							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
+							'	<span style="color:black;">추천</span>' + 
+							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
+							'</a>' + 
+							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
+							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
+							'	<span style="color:black;">비추천</span>' + 
+							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
+							'</a>';
+					$(".likeCount").html(html);
+				}
+			},
+			error : function() {
+				alert("추천 구분 실패!!");
+			}
+		});		
+	}
+	
+
+	
 </script>
 </head>
 <body>
 	<input type="hidden" id="papering" value="0">
-
+	<input type="hidden" id="divLike">
+	
+	<div class="container">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
-
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
+	
 	<!-- body -->
-	<div class="container">
+	<div>
 		<div class="btnTopBox">
 			<div style="float: left;">
 				<button type="button" id="btnMD01"class="btn btn-dmsDefault" style="font-weight: 900;">수정</button>
@@ -588,12 +767,16 @@ textarea:focus {
 					</form>
 				</div>				
 				<!-- 좋아요 + 댓글 수  -->
-				<div style="margin-top: 20px;">
-					<a href="#">
-						<img src="/img/commentImg.png" style="width:20px;">
-						<span style="color:black;">댓글</span>
-						<strong style="color:black;" id="c_count"></strong>
-					</a>
+				<div class="CLArea">
+					<div class="commentCount">
+						<a style="cursor: pointer;">
+							<img src="/img/commentImg.png" style="width:20px;">
+							<span style="color:black;">댓글</span>
+							<strong style="color:black;" id="c_count"></strong>
+						</a>
+					</div>
+					<div class="likeCount" align="right">
+					</div>
 				</div>
 				
 				<hr class="hr0">
@@ -654,7 +837,9 @@ textarea:focus {
 			</div>
 		</div>
 	</div>
-
+</div>
+</div>
+</div>
 
 </body>
 </html>

@@ -102,5 +102,9 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + ".getMember" , email);
 	}
 	
+	// 프로필 사진 수정하기
+	public int updateImage(Map<String, Object> map) {
+		return sqlSession.update(namespace + ".updateImage" , map);
+	}
 	//////////////////////////////////////////////////////////////////////////////
 }

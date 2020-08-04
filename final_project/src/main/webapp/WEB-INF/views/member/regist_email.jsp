@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,19 +10,19 @@
 <script>
 	function chkEmail() {
 		$.ajax({
-			url : "chkEmail?m_email="+$("#m_email").val(),
+			url : "chkEmail?m_email=" + $("#m_email").val(),
 			type : "GET",
-			success: function(arg) {
-				if(arg == true) {
+			success : function(arg) {
+				if (arg == true) {
 					$("#fo").submit();
 				} else {
 					showEmail();
 				}
 			},
-			error: function() {
+			error : function() {
 				alert("실패!!");
 			}
-		});		
+		});
 	}
 	function showEmail() {
 		let html = "<b> 이미 가입하신 이메일 입니다 </b> <br>";
@@ -43,21 +43,28 @@
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
-	<div align="center" style="margin-top: 80px;">
-	<div id="div1" style="width: 500px;">
-		<div style="margin-bottom: 50px;">
-			<h1>이메일 인증 페이지</h1>
-		</div>
-		<div align="left">
-			<form action="email_certify" id="fo" method="POST">
-				<input type="text" id="m_email" name="m_email" placeholder="가입하실 이메일을 입력하세요" class="form-control"> <br>
-				<button type="button" onclick="chkEmail()" class="btn btn-info">이메일 인증받기</button>
-			</form>
+
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center" style="margin-top: 80px;">
+				<div id="div1" style="width: 500px;">
+					<div style="margin-bottom: 50px;">
+						<h1>이메일 인증 페이지</h1>
+					</div>
+					<div align="left">
+						<form action="email_certify" id="fo" method="POST">
+							<input type="text" id="m_email" name="m_email"
+								placeholder="가입하실 이메일을 입력하세요" class="form-control"> <br>
+							<button type="button" onclick="chkEmail()" class="btn btn-info">이메일
+								인증받기</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	</div>
-	
+
 
 </body>
 </html>
