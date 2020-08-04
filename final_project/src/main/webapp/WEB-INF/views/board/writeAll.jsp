@@ -132,14 +132,7 @@ $(function(){
 								<h5>게시판</h5>
 								<select name="b_article">
 									<c:forEach var="dto" items="${cate}">
-										<c:choose>
-											<c:when test="${dto.b_article == param.b_article}">
-												<option value="${dto.b_article}" selected="selected">${dto.b_article}</option>
-											</c:when>
-											<c:otherwise>
-												<option value="${dto.b_article}">${dto.b_article}</option>
-											</c:otherwise>
-										</c:choose>
+										<option value="${dto.b_article}">${dto.b_article}</option>
 									</c:forEach>
 								</select>
 								<!-- 게시판 카테고리 hidden으로 보내기 -->

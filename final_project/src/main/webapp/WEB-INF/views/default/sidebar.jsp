@@ -125,7 +125,7 @@ padding-inline-start : 20px;
 						</a>
 				</c:otherwise>
 			</c:choose>
-				<a href="#">
+				<a href="/movie/board/writeAll">
 			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
 					게시글글쓰기
 			</div> 

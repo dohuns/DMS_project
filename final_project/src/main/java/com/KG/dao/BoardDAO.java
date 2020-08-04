@@ -95,6 +95,10 @@ public class BoardDAO {
 	public List<BoardDTO> cateList(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".cateList", boardDTO);
 	}
+	// 게시판 목록(카테고리로 분류X)
+	public List<BoardDTO> cateListAll() {
+		return sqlSession.selectList(namespace + ".cateListAll");
+	}
 	// 게시글 쓰기(저장)
 	public int boardWrite(BoardDTO boardDTO) {
 		return sqlSession.insert(namespace + ".boardWrite", boardDTO);
