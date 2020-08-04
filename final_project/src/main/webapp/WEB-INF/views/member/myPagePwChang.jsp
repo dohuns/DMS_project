@@ -109,53 +109,64 @@ a:link, a:visited, a:active, a:hover {
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
-	<div align="center" style="padding-top: 50px;">
-		<div style="display: flex; width: 900px;">
-			<div style="width: 150px; margin-right: 50px;">
-				<h3>
-					<b>내정보관리</b>
-				</h3>
-				<hr>
-				<a href="myPageCk"><div style="margin-top: 20px;"><h4>개인정보변경</h4></div></a>
-				<div style="margin-top: 20px; color: #5bc0de">
-					<h4><b>비밀번호변경</b></h4>
-				</div>
-				<a href="myPageSecessionCk"><div style="margin-top: 20px;"><h4>회원탈퇴</h4></div></a>
-			</div>
-			<div style="width: 600px; padding-bottom: 100px;">
-				<div align="left" style="margin-bottom: 30px;">
-					<h1>비밀번호변경</h1>
-					<hr style="border: solid 1px #ddd;">
-					<div style="width: 500px;">
-						<form action="myPagePwChangCk" id="save">
-							<input type="hidden" name="m_id" value="${m_id }"> <input
-								type="hidden" name="m_name" value="${m_name }"> <input
-								type="hidden" name="m_email" value="${m_email }">
-							<div align="left">
-								<b>현재 비밀번호 :</b> <input type="password" name="m_pw" id="m_pw"
-									placeholder="현재 비밀번호" class="form-control" onblur="chkPw()"><br>
+
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center" style="padding-top: 50px;">
+				<div style="display: flex; width: 900px;">
+					<div style="width: 150px; margin-right: 50px;">
+						<h3>
+							<b>내정보관리</b>
+						</h3>
+						<hr>
+						<a href="myPageCk"><div style="margin-top: 20px;">
+								<h4>개인정보변경</h4>
+							</div></a>
+						<div style="margin-top: 20px; color: #5bc0de">
+							<h4>
+								<b>비밀번호변경</b>
+							</h4>
+						</div>
+						<a href="myPageSecessionCk"><div style="margin-top: 20px;">
+								<h4>회원탈퇴</h4>
+							</div></a>
+					</div>
+					<div style="width: 600px; padding-bottom: 100px;">
+						<div align="left" style="margin-bottom: 30px;">
+							<h1>비밀번호변경</h1>
+							<hr style="border: solid 1px #ddd;">
+							<div style="width: 500px;">
+								<form action="myPagePwChangCk" id="save">
+									<input type="hidden" name="m_id" value="${m_id }"> <input
+										type="hidden" name="m_name" value="${m_name }"> <input
+										type="hidden" name="m_email" value="${m_email }">
+									<div align="left">
+										<b>현재 비밀번호 :</b> <input type="password" name="m_pw" id="m_pw"
+											placeholder="현재 비밀번호" class="form-control" onblur="chkPw()"><br>
+									</div>
+									<div align="left">
+										<b>새로운 비밀번호 :</b> <input type="password" name="new_m_pw"
+											id="m_pw1" placeholder="새로운 비밀번호" class="form-control"
+											onblur="chkPw()">
+									</div>
+									<div>
+										<label id="label_pw"></label>
+									</div>
+									<div align="left">
+										<b>비밀번호 확인 :</b> <input type="password" id="m_pw2"
+											placeholder="비밀번호 확인" class="form-control" onblur="chkRpw()">
+									</div>
+									<div>
+										<label id="label_pw_ck"></label>
+									</div>
+									<div align="left">
+										<input type="button" onclick="submit()" value="비밀번호 변경하기"
+											id="btn-changePw" class="btn btn-info">
+									</div>
+								</form>
 							</div>
-							<div align="left">
-								<b>새로운 비밀번호 :</b> <input type="password" name="new_m_pw"
-									id="m_pw1" placeholder="새로운 비밀번호" class="form-control"
-									onblur="chkPw()">
-							</div>
-							<div>
-								 <label id="label_pw"></label>
-							</div>
-							<div align="left">
-								<b>비밀번호 확인 :</b> <input type="password" id="m_pw2"
-									placeholder="비밀번호 확인" class="form-control" onblur="chkRpw()">
-							</div>
-							<div>
-								 <label id="label_pw_ck"></label>
-							</div>
-							<div align="left">
-								<input type="button" onclick="submit()" value="비밀번호 변경하기"
-									id="btn-changePw" class="btn btn-info">
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>

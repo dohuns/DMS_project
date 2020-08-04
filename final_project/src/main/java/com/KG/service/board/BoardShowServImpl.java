@@ -18,6 +18,7 @@ public class BoardShowServImpl implements BoardService{
 	BoardDAO boardDAO;
 	@Autowired
 	MemberDAO memberDAO;
+
 	
 	@Override
 	public boolean execute_Boo(Model model) {
@@ -30,7 +31,8 @@ public class BoardShowServImpl implements BoardService{
 		model.addAttribute("fileList" , list);
 		model.addAttribute("boardInfo" , dto);
 		model.addAttribute("memberInfo" , boardDAO.userInfo(dto.getB_id()));
-		
+		model.addAttribute("likeCount" , boardDAO.likeCount(b_num));
+		model.addAttribute("unlikeCount" , boardDAO.unlikeCount(b_num));
 		return false;
 	}
 
