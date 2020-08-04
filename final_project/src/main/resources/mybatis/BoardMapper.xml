@@ -85,7 +85,12 @@
 	
 	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
-		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
+		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLE is not null
+	</select>
+
+	<!-- 게시판 가져오기(카테고리 분류X) -->
+	<select id="cateListAll" resultType="boardDTO">
+		SELECT * FROM board WHERE b_num is null and B_ARTICLE is not null
 	</select>
 	
 	<!-- 글 쓰기(저장) -->
