@@ -28,6 +28,7 @@ import com.KG.service.board.BoardService;
 import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
+import com.KG.service.board.LikeMemberListServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoaMyInfoServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
@@ -305,5 +306,17 @@ public class BoardController {
 		boaServ = (BoardFileDownServImpl) AC.ac.getBean("boardFileDownServImpl");
 		boaServ.execute_Boo(model);
 		
+	}
+	
+	// 추천 비추천 리스트 띄워주기
+	@RequestMapping("/board/likeMemberList")
+	public String likeMemberList(Model model, @RequestParam("b_num") int b_num) {
+		
+		model.addAttribute("b_num" , b_num);
+		
+		boaServ = (LikeMemberListServImpl)AC.ac.getBean("likeMemberListServImpl");
+		boaServ.execute_Boo(model);
+		
+		return "/board/likeMemberList";
 	}
 }
