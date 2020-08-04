@@ -232,7 +232,7 @@
 	</style>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 
 	<!-- PAGING -->
 	<c:choose>

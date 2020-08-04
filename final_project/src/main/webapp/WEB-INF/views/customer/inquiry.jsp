@@ -38,7 +38,7 @@
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 	<!--  -->
 	<div class="container">
 		<h1 class="pt-40"><b>문의하기</b></h1>

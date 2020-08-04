@@ -15,18 +15,18 @@
 			background-color: #5BC0DE;
 			color: white;
 		}
-
+		.bt-a {
+			text-align: right;
+		}
 		.mt-60 {
 			margin-top: 60px;
 		}
-
 		.pt-40 {
 			padding-top: 40px;
 			text-align: center;
 		}
-
-		.bt-a {
-			text-align: right;
+		.bg-st {
+			margin-top: 50px;
 		}
 	</style>
 
@@ -46,7 +46,7 @@
 				'					<p><b>비밀번호를 입력해주세요.</b></p>' +
 				'					<div class="panel-body">' +
 				'						<form id="PwChk-form" role="form" autocomplete="off" class="form"' +
-				'							action="deletePwChk" method="GET">' +
+				'							action="deleteChk" method="GET">' +
 				'							<div class="form-group">' +
 				'								<div class="input-group">' +
 				'									<span class="input-group-addon"><i class="glyphicon fa fa-lock color-blue"></i></span>' +
@@ -71,16 +71,16 @@
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 
-	<div id="openPw"></div>
-	<div class="container" id="openPwChk">
+	<div class="bg-st" id="openPw"></div>
+	<div class="container bg-st" id="openPwChk">
 		<div class="row mt-60">
 			<div class="content-body">
 				<div class="main-box-container">
 					<div class="box">
 						<div class="col-md-8 col-md-offset-2">
-							<form action="#" method="GET">
+							<form action="inquiryUpdate" method="POST">
 								<div class="form-group has-error">
 									<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 									<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />

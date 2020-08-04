@@ -292,19 +292,19 @@
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
-
-	<!-- PAGING -->
-	<c:choose>
-		<c:when test="${param.pageNum == null}">
-			<c:set var="pageNum" value="0" />
-			<c:set var="next" value="0" />
-		</c:when>
-		<c:otherwise>
-			<c:set var="pageNum" value="${param.pageNum}" />
-			<c:set var="next" value="${param.next}" />
-		</c:otherwise>
-	</c:choose>
+		<c:import url="../default/customerHeader.jsp" />
+	
+		<!-- PAGING -->
+		<c:choose>
+			<c:when test="${param.pageNum == null}">
+				<c:set var="pageNum" value="0" />
+				<c:set var="next" value="0" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="pageNum" value="${param.pageNum}" />
+				<c:set var="next" value="${param.next}" />
+			</c:otherwise>
+		</c:choose>
 
 		<!-- CONTENT -->
 		<div class="container">

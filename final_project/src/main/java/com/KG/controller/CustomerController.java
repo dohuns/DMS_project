@@ -15,6 +15,7 @@ import com.KG.service.customer.CustomerMyInquiryServImpl;
 import com.KG.service.customer.CustomerPwChkServImpl;
 import com.KG.service.customer.CustomerSearchServImpl;
 import com.KG.service.customer.CustomerService;
+import com.KG.service.customer.CustomerUpdServImpl;
 
 @Controller
 public class CustomerController {
@@ -73,8 +74,8 @@ public class CustomerController {
 		return "customer/inquirySearch";
 	}
 
-	// 문의글 삭제 전 비밀번호 확인
-	@RequestMapping("deletePwChk")
+	// 문의글 삭제(비밀번호 확인 후 삭제 진행)
+	@RequestMapping("deleteChk")
 	public String deleteInquiry(Model model, int cus_num, String inputPw) {
 		model.addAttribute("cus_num", cus_num);
 		model.addAttribute("inputPw", inputPw);
@@ -86,6 +87,24 @@ public class CustomerController {
 			return "redirect:customerMain";
 		}
 		return "customer/message";
+	}
+
+	// 문의글 수정
+	@RequestMapping("inquiryUpdate")
+	public String inquiryUpdate(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
+		customerServ.execute(model);
+		return "customer/inquiryUpdate";
+	}
+
+	@RequestMapping("updateChk")
+	public String updatePwChk(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_num", dto.getCus_num());
+		customerServ = (CustomerUpdServImpl) AC.ac.getBean("customerUpdServImpl");
+		customerServ.execute(model);
+		return "redirect:inquiryContent";
 	}
 
 	// 비밀글 확인

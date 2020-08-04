@@ -32,8 +32,8 @@
 
 	<!-- 회원 페이지 : 문의 접수 -->
 	<insert id="insertInquiry" parameterType="customerDTO">
-				INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_pub, cus_date)
-				VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, #{cus_pub}, SYSDATE)
+		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_pub, cus_date)
+		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, #{cus_pub}, SYSDATE)
 	</insert>
 
 	<!-- 회원 페이지 : 문의 페이지 출력 -->
@@ -79,7 +79,12 @@
 		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
 	</select>
 
-
+	<!-- 회원 페이지 : 문의글 수정 -->
+	<update id="updateInquiry">
+		UPDATE customer SET 
+			cus_email = #{cus_email}, cus_title = #{cus_title}, cus_content = #{cus_content} 
+		WHERE cus_num = #{cus_num}
+	</update>
 
 
 

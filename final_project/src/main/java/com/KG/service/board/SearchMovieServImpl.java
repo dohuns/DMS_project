@@ -108,7 +108,6 @@ public class SearchMovieServImpl implements BoardService{
 		try {
 			JSONObject jsonobject = (JSONObject)jsonparser.parse(responseBody);
 			JSONArray json = (JSONArray)jsonobject.get("items");
-			System.out.println("배열 : " + json);
 //			for(int i=0; i<1; i++) {
 //				JSONObject movieList = (JSONObject)json.get(i);
 //			}

@@ -79,4 +79,9 @@ public class CustomerDAO {
 	public String contentPwChk(int cus_num) {
 		return sqlSession.selectOne(namespace + ".contentPwChk", cus_num);
 	}
+
+	// 문의글 수정
+	public int updateInquiry(CustomerDTO dto) {
+		return sqlSession.update(namespace + ".updateInquiry", dto);
+	}
 }
