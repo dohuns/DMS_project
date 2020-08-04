@@ -83,6 +83,7 @@
 	
 //	아티클 저장
 	function articleSave(b_article, b_category, b_articleNum) {
+		b_article = b_article.replace(/(\s)/g, "&nbsp;");
 		var form = {
 				b_article : b_article,
 				b_category : b_category,
