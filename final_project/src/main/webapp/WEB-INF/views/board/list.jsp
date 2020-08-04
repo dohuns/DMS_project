@@ -30,16 +30,16 @@ a:hover, a:focus {
 	text-decoration: underline;
 /* 	font-weight: 600; */
 }
-.container{
-width: 810px;
-}
+/* .container{ */
+/* width: 810px; */
+/* } */
 </style>
 </head>
 <body>
 
 	<div class="container">
 		<c:import url="../default/header.jsp" />
-		<div style="display: flex;">
+		<div style="display: flex; width: 1080px;">
 			<div>
 				<c:import url="/sidebar" />
 			</div>

@@ -32,7 +32,7 @@ a:hover, a:focus {
 	<div class="container">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
-		<div style="display: flex;">
+		<div style="display: flex; width: 1080px;">
 			<div>
 				<c:import url="/sidebar" />
 			</div>

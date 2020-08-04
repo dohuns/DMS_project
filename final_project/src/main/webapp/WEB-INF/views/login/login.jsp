@@ -176,7 +176,7 @@
 
 	<div class="container">
 
-<%-- 		<c:import url="../default/header.jsp" /> --%>
+		<c:import url="../default/header.jsp" />
 		<div style="width: 1080px;">
 
 			<div class="row" style="margin-top: 20px">
