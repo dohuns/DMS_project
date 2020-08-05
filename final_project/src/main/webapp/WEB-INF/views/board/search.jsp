@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -68,34 +69,43 @@ a:hover, a:focus {
 						<th>작성일</th>
 						<th>조회수</th>
 					</tr>
-					<c:forEach var="dto" items="${searchList}">
-						<tr>
-							<td>${dto.b_num}</td>
-							<td>
-								<c:choose>
-									<c:when test="${dto.b_reNum == 0 }">
-										<div>
-											<a href="show?b_num=${dto.b_num}" class="a1">
-												${dto.b_title} 
-											</a>
-											<label class="lb1">[${dto.b_comCount}]</label>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div style="margin-left:${dto.b_reNum*10}px;">
-											└<a href="show?b_num=${dto.b_num}" class="a1">
-												${dto.b_title} 
-											</a>
-											<label class="lb1">[${dto.b_comCount}]</label>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td>${dto.b_nick}</td>
-							<td>${dto.b_date}</td>
-							<td>${dto.b_hit}</td>
-						</tr>
-					</c:forEach>		
+					<c:choose>
+						<c:when test="${fn:length(list) == 0}">
+							<tr>
+								<td colspan="3" height="100" align="center">검색 결과가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="dto" items="${searchList}">
+								<tr>
+									<td>${dto.b_num}</td>
+									<td>
+										<c:choose>
+											<c:when test="${dto.b_reNum == 0 }">
+												<div>
+													<a href="show?b_num=${dto.b_num}" class="a1">
+														${dto.b_title} 
+													</a>
+													<label class="lb1">[${dto.b_comCount}]</label>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div style="margin-left:${dto.b_reNum*10}px;">
+													└<a href="show?b_num=${dto.b_num}" class="a1">
+														${dto.b_title} 
+													</a>
+													<label class="lb1">[${dto.b_comCount}]</label>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${dto.b_nick}</td>
+									<td>${dto.b_date}</td>
+									<td>${dto.b_hit}</td>
+								</tr>
+							</c:forEach>	
+						</c:otherwise>
+					</c:choose>	
 				</table>		
 			</div>	
 		</div>
@@ -175,38 +185,47 @@ a:hover, a:focus {
 						<th>작성일</th>
 						<th>조회수</th>
 					</tr>
-					<c:forEach var="dto" items="${searchListAll}">
-						<tr>
-							<td>
-								<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}" class="a1">
-									${dto.b_article}
-								</a>
-							</td>
-							<td>
-								<c:choose>
-									<c:when test="${dto.b_reNum == 0 }">
-										<div>
-											<a href="show?b_num=${dto.b_num}" class="a1">
-												${dto.b_title} 
-											</a>
-											<label class="lb1">[${dto.b_comCount}]</label>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div style="margin-left:${dto.b_reNum*10}px;">
-											└<a href="show?b_num=${dto.b_num}" class="a1">
-												${dto.b_title} 
-											</a>
-											<label class="lb1">[${dto.b_comCount}]</label>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td>${dto.b_nick}</td>
-							<td>${dto.b_date}</td>
-							<td>${dto.b_hit}</td>
-						</tr>
-					</c:forEach>					
+					<c:choose>
+						<c:when test="${fn:length(list) == 0}">
+							<tr>
+								<td colspan="3" height="100" align="center">검색 결과가 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="dto" items="${searchListAll}">
+								<tr>
+									<td>
+										<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}" class="a1">
+											${dto.b_article}
+										</a>
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${dto.b_reNum == 0 }">
+												<div>
+													<a href="show?b_num=${dto.b_num}" class="a1">
+														${dto.b_title} 
+													</a>
+													<label class="lb1">[${dto.b_comCount}]</label>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div style="margin-left:${dto.b_reNum*10}px;">
+													└<a href="show?b_num=${dto.b_num}" class="a1">
+														${dto.b_title} 
+													</a>
+													<label class="lb1">[${dto.b_comCount}]</label>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${dto.b_nick}</td>
+									<td>${dto.b_date}</td>
+									<td>${dto.b_hit}</td>
+								</tr>
+							</c:forEach>	
+						</c:otherwise>
+					</c:choose>	
 				</table>		
 			</div>	
 		</div>

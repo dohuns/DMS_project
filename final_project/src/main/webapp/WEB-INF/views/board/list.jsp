@@ -76,28 +76,43 @@ a:hover, a:focus {
 											<th>작성일</th>
 											<th>조회수</th>
 										</tr>
-										<c:forEach var="dto" items="${list}">
+										<c:choose>
+										<c:when test="${fn:length(list) == 0}">
 											<tr>
-												<td>${dto.b_num}</td>
-												<td><c:choose>
-														<c:when test="${dto.b_reNum == 0 }">
-															<div>
-																<a href="show?b_num=${dto.b_num}" class="a1">
-																	${dto.b_title} </a> <label class="lb1">[${dto.b_comCount}]</label>
-															</div>
-														</c:when>
-														<c:otherwise>
-															<div style="margin-left:${dto.b_reNum*10}px;">
-																└<a href="show?b_num=${dto.b_num}" class="a1">
-																	${dto.b_title} </a> <label class="lb1">[${dto.b_comCount}]</label>
-															</div>
-														</c:otherwise>
-													</c:choose></td>
-												<td>${dto.b_nick}</td>
-												<td>${dto.b_date}</td>
-												<td>${dto.b_hit}</td>
+												<td colspan="3" height="100" align="center">작성하신 게시글이 없습니다.</td>
 											</tr>
-										</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="dto" items="${list}">
+												<tr>
+													<td>${dto.b_num}</td>
+													<td>
+														<c:choose>
+															<c:when test="${dto.b_reNum == 0 }">
+																<div>
+																	<a href="show?b_num=${dto.b_num}" class="a1">
+																		${dto.b_title} 
+																	</a>
+																	<label class="lb1">[${dto.b_comCount}]</label>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div style="margin-left:${dto.b_reNum*10}px;">
+																	└<a href="show?b_num=${dto.b_num}" class="a1">
+																		${dto.b_title} 
+																	</a>
+																	<label class="lb1">[${dto.b_comCount}]</label>
+																</div>
+															</c:otherwise>
+														</c:choose>
+														</td>
+														<td>${dto.b_nick}</td>
+														<td>${dto.b_date}</td>
+														<td>${dto.b_hit}</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>	
 										<!-- 버튼 -->
 										<tr>
 											<td colspan="5" align="right"><a
@@ -185,30 +200,47 @@ a:hover, a:focus {
 											<th>작성일</th>
 											<th>조회수</th>
 										</tr>
-										<c:forEach var="dto" items="${listAll}">
-											<tr>
-												<td><a
-													href="list?b_category=${dto.b_category}&b_article=${dto.b_article}"
-													class="a1"> ${dto.b_article} </a></td>
-												<td><c:choose>
-														<c:when test="${dto.b_reNum == 0 }">
-															<div>
-																<a href="show?b_num=${dto.b_num}" class="a1">
-																	${dto.b_title} </a> <label class="lb1">[${dto.b_comCount}]</label>
-															</div>
-														</c:when>
-														<c:otherwise>
-															<div style="margin-left:${dto.b_reNum*10}px;">
-																└<a href="show?b_num=${dto.b_num}" class="a1">
-																	${dto.b_title} </a> <label class="lb1">[${dto.b_comCount}]</label>
-															</div>
-														</c:otherwise>
-													</c:choose></td>
-												<td>${dto.b_nick}</td>
-												<td>${dto.b_date}</td>
-												<td>${dto.b_hit}</td>
-											</tr>
-										</c:forEach>
+										<c:choose>
+											<c:when test="${fn:length(list) == 0}">
+												<tr>
+													<td colspan="3" height="100" align="center">작성하신 게시글이 없습니다.</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="dto" items="${listAll}">
+													<tr>
+														<td>
+															<a href="list?b_category=${dto.b_category}&b_article=${dto.b_article}" class="a1">
+																${dto.b_article}
+															</a>
+														</td>
+														<td>
+															<c:choose>
+																<c:when test="${dto.b_reNum == 0 }">
+																	<div>
+																		<a href="show?b_num=${dto.b_num}" class="a1">
+																			${dto.b_title} 
+																		</a>
+																		<label class="lb1">[${dto.b_comCount}]</label>
+																	</div>
+																</c:when>
+																<c:otherwise>
+																	<div style="margin-left:${dto.b_reNum*10}px;">
+																		└<a href="show?b_num=${dto.b_num}" class="a1">
+																			${dto.b_title} 
+																		</a>
+																		<label class="lb1">[${dto.b_comCount}]</label>
+																	</div>
+																</c:otherwise>
+															</c:choose>
+														</td>
+														<td>${dto.b_nick}</td>
+														<td>${dto.b_date}</td>
+														<td>${dto.b_hit}</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>			
 									</table>
 								</div>
 							</div>
