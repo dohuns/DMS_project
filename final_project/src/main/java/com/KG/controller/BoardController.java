@@ -308,15 +308,5 @@ public class BoardController {
 		
 	}
 	
-	// 추천 비추천 리스트 띄워주기
-	@RequestMapping("/board/likeMemberList")
-	public String likeMemberList(Model model, @RequestParam("b_num") int b_num) {
-		
-		model.addAttribute("b_num" , b_num);
-		
-		boaServ = (LikeMemberListServImpl)AC.ac.getBean("likeMemberListServImpl");
-		boaServ.execute_Boo(model);
-		
-		return "/board/likeMemberList";
-	}
+
 }

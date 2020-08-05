@@ -28,7 +28,7 @@ public class ChklikeServImpl implements BoardService{
 		
 		LikeDTO dto = (LikeDTO) map.get("dto");
 		
-		String chkLike = dao.getLike(dto.getL_id());
+		String chkLike = dao.getLike(dto);
 		
 		return chkLike;
 	}

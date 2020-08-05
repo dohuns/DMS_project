@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.BoardDTO;
@@ -21,6 +22,7 @@ import com.KG.service.board.BoardImageServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.ChklikeServImpl;
 import com.KG.service.board.DayBoxOfficeServImpl;
+import com.KG.service.board.LikeMemberListServImpl;
 import com.KG.service.board.RemoveLikeServImpl;
 import com.KG.service.board.RemoveUnlikeServImpl;
 import com.KG.service.board.SearchMovieServImpl;
@@ -132,6 +134,16 @@ public class BoardRestController {
 		model.addAttribute("dto" , dto);
 		
 		boaServ = (ChklikeServImpl)AC.ac.getBean("chklikeServImpl");
+		
+		return boaServ.execute_Str(model);
+	}
+	
+	// 추천 비추천 리스트 띄워주기
+	@RequestMapping(value = "/board/likeMemberList", produces = "application/json;charset=utf-8")
+	public String likeMemberList(Model model, int b_num) {
+		model.addAttribute("b_num" , b_num);
+		
+		boaServ = (LikeMemberListServImpl)AC.ac.getBean("likeMemberListServImpl");
 		
 		return boaServ.execute_Str(model);
 	}

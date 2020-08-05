@@ -335,12 +335,13 @@
 	<!-- 추천 비추천 누른지 구분 -->
 	<select id="getLike" resultType="String">
 		SELECT l_divLike FROM likeData
-			WHERE l_id = #{id}
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum}
 	</select>
 	
 	<!-- 추천 비추천 누른 멤버 리스트 -->
 	<select id="likeMemberList" resultType="likeDTO">
-		SELECT * FROM likeData 
-			WHERE l_boardNum = #{boardNum}
+		SELECT * FROM likeData JOIN member ON likeData.l_id = member.m_id 
+        	WHERE l_boardNum = #{boardNum}
 	</select>
+	
 </mapper>

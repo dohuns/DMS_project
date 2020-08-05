@@ -271,13 +271,14 @@ public class BoardDAO {
 	}
 	
 	// 추천 비추천 누른지 구분
-	public String getLike(String id) {
-		return sqlSession.selectOne(namespace + ".getLike" , id);
+	public String getLike(LikeDTO dto) {
+		return sqlSession.selectOne(namespace + ".getLike" , dto);
 	}
 	
 	// 추천 비추천 누른 멤버 확인(글번호)
-	public List<LikeDTO> likeMemberList(int boardNum) {
+	public List<Map<String, Object>> likeMemberList(int boardNum) {
 		return sqlSession.selectList(namespace + ".likeMemberList" , boardNum);
 	}
+	
 	
 }

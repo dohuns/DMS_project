@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.BoardDAO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class LikeMemberListServImpl implements BoardService{
@@ -17,20 +19,26 @@ public class LikeMemberListServImpl implements BoardService{
 	
 	@Override
 	public boolean execute_Boo(Model model) {
-		
-		Map<String, Object>map = model.asMap();
-		
-		int b_num = (Integer)map.get("b_num");
-		
-		model.addAttribute("likeMemberList" , dao.likeMemberList(b_num));
+
 		
 		return false;
 	}
 
 	@Override
 	public String execute_Str(Model model) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+
+			Map<String, Object>map = model.asMap();
+			int b_num = (Integer)map.get("b_num");
+		
+			ObjectMapper mapper = new ObjectMapper();
+			
+			return mapper.writeValueAsString(dao.likeMemberList(b_num));
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	@Override
