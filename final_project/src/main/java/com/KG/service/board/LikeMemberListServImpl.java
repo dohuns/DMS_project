@@ -20,7 +20,6 @@ public class LikeMemberListServImpl implements BoardService{
 	@Override
 	public boolean execute_Boo(Model model) {
 
-		
 		return false;
 	}
 
@@ -31,6 +30,10 @@ public class LikeMemberListServImpl implements BoardService{
 			Map<String, Object>map = model.asMap();
 			int b_num = (Integer)map.get("b_num");
 		
+			for(Map<String, Object> map2 : dao.likeMemberList(b_num)) {
+				System.out.println(map2.get("L_DIVLIKE"));
+			}
+			
 			ObjectMapper mapper = new ObjectMapper();
 			
 			return mapper.writeValueAsString(dao.likeMemberList(b_num));

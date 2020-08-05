@@ -516,45 +516,49 @@ width: 50%;
 	function likeBtn() {
 		var userId = "${sessionScope.m_id}";
 		var boardNum = "${param.b_num}";
-		
+		console.log("asd : " +  userId)
 		var divLike = $("#divLike").val();
 
 		var Data = {l_id : userId , l_boardNum : boardNum};
-		if(divLike == "") {
-			// 추천 추가
-			$.ajax({
-				url : "addLike",
-				type : "POST",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#liekCount").text(arg);
-					$("#divLike").val("like");
-					$("#likeImage").attr("src" , "/img/눌림.png")
-				},
-				error : function() {
-					alert("추천 실패!!!");
-				}
-			});
-			
-		} else if (divLike == "like") {
-			// 추천 취소
-			$.ajax({
-				url : "removeLike",
-				type : "DELETE",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#liekCount").text(arg);
-					$("#divLike").val("");
-					$("#likeImage").attr("src" , "/img/like.png")
-				},
-				error : function() {
-					alert("추천 취소 실패!!!");
-				}
-			});
+		if(userId != "") {
+			if(divLike == "") {
+				// 추천 추가
+				$.ajax({
+					url : "addLike",
+					type : "POST",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#liekCount").text(arg);
+						$("#divLike").val("like");
+						$("#likeImage").attr("src" , "/img/눌림.png")
+					},
+					error : function() {
+						alert("추천 실패!!!");
+					}
+				});
+				
+			} else if (divLike == "like") {
+				// 추천 취소
+				$.ajax({
+					url : "removeLike",
+					type : "DELETE",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#liekCount").text(arg);
+						$("#divLike").val("");
+						$("#likeImage").attr("src" , "/img/like.png")
+					},
+					error : function() {
+						alert("추천 취소 실패!!!");
+					}
+				});
+			} else {
+				alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			}
 		} else {
-			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			alert("로그인 후 이용해 주세요!!!");
 		}
 	}
 	// 비추천 버튼
@@ -565,41 +569,44 @@ width: 50%;
 		var divLike = $("#divLike").val();
 
 		var Data = {l_id : userId , l_boardNum : boardNum};
-		
-		if(divLike == "") {
-			// 비추천 추가
-			$.ajax({
-				url : "addUnlike",
-				type : "POST",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#unlikeCount").text(arg);
-					$("#divLike").val("unlike");
-					$("#unlikeImage").attr("src" , "/img/눌림.png")
-				},
-				error : function() {
-					alert("비추천 실패!!!");
-				}
-			});
-		} else if(divLike == "unlike") {
-			// 비추천 취소
-			$.ajax({
-				url : "removeUnlike",
-				type : "DELETE",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#unlikeCount").text(arg);
-					$("#divLike").val("");
-					$("#unlikeImage").attr("src" , "/img/unlike.png")
-				},
-				error : function() {
-					alert("비추천 취소 실패!!!");
-				}
-			});
+		if(userId != "") {
+			if(divLike == "") {
+				// 비추천 추가
+				$.ajax({
+					url : "addUnlike",
+					type : "POST",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#unlikeCount").text(arg);
+						$("#divLike").val("unlike");
+						$("#unlikeImage").attr("src" , "/img/눌림.png")
+					},
+					error : function() {
+						alert("비추천 실패!!!");
+					}
+				});
+			} else if(divLike == "unlike") {
+				// 비추천 취소
+				$.ajax({
+					url : "removeUnlike",
+					type : "DELETE",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#unlikeCount").text(arg);
+						$("#divLike").val("");
+						$("#unlikeImage").attr("src" , "/img/unlike.png")
+					},
+					error : function() {
+						alert("비추천 취소 실패!!!");
+					}
+				});
+			} else {
+				alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			}
 		} else {
-			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			alert("로그인 후 이용해주세요!!!");
 		}
 	}
 	
@@ -669,13 +676,12 @@ width: 50%;
 	// 댓글 리스트
 	function commentArea() {
 		$("#commentAllArea").show();
-		$("#likeBox").hide();
+		$("#likeBox").remove();
 	}
 	
 	// 추천 리스트
 	function likeArea() {
 		$("#commentAllArea").hide();
-		$("#likeBox").show();
 		
 		var data = {b_num : "${param.b_num}"}
 		
@@ -685,13 +691,51 @@ width: 50%;
 			data : data,
 			success : function(list) {
 				var html = '';
-				html += ''
+					html += '<div id="likeBox">' + 
+							'	<div style="margin-bottom: 20px;">' + 
+							'		<h3 style="font-weight:800">추천 목록</h3>' + 
+							'	</div>' +
+							'<div>' ;
+					console.log("list : " + list);
+					console.log("length : " + list.length)
+					for(var i=0; i<list.length; i++) {
+						console.log("list[i] : " + list[i]);
+						console.log("L_DIVLIKE : " + list[i].L_DIVLIKE);
+						if(list[i].L_DIVLIKE == 'L') {
+							html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+									'	<div style="display: flex;">' + 
+									'		<div>' + 
+									'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">' + 
+									'				<img src="/img/DMS_Main.png" width="32" height="32" style="border-radius: 100%">' + 
+									'			</a>' + 
+									'		</div>' + 
+									'		<div>' + 
+									'			<div style="height:15px; margin-bottom:2px;">'
+									'				<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black; ">${boardInfo.b_nick}</b></a>' +
+									'				<br style="margin: 0px;">' + 
+									'			</div>' +
+									'			<div style="height:15px;">' + 
+									'				<label class="lb2">${memberInfo.m_rank}</label>' + 
+									'			</div>' +
+									'		</div>' + 
+									'	</div>' +
+									'</div>';
+						}
+						html += '</div>' + 
+								'</div>';
+					}
+				$("#bottomArea").html(html);
+				
 			}, error : function() {
 				alert("추천 리스트 실패!")
 			}
 		});
 	}
+				
+				
+			
 	
+
 
 	
 </script>
@@ -849,33 +893,33 @@ width: 50%;
 					</form>
 				</div>
 			</div>
-			<div id="likeBox">
-				<div style="margin-bottom: 20px;">
-					<h3 style="font-weight:800">추천 목록</h3>
-				</div>
-				<div>
-					<c:forEach begin="1" end="10" varStatus="var">
-						<div style=" display: inline-block; margin: 0 40px 20px 0;"> 
-							<div style="display: flex;">
-							<div >
-								<a href="/movie/myList?id='+list[i].C_ID+'&page=1">
-									<img src="/img/DMS_Main.png" width="32" height="32" style="border-radius: 100%">
-								</a>
-							</div>
-							<div>
-								<div style="height:15px; margin-bottom:2px;">
-									<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black; ">${boardInfo.b_nick}</b></a>
-								<br style="margin: 0px;">
-								</div>
-								<div style="height:15px;">
-									<label class="lb2">${memberInfo.m_rank}</label>
-								</div>
-							</div>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
+<!-- 			<div id="likeBox"> -->
+<!-- 				<div style="margin-bottom: 20px;"> -->
+<!-- 					<h3 style="font-weight:800">추천 목록</h3> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<c:forEach begin="1" end="10" varStatus="var"> --%>
+<!-- 						<div style=" display: inline-block; margin: 0 40px 20px 0;">  -->
+<!-- 							<div style="display: flex;"> -->
+<!-- 							<div > -->
+<!-- 								<a href="/movie/myList?id='+list[i].C_ID+'&page=1"> -->
+<!-- 									<img src="/img/DMS_Main.png" width="32" height="32" style="border-radius: 100%"> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 							<div> -->
+<!-- 								<div style="height:15px; margin-bottom:2px;"> -->
+<%-- 									<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black; ">${boardInfo.b_nick}</b></a> --%>
+<!-- 								<br style="margin: 0px;"> -->
+<!-- 								</div> -->
+<!-- 								<div style="height:15px;"> -->
+<%-- 									<label class="lb2">${memberInfo.m_rank}</label> --%>
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
 		</div>
 		</div>
