@@ -70,7 +70,7 @@ a:hover, a:focus {
 						<th>조회수</th>
 					</tr>
 					<c:choose>
-						<c:when test="${fn:length(list) == 0}">
+						<c:when test="${fn:length(searchList) == 0}">
 							<tr>
 								<td colspan="3" height="100" align="center">검색 결과가 없습니다.</td>
 							</tr>
@@ -186,7 +186,7 @@ a:hover, a:focus {
 						<th>조회수</th>
 					</tr>
 					<c:choose>
-						<c:when test="${fn:length(list) == 0}">
+						<c:when test="${fn:length(searchListAll) == 0}">
 							<tr>
 								<td colspan="3" height="100" align="center">검색 결과가 없습니다.</td>
 							</tr>

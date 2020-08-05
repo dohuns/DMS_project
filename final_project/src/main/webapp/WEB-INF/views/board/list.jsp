@@ -201,7 +201,7 @@ a:hover, a:focus {
 											<th>조회수</th>
 										</tr>
 										<c:choose>
-											<c:when test="${fn:length(list) == 0}">
+											<c:when test="${fn:length(listAll) == 0}">
 												<tr>
 													<td colspan="3" height="100" align="center">작성하신 게시글이 없습니다.</td>
 												</tr>
