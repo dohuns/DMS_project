@@ -40,38 +40,36 @@
 				.each(
 						cate,
 						function(index, cate) {
-							html += "<hr id='main'>";
-							html += "<div style='display: flex;'>";
-							html += "<div id='menu' style='width: 65%;'>"
-									+ cate.b_category + "</div>";
-							html += "<div id='menu' style='width: 35%;' align='right'>";
-							html += "<button onclick='categoryDel(`"
-									+ cate.b_category + "`)'>-</button>";
-							html += "<button onclick='articleIns(`"
-									+ cate.b_category + "`)'>+</button>";
-							html += "<button onclick='categoryUpd(`"
-									+ cate.b_category + "`)'>수정</button>";
+							html += "<div style='display: flex; margin-top: 20px;'>";
+							html += "<div id='menu' style='width: 65%;'><b>"
+									+ cate.b_category + "</b></div>";
+							html += "<div id='menu' style='width: 35%; color: #5bc0de;' align='right'>";
+							html += "<a onclick='articleIns(`"
+									+ cate.b_category + "`)'><b>추가</b></a> &nbsp;";
+							html += "<a onclick='categoryUpd(`"
+									+ cate.b_category + "`)'><b>수정</b></a> &nbsp;";
+							html += "<a onclick='categoryDel(`"
+									+ cate.b_category + "`)'><b>삭제</b></a>";
 							html += "</div>";
 							html += "</div>";
-							html += "<hr id='sub'>";
 							$
 									.each(
 											art,
 											function(index, art) {
 												if (cate.b_category == art.b_category) {
-													html += "<div style='display: flex;'>";
-													html += "<div id='menu' style='width: 65%;'>"
+													html += "<div style='display: flex; background-color: white; border: solid 1px #eee; margin: 0 20px; border-radius: 5px;'>";
+													html += "<div id='menu' style='width: 65%;'>└ &nbsp;"
 															+ art.b_article
 															+ "</div>";
-													html += "<div id='menu' style='width: 35%;' align='right'>";
-													html += "<button onclick='articleDel(`"
+													html += "<div id='menu' style='width: 35%; color: #5bc0de;' align='right'>";
+													html += "<a onclick='articleUpd(`"
+															+ art.b_article
+															+ "`)'>수정</a> ";
+													html += "<a onclick='articleDel(`"
 															+ cate.b_category
 															+ "`,`"
 															+ art.b_article
-															+ "`)'>-</button>";
-													html += "<button onclick='articleUpd(`"
-															+ art.b_article
-															+ "`)'>수정</button>";
+															+ "`)'>삭제</a>";
 													html += "</div>";
 													html += "</div>";
 												}
@@ -289,43 +287,31 @@ hr#main {
 hr#sub {
 	border: solid 1px #f0f0f0;
 }
+a:link, a:visited, a:active{
+	text-decoration: none !important;
+	color: #5bc0de;
+	cursor:pointer;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #5bc0de;
+	cursor:pointer;
+}
 </style>
 </head>
 <body onload="AllList()">
-	<div id="wrapper" class="">
-		<c:import url="../default/adminHeader.jsp" />
-		<!-- PAGE CONTENT -->
-		<div id="page-content-wrapper">
-			<div id="topbar">
-				<div class="pull-left">
-					<h1 class="company-name" onclick="location.href='admin'">
-						<b>관리자 페이지</b>
-					</h1>
-				</div>
-				<div class="pull-right">
-					<div id="header_user" style="padding-right: 20px;">
-						<a href="login"><b>회원 페이지</b></a>
-					</div>
-				</div>
-				<div class="clearfix"></div>
+	<div style="background-color: #eee; padding-bottom: 20px;">
+		<div style="display: flex; padding: 20px 20px 0 20px;">
+			<div align="left" style="width: 50%">
+				<b>Category</b>
 			</div>
-
-			<div id="main-content">
-				<div class="content-body">
-					<div class="col-lg-12 main-box-container">
-						<div class="box">
-							<div style="width: 400px;">
-								<div align="right">
-									<button onclick="categoryIns()">Category 추가</button>
-								</div>
-								<div>
-									<div id="List"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div align="right" style="width: 50%; color: #5bc0de;">
+				<a onclick="categoryIns()"><b>추가</b></a>
 			</div>
+		</div>
+		<div>
+			<div id="List"></div>
 		</div>
 	</div>
 </body>
