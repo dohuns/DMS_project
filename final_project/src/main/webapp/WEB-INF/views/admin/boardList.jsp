@@ -280,6 +280,12 @@
 	}
 </script>
 <script type="text/javascript">
+	//modal 초기화
+	$(function() {
+		$('.modal').on('hide.bs.modal', function(e) {
+			$('input').val('');
+		})
+	});
 	//카테고리 생성
 	function insModCate() {
 		$('#insert-category').modal('show');
