@@ -21,6 +21,8 @@
 				<c:when test="${sessionScope.m_rankNum == 1}">
 					<b><a href="/movie/admin">관리자 페이지</a></b>
 					<span style="color: #f0f0f0"> | </span>
+					<b><a href="/movie/myPageCk">내정보</a></b>
+					<span style="color: #f0f0f0"> | </span>
 					<b><a href="/movie/logout">로그아웃</a></b>
 					<span style="color: #f0f0f0"> | </span>
 					<b><a href="/movie/customerMain">고객센터</a></b>
