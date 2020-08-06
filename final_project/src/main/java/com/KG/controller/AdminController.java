@@ -32,6 +32,10 @@ public class AdminController {
 	CustomerService customerServ;
 	BoardSidebarService boaSideServ;
 
+	@RequestMapping("test")
+	public String test(Model model) {
+		return "adm/home";
+	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	// 관리자 페이지 : 목록 출력
 	@RequestMapping("admin")

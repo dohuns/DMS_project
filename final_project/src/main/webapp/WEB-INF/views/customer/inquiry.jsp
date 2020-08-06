@@ -17,18 +17,18 @@
 			background-color: #5BC0DE;
 			color: white;
 		}
-
 		.mt-60 {
 			margin-top: 60px;
 		}
-
 		.pt-40 {
 			padding-top: 40px;
 			text-align: center;
 		}
-
 		.bt-a {
-			text-align: right;
+			float: right;
+		}
+		.bt-b {
+			text-align: center;
 		}
 	</style>
 	<script>
@@ -99,7 +99,9 @@
 								</div>
 
 								<div class="form-group bt-a">
-									<button type="submit" class="btn bBtn">문의 접수</button>
+									<button type="button" class="btn"
+										onclick="location.href='customerMain'">목록</button>
+									<button type="submit" class="btn bBtn">작성</button>
 								</div>
 
 							</form>

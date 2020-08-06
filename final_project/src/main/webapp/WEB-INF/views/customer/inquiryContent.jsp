@@ -16,7 +16,10 @@
 			color: white;
 		}
 		.bt-a {
-			text-align: right;
+			float: right;
+		}
+		.bt-b {
+			float: center;
 		}
 		.mt-60 {
 			margin-top: 60px;
@@ -113,10 +116,16 @@
 										name="cus_content" readonly="readonly">${inquiryContent.cus_content}</textarea>
 								</div>
 
-								<div class="form-group bt-a">
-									<button type="button" class="btn btn-default"
-										onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
-									<button type="submit" class="btn bBtn">수   정</button>
+								<div class="form-group">
+									<div class="bt-a">
+										<button type="button" class="btn btn-default"
+											onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
+										<button type="submit" class="btn bBtn">수   정</button>
+									</div>
+									<div class="bt-b">
+										<button type="button" class="btn btn-default"
+											onclick="location.href='customerMain'">목록</button>
+									</div>
 								</div>
 
 							</form>

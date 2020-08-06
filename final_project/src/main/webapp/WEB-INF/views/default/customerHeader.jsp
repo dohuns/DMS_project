@@ -81,7 +81,7 @@
 							</c:when>
 							<%-- 세션이 있는 경우 로그아웃, 내정보 출력 --%>
 							<c:otherwise>
-								<li><a href="/myPage">내정보</a></li>
+								<li><a href="/movie/myPageCk">내정보</a></li>
 								<li><a href="/movie/logout">로그아웃</a></li>
 								<li><a href="/movie/customerMain">고객센터</a></li>
 							</c:otherwise>
