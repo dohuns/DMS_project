@@ -77,7 +77,7 @@
 			<c:choose>
 				<c:when test="${myList != '[]'}">
 					<c:choose>
-						<c:when test="${sessionScope.m_id eq param.id }">
+						<c:when test="${sessionScope.m_id eq param.id || sessionScope.m_rankNum == 1 }">
 							<c:forEach var="list" items="${myList}">
 								<tr>
 									<td colspan="1" align="left"><div

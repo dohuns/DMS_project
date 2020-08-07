@@ -36,8 +36,6 @@ th, td {
 </style>
 </head>
 <body>
-
-
 	<!-- 로그인 확인 -->
 	<c:if test="${sessionScope.m_id == null}">
 		<script type="text/javascript">
@@ -92,7 +90,7 @@ th, td {
 					</div>
 					<hr>
 					<c:choose>
-						<c:when test="${sessionScope.m_id eq param.id }">
+						<c:when test="${sessionScope.m_id eq param.id || sessionScope.m_rankNum == 1 }">
 							<div style="font-size: 15px; color: black;">
 								<a href="myList?id=${param.id }&page=1" id="myWrite"
 									style="color: black;">작성글</a><span style="color: #eee;">
@@ -116,6 +114,16 @@ th, td {
 						<c:choose>
 							<c:when test="${param.page == 1 }">
 								<c:import url="/myWrite" />
+							</c:when>
+							<c:when test="${param.page == 2 && sessionScope.m_rankNum == 1}">
+								<c:import url="/myReply" />
+							</c:when>
+							<c:when
+								test="${param.page == 2 && sessionScope.m_id ne param.id}">
+								<script type="text/javascript">
+									alert("정상적인 경로를 이용해주세요")
+									history.go(-1);
+								</script>
 							</c:when>
 							<c:when test="${param.page == 2 }">
 								<c:import url="/myReply" />
