@@ -26,6 +26,13 @@ th, td {
 	border-top: 1px solid black;
 	border-bottom: 1px solid #eee;
 }
+
+.pagination>.active>a.b, .pagination>.active>span, .pagination>.active>a.b:hover,
+	.pagination>.active>span:hover, .pagination>.active>a.b:focus,
+	.pagination>.active>span:focus {
+	background-color: #5BC0DE;
+	border-color: #5BC0DE;
+}
 </style>
 </head>
 <body>

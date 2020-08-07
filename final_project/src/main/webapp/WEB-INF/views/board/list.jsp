@@ -28,11 +28,14 @@
 a:hover, a:focus {
 	color: black;
 	text-decoration: underline;
-/* 	font-weight: 600; */
 }
-/* .container{ */
-/* width: 810px; */
-/* } */
+
+.pagination>.active>a.b, .pagination>.active>span, .pagination>.active>a.b:hover,
+	.pagination>.active>span:hover, .pagination>.active>a.b:focus,
+	.pagination>.active>span:focus {
+	background-color: #5BC0DE;
+	border-color: #5BC0DE;
+}
 </style>
 </head>
 <body>
@@ -127,7 +130,7 @@ a:hover, a:focus {
 								<ul class="pagination">
 									<%-- 이전 버튼 --%>
 									<li><c:if test="${artiNum>9}">
-											<a
+											<a class="b"
 												href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next-1}&artiNum=${(next-1)*10+9}">
 												«</a>
 										</c:if></li>
@@ -137,7 +140,7 @@ a:hover, a:focus {
 											<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1"
 												var="cnt">
 												<li
-													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 													href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 											</c:forEach>
 										</c:when>
@@ -145,14 +148,14 @@ a:hover, a:focus {
 											<c:forEach begin="${next*10+1}" end="${count}" step="1"
 												var="cnt">
 												<li
-													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 													href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>
 									<%-- 다음 버튼 --%>
 									<li><c:if test="${count > next*10+10 }">
-											<a
+											<a class="b"
 												href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next+1}&artiNum=${(next+1)*10}">»
 											</a>
 										</c:if></li>
@@ -250,7 +253,7 @@ a:hover, a:focus {
 								<ul class="pagination">
 									<%-- 이전 버튼 --%>
 									<li><c:if test="${artiNum>9}">
-											<a
+											<a class="b"
 												href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next-1}&artiNum=${(next-1)*10+9}">
 												«</a>
 										</c:if></li>
@@ -261,7 +264,7 @@ a:hover, a:focus {
 												var="cnt">
 												<li
 													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a
+													<a class="b"
 													href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next}&artiNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
@@ -271,7 +274,7 @@ a:hover, a:focus {
 												var="cnt">
 												<li
 													class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'>
-													<a
+													<a class="b"
 													href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next}&artiNum=${cnt-1}">${cnt}</a>
 												</li>
 											</c:forEach>
@@ -279,7 +282,7 @@ a:hover, a:focus {
 									</c:choose>
 									<%-- 다음 버튼 --%>
 									<li><c:if test="${countAll > next*10+10 }">
-											<a
+											<a class="b"
 												href="list?b_category=${param.b_category}&b_article=${param.b_article}&next=${next+1}&artiNum=${(next+1)*10}">»
 											</a>
 										</c:if></li>

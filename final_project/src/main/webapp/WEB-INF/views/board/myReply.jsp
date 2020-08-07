@@ -126,7 +126,7 @@
 		<ul class="pagination">
 			<%-- 이전 버튼 --%>
 			<li><c:if test="${artiNum>9}">
-					<a href="myList?id=${param.id }&page=2&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
+					<a class="b" href="myList?id=${param.id }&page=2&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
 				</c:if></li>
 			<%--게시판 15개 나눈 모음(?) 번호 --%>
 			<c:choose>
@@ -134,21 +134,21 @@
 					<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1"
 						var="cnt">
 						<li
-							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 							href="myList?id=${param.id }&page=2&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<c:forEach begin="${next*10+1}" end="${count}" step="1" var="cnt">
 						<li
-							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 							href="myList?id=${param.id }&page=2&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<%-- 다음 버튼 --%>
 			<li><c:if test="${count > next*10+10 }">
-					<a href="myList?id=${param.id }&page=2&next=${next+1}&artiNum=${(next+1)*10}">»</a>
+					<a class="b" href="myList?id=${param.id }&page=2&next=${next+1}&artiNum=${(next+1)*10}">»</a>
 				</c:if></li>
 		</ul>
 	</div>
