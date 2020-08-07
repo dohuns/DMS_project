@@ -156,6 +156,7 @@ padding-top: 11px;
 width: 50%;
 }
 
+
 </style>
 
 <script type="text/javascript">
@@ -164,6 +165,8 @@ width: 50%;
 		getCommentList();
 		addBtn();
 		chkLike();
+		$("#likeBox").hide();
+		$("#unlikeBox").hide();
 	})
 	
 	// 댓글 입력에 따른 작성버튼 변화
@@ -515,45 +518,136 @@ width: 50%;
 	function likeBtn() {
 		var userId = "${sessionScope.m_id}";
 		var boardNum = "${param.b_num}";
-		
+		console.log("fff:"+boardNum);
+		console.log("asd : " +  userId)
 		var divLike = $("#divLike").val();
 
 		var Data = {l_id : userId , l_boardNum : boardNum};
-		if(divLike == "") {
-			// 추천 추가
-			$.ajax({
-				url : "addLike",
-				type : "POST",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#liekCount").text(arg);
-					$("#divLike").val("like");
-					$("#likeImage").attr("src" , "/img/눌림.png")
-				},
-				error : function() {
-					alert("추천 실패!!!");
-				}
-			});
-			
-		} else if (divLike == "like") {
-			// 추천 취소
-			$.ajax({
-				url : "removeLike",
-				type : "DELETE",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#liekCount").text(arg);
-					$("#divLike").val("");
-					$("#likeImage").attr("src" , "/img/like.png")
-				},
-				error : function() {
-					alert("추천 취소 실패!!!");
-				}
-			});
+		if(userId != "") {
+			if(divLike == "") {
+				// 추천 추가
+				$.ajax({
+					url : "addLike",
+					type : "POST",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#liekCount").text(arg);
+						$("#divLike").val("like");
+						$("#likeImage").attr("src" , "/img/눌림.png")
+					},
+					error : function() {
+						alert("추천 실패!!!");
+					}
+				});
+				
+				var data = {b_num : boardNum};
+				
+				$.ajax({
+					url : "likeMemberList",
+					type : "POST",
+					data : data,
+					success : function(list) {
+						var html = '';
+							for(var i=0; i<list.length; i++) {
+								if(list[i].L_DIVLIKE == 'L') {
+									html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+											'	<div style="display: flex;">' + 
+											'		<div>' + 
+											'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+														if(list[i].M_PICTURE != null) {
+									html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+														} else {
+									html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+														}
+									html +=	'			</a>' + 
+											'		</div>' + 
+											'		<div>' + 
+											'			<div style="height:15px; margin-bottom:2px;">' + 
+											'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+											'				<br style="margin: 0px;">' + 
+											'			</div>' +
+											'			<div style="height:15px;">' + 
+											'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+											'			</div>' +
+											'		</div>' + 
+											'	</div>' +
+											'</div>';
+								}
+							}
+						$("#likeList").html(html);
+						
+					}, error : function() {
+						alert("추천 리스트 실패!")
+					}
+				});
+				
+				
+			} else if (divLike == "like") {
+				// 추천 취소
+				$.ajax({
+					url : "removeLike",
+					type : "DELETE",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#liekCount").text(arg);
+						$("#divLike").val("");
+						$("#likeImage").attr("src" , "/img/like.png")
+					},
+					error : function() {
+						alert("추천 취소 실패!!!");
+					}
+				});
+				
+				
+				var data = {b_num : "${param.b_num}"}
+				
+				$.ajax({
+					url : "likeMemberList",
+					type : "POST",
+					data : data,
+					success : function(list) {
+						var html = '';
+							for(var i=0; i<list.length; i++) {
+								if(list[i].L_DIVLIKE == 'L') {
+									html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+											'	<div style="display: flex;">' + 
+											'		<div>' + 
+											'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+														if(list[i].M_PICTURE != null) {
+									html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+														} else {
+									html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+														}
+									html +=	'			</a>' + 
+											'		</div>' + 
+											'		<div>' + 
+											'			<div style="height:15px; margin-bottom:2px;">' + 
+											'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+											'				<br style="margin: 0px;">' + 
+											'			</div>' +
+											'			<div style="height:15px;">' + 
+											'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+											'			</div>' +
+											'		</div>' + 
+											'	</div>' +
+											'</div>';
+								}
+							}
+						$("#likeList").html(html);
+						
+					}, error : function() {
+						alert("추천 리스트 실패!")
+					}
+				});
+				
+				
+			} else {
+				alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			}
 		} else {
-			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			alert("로그인 후 이용해 주세요!!!");
 		}
 	}
 	// 비추천 버튼
@@ -564,48 +658,142 @@ width: 50%;
 		var divLike = $("#divLike").val();
 
 		var Data = {l_id : userId , l_boardNum : boardNum};
-		
-		if(divLike == "") {
-			// 비추천 추가
-			$.ajax({
-				url : "addUnlike",
-				type : "POST",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#unlikeCount").text(arg);
-					$("#divLike").val("unlike");
-					$("#unlikeImage").attr("src" , "/img/눌림.png")
-				},
-				error : function() {
-					alert("비추천 실패!!!");
-				}
-			});
-		} else if(divLike == "unlike") {
-			// 비추천 취소
-			$.ajax({
-				url : "removeUnlike",
-				type : "DELETE",
-				data : Data,
-				dataType : "text",
-				success : function(arg) {
-					$("#unlikeCount").text(arg);
-					$("#divLike").val("");
-					$("#unlikeImage").attr("src" , "/img/unlike.png")
-				},
-				error : function() {
-					alert("비추천 취소 실패!!!");
-				}
-			});
+		if(userId != "") {
+			if(divLike == "") {
+				// 비추천 추가
+				$.ajax({
+					url : "addUnlike",
+					type : "POST",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#unlikeCount").text(arg);
+						$("#divLike").val("unlike");
+						$("#unlikeImage").attr("src" , "/img/눌림.png")
+					},
+					error : function() {
+						alert("비추천 실패!!!");
+					}
+				});
+				
+				
+				var data = {b_num : "${param.b_num}"}
+				
+				$.ajax({
+					url : "likeMemberList",
+					type : "POST",
+					data : data,
+					success : function(list) {
+						var html = '';
+							for(var i=0; i<list.length; i++) {
+								if(list[i].L_DIVLIKE == 'U') {
+									html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+											'	<div style="display: flex;">' + 
+											'		<div>' + 
+											'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+														if(list[i].M_PICTURE != null) {
+									html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+														} else {
+									html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+														}
+									html +=	'			</a>' + 
+											'		</div>' + 
+											'		<div>' + 
+											'			<div style="height:15px; margin-bottom:2px;">' + 
+											'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+											'				<br style="margin: 0px;">' + 
+											'			</div>' +
+											'			<div style="height:15px;">' + 
+											'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+											'			</div>' +
+											'		</div>' + 
+											'	</div>' +
+											'</div>';
+								}
+							}
+						$("#unlikeList").html(html);
+						
+					}, error : function() {
+						alert("비추천 리스트 실패!")
+					}
+				});
+				
+				
+			} else if(divLike == "unlike") {
+				// 비추천 취소
+				$.ajax({
+					url : "removeUnlike",
+					type : "DELETE",
+					data : Data,
+					dataType : "text",
+					success : function(arg) {
+						$("#unlikeCount").text(arg);
+						$("#divLike").val("");
+						$("#unlikeImage").attr("src" , "/img/unlike.png")
+					},
+					error : function() {
+						alert("비추천 취소 실패!!!");
+					}
+				});
+				
+				
+				
+				var data = {b_num : "${param.b_num}"}
+				
+				$.ajax({
+					url : "likeMemberList",
+					type : "POST",
+					data : data,
+					success : function(list) {
+						var html = '';
+							for(var i=0; i<list.length; i++) {
+								if(list[i].L_DIVLIKE == 'U') {
+									html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+											'	<div style="display: flex;">' + 
+											'		<div>' + 
+											'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+														if(list[i].M_PICTURE != null) {
+									html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+														} else {
+									html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+														}
+									html +=	'			</a>' + 
+											'		</div>' + 
+											'		<div>' + 
+											'			<div style="height:15px; margin-bottom:2px;">' + 
+											'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+											'				<br style="margin: 0px;">' + 
+											'			</div>' +
+											'			<div style="height:15px;">' + 
+											'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+											'			</div>' +
+											'		</div>' + 
+											'	</div>' +
+											'</div>';
+								}
+							}
+						$("#unlikeList").html(html);
+						
+					}, error : function() {
+						alert("비추천 리스트 실패!")
+					}
+				});
+				
+				
+			} else {
+				alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			}
 		} else {
-			alert("추천과 비추천은 하나만 선택할 수 있습니다.");
+			alert("로그인 후 이용해주세요!!!");
 		}
 	}
 	
 	// 접속 시 추천 비추천 누른지 확인
 	function chkLike() {
 		
-		var Data = {l_id : "${sessionScope.m_id}"};
+		var Data = {l_id : "${sessionScope.m_id}"
+				   ,l_boardNum : "${param.b_num}"};
+		
 		
 		$.ajax({
 			url : "chkLike",
@@ -613,49 +801,47 @@ width: 50%;
 			data : Data,
 			dataType : "text",
 			success : function(chkLike) {
+				console.log(chkLike)
 				if(chkLike == 'L') {
 					var html = '';
 					$("#divLike").val("like");
-					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' +
-							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+					html += '<a style="cursor: pointer;" onclick="likeBtn()">' + 
 							'	<img src="/img/눌림.png" style="width:35px;" id="likeImage">' + 
-							'	<span style="color:black;">추천</span>' + 
-							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="likeList()">추천</span>' + 
+							'<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
 							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
-							'	<span style="color:black;">비추천</span>' + 
-							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
-							'</a>';
+							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="unlikeList()">비추천</span>' + 
+							'<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' ;
 					$(".likeCount").html(html);
 				} else if(chkLike == 'U') {
 					$("#divLike").val("unlike");
 					var html = '';
-					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
-							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+					html += '<a style="cursor: pointer;" onclick="likeBtn()">' + 
 							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
-							'	<span style="color:black;">추천</span>' + 
-							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="likeList()">추천</span>' + 
+							'<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
 							'	<img src="/img/눌림.png" style="width:35px;" id="unlikeImage">' + 
-							'	<span style="color:black;">비추천</span>' + 
-							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
-							'</a>';
+							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="unlikeList()">비추천</span>' + 
+							'<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>';
 					$(".likeCount").html(html);
 				} else {
 					var html = '';
-					html += '<button type="button" onclick="window.open(`likeMemberList?b_num=${param.b_num}`)" class="btn btn-sm btn-info">목록</button>' + 
-							'<a style="cursor: pointer;" onclick="likeBtn()">' + 
+					html += '<a style="cursor: pointer;" onclick="likeBtn()">' + 
 							'	<img src="/img/like.png" style="width:35px;" id="likeImage">' + 
-							'	<span style="color:black;">추천</span>' + 
-							'	<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="likeList()">추천</span>' + 
+							'<strong style="color:black;" id="liekCount">${likeCount}</strong>' +
 							'<a style="cursor: pointer;" onclick="unlikeBtn()">' + 
 							'	<img src="/img/unlike.png" style="width:35px;" id="unlikeImage">' + 
-							'	<span style="color:black;">비추천</span>' + 
-							'	<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' + 
-							'</a>';
+							'</a>' + 
+							'<span style="color:black; cursor: pointer;" onclick="unlikeList()">비추천</span>' + 
+							'<strong style="color:black;" id="unlikeCount">${unlikeCount}</strong>' ; 
 					$(".likeCount").html(html);
 				}
 			},
@@ -665,6 +851,113 @@ width: 50%;
 		});		
 	}
 	
+	// 댓글 리스트
+	function commentArea() {
+		$("#commentAllArea").show();
+		$("#likeBox").hide();
+		$("#unlikeBox").hide();
+	}
+	
+	// 추천 리스트
+	function likeList() {
+		$("#commentAllArea").hide();
+		$("#unlikeBox").hide();
+		$("#likeBox").show();
+		console.log("${param.b_num}")
+		
+		var data = {b_num : "${param.b_num}"}
+		
+		$.ajax({
+			url : "likeMemberList",
+			type : "POST",
+			data : data,
+			success : function(list) {
+				var html = '';
+					for(var i=0; i<list.length; i++) {
+						if(list[i].L_DIVLIKE == 'L') {
+							html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+									'	<div style="display: flex;">' + 
+									'		<div>' + 
+									'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+												if(list[i].M_PICTURE != null) {
+							html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+												} else {
+							html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+												}
+							html +=	'			</a>' + 
+									'		</div>' + 
+									'		<div>' + 
+									'			<div style="height:15px; margin-bottom:2px;">' + 
+									'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+									'				<br style="margin: 0px;">' + 
+									'			</div>' +
+									'			<div style="height:15px;">' + 
+									'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+									'			</div>' +
+									'		</div>' + 
+									'	</div>' +
+									'</div>';
+						}
+					}
+				$("#likeList").html(html);
+				
+			}, error : function() {
+				alert("추천 리스트 실패!")
+			}
+		});
+	}
+				
+	// 비추천 리스트
+	function unlikeList() {
+		$("#commentAllArea").hide();
+		$("#likeBox").hide();
+		$("#unlikeBox").show();
+		
+		var data = {b_num : "${param.b_num}"}
+		
+		$.ajax({
+			url : "likeMemberList",
+			type : "POST",
+			data : data,
+			success : function(list) {
+				var html = '';
+					for(var i=0; i<list.length; i++) {
+						if(list[i].L_DIVLIKE == 'U') {
+							html += '<div style=" display: inline-block; margin: 0 40px 20px 0;"> ' + 
+									'	<div style="display: flex;">' + 
+									'		<div>' + 
+									'			<a href="/movie/myList?id='+list[i].L_ID+'&page=1">';
+												if(list[i].M_PICTURE != null) {
+							html +=	'				<img src="/img/memberImage/'+ list[i].M_PICTURE +'" width="32" height="32" style="border-radius: 100%">';
+												} else {
+							html +=	'				<img src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" width="32" height="32" style="border-radius:100%">';				
+												}
+							html +=	'			</a>' + 
+									'		</div>' + 
+									'		<div>' + 
+									'			<div style="height:15px; margin-bottom:2px;">' + 
+									'				<a href="/movie/myList?id='+list[i].L_ID+'&page=1"><b style="color: black; ">'+ list[i].M_NICK +'</b></a>' +
+									'				<br style="margin: 0px;">' + 
+									'			</div>' +
+									'			<div style="height:15px;">' + 
+									'				<label class="lb2">'+ list[i].M_RANK +'</label>' + 
+									'			</div>' +
+									'		</div>' + 
+									'	</div>' +
+									'</div>';
+						}
+					}
+				$("#unlikeList").html(html);
+				
+			}, error : function() {
+				alert("비추천 리스트 실패!")
+			}
+		});
+	}
+				
+			
+	
+
 
 	
 </script>
@@ -729,7 +1022,7 @@ width: 50%;
 					<!-- 닉네임 + 등급  -->
 					<div>
 						<div style="height:15px; margin-bottom:2px;">
-							<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black;">${boardInfo.b_nick}</b></a>
+							<a href="/movie/myList?id=${memberInfo.m_id }&page=1"><b style="color: black; ">${boardInfo.b_nick}</b></a>
 							<label class="lb2">${memberInfo.m_rank}</label>
 						<br style="margin: 0px;">
 						</div>
@@ -771,7 +1064,7 @@ width: 50%;
 					<div class="commentCount">
 						<a style="cursor: pointer;">
 							<img src="/img/commentImg.png" style="width:20px;">
-							<span style="color:black;">댓글</span>
+							<span style="color:black;" onclick="commentArea()">댓글</span>
 							<strong style="color:black;" id="c_count"></strong>
 						</a>
 					</div>
@@ -782,6 +1075,8 @@ width: 50%;
 				<hr class="hr0">
 				
 				<!-- 댓글 창 -->
+				<div id="bottomArea">
+				<div id="commentAllArea">
 				<div id="commentBox" style="display: none;">
 					<div style="margin-bottom: 20px;">
 						<h3 style="font-weight:800">댓글</h3>
@@ -820,6 +1115,23 @@ width: 50%;
 					</form>
 				</div>
 			</div>
+			<div id="likeBox">
+				<div style="margin-bottom: 20px;">
+					<h3 style="font-weight:800">추천 목록</h3>
+				</div>
+				<div id="likeList">
+				</div>
+			</div>
+			<div id="unlikeBox">
+				<div style="margin-bottom: 20px;">
+					<h3 style="font-weight:800">비추천 목록</h3>
+				</div>
+				<div id="unlikeList">
+				</div>
+			</div>
+			
+		</div>
+		</div>
 		</div>
 		<div class="btnBotBox">
 			<div style="float: left;">

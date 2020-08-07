@@ -66,7 +66,7 @@ padding-inline-start : 20px;
 <body>
 	<div style="margin-right: 20px;">
 		<div
-			style="background-color: white; width: 250px; border-top: solid 0px #000000;">
+			style="background-color: white; width: 250px; border-top: solid 0px #000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
@@ -119,7 +119,7 @@ padding-inline-start : 20px;
 				</c:when>
 				<c:otherwise>
 						<a href="/movie/login">
-					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
+					<div align="center" style="background-color: #00bb00; padding: 5px 0; margin: 0px 0; color: white;">
 								로그인하기
 					</div>
 						</a>
