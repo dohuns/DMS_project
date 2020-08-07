@@ -8,6 +8,8 @@
 <meta name="google-signin-client_id"
 	content="117371344622-2cj0jdfcjbjgud7p47kucda54ucnqetu.apps.googleusercontent.com">
 <title>login</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
@@ -48,6 +50,42 @@
 .lb1 {
 	color: #FF1616;
 }
+ #customBtn {
+      display: inline-block;
+      background: black;
+      color: #444;
+      width: 190px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 42px;
+      padding-right: 42px;
+      font-size: 14px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -151,20 +189,47 @@
 	});
 	var token = "";
 	// 구글 로그인
-	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-		if (token == 1 && profile.getEmail() != null
-				&& profile.getEmail() != "") {
-			location.href = "login/googleCallback?email=" + profile.getEmail();
-		}
-	}
-	function makeToken() {
-		token = 1;
-	}
+// 	function onSignIn(googleUser) {
+// 		var profile = googleUser.getBasicProfile();
+// 		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+// 		console.log('Name: ' + profile.getName());
+// 		console.log('Image URL: ' + profile.getImageUrl());
+// 		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+// 		if (token == 1 && profile.getEmail() != null
+// 				&& profile.getEmail() != "") {
+// 			location.href = "login/googleCallback?email=" + profile.getEmail();
+// 		}
+// 	}
+// 	function makeToken() {
+// 		token = 1;
+// 	}
+
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '117371344622-2cj0jdfcjbjgud7p47kucda54ucnqetu.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+	
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		console.log("gkgkgkgkgk");
+    		console.log("e : " + googleUser.getBasicProfile().getEmail());
+          document.getElementById('name').innerText = "Signed in: " +
+              googleUser.getBasicProfile().getName();
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
 </script>
 </head>
 <body>
@@ -218,13 +283,23 @@
 								</div>
 							</div>
 						</fieldset>
-						<div align="center">
-							<div>
-								<a href="${url}"><img height="40"
-									src="/movie/resources/naverBtn.PNG" /></a>
+						<div style="padding: 20px 0 20px 0;">
+							<div style="margin-bottom: 10px;">
+								<a href="${url}"><img height="60" style="width:100%"
+									src="https://ssl.nx.com/S2/p3/login/2016/bt_naver1.gif"/></a>
 							</div>
-							<div class="g-signin2" data-onsuccess="onSignIn"
-								onclick="makeToken()" style="width: 180px; height: 40px;"></div>
+<!-- 							<div class="g-signin2" data-onsuccess="onSignIn" -->
+<!-- 								onclick="makeToken()" style="width: 240px; height: 60px;"></div> -->
+<!-- 								https://ssl.nx.com/S2/p3/login/2016/bt_google1.gif -->
+							<div id="gSignInWrapper">
+						    <span class="label">Sign in with:</span>
+						    <div id="customBtn" class="customGPlusSignIn">
+						      <span class="icon"></span>
+						      <span class="buttonText">Google</span>
+						    </div>
+						  </div>
+						  <div id="name"></div>
+						  <script>startApp();</script>
 						</div>
 					</form>
 				</div>
