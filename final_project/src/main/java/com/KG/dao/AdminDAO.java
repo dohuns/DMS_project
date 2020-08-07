@@ -31,6 +31,11 @@ public class AdminDAO {
 		return sqlSession.selectOne(namespace + ".selectMemberCount", m_rankNum);
 	}
 
+	// 회원 관리 : 회원 목록 출력 > 등급 변경
+	// 회원 관리 : 회원 목록 출력 > 삭제
+	public int delList(String m_id) {
+		return sqlSession.update(namespace + ".updateDelList", m_id);
+	}
 
 
 

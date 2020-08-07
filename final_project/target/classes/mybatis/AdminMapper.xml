@@ -16,4 +16,15 @@
 	<select id="selectMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>
+
+	<!-- 회원 관리 : 회원 목록 출력 > 등급 변경 -->
+
+	<!-- 회원 관리 : 회원 목록 출력 > 삭제 -->
+	<update id="updateDelList">
+		UPDATE member SET m_rankNum = '5', m_rank = '탈퇴회원' WHERE m_id = #{m_id}
+	</update>
+
+
+
+
 </mapper>
