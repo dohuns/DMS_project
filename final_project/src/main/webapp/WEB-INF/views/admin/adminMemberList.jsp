@@ -99,6 +99,7 @@
 				<!-- CONTENT -->
 				<div class="divContent">
 					<form id="contentForm" action="adminDelList">
+						<input type="hidden" name="m_rankNum" value="${param.m_rankNum}">
 						<table class="table table-td">
 							<thead>
 								<tr>

@@ -1,8 +1,11 @@
 package com.KG.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminMemberListServImpl;
@@ -26,9 +29,25 @@ public class AdminController {
 	// 회원 관리 : 회원 목록 출력
 	@RequestMapping("adminMemberList")
 	public String adminMemberList(Model model, MemberDTO dto) {
+		System.out.println("adminMemberList " + dto.getM_rankNum());
 		model.addAttribute("dto", dto);
 		adminServ = (AdminMemberListServImpl) AC.ac.getBean("adminMemberListServImpl");
 		adminServ.execute(model);
 		return "admin/adminMemberList";
 	}
+
+	// 회원 관리 : 회원 목록 > 등급 변경
+
+	// 회원 관리 : 회원 목록 > 삭제
+	@RequestMapping("adminDelList")
+	public String adminDelList(Model model, MemberDTO dto,
+				@RequestParam("m_idChk") List<String> m_idChk) {
+		model.addAttribute("m_idChk", m_idChk);
+		System.out.println("adminDelList: " + dto.getM_rankNum());
+		return "redirect:adminMemberList";
+	}
+
+
+
+
 }
