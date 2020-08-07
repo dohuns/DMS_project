@@ -119,7 +119,7 @@ padding-inline-start : 20px;
 				</c:when>
 				<c:otherwise>
 						<a href="/movie/login">
-					<div align="center" style="background-color: #00bb00; padding: 5px 0; margin: 0px 0; color: white;">
+					<div align="center" style="background-color: #447294; padding: 5px 0; margin: 0px 0; color: white;">
 								로그인하기
 					</div>
 						</a>
