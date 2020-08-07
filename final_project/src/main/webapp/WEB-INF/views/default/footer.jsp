@@ -17,6 +17,7 @@
 				<div style="width: 85%; padding-left: 20px; font-size: 13px;"
 					align="left">
 					<div>팀명 : DMS / 팀원 : 김도훈, 진수빈, 송민혁 / 주소 : 서울 종로구 돈화문로 26 단성사 5층(KG IT Bank)</div>
+					<div>고객센터 : 1588-0000</div>
 					<div>Copyright &copy; by DMS. All Right Reserved.</div>
 				</div>
 			</div>
