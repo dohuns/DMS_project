@@ -32,9 +32,12 @@ public class AdminDAO {
 	}
 
 	// 회원 관리 : 회원 목록 출력 > 등급 변경
+	public int updRank(MemberDTO dto) {
+		return sqlSession.update(namespace + ".updateUpdRank", dto);
+	}
 	// 회원 관리 : 회원 목록 출력 > 삭제
-	public int delList(String m_id) {
-		return sqlSession.update(namespace + ".updateDelList", m_id);
+	public int delRank(String m_id) {
+		return sqlSession.update(namespace + ".updateDelRank", m_id);
 	}
 
 

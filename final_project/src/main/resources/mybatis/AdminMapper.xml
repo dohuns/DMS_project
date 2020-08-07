@@ -18,9 +18,12 @@
 	</select>
 
 	<!-- 회원 관리 : 회원 목록 출력 > 등급 변경 -->
+	<update id="updateUpdRank" parameterType="memberDTO">
+		UPDATE member SET m_rankNum = #{m_rankNum}, m_rank = #{m_rank} WHERE m_id = #{m_id}
+	</update>
 
 	<!-- 회원 관리 : 회원 목록 출력 > 삭제 -->
-	<update id="updateDelList">
+	<update id="updateDelRank">
 		UPDATE member SET m_rankNum = '5', m_rank = '탈퇴회원' WHERE m_id = #{m_id}
 	</update>
 

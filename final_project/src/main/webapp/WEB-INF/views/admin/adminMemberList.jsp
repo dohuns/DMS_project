@@ -48,6 +48,7 @@
 		.divContent {
 			width: 100%;
 			padding: 35px;
+			min-width: 800px;
 		}
 		tr>th, .chkTd {
 			text-align: center;
@@ -98,7 +99,7 @@
 
 				<!-- CONTENT -->
 				<div class="divContent">
-					<form id="contentForm" action="adminDelList">
+					<form id="contentForm" action="adminDelRank">
 						<input type="hidden" name="m_rankNum" value="${param.m_rankNum}">
 						<table class="table table-td">
 							<thead>
@@ -182,7 +183,7 @@
 				<div id="upd-Rank" class="modal fade" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content modal-sz">
-							<form action="#">
+							<form action="adminUpdRank">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
@@ -194,7 +195,7 @@
 								<div class="modal-body clearfix">
 									<div class="col-lg-12">
 										<div class="form-group">
-											<label for="">등 급</label> <select name="m_rankNum"
+											<label>등 급</label> <select name="m_rankNum"
 												class="form-control">
 												<option value=1>관리자</option>
 												<option value=2>스탭</option>

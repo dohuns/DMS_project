@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.MemberDTO;
-import com.KG.service.admin.member.AdminDelListServImpl;
+import com.KG.service.admin.member.AdminDelRankServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
+import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoardSidebarService;
 import com.KG.service.customer.CustomerService;
@@ -37,13 +38,22 @@ public class AdminController {
 	}
 
 	// 회원 관리 : 회원 목록 출력 > 등급 변경
+	@RequestMapping("adminUpdRank")
+	public String adminUpdRank(Model model, MemberDTO dto,
+			@RequestParam("m_idChk") List<String> m_idChk) {
+		model.addAttribute("m_idChk", m_idChk);
+		model.addAttribute("m_rankNum", dto.getM_rankNum());
+		adminServ = (AdminUpdRankServImpl) AC.ac.getBean("adminUpdRankServImpl");
+		adminServ.execute(model);
+		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
+	}
 
 	// 회원 관리 : 회원 목록 출력 > 삭제
-	@RequestMapping("adminDelList")
+	@RequestMapping("adminDelRank")
 	public String adminDelList(Model model, MemberDTO dto,
-				@RequestParam("m_idChk") List<String> m_idChk) {
+			@RequestParam("m_idChk") List<String> m_idChk) {
 		model.addAttribute("m_idChk", m_idChk);
-		adminServ = (AdminDelListServImpl) AC.ac.getBean("adminDelListServImpl");
+		adminServ = (AdminDelRankServImpl) AC.ac.getBean("adminDelRankServImpl");
 		adminServ.execute(model);
 		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
 	}
