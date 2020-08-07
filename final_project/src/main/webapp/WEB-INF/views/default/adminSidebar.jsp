@@ -29,7 +29,7 @@
 			list-style: none;
 		}
 		body #sideDiv {
-			height: 95%;
+			height: 100%;
 		}
 		.sidebar {
 			top: 0;
@@ -98,53 +98,34 @@
 			color: #FFF;
 			text-decoration: none;
 		}
-		html body .headbar {
-			width: 100%;
-			height: 5%;
-			background-color: #222D30;
-		}
-		html body .headbar .headbar-pt {
-			padding: 15px 15px 0 0;
-			text-align: right;
-		}
-		.headbar-pt>a {
-			color: #FFF;
-			text-decoration: none;
-		}
 	</style>
 </head>
 <body>
-	<!-- 이게 머리부분 -->
-	<div class="headbar">
-		<div class="headbar-pt">
-			<a href="#">회원 페이지</a>
-		</div>
-	</div>
-	<!-- 이건 사이드.. -->
 	<div id="sideDiv">
 		<nav class="sidebar">
 			<ul>
-				<li class="sidebar-brand"><a href="">DOMISU</a></li>
+				<li class="sidebar-brand"><a href="admin">DOMISU</a></li>
 				<li class="sidebar-menu"><a href="#">회원 관리</a>
 					<ul class="sidebar-menu-list">
-						<li><a href="#">관리 / 스탭</a></li>
-						<li><a href="#">일반 회원</a></li>
-						<li><a href="#">대기 회원</a></li>
-						<li><a href="#">탈퇴 회원</a></li>
+						<li><a href="adminMemberList?m_rankNum=1">관리</a></li>
+						<li><a href="adminMemberList?m_rankNum=2">스탭</a></li>
+						<li><a href="adminMemberList?m_rankNum=3">일반 회원</a></li>
+						<li><a href="adminMemberList?m_rankNum=4">대기 회원</a></li>
+						<li><a href="adminMemberList?m_rankNum=5">탈퇴 회원</a></li>
 					</ul>
 				</li>
 				<li class="sidebar-menu"><a href="#">서비스 관리</a>
-						<ul class="sidebar-menu-list">
-							<li><a href="#">일반 문의</a></li>
-							<li><a href="#">계정 문의</a></li>
-							<li><a href="#">신고 접수</a></li>
-						</ul>
+					<ul class="sidebar-menu-list">
+						<li><a href="#">일반 문의</a></li>
+						<li><a href="#">계정 문의</a></li>
+						<li><a href="#">신고 접수</a></li>
+					</ul>
 				</li>
 				<li class="sidebar-menu"><a href="#">사이트 설정</a>
-						<ul class="sidebar-menu-list">
-							<li><a href="#">카테고리 항목 추가</a></li>
-							<li><a href="#">카테고리 위치 변경</a></li>
-						</ul>
+					<ul class="sidebar-menu-list">
+						<li><a href="#">카테고리 항목 추가</a></li>
+						<li><a href="#">카테고리 위치 변경</a></li>
+					</ul>
 				</li>
 			</ul>
 		</nav>
