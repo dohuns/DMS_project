@@ -99,7 +99,7 @@
 								<div align="right" style="width: 50%">
 									<a onclick="myWriteDelete()" class="btn btn-info btn-sm"
 										style="color: white; background-color: red; border-color: red;">삭제</a>
-									<a href="#" class="btn btn-info btn-sm" style="color: white;">글
+									<a href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 										쓰기</a>
 								</div>
 							</div>
@@ -114,7 +114,7 @@
 					<tr>
 						<td colspan="3" align="right"
 							style="border-bottom: 1px solid #fff; padding-top: 10px;"><a
-							href="#" class="btn btn-info btn-sm" style="color: white;">글
+							href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 								쓰기</a></td>
 					</tr>
 				</c:otherwise>
