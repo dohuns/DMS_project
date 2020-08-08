@@ -118,50 +118,90 @@
 }
 
 .main {
-	width: 500px;
+	width: 80%;
 	text-align: center;
 	align-items: center;
 	background-color: #f0f0f0;
 	margin: 10px;
 	padding: 5px;
 	font-size: 12px;
+	height: auto;
 }
 
 .sub {
 	background-color: #f9f9f9;
 	margin: 7px;
 	padding: 5px;
+	height: 27px;
+}
+
+html, body, div {
+	height: 95%;
+}
+
+body #main {
+	height: 95%;
+}
+
+.mainContent {
+	display: flex;
+	height: 100%;
+}
+
+.divContent {
+	width: 100%;
+	padding: 35px;
 }
 </style>
 </head>
 <body>
 
-	<div align="center" style="width: 100%;">
-	<div style="display: flex; width: 550px;">
-		<div align="left" style="width: 65%;">
-			<h3>게시글 순서 변경하기</h3>
-		</div>
-		<div align="right" style="width: 35%; margin-top: 15px;">
-			<button class="btn btn-success" onclick="location.reload()" style="background-color: #eee; color: black; border-color: #eee;">되돌리기</button>
-			<button class="btn btn-success" onclick="listSave()" style="background-color: #5bc0de; border-color: #5bc0de;">저장하기</button>
-		</div>
-	</div>
-		<div style="border-top: 3px solid #000; width: 550px;">
-			<div id="move">
-				<c:forEach items="${boardCate}" var="boardCate">
-					<div onclick="article('${boardCate.b_category}')" class="main"
-						id="${boardCate.b_category}" name="main">
-						${boardCate.b_category}<input type="hidden" class="categorynum"
-							value="${boardCate.b_cateNum}" name="${boardCate.b_category}">
-						<c:forEach items="${boardArt}" var="boardArt">
-							<c:if test="${boardCate.b_category == boardArt.b_category}">
-								<div class="sub">
-									<input type="hidden" class="articlenum"
-										value="${boardArt.b_articleNum}" name="${boardArt.b_article}">${boardArt.b_article}</div>
-							</c:if>
-						</c:forEach>
+	<div>
+		<c:import url="../default/adminHeader.jsp" />
+		<div id="main">
+			<div class="mainContent">
+				<c:import url="../default/adminSidebar.jsp" />
+
+				<div class="divContent">
+					<div align="center"
+						style="width: 80%; margin: 50px 0 0 300px; min-width: 600px;">
+						<div
+							style="display: flex; width: 80%; min-width: 550px; height: 57px;">
+							<div align="left" style="width: 65%; height: 57px;">
+								<h3>게시글 순서 변경하기</h3>
+							</div>
+							<div align="right"
+								style="width: 35%; height: 57px; margin-top: 15px;">
+								<button class="btn btn-success" onclick="location.reload()"
+									style="background-color: #eee; color: black; border-color: #eee;">되돌리기</button>
+								<button class="btn btn-success" onclick="listSave()"
+									style="background-color: #5bc0de; border-color: #5bc0de;">저장하기</button>
+							</div>
+						</div>
+						<div
+							style="border-top: 3px solid #000; width: 80%; min-width: 550px;">
+							<div id="move">
+								<c:forEach items="${boardCate}" var="boardCate">
+									<div onclick="article('${boardCate.b_category}')" class="main"
+										id="${boardCate.b_category}" name="main">
+										${boardCate.b_category}<input type="hidden"
+											class="categorynum" value="${boardCate.b_cateNum}"
+											name="${boardCate.b_category}">
+										<c:forEach items="${boardArt}" var="boardArt">
+											<c:if test="${boardCate.b_category == boardArt.b_category}">
+												<div class="sub">
+													<input type="hidden" class="articlenum"
+														value="${boardArt.b_articleNum}"
+														name="${boardArt.b_article}">${boardArt.b_article}</div>
+											</c:if>
+										</c:forEach>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
-				</c:forEach>
+				</div>
+
 			</div>
 		</div>
 	</div>

@@ -46,7 +46,7 @@
 				.each(
 						cate,
 						function(index, cate) {
-							html += "<div style='display: flex; margin-top: 20px;'>";
+							html += "<div style='display: flex; margin-top: 20px; height: 40px;'>";
 							html += "<div id='menu' style='width: 65%;'><b>"
 									+ cate.b_category + "</b></div>";
 							html += "<div id='menu' style='width: 35%; color: #5bc0de;' align='right'>";
@@ -63,19 +63,19 @@
 											art,
 											function(index, art) {
 												if (cate.b_category == art.b_category) {
-													html += "<div style='display: flex; background-color: white; border: solid 1px #eee; margin: 0 20px; border-radius: 5px;'>";
+													html += "<div style='display: flex; background-color: white; border: solid 1px #eee; margin: 0 20px; border-radius: 5px; height: 40px; width:95%;'>";
 													html += "<div id='menu' style='width: 65%;'>└ &nbsp;"
 															+ art.b_article
 															+ "</div>";
 													html += "<div id='menu' style='width: 35%; color: #5bc0de;' align='right'>";
 													html += "<a onclick='upModArt(`"
 															+ art.b_article
-															+ "`)'>수정</a> ";
+															+ "`)'><b>수정</b></a> ";
 													html += "<a onclick='delModArt(`"
 															+ cate.b_category
 															+ "`,`"
 															+ art.b_article
-															+ "`)'>삭제</a>";
+															+ "`)'><b>삭제</b></a>";
 													html += "</div>";
 													html += "</div>";
 												}
@@ -384,463 +384,501 @@ hr#sub {
 	border: solid 1px #f0f0f0;
 }
 
-a:link, a:visited, a:active {
+a>b, a:link>b, a:visited>b, a:active>b {
 	text-decoration: none !important;
 	color: #5bc0de;
 	cursor: pointer;
 }
 
-a:hover {
+a:hover>b {
 	text-decoration: underline;
 	color: #5bc0de;
 	cursor: pointer;
 }
+
+html, body, div {
+	height: 95%;
+}
+
+body #main {
+	height: 95%;
+}
+
+.mainContent {
+	display: flex;
+	height: 100%;
+}
+
+.divContent {
+	width: 100%;
+	padding: 35px;
+}
 </style>
 </head>
 <body onload="AllList()">
-	<div style="background-color: #eee; padding-bottom: 20px;">
-		<div style="display: flex; padding: 20px 20px 0 20px;">
-			<div align="left" style="width: 50%">
-				<b>Category</b>
-			</div>
-			<div align="right" style="width: 50%; color: #5bc0de;">
-				<a onclick="insModCate()"><b>추가</b></a>
-			</div>
-		</div>
-		<div>
-			<div id="List"></div>
-		</div>
-	</div>
 
-	<!-- Category 추가 modal -->
-	<div id="insert-category" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 추가</h4>
-				</div>
-				<div class="modal-body">
-					<input type="text" id="insModCate" class="form-control"
-						placeholder="추가할 category를 입력해주세요">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="categoryIns()">저장</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 추가 modal -->
+	<div>
+		<c:import url="../default/adminHeader.jsp" />
+		<div id="main">
+			<div class="mainContent">
+				<c:import url="../default/adminSidebar.jsp" />
 
-	<!-- Category 추가 확인창 -->
-	<div id="insert-categoryClose" class="modal" tabindex="-1"
-		role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 추가</h4>
+				<div class="divContent">
+					<div style="margin: 40px 0 0 240px; min-width: 450px;">
+						<div
+							style="background-color: #eee; padding-bottom: 20px; height: auto;">
+							<div
+								style="display: flex; padding: 20px 20px 0 20px; height: 40px;">
+								<div align="left" style="width: 50%;">
+									<b>Category</b>
+								</div>
+								<div align="right" style="width: 50%; color: #5bc0de;">
+									<a onclick="insModCate()"><b>추가</b></a>
+								</div>
+							</div>
+							<div style="width: 100%;">
+								<div id="List"></div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>category가 추가 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 추가 확인창 -->
 
-	<!-- Category 수정 -->
-	<div id="update-category" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 수정</h4>
+				<!-- Category 추가 modal -->
+				<div id="insert-category" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 추가</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<input type="text" id="insModCate" class="form-control"
+									placeholder="추가할 category를 입력해주세요">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="categoryIns()">저장</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<input type="text" id="upModCate" class="form-control"
-						placeholder="수정할 category를 입력해주세요"> <input type="hidden"
-						id="cate">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="categoryUpd()">저장</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 수정 -->
+				<!-- /Category 추가 modal -->
 
-	<!-- Category 수정 확인창 -->
-	<div id="update-categoryClose" class="modal" tabindex="-1"
-		role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 수정</h4>
+				<!-- Category 추가 확인창 -->
+				<div id="insert-categoryClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 추가</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>category가 추가 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>category가 수정 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 수정 확인창 -->
+				<!-- /Category 추가 확인창 -->
 
-	<!-- Category 삭제 -->
-	<div id="delete-category" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 삭제</h4>
+				<!-- Category 수정 -->
+				<div id="update-category" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 수정</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<input type="text" id="upModCate" class="form-control"
+									placeholder="수정할 category를 입력해주세요"> <input
+									type="hidden" id="cate">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="categoryUpd()">저장</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?</h5>
-					<input type="hidden" id="delCate">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="categoryDel()" style="background-color: red;">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 삭제 -->
+				<!-- /Category 수정 -->
 
-	<!-- Category 삭제 확인창 -->
-	<div id="delete-categoryClose" class="modal" tabindex="-1"
-		role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category 삭제</h4>
+				<!-- Category 수정 확인창 -->
+				<div id="update-categoryClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 수정</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>category가 수정 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>category가 삭제 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 삭제 확인창 -->
+				<!-- /Category 수정 확인창 -->
 
-	<!-- Category 추가 중복 경고창 -->
-	<div id="categoryOverlap" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category</h4>
+				<!-- Category 삭제 -->
+				<div id="delete-category" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 삭제</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?</h5>
+								<input type="hidden" id="delCate">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="categoryDel()" style="background-color: red;">삭제</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>
-						category가 <span style="color: red;">중복</span>되었습니다.
-					</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 추가 중복 경고창 -->
+				<!-- /Category 삭제 -->
 
-	<!-- Category 추가 빈값 경고창 -->
-	<div id="categoryNull" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category</h4>
+				<!-- Category 삭제 확인창 -->
+				<div id="delete-categoryClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category 삭제</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>category가 삭제 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>내용을 입력해주세요</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 추가 빈값 경고창 -->
+				<!-- /Category 삭제 확인창 -->
 
-	<!-- Category 추가 특수문자 경고창 -->
-	<div id="categorySpecial" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Category</h4>
+				<!-- Category 추가 중복 경고창 -->
+				<div id="categoryOverlap" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>
+									category가 <span style="color: red;">중복</span>되었습니다.
+								</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>특수문자를 제거해주세요</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Category 추가 특수문자 경고창 -->
+				<!-- /Category 추가 중복 경고창 -->
 
-	<!-- article 추가 modal -->
-	<div id="insert-article" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 추가</h4>
+				<!-- Category 추가 빈값 경고창 -->
+				<div id="categoryNull" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>내용을 입력해주세요</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<input type="text" id="insModArt" class="form-control"
-						placeholder="추가할 article를 입력해주세요"> <input type="hidden"
-						id="b_cate">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="articleIns()">저장</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 추가 modal -->
+				<!-- /Category 추가 빈값 경고창 -->
 
-	<!-- article 추가 확인창 -->
-	<div id="insert-articleClose" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 추가</h4>
+				<!-- Category 추가 특수문자 경고창 -->
+				<div id="categorySpecial" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Category</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>특수문자를 제거해주세요</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>Article가 추가 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 추가 확인창 -->
+				<!-- /Category 추가 특수문자 경고창 -->
 
-	<!-- article 수정 -->
-	<div id="update-article" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 수정</h4>
+				<!-- article 추가 modal -->
+				<div id="insert-article" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 추가</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<input type="text" id="insModArt" class="form-control"
+									placeholder="추가할 article를 입력해주세요"> <input type="hidden"
+									id="b_cate">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="articleIns()">저장</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<input type="text" id="upModArt" class="form-control"
-						placeholder="수정할 article를 입력해주세요"> <input type="hidden"
-						id="b_art">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="articleUpd()">저장</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 수정 -->
+				<!-- /article 추가 modal -->
 
-	<!-- article 수정 확인창 -->
-	<div id="update-articleClose" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 수정</h4>
+				<!-- article 추가 확인창 -->
+				<div id="insert-articleClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 추가</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>Article가 추가 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>Article가 수정 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 수정 확인창 -->
+				<!-- /article 추가 확인창 -->
 
-	<!-- article 삭제 -->
-	<div id="delete-article" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 삭제</h4>
+				<!-- article 수정 -->
+				<div id="update-article" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 수정</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<input type="text" id="upModArt" class="form-control"
+									placeholder="수정할 article를 입력해주세요"> <input type="hidden"
+									id="b_art">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="articleUpd()">저장</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?</h5>
-					<input type="hidden" id="b_delCate"> <input type="hidden"
-						id="b_delArt">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">취소</button>
-					<button id="btn-regist" class="btn btn-primary"
-						onclick="articleDel()" style="background-color: red;">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 삭제 -->
+				<!-- /article 수정 -->
 
-	<!-- article 삭제 확인창 -->
-	<div id="delete-articleClose" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article 삭제</h4>
+				<!-- article 수정 확인창 -->
+				<div id="update-articleClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 수정</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>Article가 수정 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>Article가 삭제 되었습니다.</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 삭제 확인창 -->
+				<!-- /article 수정 확인창 -->
 
-	<!-- article 추가 중복 경고창 -->
-	<div id="articleOverlap" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article</h4>
+				<!-- article 삭제 -->
+				<div id="delete-article" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 삭제</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>삭제시 모든 게시글이 지워집니다. 삭제 하시겠습니까?</h5>
+								<input type="hidden" id="b_delCate"> <input
+									type="hidden" id="b_delArt">
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">취소</button>
+								<button id="btn-regist" class="btn btn-primary"
+									onclick="articleDel()" style="background-color: red;">삭제</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>
-						Article가 <span style="color: red;">중복</span>되었습니다.
-					</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 추가 중복 경고창 -->
+				<!-- /article 삭제 -->
 
-	<!-- article 추가 빈값 경고창 -->
-	<div id="articleNull" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article</h4>
+				<!-- article 삭제 확인창 -->
+				<div id="delete-articleClose" class="modal" tabindex="-1"
+					role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article 삭제</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>Article가 삭제 되었습니다.</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>내용을 입력해주세요</h5>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /article 추가 빈값 경고창 -->
+				<!-- /article 삭제 확인창 -->
 
-	<!-- article 추가 특수문자 경고창 -->
-	<div id="articleSpecial" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-					<h4>Article</h4>
+				<!-- article 추가 중복 경고창 -->
+				<div id="articleOverlap" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>
+									Article가 <span style="color: red;">중복</span>되었습니다.
+								</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<h5>특수문자를 제거해주세요</h5>
+				<!-- /article 추가 중복 경고창 -->
+
+				<!-- article 추가 빈값 경고창 -->
+				<div id="articleNull" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>내용을 입력해주세요</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-footer">
-					<button class="btn btn-default" data-dismiss="modal"
-						style="background-color: red;">확인</button>
+				<!-- /article 추가 빈값 경고창 -->
+
+				<!-- article 추가 특수문자 경고창 -->
+				<div id="articleSpecial" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content" style="height: 198px;">
+							<div class="modal-header" style="height: 70px;">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<h4>Article</h4>
+							</div>
+							<div class="modal-body" style="height: 64px;">
+								<h5>특수문자를 제거해주세요</h5>
+							</div>
+							<div class="modal-footer" style="height: 64px;">
+								<button class="btn btn-default" data-dismiss="modal"
+									style="background-color: red;">확인</button>
+							</div>
+						</div>
+					</div>
 				</div>
+				<!-- /article 추가 특수문자 경고창 -->
+
 			</div>
 		</div>
 	</div>
-	<!-- /article 추가 특수문자 경고창 -->
 </body>
 </html>
