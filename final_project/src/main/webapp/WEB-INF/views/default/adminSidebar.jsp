@@ -30,6 +30,8 @@
 		}
 		body #sideDiv {
 			height: 100%;
+			position: fixed;
+			margin-top: 50px;
 		}
 		.sidebar {
 			top: 0;

@@ -20,6 +20,7 @@
 		.mainBoard {
 			width: 100%;
 			min-width: 800px;
+			margin: 50px 0 50px 250px;
 		}
 		.mainBoard .table-st {
 			width: 95%;
@@ -59,35 +60,35 @@
 			<div class="mainContent">
 				<c:import url="../default/adminSidebar.jsp" />
 				<div class="mainBoard">
-						<table class="table-st">
-							<thead>
-								<tr>
-									<th colspan="2">카테고리<a href="#">▼</a></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>게시글에 관련된 내용 출력 예정</td>
-									<td>2020.08.08</td>
-								</tr>
-								<tr>
-									<td>게시글에 관련된 내용 출력 예정</td>
-									<td>2020.08.08</td>
-								</tr>
-								<tr>
-									<td>게시글에 관련된 내용 출력 예정</td>
-									<td>2020.08.08</td>
-								</tr>
-								<tr>
-									<td>게시글에 관련된 내용 출력 예정</td>
-									<td>2020.08.08</td>
-								</tr>
-								<tr>
-									<td>게시글에 관련된 내용 출력 예정</td>
-									<td>2020.08.08</td>
-								</tr>
-							</tbody>
-						</table>
+					<table class="table-st">
+						<thead>
+							<tr>
+								<th colspan="2">카테고리<a href="#">▼</a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>게시글에 관련된 내용 출력 예정</td>
+								<td>2020.08.08</td>
+							</tr>
+							<tr>
+								<td>게시글에 관련된 내용 출력 예정</td>
+								<td>2020.08.08</td>
+							</tr>
+							<tr>
+								<td>게시글에 관련된 내용 출력 예정</td>
+								<td>2020.08.08</td>
+							</tr>
+							<tr>
+								<td>게시글에 관련된 내용 출력 예정</td>
+								<td>2020.08.08</td>
+							</tr>
+							<tr>
+								<td>게시글에 관련된 내용 출력 예정</td>
+								<td>2020.08.08</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

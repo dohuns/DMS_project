@@ -8,21 +8,47 @@
 	<title>회원 관리</title>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
 	<script>
-		// 체크박스 전체 선택 및 해제 버튼
-		function ChkAll() {
-			if( $('#chkBox').is(':checked')) {
-				$("input[name=m_idChk]").prop("checked", true);
-			} else {
-				$("input[name=m_idChk]").prop("checked", false);
-			}
-		}
+		$(function() {
+			// 체크박스 전체 선택
+			$("#chkBox").click(function() {
+				var chk = $("#chkBox").prop("checked");
+				if(chk) {
+					$(".chkBoxs").prop("checked", true);
+				} else {
+					$(".chkBoxs").prop("checked", false);
+				}
+			});
+
+			// 체크박스 선택 시 버튼 활성화
+			$('.chkBoxs').click(function() {
+				var chkBox = $(this).prop('checked');					// 클릭한 값이 체크되도록 지정
+			    var boxSize = $(".chkBoxs").length;						// 목록 값 수
+			    var chkSize = $(".chkBoxs:checked").length;				// 체크된 값 수
+			    
+				// 전체 선택 || 체크박스 하나 이상 선택 시 버튼 활성화
+				if (chkBox == true || chkSize > 0) {
+					$(".contentBtn button").prop("disabled", false);
+				} else {
+					$(".contentBtn button").prop("disabled", true);
+				}
+
+			    // 목록 개수와 선택된 개수가 같을 경우 전체 선택 버튼 활성화
+				if (boxSize == chkSize) {
+					$("#chkBox").prop("checked", true);
+				} else {
+					$("#chkBox").prop("checked", false);
+				}
+			});
+		});
+
 		// 계정 삭제(탈퇴회원으로 변경)
 		function delRank() {
 			var message = confirm("선택한 회원 정보를 삭제하시겠습니까?");
-			if(message) {
+			if (message) {
 				$('#contentForm').submit();
 			}
 		}
+
 		// MODAL 출력(선택한 값 포함)
 		function updRank() {
 			var m_idChk = [];
@@ -30,8 +56,10 @@
 			$.each($("input[name=m_idChk]:checked"), function() {
 				m_idChk.push($(this).val());
 			});
-			$("#idArr").html("<input type='hidden' name='m_idChk' value='" + m_idChk + "'>");
-			$('#upd-Rank').modal('show'); 
+			$("#idArr")
+					.html(
+							"<input type='hidden' name='m_idChk' value='" + m_idChk + "'>");
+			$('#upd-Rank').modal('show');
 		}
 	</script>
 	<style>
@@ -49,6 +77,8 @@
 			width: 100%;
 			padding: 35px;
 			min-width: 800px;
+			max-height: 800px;
+			margin: 50px 0 50px 250px;
 		}
 		tr>th, .chkTd {
 			text-align: center;
@@ -105,7 +135,8 @@
 							<thead>
 								<tr>
 									<th width="5%">
-										<input type="checkbox" name="chkBox" id="chkBox" onclick="ChkAll();"></th>
+										<input type="checkbox" name="chkBox" id="chkBox">
+									</th>
 									<th width="20%">아이디</th>
 									<th width="20%">닉네임</th>
 									<th width="35%">이메일</th>
@@ -116,7 +147,8 @@
 								<c:forEach var="list" items="${memberList}">
 									<tr>
 										<td class="chkTd">
-											<input type="checkbox" name="m_idChk" value="${list.m_id}">
+											<input type="checkbox" name="m_idChk" id="m_idChk"
+												class="chkBoxs" value="${list.m_id}">
 										</td>
 										<td class="td-st">${list.m_id}</td>
 										<td class="td-st">${list.m_nick}</td>
@@ -129,11 +161,11 @@
 										<!-- 등급변경/삭제버튼 -->
 										<div class="contentBtn">
 											<c:if test="${param.m_rankNum ne 5}">
-												<a type="button"
-													class="btn btn-danger btn-st" onclick="delRank()">삭제</a>
+												<button type="button" disabled="disabled"
+													class="btn btn-danger btn-st" onclick="delRank()">삭제</button>
 											</c:if>
-											<a type="button"
-												class="btn btn-default btn-st" onclick="updRank()">변경</a>
+											<button type="button" disabled="disabled"
+												class="btn btn-default btn-st" onclick="updRank()">변경</button>
 										</div>
 										<!-- PAGING -->
 										<div class="contentPage">

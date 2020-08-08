@@ -24,7 +24,9 @@
 		html body .headbar {
 			width: 100%;
 			height: 5%;
+			min-height: 50px;
 			background-color: #222D30;
+			position: fixed;
 		}
 		html body .headbar .headbar-pt {
 			padding: 15px 15px 0 0;
