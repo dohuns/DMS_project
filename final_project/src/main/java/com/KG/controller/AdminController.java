@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminDelRankServImpl;
+import com.KG.service.admin.member.AdminInquiryAnswerServImpl;
 import com.KG.service.admin.member.AdminInquiryHoldServImpl;
 import com.KG.service.admin.member.AdminInquiryListServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
@@ -90,5 +91,27 @@ public class AdminController {
 		customerServ.execute(model);
 		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
 	}
+
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 화면
+	@RequestMapping("adminInquiryAnswer")
+	public String adminInquiryAnswer(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_num", dto.getCus_num());
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
+		customerServ.execute(model);
+		return "admin/adminInquiryAnswer";
+	}
+
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 저장
+	@RequestMapping("adminInquiryAnswerChk")
+	public String adminInquiryAnswerChk(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		customerServ = (AdminInquiryAnswerServImpl) AC.ac.getBean("adminInquiryAnswerServImpl");
+		customerServ.execute(model);
+		return "adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
+	}
+
+
+
 
 }

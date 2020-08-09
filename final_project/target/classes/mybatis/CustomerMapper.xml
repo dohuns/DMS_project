@@ -8,7 +8,7 @@
 	<select id="selectAdminInquiryList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
-				(SELECT * FROM customer ORDER BY cus_num DESC)A 
+				(SELECT * FROM customer ORDER BY cus_num DESC, cus_reNum ASC)A 
 			WHERE cus_categoryNum = #{cus_categoryNum} )B 
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
@@ -22,6 +22,12 @@
 	<update id="updateReNumHold" parameterType="customerDTO">
 		UPDATE customer SET cus_reNum = 2 WHERE cus_num = #{cus_num}
 	</update>
+
+	<!-- 서비스 관리 : 문의글 확인 > 답글 등록 선택 -->
+	<insert id="updateReNumAnswer" parameterType="customerDTO">
+		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_pub, cus_date)
+		VALUES (#{cus_num}, 1, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, #{cus_pub}, SYSDATE)
+	</insert>
 
 
 	<!-- 회원 페이지 -->
@@ -46,7 +52,7 @@
 
 	<!-- 고객센터 : 문의글 확인 -->
 	<select id="selectInquiryContent" resultType="customerDTO">
-		SELECT * FROM customer WHERE cus_num = #{cus_num}
+		SELECT * FROM customer WHERE cus_num = #{cus_num} and cus_reNum = 0
 	</select>
 
 	<!-- 고객센터 : 문의글 확인 > 비밀번호 확인 -->
