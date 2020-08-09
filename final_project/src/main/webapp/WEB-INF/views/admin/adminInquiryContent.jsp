@@ -124,11 +124,15 @@
 						</div>
 
 						<div class="form-group">
-							<div class="bt-a">
-								<button type="button" class="btn btn-success">답변</button>
-								<button type="button" class="btn btn-default"
-									onclick="inquiryHold()">보류</button>
-							</div>
+							<c:if test="${inquiryContent.cus_reNum ne 1}">
+								<div class="bt-a">
+									<button type="button" class="btn btn-success">답변</button>
+									<c:if test="${inquiryContent.cus_reNum ne 2}">
+										<button type="button" class="btn btn-default"
+											onclick="inquiryHold()">보류</button>
+									</c:if>
+								</div>
+							</c:if>
 							<div class="bt-b">
 								<button type="button" class="btn btn-default"
 									onclick="location.href='adminInquiryList?cus_categoryNum=${inquiryContent.cus_categoryNum}'">목록</button>
