@@ -7,6 +7,14 @@
 	<meta charset="UTF-8">
 	<title>회원 관리</title>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		function inquiryHold() {
+			var message = confirm("해당 문의글 답변을 보류하시겠습니까?");
+			if(message) {
+				$('#contentForm').submit();
+			}
+		}
+	</script>
 	<style>
 		html, body, div {
 			height: 95%;
@@ -83,7 +91,7 @@
 				<div class="divContent">
 				<h3>${inquiryContent.cus_category}</h3>
 				<hr class="hr-st">
-					<form method="POST">
+					<form id="contentForm" action="adminInquiryHold" method="POST">
 						<div class="form-group has-error">
 							<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 							<input type="hidden" name="cus_num" value="${param.cus_num}" />
@@ -118,7 +126,8 @@
 						<div class="form-group">
 							<div class="bt-a">
 								<button type="button" class="btn btn-success">답변</button>
-								<button type="button" class="btn btn-default">보류</button>
+								<button type="button" class="btn btn-default"
+									onclick="inquiryHold()">보류</button>
 							</div>
 							<div class="bt-b">
 								<button type="button" class="btn btn-default"

@@ -18,6 +18,12 @@
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
 
+	<!-- 서비스 관리 : 문의글 확인 > 답글 보류 선택 -->
+	<update id="updateReNumHold" parameterType="customerDTO">
+		UPDATE customer SET cus_reNum = 2 WHERE cus_num = #{cus_num}
+	</update>
+
+
 	<!-- 회원 페이지 -->
 	<!-- 고객센터 : 전체 문의글 조회 -->
 	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">

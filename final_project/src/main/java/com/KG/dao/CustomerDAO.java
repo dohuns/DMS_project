@@ -30,6 +30,13 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".selectAdminInquiryCount", cus_categoryNum);
 	}
 
+	// 서비스 관리 : 문의글 확인 > 답글 보류 선택
+	public int adminInquiryHold(CustomerDTO dto) {
+		return sqlSession.update(namespace + ".updateReNumHold", dto);
+	}
+
+
+
 	// (회원 페이지)
 	// 고객센터 : 전체 문의글 조회
 	public List<CustomerDTO> customerList(HashMap<String, Object> hash) {

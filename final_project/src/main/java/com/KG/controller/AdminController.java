@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminDelRankServImpl;
+import com.KG.service.admin.member.AdminInquiryHoldServImpl;
 import com.KG.service.admin.member.AdminInquiryListServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
@@ -72,7 +73,7 @@ public class AdminController {
 		return "admin/adminInquiryList";
 	}
 
-	// 서비스 관리 : 문의 내역 출력 > 문의글 확인
+	// 서비스 관리 : 문의글 확인
 	@RequestMapping("adminInquiryContent")
 	public String adminInquiryContent(Model model, int cus_num) {
 		model.addAttribute("cus_num", cus_num);
@@ -81,5 +82,13 @@ public class AdminController {
 		return "admin/adminInquiryContent";
 	}
 
+	// 서비스 관리 : 문의글 확인 > 답글 보류 선택
+	@RequestMapping("adminInquiryHold")
+	public String adminInquiryHold(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		customerServ = (AdminInquiryHoldServImpl) AC.ac.getBean("adminInquiryHoldServImpl");
+		customerServ.execute(model);
+		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
+	}
 
 }
