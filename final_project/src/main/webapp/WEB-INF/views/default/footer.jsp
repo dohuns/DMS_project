@@ -12,7 +12,7 @@
 			align="center">
 			<div style="width: 730px; display: flex;">
 				<div style="width: 15%;">
-					<span style="font-size: 30px; color: #5bc0de;"><b>DMS</b></span>
+				<img src="/img/footer.png" style="width: 69px; height: 40px;">
 				</div>
 				<div style="width: 85%; padding-left: 20px; font-size: 13px;"
 					align="left">

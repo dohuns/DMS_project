@@ -23,8 +23,12 @@
 				<c:import url="/sidebar" />
 			</div>
 			<div>
-				<c:import url="/movie"/>
+				<c:import url="/movie" />
+				<c:import url="/movieMainList" />
 			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="default/footer.jsp" />
 		</div>
 	</div>
 </body>

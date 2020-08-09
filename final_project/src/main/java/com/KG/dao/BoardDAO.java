@@ -82,6 +82,10 @@ public class BoardDAO {
 	public List<BoardDTO> listAll(HashMap<String, Object> hash) {
 		return sqlSession.selectList(namespace + ".listAll" , hash);
 	}
+	// 게시물 목록(전체 글)
+	public List<BoardDTO> listMainAll() {
+		return sqlSession.selectList(namespace + ".listMainAll");
+	}
 	// 게시물 목록 개수(전체 글)
 	public int getCountAll() {
 		return sqlSession.selectOne(namespace+".getCountAll");

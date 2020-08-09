@@ -71,6 +71,17 @@
 			)A
 	)B WHERE rn BETWEEN #{start} and #{end}
 	</select>
+	
+	<!-- 글 목록(메인페이지) -->
+	<select id="listMainAll" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN 1 and 20
+	</select>
 	<!-- 글 목록 개수(전체) -->
 	<select id="getCountAll" resultType="int"> 
 		SELECT count(*) FROM board 

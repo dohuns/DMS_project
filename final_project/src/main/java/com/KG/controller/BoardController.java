@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
+import com.KG.service.board.BoaMainListServImpl;
 import com.KG.service.board.BoardCateListAllServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardDeleteServImpl;
@@ -49,6 +50,12 @@ public class BoardController {
 	@RequestMapping("movie")
 	public String movie() {
 		return "default/movieMain";
+	}
+	@RequestMapping("movieMainList")
+	public String movieMainList(Model model) {
+		boaServ = (BoaMainListServImpl) AC.ac.getBean("boaMainListServImpl");
+		boaServ.execute_Boo(model);
+		return "default/movieMainList";
 	}
 
 	// 사이드바 출력
