@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 
 @Repository
@@ -39,8 +40,5 @@ public class AdminDAO {
 	public int delRank(String m_id) {
 		return sqlSession.update(namespace + ".updateDelRank", m_id);
 	}
-
-
-
 
 }

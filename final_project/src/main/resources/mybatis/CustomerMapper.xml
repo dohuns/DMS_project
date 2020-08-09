@@ -3,45 +3,64 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.KG.mybatis.myMapper">
 
-	<!-- 관리자 페이지 : 답변별 문의글 목록 조회 -->
-	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
+	<!-- 관리자 페이지 -->
+	<!-- 서비스 관리 : 문의 내역 출력 -->
+	<select id="selectAdminInquiryList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
-				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A 
+				(SELECT * FROM customer ORDER BY cus_num DESC)A 
 			WHERE cus_categoryNum = #{cus_categoryNum} )B 
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 관리자 페이지 : 답변별 문의글 개수 -->
-	<select id="selectCustomerCount" resultType="int">
+	<!-- 서비스 관리 : 문의 내역 출력 > 항목 별 내역 수 계산 -->
+	<select id="selectAdminInquiryCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
 	</select>
 
-	<!-- 회원 페이지 : 전체 문의글 목록 조회 -->
-	<select id="AllCustomerList" parameterType="hashmap" resultType="customerDTO">
+	<!-- 회원 페이지 -->
+	<!-- 고객센터 : 전체 문의글 조회 -->
+	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
 				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A )B 
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 회원 페이지 : 전체 문의글 개수 -->
-	<select id="AllCustomerCount" resultType="int">
+	<!-- 고객센터 : 전체 문의글 개수 -->
+	<select id="selectCustomerCount" resultType="int">
 		SELECT COUNT(*) FROM customer
 	</select>
 
-	<!-- 회원 페이지 : 문의글 작성 -->
+	<!-- 고객센터 : 문의글 작성 -->
 	<insert id="insertInquiry" parameterType="customerDTO">
 		INSERT INTO customer (cus_num, cus_reNum, cus_categoryNum, cus_category, cus_nick, cus_id, cus_pw, cus_title, cus_email, cus_content, cus_pub, cus_date)
 		VALUES (cus_numSQ.nextval, 0, #{cus_categoryNum}, #{cus_category}, #{cus_nick}, #{cus_id}, #{cus_pw}, #{cus_title}, #{cus_email}, #{cus_content}, #{cus_pub}, SYSDATE)
 	</insert>
 
-	<!-- 회원 페이지 : 문의 페이지 출력 -->
+	<!-- 고객센터 : 문의글 확인 -->
 	<select id="selectInquiryContent" resultType="customerDTO">
 		SELECT * FROM customer WHERE cus_num = #{cus_num}
 	</select>
 
-	<!-- 회원 페이지 : 회원별 문의 내역 목록 조회(아이디 조회) -->
+	<!-- 고객센터 : 문의글 확인 > 비밀번호 확인 -->
+	<select id="customerPwChk" resultType="String">
+		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
+	</select>
+
+	<!-- 고객센터 : 문의글 확인 > 문의글 삭제 -->
+	<delete id="deleteInquiry">
+		DELETE FROM customer WHERE cus_num = #{cus_num}
+	</delete>
+
+	<!-- 고객센터 : 문의글 확인 > 문의글 수정 -->
+	<update id="updateInquiry">
+		UPDATE customer SET 
+			cus_email = #{cus_email}, cus_title = #{cus_title}, cus_content = #{cus_content} 
+		WHERE cus_num = #{cus_num}
+	</update>
+
+	<!-- 고객센터 : 문의내역 조회 (아이디 조회) -->
 	<select id="selectInquiry" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
@@ -50,13 +69,13 @@
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 회원 페이지 : 회원별 문의 내역 개수 -->
+	<!-- 고객센터 : 문의내역 조회 > 문의내역 개수 조회 -->
 	<select id="selectInquiryCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_id = #{cus_id}
 	</select>
 
-	<!-- 회원 페이지 : 닉네임 검색 -->
-	<select id="inquirySearch" parameterType="hashmap" resultType="customerDTO">
+	<!-- 고객센터 : 검색 > 닉네임 조회 -->
+	<select id="selectInquirySearch" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
 				(SELECT * FROM customer ORDER BY cus_num DESC, cus_date ASC)A
@@ -64,27 +83,10 @@
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 회원 페이지 : 검색 결과 개수 -->
-	<select id="inquirySearchCount" resultType="int">
+	<!-- 고객센터 : 검색 > 조회결과 개수 -->
+	<select id="selectSearchCount" resultType="int">
 		SELECT COUNT(*) FROM customer WHERE cus_nick LIKE '%'||#{cus_nick}||'%'
 	</select>
-
-	<!-- 회원 페이지 : 문의글 삭제 -->
-	<delete id="deleteInquiry">
-		DELETE FROM customer WHERE cus_num = #{cus_num}
-	</delete>
-
-	<!-- 회원 페이지 : 비밀번호 확인 -->
-	<select id="contentPwChk" resultType="String">
-		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
-	</select>
-
-	<!-- 회원 페이지 : 문의글 수정 -->
-	<update id="updateInquiry">
-		UPDATE customer SET 
-			cus_email = #{cus_email}, cus_title = #{cus_title}, cus_content = #{cus_content} 
-		WHERE cus_num = #{cus_num}
-	</update>
 
 
 

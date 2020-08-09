@@ -12,7 +12,7 @@
 		WHERE m_rn BETWEEN #{start} and #{end}
 	</select>
 
-	<!-- 회원 관리 : 회원 목록 출력 > 회원 수 계산 -->
+	<!-- 회원 관리 : 회원 목록 출력 > 등급 별 회원 수 계산 -->
 	<select id="selectMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member WHERE m_rankNum = #{m_rankNum}
 	</select>

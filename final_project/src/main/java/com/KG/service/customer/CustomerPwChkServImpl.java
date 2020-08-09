@@ -29,7 +29,7 @@ public class CustomerPwChkServImpl implements CustomerService {
 		Map<String, Object> map = model.asMap();
 		int cus_num = (Integer) map.get("cus_num");
 		String inputPw = (String) map.get("inputPw");
-		String dbPw = customerDAO.contentPwChk(cus_num);
+		String dbPw = customerDAO.customerPwChk(cus_num);
 
 		if(dbPw.equals(inputPw)) {
 			return 1;

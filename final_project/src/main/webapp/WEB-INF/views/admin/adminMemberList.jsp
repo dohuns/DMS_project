@@ -12,10 +12,15 @@
 			// 체크박스 전체 선택
 			$("#chkBox").click(function() {
 				var chk = $("#chkBox").prop("checked");
+			    var boxSize = $(".chkBoxs").length;
 				if(chk) {
 					$(".chkBoxs").prop("checked", true);
+					if(boxSize > 0) {
+						$(".contentBtn button").prop("disabled", false);
+					}
 				} else {
 					$(".chkBoxs").prop("checked", false);
+					$(".contentBtn button").prop("disabled", true);
 				}
 			});
 
@@ -144,18 +149,26 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="list" items="${memberList}">
-									<tr>
-										<td class="chkTd">
-											<input type="checkbox" name="m_idChk" id="m_idChk"
-												class="chkBoxs" value="${list.m_id}">
-										</td>
-										<td class="td-st">${list.m_id}</td>
-										<td class="td-st">${list.m_nick}</td>
-										<td class="td-st">${list.m_email}</td>
-										<td class="chkTd">${list.m_rank}</td>
-									</tr>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${not empty memberList}">
+										<c:forEach var="list" items="${memberList}">
+											<tr>
+												<td class="chkTd">
+													<input type="checkbox" name="m_idChk" id="m_idChk"
+														class="chkBoxs" value="${list.m_id}">
+												</td>
+												<td class="td-st">${list.m_id}</td>
+												<td class="td-st">${list.m_nick}</td>
+												<td class="td-st">${list.m_email}</td>
+												<td class="chkTd">${list.m_rank}</td>
+											</tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr><td colspan="5" class="chkTd">회원 내역이 없습니다.</td></tr>
+									</c:otherwise>
+								</c:choose>
+
 								<tr>
 									<td colspan="5">
 										<!-- 등급변경/삭제버튼 -->

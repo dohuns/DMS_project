@@ -7,13 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 import com.KG.service.admin.member.AdminDelRankServImpl;
+import com.KG.service.admin.member.AdminInquiryListServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoardSidebarService;
+import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerService;
 
 @Controller
@@ -58,7 +61,25 @@ public class AdminController {
 		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
 	}
 
+	// 회원 관리 추가 예정 : 아이디 선택 시 해당 회원의 정보 출력 : 버튼 클릭 시 수정 가능
 
+	// 서비스 관리 : 문의 내역 출력
+	@RequestMapping("adminInquiryList")
+	public String adminInquiryList(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		adminServ = (AdminInquiryListServImpl) AC.ac.getBean("adminInquiryListServImpl");
+		adminServ.execute(model);
+		return "admin/adminInquiryList";
+	}
+
+	// 서비스 관리 : 문의 내역 출력 > 문의글 확인
+	@RequestMapping("adminInquiryContent")
+	public String adminInquiryContent(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
+		customerServ.execute(model);
+		return "admin/adminInquiryContent";
+	}
 
 
 }

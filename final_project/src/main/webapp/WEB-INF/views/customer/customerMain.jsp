@@ -409,19 +409,9 @@
 																	<td>${list.cus_nick}</td>
 																	<td><small>${list.cus_category}</small></td>
 																	<td><small>${list.cus_date}</small></td>
-																	<td>
-																		<c:choose>
-																			<c:when test="${list.cus_reNum == 0}">
-																				<span class="btn btn-xs btn-success">답변 대기</span>
-																			</c:when>
-																			<c:when test="${list.cus_reNum == 1}">
-																				<span class="btn btn-xs btn-danger">답변 완료</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span class="btn btn-xs btn-default">답변 보류</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</td>
+																	<td><span>
+																		<small>${list.cus_reNum == 0 ? "답변 대기" : list.cus_reNum == 1 ? "답변 완료" : "<font color='red'>처리 중</font>"}</small>
+																	</span></td>
 																</tr>
 															</c:forEach>
 														</c:when>
