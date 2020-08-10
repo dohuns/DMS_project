@@ -44,7 +44,7 @@ padding: 5px;
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
-			<c:forEach var="dto" items="${listMainAll}" end="4">
+			<c:forEach var="dto" items="${listMainAll}" end="19">
 				<tr>
 					<td><a
 						href="board/list?b_category=${dto.b_category}&b_article=${dto.b_article}">
