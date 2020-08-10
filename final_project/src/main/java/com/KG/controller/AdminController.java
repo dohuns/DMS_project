@@ -2,6 +2,8 @@ package com.KG.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,11 +87,11 @@ public class AdminController {
 
 	// 서비스 관리 : 문의글 확인 > 답글 보류 선택
 	@RequestMapping("adminInquiryHold")
-	public String adminInquiryHold(Model model, CustomerDTO dto) {
-		model.addAttribute("dto", dto);
+	public String adminInquiryHold(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
 		customerServ = (AdminInquiryHoldServImpl) AC.ac.getBean("adminInquiryHoldServImpl");
 		customerServ.execute(model);
-		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
+		return "redirect:adminInquiryContent?cus_num=" + cus_num;
 	}
 
 	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 화면
@@ -104,8 +106,9 @@ public class AdminController {
 
 	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 저장
 	@RequestMapping("adminInquiryAnswerChk")
-	public String adminInquiryAnswerChk(Model model, CustomerDTO dto) {
+	public String adminInquiryAnswerChk(Model model, CustomerDTO dto, HttpSession session) {
 		model.addAttribute("dto", dto);
+		model.addAttribute("cus_nick", session.getAttribute("m_nick"));
 		customerServ = (AdminInquiryAnswerServImpl) AC.ac.getBean("adminInquiryAnswerServImpl");
 		customerServ.execute(model);
 		return "adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();

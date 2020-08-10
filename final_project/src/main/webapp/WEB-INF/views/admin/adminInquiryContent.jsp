@@ -8,18 +8,24 @@
 	<title>회원 관리</title>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
 	<script>
+		// <br>을 \n처리
+		$(function() {
+			var data = $("#cus_content").val();
+			data = data.replace(/<br\/>/gi, '\n');
+			$("#cus_content").val(data);
+		});
 		// 해당 문의글 답변 등록
-		function inquiryAnswer(cus_num, cus_categoryNum) {
+		function inquiryAnswer() {
 			var message = confirm("해당 문의글 답변을 등록하시겠습니까?");
 			if(message) {
-				location.href = "adminInquiryAnswer?cus_num=" + cus_num +"&cus_categoryNum=" + cus_categoryNum;
+				contentForm.submit();
 			}
 		}
 		// 해당 문의글 답변 보류
-		function inquiryHold() {
+		function inquiryHold(cus_num) {
 			var message = confirm("해당 문의글 답변을 보류하시겠습니까?");
 			if(message) {
-				$('#contentForm').submit();
+				location.href = "adminInquiryHold?cus_num=" + cus_num;
 			}
 		}
 	</script>
@@ -99,10 +105,12 @@
 				<div class="divContent">
 				<h3>${inquiryContent.cus_category}</h3>
 				<hr class="hr-st">
-					<form id="contentForm" action="adminInquiryHold" method="POST">
+					<form id="contentForm" action="adminInquiryAnswer" method="POST">
 						<div class="form-group has-error">
 							<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
-							<input type="hidden" name="cus_num" value="${param.cus_num}" />
+							<input type="hidden" name="cus_group" value="${inquiryContent.cus_group}" />
+							<input type="hidden" name="cus_num" value="${inquiryContent.cus_num}" />
+							<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />
 							<input type="text" class="form-control" name="cus_category" readonly="readonly"
 								value="${inquiryContent.cus_category}" />
 						</div>
@@ -127,7 +135,7 @@
 
 						<div class="form-group">
 							<label for="content">내 용 <span class="require">*</span></label>
-							<textarea rows="5" class="form-control"
+							<textarea rows="5" class="form-control" id="cus_content"
 								name="cus_content" readonly="readonly">${inquiryContent.cus_content}</textarea>
 						</div>
 
@@ -135,10 +143,10 @@
 							<c:if test="${inquiryContent.cus_reNum ne 1}">
 								<div class="bt-a">
 									<button type="button" class="btn btn-success"
-										onclick="inquiryAnswer(${inquiryContent.cus_num},${inquiryContent.cus_categoryNum})">답변</button>
+										onclick="inquiryAnswer()">답변</button>
 									<c:if test="${inquiryContent.cus_reNum ne 2}">
 										<button type="button" class="btn btn-default"
-											onclick="inquiryHold()">보류</button>
+											onclick="inquiryHold(${inquiryContent.cus_num})">보류</button>
 									</c:if>
 								</div>
 							</c:if>

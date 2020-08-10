@@ -18,8 +18,8 @@ public class AdminInquiryHoldServImpl implements CustomerService {
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		CustomerDTO customerDTO = (CustomerDTO) map.get("dto");
-		customerDAO.adminInquiryHold(customerDTO);
+		int cus_num = (int) map.get("cus_num");
+		customerDAO.adminInquiryHold(cus_num);
 	}
 
 	@Override

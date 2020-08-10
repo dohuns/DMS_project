@@ -31,15 +31,19 @@ public class CustomerDAO {
 	}
 
 	// 서비스 관리 : 문의글 확인 > 답글 보류 선택
-	public int adminInquiryHold(CustomerDTO dto) {
-		return sqlSession.update(namespace + ".updateReNumHold", dto);
+	public int adminInquiryHold(int cus_num) {
+		return sqlSession.update(namespace + ".updateReNumHold", cus_num);
 	}
 
 	// 서비스 관리 : 문의글 확인 > 답글 등록 선택
-	public int adminInquiryAnswer(int cus_num) {
-		return sqlSession.update(namespace + ".updateReNumAnswer", cus_num);
+	public int adminInquiryAnswer(CustomerDTO dto) {
+		return sqlSession.update(namespace + ".updateReNumAnswer", dto);
 	}
 
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 글 번호로 비밀번호 조회
+	public String selectPwAnswer(int cus_num) {
+		return sqlSession.selectOne(namespace + ".selectPwAnswer", cus_num);
+	}
 
 
 

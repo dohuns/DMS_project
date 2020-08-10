@@ -6,12 +6,20 @@
 <head>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
+		// <br>을 \n처리
 		$(function() {
-			var data = $("${inquiryContent.cus_content}");
-			data = data.replace(/(?:\r\n|\r|\n)/g , '\n');
-			console.log(data);
+			var data = $("#cus_content").val();
+			data = data.replace(/<br\/>/gi, '\n');
 			$("#cus_content").val(data);
-		})
+		});
+
+		// 줄 개행
+		function answerBtn() {
+			var data = $("#cus_content").val();
+			data = data.replace(/(?:\r\n|\r|\n)/g , '<br/>');
+			$("#cus_content").val(data);
+			$("#contentForm").submit();
+		}
 	</script>
 	<meta charset="UTF-8">
 	<title>회원 관리</title>
@@ -78,6 +86,17 @@
 		.divContent .hr-st {
 			border-top: 2px solid #DDD;
 		}
+		.tx-a {
+		    display: block;
+		    width: 100%;
+		    height: 500px;
+		    padding: 6px 12px;
+		    font-size: 14px;
+		    line-height: 1.42857143;
+		    color: #555;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		}
 	</style>
 </head>
 <body>
@@ -91,26 +110,24 @@
 				<div class="divContent">
 				<h3>${inquiryContent.cus_category}</h3>
 				<hr class="hr-st">
-					<form id="contentForm" action="adminInquiryAnswerChk" method="POST">
+					<form id="contentForm" action="adminInquiryAnswerChk" method="get">
 						<div class="form-group has-error">
-							<input type="hidden" name="cus_category" value="${inquiryContent.cus_category}" />
-							<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
-							<input type="hidden" name="cus_num" value="${param.cus_num}" />
-							<input type="hidden" name="cus_nick" value="${param.cus_nick}" />
-							<input type="hidden" name="cus_email" value="${param.cus_email}" />
-
+							<input type="hidden" name="cus_num" value="${inquiryContent.cus_num}" />
+							<input type="hidden" name="cus_group" value="${inquiryContent.cus_num}" />
 							<input type="text" class="form-control" name="cus_title" readonly="readonly"
 								value="${inquiryContent.cus_nick}님 문의 글에 대한 답변입니다." />
 						</div>
 
 						<div class="form-group">
 							<label for="content">내 용 <span class="require">*</span></label>
-							<textarea rows="5" class="form-control" name="cus_content">${inquiryContent.cus_content}</textarea>
+							<textarea rows="5" class="tx-a" name="cus_content" id="cus_content">${inquiryContent.cus_content}
+===============================================================================================
+</textarea>
 						</div>
 
 						<div class="form-group">
 							<div class="bt-a">
-								<button type="submit" class="btn btn-success">등록</button>
+								<button type="button" class="btn btn-success" onclick="answerBtn()">등록</button>
 								<button type="button" class="btn btn-default"
 									onclick="history.go(-1)">취소</button>
 							</div>
