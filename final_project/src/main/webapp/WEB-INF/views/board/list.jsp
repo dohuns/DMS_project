@@ -109,7 +109,7 @@ a:hover, a:focus {
 															</c:otherwise>
 														</c:choose>
 														</td>
-														<td>${dto.b_nick}</td>
+														<td><a href="/movie/myList?id=${dto.b_id}&page=1">${dto.b_nick}</a></td>
 														<td>${dto.b_date}</td>
 														<td>${dto.b_hit}</td>
 													</tr>
@@ -237,7 +237,7 @@ a:hover, a:focus {
 																</c:otherwise>
 															</c:choose>
 														</td>
-														<td>${dto.b_nick}</td>
+														<td><a href="/movie/myList?id=${dto.b_id}&page=1">${dto.b_nick}</a></td>
 														<td>${dto.b_date}</td>
 														<td>${dto.b_hit}</td>
 													</tr>

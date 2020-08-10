@@ -47,7 +47,7 @@ padding: 5px;
 			<c:forEach var="dto" items="${listMainAll}">
 				<tr>
 					<td><a
-						href="list?b_category=${dto.b_category}&b_article=${dto.b_article}">
+						href="board/list?b_category=${dto.b_category}&b_article=${dto.b_article}">
 							${dto.b_article} </a></td>
 					<td><c:choose>
 							<c:when test="${dto.b_reNum == 0 }">
@@ -61,7 +61,7 @@ padding: 5px;
 								</div>
 							</c:otherwise>
 						</c:choose></td>
-					<td>${dto.b_nick}</td>
+					<td><a href="/movie/myList?id=${dto.b_id}&page=1">${dto.b_nick}</a></td>
 					<td>${dto.b_date}</td>
 					<td>${dto.b_hit}</td>
 				</tr>
