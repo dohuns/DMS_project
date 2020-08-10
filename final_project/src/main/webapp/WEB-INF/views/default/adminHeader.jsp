@@ -41,7 +41,7 @@
 <body>
    <div class="headbar">
       <div class="headbar-pt">
-         <a href="#">회원 페이지</a>
+         <a href="/movie">회원 페이지</a>
       </div>
    </div>
 </body>

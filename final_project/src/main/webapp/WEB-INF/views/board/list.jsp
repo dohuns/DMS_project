@@ -313,6 +313,9 @@ a:hover, a:focus {
 				</c:choose>
 			</div>
 		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
+		</div>
 	</div>
 
 </body>

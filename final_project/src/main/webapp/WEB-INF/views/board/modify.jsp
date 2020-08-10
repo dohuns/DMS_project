@@ -205,6 +205,10 @@ $(function(){
 				</form>
 			</div>
 		</div>
-	</div></div></div></div>
+	</div></div></div>
+	<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
+		</div>
+	</div>
 </body>
 </html>

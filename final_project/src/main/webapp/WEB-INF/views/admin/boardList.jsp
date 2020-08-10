@@ -186,6 +186,7 @@
 		var pattern = /[~!@#$%^&*()_+=:;''""<>?,./]/;
 		if (b_article.trim() != "" && b_article != null) {
 			if (!pattern.test(b_article)) {
+				b_category = b_category.replace(/(\s)/g, "&nbsp;");
 				b_article = b_article.replace(/(\s)/g, "&nbsp;");
 				var form = {
 					b_category : b_category,
