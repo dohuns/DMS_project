@@ -119,8 +119,8 @@
 				<li class="sidebar-menu"><a href="#">서비스 관리</a>
 					<ul class="sidebar-menu-list">
 						<li><a href="adminInquiryList?cus_categoryNum=0">일반 문의</a></li>
-						<li><a href="adminInquiryList?cus_categoryNum=1">계정 문의</a></li>
-						<li><a href="adminInquiryList?cus_categoryNum=2">신고 접수</a></li>
+						<li><a href="adminInquiryList?cus_categoryNum=1">신고 접수</a></li>
+						<li><a href="adminInquiryList?cus_categoryNum=2">계정 문의</a></li>
 					</ul>
 				</li>
 				<li class="sidebar-menu"><a href="#">사이트 설정</a>

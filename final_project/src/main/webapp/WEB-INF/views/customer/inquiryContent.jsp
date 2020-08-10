@@ -33,8 +33,15 @@
 		}
 	</style>
 
-	<!-- 비밀번호 확인 -->
 	<script>
+		// <br>을 \n처리
+		$(function() {
+			var data = $("#cus_content").val()
+			data = data.replace(/<br\/>/gi, '\n');
+			$("#cus_content").val(data);
+		});
+
+		// 비밀번호 확인
 		function contentPwChk(cus_num, cus_pw) {
 			$("#openPwChk").remove();
 			console.log("content_ cus_num : " + cus_num + ", cus_pw : " + cus_pw);
@@ -112,7 +119,7 @@
 
 								<div class="form-group">
 									<label for="content">내 용 <span class="require">*</span></label>
-									<textarea rows="5" class="form-control"
+									<textarea rows="5" class="form-control" id="cus_content"
 										name="cus_content" readonly="readonly">${inquiryContent.cus_content}</textarea>
 								</div>
 

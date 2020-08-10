@@ -4,14 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		$(function() {
+			var data = $("${inquiryContent.cus_content}");
+			data = data.replace(/(?:\r\n|\r|\n)/g , '\n');
+			console.log(data);
+			$("#cus_content").val(data);
+		})
+	</script>
 	<meta charset="UTF-8">
 	<title>회원 관리</title>
-	<script src="//code.jquery.com/jquery-latest.min.js"></script>
-	<script>
-	$(function() {
-		$("textarea[name=cus_content]").text("test");
-	});
-	</script>
 	<style>
 		html, body, div {
 			height: 95%;
@@ -90,18 +93,14 @@
 				<hr class="hr-st">
 					<form id="contentForm" action="adminInquiryAnswerChk" method="POST">
 						<div class="form-group has-error">
+							<input type="hidden" name="cus_category" value="${inquiryContent.cus_category}" />
 							<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 							<input type="hidden" name="cus_num" value="${param.cus_num}" />
 							<input type="hidden" name="cus_nick" value="${param.cus_nick}" />
 							<input type="hidden" name="cus_email" value="${param.cus_email}" />
 
-							<input type="text" class="form-control" name="cus_category" readonly="readonly"
-								value="${inquiryContent.cus_category}" />
-						</div>
-
-						<div class="form-group">
-							<label for="title">제 목 <span class="require">*</span></label>
-							<input type="text" class="form-control" name="cus_title" />
+							<input type="text" class="form-control" name="cus_title" readonly="readonly"
+								value="${inquiryContent.cus_nick}님 문의 글에 대한 답변입니다." />
 						</div>
 
 						<div class="form-group">

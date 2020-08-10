@@ -122,7 +122,7 @@
 										</c:forEach>
 									</c:when>
 									<c:otherwise>
-										<tr><td colspan="5" class="td-st">문의글이 존재하지 않습니다.</td></tr>
+										<tr><td colspan="5" class="td-sa">문의글이 존재하지 않습니다.</td></tr>
 									</c:otherwise>
 								</c:choose>
 
