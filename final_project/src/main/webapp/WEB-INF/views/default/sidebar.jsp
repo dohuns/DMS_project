@@ -66,7 +66,7 @@ padding-inline-start : 20px;
 <body>
 	<div style="margin-right: 20px;">
 		<div
-			style="background-color: white; width: 250px; border-top: solid 0px #000000;">
+			style="background-color: white; width: 250px; border-top: solid 0px #000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
@@ -119,22 +119,16 @@ padding-inline-start : 20px;
 				</c:when>
 				<c:otherwise>
 						<a href="/movie/login">
-					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
+					<div align="center" style="background-color: #447294; padding: 5px 0; margin: 0px 0; color: white;">
 								로그인하기
 					</div>
 						</a>
 				</c:otherwise>
 			</c:choose>
-				<a href="#">
-			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
+				<a href="/movie/board/writeAll">
+			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0; color: white;">
 					게시글글쓰기
 			</div> 
-				</a>
-				<a href="https://service.dongledongle.com/DMS_project">
-<!-- 				<iframe src="https://service.dongledongle.com/DMS_project" frameborder="0" width="100%" height="500"></iframe> -->
-			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
-					채팅하기
-			</div>
 				</a>
 			<div>
 				<form action="/movie/board/search_list">

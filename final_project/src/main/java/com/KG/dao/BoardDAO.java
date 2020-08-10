@@ -82,6 +82,10 @@ public class BoardDAO {
 	public List<BoardDTO> listAll(HashMap<String, Object> hash) {
 		return sqlSession.selectList(namespace + ".listAll" , hash);
 	}
+	// 게시물 목록(전체 글)
+	public List<BoardDTO> listMainAll() {
+		return sqlSession.selectList(namespace + ".listMainAll");
+	}
 	// 게시물 목록 개수(전체 글)
 	public int getCountAll() {
 		return sqlSession.selectOne(namespace+".getCountAll");
@@ -94,6 +98,10 @@ public class BoardDAO {
 	// 게시판 목록(카테고리로 분류)
 	public List<BoardDTO> cateList(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".cateList", boardDTO);
+	}
+	// 게시판 목록(카테고리로 분류X)
+	public List<BoardDTO> cateListAll() {
+		return sqlSession.selectList(namespace + ".cateListAll");
 	}
 	// 게시글 쓰기(저장)
 	public int boardWrite(BoardDTO boardDTO) {
@@ -271,14 +279,13 @@ public class BoardDAO {
 	}
 	
 	// 추천 비추천 누른지 구분
-	public String getLike(LikeDTO dto) {
-		return sqlSession.selectOne(namespace + ".getLike" , dto);
+	public String getLike(String id) {
+		return sqlSession.selectOne(namespace + ".getLike" , id);
 	}
-	
+
 	// 추천 비추천 누른 멤버 확인(글번호)
 	public List<Map<String, Object>> likeMemberList(int boardNum) {
 		return sqlSession.selectList(namespace + ".likeMemberList" , boardNum);
 	}
-	
 	
 }

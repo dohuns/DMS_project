@@ -44,7 +44,7 @@
 	</update>
 	<!-- 회원탈퇴 -->
 	<update id="memberDel" parameterType="memberDTO">
-		update member set m_rank = '탈퇴회원', m_rankNum = 5 where m_id = #{m_id}
+		update member set m_rank = '탈퇴회원', m_rankNum = 5, m_email='' where m_id = #{m_id}
 	</update>
 	
 	

@@ -71,6 +71,17 @@
 			)A
 	)B WHERE rn BETWEEN #{start} and #{end}
 	</select>
+	
+	<!-- 글 목록(메인페이지) -->
+	<select id="listMainAll" parameterType="hashMap" resultType="boardDTO">
+	SELECT B.* FROM (
+		SELECT rownum rn, A.* FROM (
+			SELECT * FROM board 
+				WHERE b_title is not null
+				ORDER BY b_group DESC , b_sortnum ASC
+			)A
+	)B WHERE rn BETWEEN 1 and 20
+	</select>
 	<!-- 글 목록 개수(전체) -->
 	<select id="getCountAll" resultType="int"> 
 		SELECT count(*) FROM board 
@@ -85,7 +96,12 @@
 	
 	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
-		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
+		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLE is not null
+	</select>
+
+	<!-- 게시판 가져오기(카테고리 분류X) -->
+	<select id="cateListAll" resultType="boardDTO">
+		SELECT * FROM board WHERE b_num is null and B_ARTICLE is not null
 	</select>
 	
 	<!-- 글 쓰기(저장) -->
@@ -343,5 +359,4 @@
 		SELECT * FROM likeData JOIN member ON likeData.l_id = member.m_id 
         	WHERE l_boardNum = #{boardNum}
 	</select>
-	
 </mapper>

@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
+import com.KG.service.board.BoaMainListServImpl;
+import com.KG.service.board.BoardCateListAllServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardFileDownServImpl;
@@ -48,6 +50,12 @@ public class BoardController {
 	@RequestMapping("movie")
 	public String movie() {
 		return "default/movieMain";
+	}
+	@RequestMapping("movieMainList")
+	public String movieMainList(Model model) {
+		boaServ = (BoaMainListServImpl) AC.ac.getBean("boaMainListServImpl");
+		boaServ.execute_Boo(model);
+		return "default/movieMainList";
 	}
 
 	// 사이드바 출력
@@ -148,6 +156,15 @@ public class BoardController {
 		boaServ = (BoardCateListServImpl) AC.ac.getBean("boardCateListServImpl");
 		boaServ.execute_Boo(model);
 		return "board/write";
+	}
+	
+	// 글쓰기 페이지
+	@RequestMapping("/board/writeAll")
+	public String board_writeAll(Model model, BoardDTO dto) {
+		model.addAttribute("dto", dto);
+		boaServ = (BoardCateListAllServImpl) AC.ac.getBean("boardCateListAllServImpl");
+		boaServ.execute_Boo(model);
+		return "board/writeAll";
 	}
 	// 글쓰기 저장
 	@RequestMapping("/board/write_save")
@@ -308,5 +325,4 @@ public class BoardController {
 		
 	}
 	
-
 }
