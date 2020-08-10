@@ -111,6 +111,18 @@
 		.modal-sz {
 			height: 240px;
 		}
+		.td-st a,
+		.td-st a:focus,
+		.td-st a:visited {
+			color: #333;
+			text-decoration: none;
+		}
+		.td-st a:hover {
+			color: #333;
+			cursor: pointer;
+			font-weight: 600;
+			text-decoration: underline;
+		}
 	</style>
 </head>
 <body>
@@ -157,7 +169,7 @@
 													<input type="checkbox" name="m_idChk" id="m_idChk"
 														class="chkBoxs" value="${list.m_id}">
 												</td>
-												<td class="td-st">${list.m_id}</td>
+												<td class="td-st"><a href="adminMemberInfo">${list.m_id}</a></td>
 												<td class="td-st">${list.m_nick}</td>
 												<td class="td-st">${list.m_email}</td>
 												<td class="chkTd">${list.m_rank}</td>

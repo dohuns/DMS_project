@@ -114,8 +114,9 @@
 						<div class="form-group has-error">
 							<input type="hidden" name="cus_num" value="${inquiryContent.cus_num}" />
 							<input type="hidden" name="cus_group" value="${inquiryContent.cus_num}" />
+							<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 							<input type="text" class="form-control" name="cus_title" readonly="readonly"
-								value="${inquiryContent.cus_nick}님 문의 글에 대한 답변입니다." />
+								value="└ ${inquiryContent.cus_nick}님 문의 글에 대한 답변입니다." />
 						</div>
 
 						<div class="form-group">

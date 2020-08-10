@@ -21,13 +21,15 @@ public class AdminInquiryAnswerServImpl implements CustomerService {
 		Map<String, Object> map = model.asMap();
 		CustomerDTO customerDTO = (CustomerDTO) map.get("dto");		// 문의글 정보
 
+		// 글 번호로 비밀번호 조회
 		customerDTO.setCus_pw(customerDAO.selectPwAnswer(customerDTO.getCus_num()));
 		customerDTO.setCus_nick((String) map.get("cus_nick"));
 		customerDTO.setCus_pub("close");
 
-		// 글 번호로 비밀번호 조회 후 저장
+		// 답글 등록
 		customerDAO.adminInquiryAnswer(customerDTO);
-		// 기존 게시글의 reNum이 답변 완료로 변경 됨
+		// 기존 문의글 reNum 변경 : 글 번호와 그룹 값이 일치하는 데이터의 상태값을 변경
+		customerDAO.updateSetReNum(customerDTO.getCus_num());
 	}
 
 	@Override

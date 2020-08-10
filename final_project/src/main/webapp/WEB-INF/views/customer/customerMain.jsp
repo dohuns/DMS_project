@@ -407,7 +407,7 @@
 																		</c:choose>
 																	</td>
 																	<td>${list.cus_nick}</td>
-																	<td><small>${list.cus_category}</small></td>
+																	<td><small>${not empty list.cus_category ? list.cus_category : "문의 해결"}</small></td>
 																	<td><small>${list.cus_date}</small></td>
 																	<td><span>
 																		<small>${list.cus_reNum == 0 ? "답변 대기" : list.cus_reNum == 1 ? "답변 완료" : "<font color='red'>처리 중</font>"}</small>

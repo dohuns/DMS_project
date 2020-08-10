@@ -95,8 +95,10 @@
 									<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 									<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />
 									<input type="hidden" name="cus_num" value="${param.cus_num}" />
-									<input type="text" class="form-control" name="cus_category" readonly="readonly"
-										value="${inquiryContent.cus_category}" />
+									<c:if test="${not empty inquiryContent.cus_category}">
+										<input type="text" class="form-control" name="cus_category" readonly="readonly"
+											value="${inquiryContent.cus_category}" />
+									</c:if>
 								</div>
 
 								<div class="form-group">
@@ -105,11 +107,13 @@
 										value="${inquiryContent.cus_nick}" readonly="readonly"/>
 								</div>
 
-								<div class="form-group">
-									<label for="email">이메일 <span class="require">*</span></label>
-									<input type="text" class="form-control" name="cus_email"
-										value="${inquiryContent.cus_email}" readonly="readonly"/>
-								</div>
+								<c:if test="${not empty inquiryContent.cus_email}">
+									<div class="form-group">
+										<label for="email">이메일 <span class="require">*</span></label>
+										<input type="text" class="form-control" name="cus_email"
+											value="${inquiryContent.cus_email}" readonly="readonly"/>
+									</div>
+								</c:if>
 
 								<div class="form-group">
 									<label for="title">제 목 <span class="require">*</span></label>

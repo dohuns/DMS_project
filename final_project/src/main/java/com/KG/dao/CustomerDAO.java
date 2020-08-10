@@ -45,6 +45,10 @@ public class CustomerDAO {
 		return sqlSession.selectOne(namespace + ".selectPwAnswer", cus_num);
 	}
 
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 해당 문의글 답글 완료 처리
+	public int updateSetReNum(int cus_group) {
+		return sqlSession.update(namespace + ".updateSetReNum", cus_group);
+	}
 
 
 	// (회원 페이지)

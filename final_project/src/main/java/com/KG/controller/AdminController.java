@@ -2,6 +2,7 @@ package com.KG.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerService;
@@ -63,6 +65,15 @@ public class AdminController {
 		adminServ = (AdminDelRankServImpl) AC.ac.getBean("adminDelRankServImpl");
 		adminServ.execute(model);
 		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
+	}
+
+	// 회원 관리 : 회원 목록 출력 > 회원 정보 출력
+	@RequestMapping("adminMemberInfo")
+	public String adminMemberList(Model model,HttpSession session) {
+		model.addAttribute("id", session.getAttribute("m_id"));
+		boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+		boaSideServ.execute_Boo(model);
+		return "admin/adminMemberInfo";
 	}
 
 	// 회원 관리 추가 예정 : 아이디 선택 시 해당 회원의 정보 출력 : 버튼 클릭 시 수정 가능
@@ -111,7 +122,8 @@ public class AdminController {
 		model.addAttribute("cus_nick", session.getAttribute("m_nick"));
 		customerServ = (AdminInquiryAnswerServImpl) AC.ac.getBean("adminInquiryAnswerServImpl");
 		customerServ.execute(model);
-		return "adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
+		System.out.println("controller: " + dto.getCus_categoryNum());
+		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
 	}
 
 

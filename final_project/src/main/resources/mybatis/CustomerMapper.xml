@@ -8,7 +8,7 @@
 	<select id="selectAdminInquiryList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
-				(SELECT * FROM customer ORDER BY cus_group ASC, cus_num DESC)A 
+				(SELECT * FROM customer ORDER BY cus_group DESC, cus_num ASC)A 
 			WHERE cus_categoryNum = #{cus_categoryNum} )B 
 		WHERE cus_rn BETWEEN #{start} and #{end}
 	</select>
@@ -34,13 +34,19 @@
 		SELECT cus_pw FROM customer WHERE cus_num = #{cus_num}
 	</select>
 
+	<!-- 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 해당 문의글 답글 완료 처리 -->
+	<update id="updateSetReNum" parameterType="int">
+		UPDATE customer SET cus_reNum = 1 WHERE cus_group = #{cus_group} AND cus_reNum != 1
+	</update>
+
+
 	<!-- 회원 페이지 -->
 	<!-- 고객센터 : 전체 문의글 조회 -->
 	<select id="selectCustomerList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (
 			SELECT ROWNUM cus_rn, A.* FROM
-				(SELECT * FROM customer ORDER BY cus_num DESC, cus_group ASC, cus_date ASC)A )B 
-		WHERE cus_rn BETWEEN #{start} and #{end}
+				(SELECT * FROM customer ORDER BY cus_group DESC, cus_num ASC, cus_date ASC)A )B 
+		WHERE cus_rn BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 고객센터 : 전체 문의글 개수 -->
