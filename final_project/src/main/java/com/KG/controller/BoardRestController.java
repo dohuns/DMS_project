@@ -130,7 +130,6 @@ public class BoardRestController {
 	// 추천 비추천 누른지 확인
 	@PostMapping(value = "/board/chkLike" , produces = "application/json;charset=utf-8")
 	public String divLike(Model model, LikeDTO dto) {
-		System.out.println("테스트 231213123213213");
 		model.addAttribute("dto" , dto);
 		
 		boaServ = (ChklikeServImpl)AC.ac.getBean("chklikeServImpl");
