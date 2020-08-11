@@ -111,7 +111,7 @@ padding-inline-start : 20px;
 							</div>
 								<ul id="myInfoWrite">
 									<li style="margin-top: 10px; margin-bottom: 5px;"><b><a href="/movie/myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
-									<li><b><a href="/movie/myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
+									<li><b><a href="/movie/myList?id=${m_id }&page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
