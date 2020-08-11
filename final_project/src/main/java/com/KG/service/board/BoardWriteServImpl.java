@@ -32,8 +32,6 @@ public class BoardWriteServImpl implements BoardService{
 		BoardDTO boardDTO = (BoardDTO) map.get("dto");
 		HttpSession session = (HttpSession)map.get("session");
 		MultipartHttpServletRequest mpRequest = (MultipartHttpServletRequest)map.get("mpRequest");
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		boardDTO.setB_nick((String)session.getAttribute("m_nick"));
 		boardDTO.setB_id((String)session.getAttribute("m_id"));

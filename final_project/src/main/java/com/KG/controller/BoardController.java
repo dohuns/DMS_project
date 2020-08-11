@@ -178,8 +178,6 @@ public class BoardController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("session", session);
 		model.addAttribute("mpRequest" , mpRequest);
-		model.addAttribute("request" , request); 
-		model.addAttribute("response" , response);
 		
 		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
 		boaServ.execute_Boo(model);
@@ -296,17 +294,20 @@ public class BoardController {
 
 	// 답글 쓰기 저장
 	@RequestMapping("/board/reply_save")
-	public String reply_save(Model model, BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
-
-		model.addAttribute("dto", dto);
-		model.addAttribute("session", session);
-
-		boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
-		boaServ.execute_Boo(model);
+	public String reply_save(Model model, BoardDTO dto,
+			HttpSession session , MultipartHttpServletRequest mpRequest,
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
 		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
 		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
+		model.addAttribute("dto", dto);
+		model.addAttribute("session", session);
+		model.addAttribute("mpRequest" , mpRequest);
+
+		boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
+		boaServ.execute_Boo(model);
+		
 		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
 	}
 	
