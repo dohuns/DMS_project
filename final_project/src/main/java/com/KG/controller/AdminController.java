@@ -21,7 +21,6 @@ import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoaAdminListServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
-import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 import com.KG.service.customer.CustomerContentServImpl;

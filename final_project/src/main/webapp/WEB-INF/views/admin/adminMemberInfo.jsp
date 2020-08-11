@@ -104,6 +104,9 @@
 		#memberContent {
 			margin-top: 10px;
 		}
+		.memberContentDiv {
+			width: 800px;
+		}
 	</style>
 </head>
 <body>
@@ -165,28 +168,31 @@
 							</div>
 
 							<!-- 해당 회원 작성글 확인 -->
-							<div id="memberContent">
-								<c:choose>
-							<c:when test="${param.page == 1 }">
-								<c:import url="/myWrite?id=${userInfo.m_id}" />
-							</c:when>
-							<c:when test="${param.page == 2 && sessionScope.m_rankNum == 1}">
-								<c:import url="/myReply?id=${userInfo.m_id}" />
-							</c:when>
-							<c:when
-								test="${param.page == 2 && sessionScope.m_id ne param.id}">
-								<script type="text/javascript">
-									alert("정상적인 경로를 이용해주세요")
-									history.go(-1);
-								</script>
-							</c:when>
-							<c:when test="${param.page == 2 }">
-								<c:import url="/myReply?id=${userInfo.m_id}" />
-							</c:when>
-							<c:otherwise>
-								<c:import url="/myReplyWrite?id=${userInfo.m_id}" />
-							</c:otherwise>
-						</c:choose>
+							<div class="memberContentDiv">
+								<div id="memberContent">
+									<c:choose>
+										<c:when test="${param.page == 1 }">
+											<c:import url="/myWrite?id=${userInfo.m_id}" />
+										</c:when>
+										<c:when
+											test="${param.page == 2 && sessionScope.m_rankNum == 1}">
+											<c:import url="/myReply?id=${userInfo.m_id}" />
+										</c:when>
+										<c:when
+											test="${param.page == 2 && sessionScope.m_id ne param.id}">
+											<script type="text/javascript">
+												alert("정상적인 경로를 이용해주세요")
+												history.go(-1);
+											</script>
+										</c:when>
+										<c:when test="${param.page == 2 }">
+											<c:import url="/myReply?id=${userInfo.m_id}" />
+										</c:when>
+										<c:otherwise>
+											<c:import url="/myReplyWrite?id=${userInfo.m_id}" />
+										</c:otherwise>
+									</c:choose>
+								</div>
 							</div>
 
 						</form>

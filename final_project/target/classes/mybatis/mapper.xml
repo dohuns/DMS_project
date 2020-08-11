@@ -47,11 +47,18 @@
    </insert>
    
    <!-- 회원정보 수정 -->
-   <update id="memberUp" parameterType="memberDTO">
-      update member set 
-         m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}, m_picture = #{m_picture} 
-      where m_id = #{m_id}
-   </update>
+	<update id="memberUp" parameterType="memberDTO">
+		update member set
+		<choose>
+			<when test="m_picture != null">
+				m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}, m_picture = #{m_picture}
+			</when>
+			<otherwise>
+				m_name = #{m_name}, m_nick = #{m_nick}, m_birth = #{m_birth}
+			</otherwise>
+		</choose>
+		where m_id = #{m_id}
+	</update>
    <!-- 회원탈퇴 -->
    <update id="memberDel" parameterType="memberDTO">
       update member set m_rank = '탈퇴회원', m_rankNum = 5, m_email='' where m_id = #{m_id}

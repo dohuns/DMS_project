@@ -3,16 +3,12 @@ package com.KG.service.board.sidebar;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.KG.dao.BoardDAO;
 import com.KG.dto.BoardDTO;
-import com.KG.service.board.BoardService;
 
 @Service
 public class BoaUserInfoServImpl implements BoardSidebarService {
