@@ -13,10 +13,6 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <style>
 .our-webcoderskull {
-	/* 	background: */
-	/* 		url("http://www.webcoderskull.com/img/right-sider-banner.png") */
-	/* 		no-repeat center top/cover; */
-	/* background-color: #fdfcf0; */
 	width: 810px;
 	border: 6px solid #eee;
 }
