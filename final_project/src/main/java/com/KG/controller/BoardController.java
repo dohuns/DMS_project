@@ -167,25 +167,23 @@ public class BoardController {
 		return "board/writeAll";
 	}
 	// 글쓰기 저장
-	@RequestMapping("/board/write_save")
-	public String board_wrtieSave(Model model, BoardDTO dto,
-			HttpSession session , MultipartHttpServletRequest mpRequest,
-			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		@RequestMapping("/board/write_save")
+		public String board_wrtieSave(Model model, BoardDTO dto,
+				HttpSession session , MultipartHttpServletRequest mpRequest,
+				HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
-		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
+			String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("session", session);
-		model.addAttribute("mpRequest" , mpRequest);
-		model.addAttribute("request" , request); 
-		model.addAttribute("response" , response);
-		
-		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
-		boaServ.execute_Boo(model);
+			model.addAttribute("dto", dto);
+			model.addAttribute("session", session);
+			model.addAttribute("mpRequest" , mpRequest);
+			
+			boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
+			boaServ.execute_Boo(model);
 
-		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
-	}
+			return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+		}
 
 	// 게시글 검색
 	@RequestMapping("/board/search_list")
@@ -295,20 +293,23 @@ public class BoardController {
 	}
 
 	// 답글 쓰기 저장
-	@RequestMapping("/board/reply_save")
-	public String reply_save(Model model, BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
+		@RequestMapping("/board/reply_save")
+		public String reply_save(Model model, BoardDTO dto,
+				HttpSession session , MultipartHttpServletRequest mpRequest,
+				HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("session", session);
+			String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
-		boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
-		boaServ.execute_Boo(model);
+			model.addAttribute("dto", dto);
+			model.addAttribute("session", session);
+			model.addAttribute("mpRequest" , mpRequest);
 
-		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
-		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
-
-		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
-	}
+			boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
+			boaServ.execute_Boo(model);
+			
+			return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+		}
 	
 	// 첨부파일 다운로드
 	@RequestMapping("/board/file_down")
