@@ -19,6 +19,7 @@ import com.KG.service.admin.member.AdminInquiryListServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdRankServImpl;
+import com.KG.service.board.BoaAdminListServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
@@ -34,6 +35,8 @@ public class AdminController {
 
 	@RequestMapping("admin")
 	public String admin(Model model) {
+		boardServ = (BoaAdminListServImpl) AC.ac.getBean("boaAdminListServImpl");
+		boardServ.execute_Boo(model);
 		return "admin/adminMain";
 	}
 

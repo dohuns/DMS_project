@@ -18,6 +18,12 @@ public class BoardDAO {
 	@Qualifier("sqlSessionBoard")
 	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
+
+	// 관리자페이지
+	// 메인 화면 : 공지사항 출력
+	public List<BoardDTO> adminMainNotice() {
+		return sqlSession.selectList(namespace + ".adminMainNotice");
+	}
 	/////////////////////////// 사이드바 /////////////////////////////////
 	
 	// 사이드바 리스트

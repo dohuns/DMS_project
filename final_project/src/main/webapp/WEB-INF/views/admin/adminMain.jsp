@@ -51,6 +51,21 @@
 		.mainBoard .table-st tr>td {
 			border-top: 1px solid #DDD;
 		}
+		.mainBoard a,
+		.mainBoard a:focus,
+		.mainBoard a:visited {
+			color: #333;
+			text-decoration: none;
+		}
+		.mainBoard a:hover {
+			color: #333;
+			cursor: pointer;
+			font-weight: 600;
+			text-decoration: underline;
+		}
+		.mainBoard .date-st {
+			text-align: right;
+		}
 	</style>
 </head>
 <body>
@@ -63,30 +78,16 @@
 					<table class="table-st">
 						<thead>
 							<tr>
-								<th colspan="2">카테고리<a href="#">▼</a></th>
+								<th colspan="2">공지사항<a href="#">▼</a></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>게시글에 관련된 내용 출력 예정</td>
-								<td>2020.08.08</td>
-							</tr>
-							<tr>
-								<td>게시글에 관련된 내용 출력 예정</td>
-								<td>2020.08.08</td>
-							</tr>
-							<tr>
-								<td>게시글에 관련된 내용 출력 예정</td>
-								<td>2020.08.08</td>
-							</tr>
-							<tr>
-								<td>게시글에 관련된 내용 출력 예정</td>
-								<td>2020.08.08</td>
-							</tr>
-							<tr>
-								<td>게시글에 관련된 내용 출력 예정</td>
-								<td>2020.08.08</td>
-							</tr>
+							<c:forEach var="list" items="${listAdmin}" begin="0" end="4">
+								<tr>
+									<td><a href="#">${list.b_title}</a></td>
+									<td class="date-st">${list.b_date}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

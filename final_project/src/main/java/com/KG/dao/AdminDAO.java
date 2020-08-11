@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.KG.dto.BoardDTO;
 import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
 
