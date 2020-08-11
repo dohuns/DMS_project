@@ -69,8 +69,8 @@ public class AdminController {
 
 	// 회원 관리 : 회원 목록 출력 > 회원 정보 출력
 	@RequestMapping("adminMemberInfo")
-	public String adminMemberList(Model model,HttpSession session) {
-		model.addAttribute("id", session.getAttribute("m_id"));
+	public String adminMemberList(Model model, String cus_id) {
+		model.addAttribute("id", cus_id);
 		boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
 		boaSideServ.execute_Boo(model);
 		return "admin/adminMemberInfo";

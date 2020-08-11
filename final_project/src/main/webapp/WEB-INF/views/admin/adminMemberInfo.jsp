@@ -5,90 +5,192 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>DOMISU 관리자 페이지</title>
+	<title>회원 관리</title>
+	<script src="//code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(function() {
+			// 체크박스 전체 선택
+			$("#chkBox").click(function() {
+				var chk = $("#chkBox").prop("checked");
+			    var boxSize = $(".chkBoxs").length;
+				if(chk) {
+					$(".chkBoxs").prop("checked", true);
+					if(boxSize > 0) {
+						$(".contentBtn button").prop("disabled", false);
+					}
+				} else {
+					$(".chkBoxs").prop("checked", false);
+					$(".contentBtn button").prop("disabled", true);
+				}
+			});
+
+			// 체크박스 선택 시 버튼 활성화
+			$('.chkBoxs').click(function() {
+				var chkBox = $(this).prop('checked');					// 클릭한 값이 체크되도록 지정
+			    var boxSize = $(".chkBoxs").length;						// 목록 값 수
+			    var chkSize = $(".chkBoxs:checked").length;				// 체크된 값 수
+			    
+				// 전체 선택 || 체크박스 하나 이상 선택 시 버튼 활성화
+				if (chkBox == true || chkSize > 0) {
+					$(".contentBtn button").prop("disabled", false);
+				} else {
+					$(".contentBtn button").prop("disabled", true);
+				}
+
+			    // 목록 개수와 선택된 개수가 같을 경우 전체 선택 버튼 활성화
+				if (boxSize == chkSize) {
+					$("#chkBox").prop("checked", true);
+				} else {
+					$("#chkBox").prop("checked", false);
+				}
+			});
+		});
+
+		// 계정 삭제(탈퇴회원으로 변경)
+		function delRank() {
+			var message = confirm("선택한 회원 정보를 삭제하시겠습니까?");
+			if (message) {
+				$('#contentForm').submit();
+			}
+		}
+
+		// MODAL 출력(선택한 값 포함)
+		function updRank() {
+			var m_idChk = [];
+			var html = "";
+			$.each($("input[name=m_idChk]:checked"), function() {
+				m_idChk.push($(this).val());
+			});
+			$("#idArr")
+					.html(
+							"<input type='hidden' name='m_idChk' value='" + m_idChk + "'>");
+			$('#upd-Rank').modal('show');
+		}
+	</script>
 	<style>
 		html, body, div {
 			height: 95%;
 		}
-		body #mainContent {
+		body #main {
 			height: 95%;
 		}
 		.mainContent {
 			display: flex;
 			height: 100%;
 		}
-		.mainBoard {
+		.divContent {
 			width: 100%;
+			padding: 35px;
 			min-width: 800px;
+			max-height: 800px;
 			margin: 50px 0 50px 250px;
 		}
-		.mainBoard .table-st {
-			width: 95%;
-			margin: 28px 20px;
-			border: 1px solid #DDD;
-			border-radius: 10px;
-			border-collapse: inherit;
+		tr>th, .chkTd {
+			text-align: center;
 		}
-		.mainBoard .table-st tr>th,
-		.mainBoard .table-st tr>td {
-			padding: 8px;
+		.td-st {
 			text-indent: 20px;
 		}
-		.mainBoard .table-st tr>th {
-			font-size: 14px;
-			background-color: #DDD;
- 			border-radius: 10px 10px 0 0;
+		.contentPage {
+			padding-top: 35px;
+			text-align: center;
 		}
-		.mainBoard .table-st tr>th>a,
-		.mainBoard .table-st tr>th>a:hover,
-		.mainBoard .table-st tr>th>a:focus,
-		.mainBoard .table-st tr>th>a:active {
-			color: black;
+		.contentBtn button {
+			margin-left: 10px;
+		}
+		.pagination>.active>a.pageBtn, 
+		.pagination>.active>a.pageBtn:hover, 
+		.pagination>.active>a.pageBtn:focus {
+			background-color: #5BC0DE;
+			border-color: #5BC0DE;
+		}
+		.btn-st{
 			float: right;
-			margin-right: 10px;
+			margin-left: 10px;
+		}
+		.modal-sz {
+			height: 240px;
+		}
+		.td-st a,
+		.td-st a:focus,
+		.td-st a:visited {
+			color: #333;
 			text-decoration: none;
 		}
-		.mainBoard .table-st tr>td {
-			border-top: 1px solid #DDD;
+		.td-st a:hover {
+			color: #333;
+			cursor: pointer;
+			font-weight: 600;
+			text-decoration: underline;
+		}
+		.img-st {
+			width: 80px;
+			height: 80px;
+			border-radius: 100%;
+		}
+		.dis-st {
+			display: flex;
+		}
+		.img-st {
+			width: 80px;
+			height: 80px;
+			border-radius: 100%;
+		}
+		.infoContent span {
+			margin-left: 20px;
+			line-height: 25px;
+		}
+		.infoContent .big {
+			font-size: 30px;
+		}
+		.infoContent .small {
+			font-size: 15px;
+		}
+		.font-im {
+			color: red;
 		}
 	</style>
 </head>
 <body>
 	<div>
 		<c:import url="../default/adminHeader.jsp" />
-		<div id="mainContent">
+		<div id="main">
 			<div class="mainContent">
 				<c:import url="../default/adminSidebar.jsp" />
-				<div class="mainBoard">
-					<div style="width: 940px; padding: 40px;">
-			<div style="display: flex;">
-				<div>
-					<c:choose>
-						<c:when test="${userInfo.m_picture != null}">
-							<img src="/img/memberImage/${userInfo.m_picture}" width="80"
-								height="80" alt="프로필사진" style="border-radius: 100%">
-						</c:when>
-						<c:otherwise>
-							<img
-								src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
-								width="80" height="80" alt="프로필사진">
-						</c:otherwise>
-					</c:choose>
-				</div>
 
-				<div style="margin-left: 20px;">
-					<span style="font-size: 30px;"><b>${userInfo.m_nick }</b></span>
+				<!-- CONTENT -->
+				<div class="divContent">
 					<div>
-						<span style="font-size: 15px;"> ${userInfo.m_rank} </span>
-						<div>
-							<span>총 게시글 <em style="color: red;">${boardcount}</em>개
-							</span><span style="color: #eee;"> | </span><span>총 댓글 <em
-								style="color: red;">${replycount}</em>개
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
+						<form id="contentForm">
+
+							<!-- 이미지 출력 -->
+							<div class="dis-st">
+								<div class="imgContent">
+									<c:choose>
+										<c:when test="${userInfo.m_picture != null}">
+											<img src="/img/memberImage/${userInfo.m_picture}"
+												alt="프로필사진" class="img-st">
+										</c:when>
+										<c:otherwise>
+											<img
+												src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png"
+												alt="프로필사진" class="img-st">
+										</c:otherwise>
+									</c:choose>
+								</div>
+
+								<!-- 회원정보 출력  -->
+								<div class="infoContent">
+									<span class="big"><b>${userInfo.m_nick}</b></span>
+									<div>
+										<span class="small">${userInfo.m_rank}</span>
+										<div class="infoDiv">
+											<span>총 게시글 <em class="font-im"> ${boardcount}</em>개</span>
+											<span>총 댓글 <em class="font-im"> ${replycount}</em>개</span>
+										</div>
+									</div>
+								</div>
+							</div>
 			<hr>
 			<c:choose>
 				<c:when test="${sessionScope.m_id eq param.id }">
@@ -125,8 +227,10 @@
 				</c:choose>
 			</div>
 
-		</div>
+						</form>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
