@@ -43,7 +43,20 @@
 			} else {
 				$("input[type=checkbox]").prop("checked", false);
 			}
-		})
+		});
+		
+		// 체크박스 선택 시 버튼 활성화
+		$('.chkBox').click(function() {
+		    var boxSize = $(".chkBox").length;						// 목록 값 수
+		    var chkSize = $(".chkBox:checked").length;				// 체크된 값 수
+
+		    // 목록 개수와 선택된 개수가 같을 경우 전체 선택 버튼 활성화
+			if (boxSize == chkSize) {
+				$("#allCheck").prop("checked", true);
+			} else {
+				$("#allCheck").prop("checked", false);
+			}
+		});
 	})
 </script>
 </head>
