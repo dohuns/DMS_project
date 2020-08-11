@@ -74,6 +74,9 @@
 		body #main {
 			height: 95%;
 		}
+		#main a {
+			color: black;
+		}
 		.mainContent {
 			display: flex;
 			height: 100%;
@@ -90,13 +93,6 @@
 		}
 		.td-st {
 			text-indent: 20px;
-		}
-		.contentPage {
-			padding-top: 35px;
-			text-align: center;
-		}
-		.contentBtn button {
-			margin-left: 10px;
 		}
 		.pagination>.active>a.pageBtn, 
 		.pagination>.active>a.pageBtn:hover, 
@@ -138,16 +134,31 @@
 		}
 		.infoContent span {
 			margin-left: 20px;
-			line-height: 25px;
+			line-height: 26px;
 		}
 		.infoContent .big {
-			font-size: 30px;
+			font-size: 25px;
 		}
 		.infoContent .small {
-			font-size: 15px;
+			font-size: 14px;
 		}
 		.font-im {
 			color: red;
+		}
+		.font-title,
+		.font-title a,
+		.font-title a:focus,
+		.font-title a:visited {
+			color: #000;
+			font-size: 14px;
+			margin-right: 5px;
+		}
+		.font-title span {
+			color: #EEE;
+			margin-right: 5px;
+		}
+		#contentForm hr {
+			width: 800px;
 		}
 	</style>
 </head>
@@ -192,47 +203,37 @@
 									<div>
 										<span class="small">${userInfo.m_rank}</span>
 										<div class="infoDiv">
-											<span>총 게시글 <em class="font-im"> ${boardcount}</em>개</span>
-											<span>총 댓글 <em class="font-im"> ${replycount}</em>개</span>
+											<span>총 게시글 <em class="font-im"> ${boardcount}</em> 개</span>
+											<span>총 댓글 <em class="font-im"> ${replycount}</em> 개</span>
 										</div>
 									</div>
 								</div>
 							</div>
-			<hr>
-			<c:choose>
-				<c:when test="${sessionScope.m_id eq param.id }">
-					<div style="font-size: 15px; color: black;">
-						<a href="myList?id=${param.id }&page=1" id="myWrite"
-							style="color: black;">작성글</a><span style="color: #eee;"> |
-						</span><a href="myList?id=${param.id }&page=2" id="myReply"
-							style="color: black;">작성 댓글</a><span style="color: #eee;">
-							| </span><a href="myList?id=${param.id }&page=3" id="myReplyWrite"
-							style="color: black;">댓글단 글</a>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div style="font-size: 15px; color: black;">
-						<a href="myList?id=${param.id }&page=1" id="myWrite"
-							style="color: black;">작성글</a><span style="color: #eee;"> |
-						</span><a href="myList?id=${param.id }&page=3" id="myReplyWrite"
-							style="color: black;">댓글단 글</a>
-					</div>
-				</c:otherwise>
-			</c:choose>
 
-			<div class="list" style="padding-top: 10px;">
-				<c:choose>
-					<c:when test="${param.page == 1 }">
-						<c:import url="/myWrite" />
-					</c:when>
-					<c:when test="${param.page == 2 }">
-						<c:import url="/myReply" />
-					</c:when>
-					<c:otherwise>
-						<c:import url="/myReplyWrite" />
-					</c:otherwise>
-				</c:choose>
-			</div>
+							<!-- ID 값을 비교하여 선택한 탭 색상 변경 -->
+							<hr align="left">
+							<div class="font-title">
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=1" id="myWrite">작성글</a>
+								<span>|</span>
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=2" id="myReply">작성 댓글</a>
+								<span>|</span>
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=3" id="myReplyWrite">댓글단 글</a>
+							</div>
+
+							<!-- 작성 글 -->
+							<div class="list" style="padding-top: 10px;">
+								<c:choose>
+									<c:when test="${param.page == 1 }">
+										<c:import url="/myWrite?id=${userInfo.m_id}" />
+									</c:when>
+									<c:when test="${param.page == 2 }">
+										<c:import url="/myReply?id=${userInfo.m_id}" />
+									</c:when>
+									<c:otherwise>
+										<c:import url="/myReplyWrite?id=${userInfo.m_id}" />
+									</c:otherwise>
+								</c:choose>
+							</div>
 
 						</form>
 					</div>
