@@ -7,66 +7,6 @@
 	<meta charset="UTF-8">
 	<title>회원 관리</title>
 	<script src="//code.jquery.com/jquery-latest.min.js"></script>
-	<script>
-		$(function() {
-			// 체크박스 전체 선택
-			$("#chkBox").click(function() {
-				var chk = $("#chkBox").prop("checked");
-			    var boxSize = $(".chkBoxs").length;
-				if(chk) {
-					$(".chkBoxs").prop("checked", true);
-					if(boxSize > 0) {
-						$(".contentBtn button").prop("disabled", false);
-					}
-				} else {
-					$(".chkBoxs").prop("checked", false);
-					$(".contentBtn button").prop("disabled", true);
-				}
-			});
-
-			// 체크박스 선택 시 버튼 활성화
-			$('.chkBoxs').click(function() {
-				var chkBox = $(this).prop('checked');					// 클릭한 값이 체크되도록 지정
-			    var boxSize = $(".chkBoxs").length;						// 목록 값 수
-			    var chkSize = $(".chkBoxs:checked").length;				// 체크된 값 수
-			    
-				// 전체 선택 || 체크박스 하나 이상 선택 시 버튼 활성화
-				if (chkBox == true || chkSize > 0) {
-					$(".contentBtn button").prop("disabled", false);
-				} else {
-					$(".contentBtn button").prop("disabled", true);
-				}
-
-			    // 목록 개수와 선택된 개수가 같을 경우 전체 선택 버튼 활성화
-				if (boxSize == chkSize) {
-					$("#chkBox").prop("checked", true);
-				} else {
-					$("#chkBox").prop("checked", false);
-				}
-			});
-		});
-
-		// 계정 삭제(탈퇴회원으로 변경)
-		function delRank() {
-			var message = confirm("선택한 회원 정보를 삭제하시겠습니까?");
-			if (message) {
-				$('#contentForm').submit();
-			}
-		}
-
-		// MODAL 출력(선택한 값 포함)
-		function updRank() {
-			var m_idChk = [];
-			var html = "";
-			$.each($("input[name=m_idChk]:checked"), function() {
-				m_idChk.push($(this).val());
-			});
-			$("#idArr")
-					.html(
-							"<input type='hidden' name='m_idChk' value='" + m_idChk + "'>");
-			$('#upd-Rank').modal('show');
-		}
-	</script>
 	<style>
 		html, body, div {
 			height: 95%;
@@ -125,6 +65,7 @@
 			border-radius: 100%;
 		}
 		.dis-st {
+			width: 800px;
 			display: flex;
 		}
 		.img-st {
@@ -159,6 +100,9 @@
 		}
 		#contentForm hr {
 			width: 800px;
+		}
+		#memberContent {
+			margin-top: 10px;
 		}
 	</style>
 </head>
@@ -213,24 +157,24 @@
 							<!-- ID 값을 비교하여 선택한 탭 색상 변경 -->
 							<hr align="left">
 							<div class="font-title">
-								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=1" id="myWrite">작성글</a>
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=1" id="memberWrite">작성글</a>
 								<span>|</span>
-								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=2" id="myReply">작성 댓글</a>
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=2" id="memberAnswer">작성 댓글</a>
 								<span>|</span>
-								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=3" id="myReplyWrite">댓글단 글</a>
+								<a href="adminMemberInfo?cus_id=${userInfo.m_id}&page=3" id="memberReply">댓글단 글</a>
 							</div>
 
-							<!-- 작성 글 -->
-							<div class="list" style="padding-top: 10px;">
+							<!-- 해당 회원 작성글 확인 -->
+							<div id="memberContent">
 								<c:choose>
-									<c:when test="${param.page == 1 }">
-										<c:import url="/myWrite?id=${userInfo.m_id}" />
+									<c:when test="${param.page == 1}">
+										<c:import url="adminMemberContent?id=${userInfo.m_id}" />
 									</c:when>
-									<c:when test="${param.page == 2 }">
-										<c:import url="/myReply?id=${userInfo.m_id}" />
+									<c:when test="${param.page == 2}">
+										<c:import url="adminMemberContent?id=${userInfo.m_id}" />
 									</c:when>
 									<c:otherwise>
-										<c:import url="/myReplyWrite?id=${userInfo.m_id}" />
+										<c:import url="adminMemberContent?id=${userInfo.m_id}" />
 									</c:otherwise>
 								</c:choose>
 							</div>

@@ -77,10 +77,12 @@
 			<c:choose>
 				<c:when test="${myList != '[]'}">
 					<c:choose>
+						<!-- 관리자 / 본인 -->
 						<c:when test="${sessionScope.m_id eq param.id || sessionScope.m_rankNum == 1 }">
 							<c:forEach var="list" items="${myList}">
 								<tr>
-									<td colspan="1" align="left"><div
+									<td colspan="1" align="left">
+									<div
 											style="display: flex; font-size: 15px; height: 35px; align-items: center;">
 											<div style="width: 30px;">
 												<input type="checkbox" class="chkBox" value="${list.b_num }">
@@ -115,6 +117,7 @@
 								</td>
 							</tr>
 						</c:when>
+						<!-- 타인 확인 -->
 						<c:otherwise>
 							<c:forEach var="list" items="${myList}">
 								<tr>

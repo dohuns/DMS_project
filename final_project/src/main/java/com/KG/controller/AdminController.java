@@ -21,6 +21,7 @@ import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoaAdminListServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
+import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 import com.KG.service.customer.CustomerContentServImpl;
@@ -79,6 +80,16 @@ public class AdminController {
 		return "admin/adminMemberInfo";
 	}
 
+	// 회원 관리 : 회원 목록 출력 > 회원 정보 출력 > 내가 쓴 글 확인
+	@RequestMapping("adminMemberContent")
+	public String adminMemberContent(Model model, String cus_id, int page) {
+		model.addAttribute("id", cus_id);
+		model.addAttribute("page", page);
+		boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
+		boaSideServ.execute_Boo(model);
+		return "admin/adminMemberContent";
+	}
+
 	// 회원 관리 추가 예정 : 아이디 선택 시 해당 회원의 정보 출력 : 버튼 클릭 시 수정 가능
 
 	// 서비스 관리 : 문의 내역 출력
@@ -129,13 +140,13 @@ public class AdminController {
 		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
 	}
 
-	// 서비스 관리 : 사이트 설정 > 카테고리 항목 추가
+	// 사이트 설정 : 사이트 설정 > 카테고리 항목 추가
 	@RequestMapping("boardList")
 	public String boardList(Model model) {
 		return "admin/boardList";
 	}
 
-	// 서비스 관리 : 사이트 설정 > 카테고리 위치 변경
+	// 사이트 설정 : 사이트 설정 > 카테고리 위치 변경
 	@RequestMapping("boardChange")
 	public String boardChange(Model model) {
 		boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
