@@ -22,10 +22,9 @@
 }
 
 .movieImage {
-	margin: 0 10px;
-	width:140px;
+	margin: 0;
+	width:189px;
 	text-align:center;
-	border: 5px solid black;
 }
 
 .movieText {
@@ -84,11 +83,21 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .movieArea {
-	width:199px;
+	width:189px;
 	text-align: left;
 	display: block;
-	margin: 0 10px;
-	padding: 0 10px;
+	margin: 0;
+	padding: 0;
+}
+.movieMove{
+	width:21px;
+	height:270px;
+	margin-top:77px;
+	padding-top:130px;
+	background-color: black;
+}
+.Bmove{
+color: white;
 }
 </style>
 <script type="text/javascript">
@@ -107,12 +116,10 @@ a:link, a:visited, a:hover, a:active {
 					type : "POST",
 					success : function(list) {
 						var base = '';
-						base += '<ul id="movieRank">'
+						base += '<div onclick="prevMovie()" class="movieMove"><b class="Bmove"><</b></div>'
+								+'<ul id="movieRank">'
 								+ '</ul>'
-								+ '<div style="height:100px;">'
-								+ '<a class="leftBtn" onclick="prevMovie()"><img src="/img/leftArrow.png" style="width:100px;"></a>'
-								+ '<a class="rightBtn" onclick="nextMovie()"><img src="/img/rightArrow.png" style="width:100px;"></a>'
-								+ '</div>';
+								+ '<div onclick="nextMovie()" class="movieMove"><b class="Bmove">></b></div>';
 						$(".movieRankArea").html(base);
 						var html = '';
 						for (var i = 0; i < 9; i += 4) {
@@ -126,7 +133,7 @@ a:link, a:visited, a:hover, a:active {
 									+ '위</label>'
 									+ '			<figure class="movieImage">'
 									+ '				<a id="a'+ i +'" target="_blank">'
-									+ '					<img id="im'+ i +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1099/109982_P03_133458.jpg" width=130px;>'
+									+ '					<img id="im'+ i +'" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1099/109982_P03_133458.jpg" width=189px; height="270px;">'
 									+ '				</a>'
 									+ '			</figure>'
 									+ '			<div class="movieContent">'
@@ -148,7 +155,7 @@ a:link, a:visited, a:hover, a:active {
 									+ '" target="_blank">'
 									+ '					<img id="im'
 									+ (i + 1)
-									+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1028/102875_P42_100733.jpg" width=130px;>'
+									+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1028/102875_P42_100733.jpg" width=189px; height="270px;">'
 									+ '				</a>'
 									+ '			</figure>'
 									+ '			<div class="movieContent">'
@@ -170,7 +177,7 @@ a:link, a:visited, a:hover, a:active {
 										+ '" target="_blank">'
 										+ '					<img id="im'
 										+ (i + 2)
-										+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1142/114276_P04_111037.jpg" width=130px;>'
+										+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1142/114276_P04_111037.jpg" width=189px; height="270px;">'
 										+ '				</a>'
 										+ '			</figure>'
 										+ '			<div class="movieContent">'
@@ -192,7 +199,7 @@ a:link, a:visited, a:hover, a:active {
 										+ '" target="_blank">'
 										+ '					<img id="im'
 										+ (i + 3)
-										+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1300/130013_P05_132145.jpg" width=130px;>'
+										+ '" src="https://ssl.pstatic.net/imgmovie/mdi/mit110/1300/130013_P05_132145.jpg" width=189px; height="270px;">'
 										+ '				</a>'
 										+ '			</figure>'
 										+ '			<div class="movieContent">'
@@ -284,7 +291,7 @@ a:link, a:visited, a:hover, a:active {
 				<label style="font-size: 36px;">일일 박스 오피스</label>
 			</div>
 			<!-- 영화 차트 순위권 출력 -->
-			<div class="movieRankArea" align="center">
+			<div class="movieRankArea" align="center" style="display: flex;">
 				<div align="center" style="margin: 40px 0; width: 100%;">
 					<label style="font-size: 24px;"> 영화 정보 불러오는중~ </label>
 				</div>
