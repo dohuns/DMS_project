@@ -237,7 +237,7 @@
 	<!-- 게시판 전부 가져오기 -->
 	<select id="getArticle" resultType="boardDTO">
 		SELECT * FROM board 
-			WHERE b_articleNum IS NOT NULL
+			WHERE b_articleNum IS NOT NULL and b_catenum is null
 	</select>
 	
 	<!-- 게시글 수정 -->
@@ -356,5 +356,19 @@
 	<select id="likeMemberList" resultType="hashMap">
 		SELECT * FROM likeData JOIN member ON likeData.l_id = member.m_id 
         	WHERE l_boardNum = #{boardNum}
+	</select>
+
+	<!-- /////////////////////////////////////////////////////////////////////////////// -->
+	<!-- 관리자페이지 공지사항 출력 -->
+	<!-- 글 목록(메인페이지) -->
+	<select id="adminMainNotice" parameterType="hashMap"
+		resultType="boardDTO">
+		SELECT ROWNUM rn, A.* FROM (
+		SELECT * FROM board
+		WHERE
+		b_title is not null and b_category = '공지사항'
+		ORDER BY b_group DESC ,
+		b_sortnum ASC
+		)A
 	</select>
 </mapper>

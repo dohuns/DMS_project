@@ -292,19 +292,19 @@
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
-
-	<!-- PAGING -->
-	<c:choose>
-		<c:when test="${param.pageNum == null}">
-			<c:set var="pageNum" value="0" />
-			<c:set var="next" value="0" />
-		</c:when>
-		<c:otherwise>
-			<c:set var="pageNum" value="${param.pageNum}" />
-			<c:set var="next" value="${param.next}" />
-		</c:otherwise>
-	</c:choose>
+		<c:import url="../default/customerHeader.jsp" />
+	
+		<!-- PAGING -->
+		<c:choose>
+			<c:when test="${param.pageNum == null}">
+				<c:set var="pageNum" value="0" />
+				<c:set var="next" value="0" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="pageNum" value="${param.pageNum}" />
+				<c:set var="next" value="${param.next}" />
+			</c:otherwise>
+		</c:choose>
 
 		<!-- CONTENT -->
 		<div class="container">
@@ -390,38 +390,37 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${AllCustomerList}">
-														<tr>
-															<td><small>${list.cus_num}</small></td>
-															<td class="tdClass">
-																<c:choose>
-																	<c:when test="${list.cus_pub eq 'close'}">
-																		<a onclick="contentPwChk(${list.cus_num},'${list.cus_pw}')">${list.cus_title}</a>
-																		<span class="glyphicon glyphicon-lock"></span> &nbsp;
-																	</c:when>
-																	<c:otherwise>
-																		<a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a>
-																	</c:otherwise>
-																</c:choose>
-															</td>
-															<td>${list.cus_nick}</td>
-															<td><small>${list.cus_category}</small></td>
-															<td><small>${list.cus_date}</small></td>
-															<td>
-																<c:choose>
-																	<c:when test="${list.cus_reNum == 0}">
-																		<span class="btn btn-xs btn-success">답변 대기</span>
-																	</c:when>
-																	<c:when test="${list.cus_reNum == 1}">
-																		<span class="btn btn-xs btn-danger">답변 완료</span>
-																	</c:when>
-																	<c:otherwise>
-																		<span class="btn btn-xs btn-default">답변 보류</span>
-																	</c:otherwise>
-																</c:choose>
-															</td>
-														</tr>
-													</c:forEach>
+													<c:choose>
+														<c:when test="${not empty AllCustomerList}">
+															<c:forEach var="list" items="${AllCustomerList}">
+																<tr>
+																	<td><small>${list.cus_num}</small></td>
+																	<td class="tdClass">
+																		<c:choose>
+																			<c:when test="${list.cus_pub eq 'close'}">
+																				<a onclick="contentPwChk(${list.cus_num},'${list.cus_pw}')">${list.cus_title}</a>
+																				<span class="glyphicon glyphicon-lock"></span> &nbsp;
+																			</c:when>
+																			<c:otherwise>
+																				<a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a>
+																			</c:otherwise>
+																		</c:choose>
+																	</td>
+																	<td>${list.cus_nick}</td>
+																	<td><small>${not empty list.cus_category ? list.cus_category : "문의 해결"}</small></td>
+																	<td><small>${list.cus_date}</small></td>
+																	<td><span>
+																		<small>${list.cus_reNum == 0 ? "답변 대기" : list.cus_reNum == 1 ? "답변 완료" : "<font color='red'>처리 중</font>"}</small>
+																	</span></td>
+																</tr>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td colspan="6">작성된 문의글이 없습니다.</td>
+															</tr>
+														</c:otherwise>
+													</c:choose>
 												</tbody>
 											</table>
 										</div>

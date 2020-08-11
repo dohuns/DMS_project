@@ -1,7 +1,6 @@
 package com.KG.service.admin.member;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import com.KG.dao.AdminDAO;
 import com.KG.dto.MemberDTO;
 
 @Service
-public class AdminRankServImpl implements AdminService {
+public class AdminMemberListServImpl implements AdminService {
 	@Autowired
 	AdminDAO adminDAO;
 
@@ -23,16 +22,16 @@ public class AdminRankServImpl implements AdminService {
 
 		int m_rankNum = memberDTO.getM_rankNum();
 		int pageNum = memberDTO.getPageNum();
-		int getRankCount = adminDAO.getRankCount(m_rankNum);
+		int memberCount = adminDAO.memberCount(m_rankNum);
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		hash.put("start", pageNum * 15 + 1);
 		hash.put("end", pageNum * 15 + 15);
 		hash.put("m_rankNum", m_rankNum);
 
-		model.addAttribute("rankList", adminDAO.rankList(hash));
-		model.addAttribute("getRankCount", getRankCount);
-		model.addAttribute("totalNum", (getRankCount % 15 == 0 ? getRankCount / 15 : getRankCount / 15 + 1) );
+		model.addAttribute("memberList", adminDAO.memberList(hash));
+		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("totalNum", (memberCount % 15 == 0 ? memberCount / 15 : memberCount / 15 + 1) );
 	}
 
 	@Override

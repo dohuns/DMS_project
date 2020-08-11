@@ -18,7 +18,7 @@ public class CustomerContentServImpl implements CustomerService {
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		int cus_num = (Integer) map.get("cus_num");
-		model.addAttribute("inquiryContent", customerDAO.selectInquiryContent(cus_num));
+		model.addAttribute("inquiryContent", customerDAO.inquiryContent(cus_num));
 	}
 
 	@Override

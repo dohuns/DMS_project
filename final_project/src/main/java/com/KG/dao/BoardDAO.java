@@ -20,7 +20,13 @@ public class BoardDAO {
 	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
 	/////////////////////////// 사이드바 /////////////////////////////////
-	
+
+	// 관리자페이지
+	// 메인 화면 : 공지사항 출력
+	public List<BoardDTO> adminMainNotice() {
+		return sqlSession.selectList(namespace + ".adminMainNotice");
+	}
+
 	// 사이드바 리스트
 	public List<BoardDTO> sidebarlist(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".sidebarlist" , boardDTO);
@@ -279,8 +285,8 @@ public class BoardDAO {
 	}
 	
 	// 추천 비추천 누른지 구분
-	public String getLike(String id) {
-		return sqlSession.selectOne(namespace + ".getLike" , id);
+	public String getLike(LikeDTO dto) {
+		return sqlSession.selectOne(namespace + ".getLike" , dto);
 	}
 
 	// 추천 비추천 누른 멤버 확인(글번호)

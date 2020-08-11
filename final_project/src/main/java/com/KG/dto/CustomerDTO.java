@@ -6,6 +6,7 @@ public class CustomerDTO {
 
 	private int cus_rn;					// PAGING 번호
 	private int cus_num;				// 게시글 번호
+	private int cus_group;				// 답글용 번호
 	private int cus_reNum;				// 답글 번호
 	private int cus_categoryNum;		// 카테고리 번호
 	private String cus_category;		// 카테고리 명
@@ -33,6 +34,14 @@ public class CustomerDTO {
 
 	public void setCus_num(int cus_num) {
 		this.cus_num = cus_num;
+	}
+
+	public int getCus_group() {
+		return cus_group;
+	}
+
+	public void setCus_group(int cus_group) {
+		this.cus_group = cus_group;
 	}
 
 	public int getCus_reNum() {

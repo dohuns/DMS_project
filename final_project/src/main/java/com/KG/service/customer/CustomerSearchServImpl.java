@@ -22,14 +22,14 @@ public class CustomerSearchServImpl implements CustomerService {
 
 		String cus_nick = (String) map.get("cus_nick");
 		int pageNum = customerDTO.getPageNum();
-		int pageCount = customerDAO.inquirySearchCount(cus_nick);
+		int pageCount = customerDAO.selectSearchCount(cus_nick);
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		hash.put("start", pageNum * 15 + 1);
 		hash.put("end", pageNum * 15 + 15);
 		hash.put("cus_nick", cus_nick);
 
-		model.addAttribute("searchList", customerDAO.inquirySearch(hash));
+		model.addAttribute("searchList", customerDAO.inquirySearchList(hash));
 		model.addAttribute("search_nick", cus_nick);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("totalNum", (pageCount % 15 == 0 ? pageCount / 15 : pageCount / 15 + 1));
