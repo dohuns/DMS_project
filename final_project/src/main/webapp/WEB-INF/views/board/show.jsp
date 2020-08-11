@@ -145,15 +145,19 @@ textarea:focus {
    margin: 10px 12px 10px 10px;
 }
 .CLArea {
-margin-top: 20px; 
-display: flex;
+	margin-top: 20px; 
+	display: flex;
 }
 .commentCount {
-width: 50%; 
-padding-top: 11px;
+	width: 50%; 
+	padding-top: 11px;
 }
 .likeCount {
-width: 50%;
+	width: 50%;
+}
+.fileTitle {
+	font-weight: bold;
+	font-size: large;
 }
 
 
@@ -1045,7 +1049,7 @@ width: 50%;
             </div>
             
             <c:if test="${fn:length(fileList) > 0 }">
-               <span>파일 목록</span>
+               <span class="fileTitle">파일 목록</span>
             </c:if>
             <div>
                <c:forEach var="file" items="${fileList}">
@@ -1145,16 +1149,15 @@ width: 50%;
             <button type="button" id="btnMD04" class="btn btn-dmsDefault" style="font-weight: 900;">삭제</button>
          </div>
          <div style="float: right;">
-            <button type="button" id="btnList02" class="btn btn-dmsDefault" style="font-weight: 900" onclick="gkgk()">목록</button>
+            <button type="button" id="btnList02" class="btn btn-dmsDefault" style="font-weight: 900">목록</button>
          </div>
       </div>
    </div>
 </div>
 </div>
-<div style="margin-top: 20px;">
-			<c:import url="../default/footer.jsp" />
-		</div>
-
+	<div style="margin-top: 20px;">
+		<c:import url="../default/footer.jsp" />
+	</div>
 </div>
 
 </body>
