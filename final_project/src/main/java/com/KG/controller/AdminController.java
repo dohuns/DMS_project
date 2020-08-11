@@ -80,16 +80,6 @@ public class AdminController {
 		return "admin/adminMemberInfo";
 	}
 
-	// 회원 관리 : 회원 목록 출력 > 회원 정보 출력 > 내가 쓴 글 확인
-	@RequestMapping("adminMemberContent")
-	public String adminMemberContent(Model model, String cus_id, int page) {
-		model.addAttribute("id", cus_id);
-		model.addAttribute("page", page);
-		boaSideServ = (BoaUserBoardListServImpl) AC.ac.getBean("boaUserBoardListServImpl");
-		boaSideServ.execute_Boo(model);
-		return "admin/adminMemberContent";
-	}
-
 	// 회원 관리 추가 예정 : 아이디 선택 시 해당 회원의 정보 출력 : 버튼 클릭 시 수정 가능
 
 	// 서비스 관리 : 문의 내역 출력

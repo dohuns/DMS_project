@@ -91,12 +91,12 @@
 
 				<!-- PAGING -->
 				<c:choose>
-					<c:when test="${param.pageNum == null}">
-						<c:set var="pageNum" value="0" />
+					<c:when test="${param.artiNum == null}">
+						<c:set var="artiNum" value="0" />
 						<c:set var="next" value="0" />
 					</c:when>
 					<c:otherwise>
-						<c:set var="pageNum" value="${param.pageNum}" />
+						<c:set var="artiNum" value="${param.artiNum}" />
 						<c:set var="next" value="${param.next}" />
 					</c:otherwise>
 				</c:choose>
@@ -116,29 +116,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:choose>
-									<c:when test="${not empty myList}">
-										<c:forEach var="list" items="${myList}">
-											<tr>
-												<td class="td-sa">${list.cus_num}</td>
-												<td class="td-st">
-													<a class="title-a" onclick="location.href='adminInquiryContent?cus_num=${list.cus_num}'">${list.cus_title}</a>
-												</td>
-												<td class="td-st">${list.cus_nick}</td>
-												<td class="td-sa">${list.cus_date}</td>
-												<td class="td-sa">
-													<button type="button"
-														class='<c:out value="${list.cus_reNum == 0 ? 'btn btn-xs btn-success' : list.cus_reNum == 1 ? 'btn btn-xs btn-danger' : 'btn btn-xs btn-default'}" />'>
-														<c:out value="${list.cus_reNum == 0 ? '답변 대기' : list.cus_reNum == 1 ? '답변 완료' : '답변 보류'}" />
-													</button>
-												</td>
-											</tr>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<tr><td colspan="5" class="td-sa">문의글이 존재하지 않습니다.</td></tr>
-									</c:otherwise>
-								</c:choose>
 
 								<tr>
 									<td colspan="5">

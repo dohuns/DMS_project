@@ -25,7 +25,6 @@ public class BoaUserInfoServImpl implements BoardSidebarService {
 		Map<String, Object> map = model.asMap();
 		
 		String id = (String) map.get("id");
-		
 		model.addAttribute("userInfo" , boardDAO.userInfo(id));
 		model.addAttribute("boardcount" , boardDAO.boardCount(id));
 		model.addAttribute("replycount" , boardDAO.replyCount(id));
