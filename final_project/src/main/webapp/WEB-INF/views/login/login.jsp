@@ -8,6 +8,8 @@
 <meta name="google-signin-client_id"
 	content="117371344622-2cj0jdfcjbjgud7p47kucda54ucnqetu.apps.googleusercontent.com">
 <title>login</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
@@ -48,6 +50,11 @@
 .lb1 {
 	color: #FF1616;
 }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+
+
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -69,7 +76,6 @@
 							};
 							// 쿠키 값이 있을 때 ID 자동으로 넣어주기
 							var userId = $.cookie("cookieId");
-							console.log("들어옴 : " + userId);
 							if (userId != null) {
 								$("#m_id").val(userId);
 								$("#remember_me").prop('checked', true);
@@ -151,20 +157,26 @@
 	});
 	var token = "";
 	// 구글 로그인
-	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-		if (token == 1 && profile.getEmail() != null
-				&& profile.getEmail() != "") {
-			location.href = "login/googleCallback?email=" + profile.getEmail();
-		}
-	}
-	function makeToken() {
-		token = 1;
-	}
+  	var googleUser = {};
+  	var startApp = function() {
+   		gapi.load('auth2', function(){
+	    	auth2 = gapi.auth2.init({
+	        client_id: '117371344622-2cj0jdfcjbjgud7p47kucda54ucnqetu.apps.googleusercontent.com',
+	        cookiepolicy: 'single_host_origin',
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+	
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		location.href = "login/googleCallback?email=" + googleUser.getBasicProfile().getEmail();
+        }, function(error) {
+        	alert(JSON.stringify(error, undefined, 2));
+        });
+  }
 </script>
 </head>
 <body>
@@ -218,17 +230,29 @@
 								</div>
 							</div>
 						</fieldset>
-						<div align="center">
-							<div>
-								<a href="${url}"><img height="40"
-									src="/movie/resources/naverBtn.PNG" /></a>
+						<!-- 외부 로그인 -->
+						<div style="padding: 20px 0 20px 0;">
+							<!-- 네이버 로그인 -->
+							<div style="margin-bottom: 10px;">
+								<a href="${url}"><img height="60" style="width:100%"
+									src="https://ssl.nx.com/S2/p3/login/2016/bt_naver1.gif"/></a>
 							</div>
-							<div class="g-signin2" data-onsuccess="onSignIn"
-								onclick="makeToken()" style="width: 180px; height: 40px;"></div>
+							<!-- 구글 로그인 -->
+							<div id="gSignInWrapper">
+						    <div id="customBtn" class="customGPlusSignIn">
+						   		<img src="https://ssl.nx.com/S2/p3/login/2016/bt_google1.gif" height="60"
+						   			style="width:100%">
+						    </div>
+						  </div>
+						  <script>startApp();</script>
 						</div>
+						
 					</form>
 				</div>
 			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
 		</div>
 	</div>
 

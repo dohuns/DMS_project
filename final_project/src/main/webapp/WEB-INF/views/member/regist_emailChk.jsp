@@ -29,7 +29,6 @@
 						<h1>인증번호 입력 페이지</h1>
 					</div>
 					<div align="left">
-						${dice}
 						<form action="chk_certification/${dice}" method="POST"
 							style="width: 500px;">
 							<input type="text" name="certificationNum"
@@ -40,7 +39,9 @@
 				</div>
 			</div>
 		</div>
-
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
+		</div>
 	</div>
 </body>
 </html>

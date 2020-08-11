@@ -15,23 +15,33 @@
 			background-color: #5BC0DE;
 			color: white;
 		}
-
+		.bt-a {
+			float: right;
+		}
+		.bt-b {
+			float: center;
+		}
 		.mt-60 {
 			margin-top: 60px;
 		}
-
 		.pt-40 {
 			padding-top: 40px;
 			text-align: center;
 		}
-
-		.bt-a {
-			text-align: right;
+		.bg-st {
+			margin-top: 50px;
 		}
 	</style>
 
-	<!-- 비밀번호 확인 -->
 	<script>
+		// <br>을 \n처리
+		$(function() {
+			var data = $("#cus_content").val()
+			data = data.replace(/<br\/>/gi, '\n');
+			$("#cus_content").val(data);
+		});
+
+		// 비밀번호 확인
 		function contentPwChk(cus_num, cus_pw) {
 			$("#openPwChk").remove();
 			console.log("content_ cus_num : " + cus_num + ", cus_pw : " + cus_pw);
@@ -46,7 +56,7 @@
 				'					<p><b>비밀번호를 입력해주세요.</b></p>' +
 				'					<div class="panel-body">' +
 				'						<form id="PwChk-form" role="form" autocomplete="off" class="form"' +
-				'							action="deletePwChk" method="GET">' +
+				'							action="deleteChk" method="GET">' +
 				'							<div class="form-group">' +
 				'								<div class="input-group">' +
 				'									<span class="input-group-addon"><i class="glyphicon fa fa-lock color-blue"></i></span>' +
@@ -71,22 +81,24 @@
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 
-	<div id="openPw"></div>
-	<div class="container" id="openPwChk">
+	<div class="bg-st" id="openPw"></div>
+	<div class="container bg-st" id="openPwChk">
 		<div class="row mt-60">
 			<div class="content-body">
 				<div class="main-box-container">
 					<div class="box">
 						<div class="col-md-8 col-md-offset-2">
-							<form action="#" method="GET">
+							<form action="inquiryUpdate" method="POST">
 								<div class="form-group has-error">
 									<input type="hidden" name="cus_categoryNum" value="${inquiryContent.cus_categoryNum}" />
 									<input type="hidden" name="cus_pw" value="${inquiryContent.cus_pw}" />
 									<input type="hidden" name="cus_num" value="${param.cus_num}" />
-									<input type="text" class="form-control" name="cus_category" readonly="readonly"
-										value="${inquiryContent.cus_category}" />
+									<c:if test="${not empty inquiryContent.cus_category}">
+										<input type="text" class="form-control" name="cus_category" readonly="readonly"
+											value="${inquiryContent.cus_category}" />
+									</c:if>
 								</div>
 
 								<div class="form-group">
@@ -95,11 +107,13 @@
 										value="${inquiryContent.cus_nick}" readonly="readonly"/>
 								</div>
 
-								<div class="form-group">
-									<label for="email">이메일 <span class="require">*</span></label>
-									<input type="text" class="form-control" name="cus_email"
-										value="${inquiryContent.cus_email}" readonly="readonly"/>
-								</div>
+								<c:if test="${not empty inquiryContent.cus_email}">
+									<div class="form-group">
+										<label for="email">이메일 <span class="require">*</span></label>
+										<input type="text" class="form-control" name="cus_email"
+											value="${inquiryContent.cus_email}" readonly="readonly"/>
+									</div>
+								</c:if>
 
 								<div class="form-group">
 									<label for="title">제 목 <span class="require">*</span></label>
@@ -109,14 +123,20 @@
 
 								<div class="form-group">
 									<label for="content">내 용 <span class="require">*</span></label>
-									<textarea rows="5" class="form-control"
+									<textarea rows="5" class="form-control" id="cus_content"
 										name="cus_content" readonly="readonly">${inquiryContent.cus_content}</textarea>
 								</div>
 
-								<div class="form-group bt-a">
-									<button type="button" class="btn btn-default"
-										onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
-									<button type="submit" class="btn bBtn">수   정</button>
+								<div class="form-group">
+									<div class="bt-a">
+										<button type="button" class="btn btn-default"
+											onclick="contentPwChk(${param.cus_num},'${inquiryContent.cus_pw}')">삭   제</button>
+										<button type="submit" class="btn bBtn">수   정</button>
+									</div>
+									<div class="bt-b">
+										<button type="button" class="btn btn-default"
+											onclick="location.href='customerMain'">목록</button>
+									</div>
 								</div>
 
 							</form>

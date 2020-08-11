@@ -66,7 +66,7 @@
 						<td colspan="4">
 							<div style="display: flex; margin-top: 10px;">
 								<div style="width: 100%;" align="right">
-									<a href="#" class="btn btn-info btn-sm" style="color: white;">글
+									<a href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 										쓰기</a>
 								</div>
 							</div>
@@ -82,7 +82,7 @@
 					<tr>
 						<td colspan="4" align="right"
 							style="border-bottom: 1px solid #fff; padding-top: 10px;"><a
-							href="#" class="btn btn-info btn-sm" style="color: white;">글
+							href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 								쓰기</a></td>
 					</tr>
 				</c:otherwise>
@@ -94,7 +94,7 @@
 		<ul class="pagination">
 			<%-- 이전 버튼 --%>
 			<li><c:if test="${artiNum>9}">
-					<a
+					<a class="b"
 						href="myList?id=${param.id }&page=3&next=${next-1}&artiNum=${(next-1)*10+9}">«</a>
 				</c:if></li>
 			<%--게시판 15개 나눈 모음(?) 번호 --%>
@@ -103,21 +103,21 @@
 					<c:forEach begin="${next*10+1}" end="${next*10+10}" step="1"
 						var="cnt">
 						<li
-							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 							href="myList?id=${param.id }&page=3&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<c:forEach begin="${next*10+1}" end="${count}" step="1" var="cnt">
 						<li
-							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a
+							class='<c:out value="${artiNum == cnt-1 ? 'active' : ''}"></c:out>'><a class="b"
 							href="myList?id=${param.id }&page=3&next=${next}&artiNum=${cnt-1}">${cnt}</a></li>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<%-- 다음 버튼 --%>
 			<li><c:if test="${count > next*10+10 }">
-					<a
+					<a class="b"
 						href="myList?id=${param.id }&page=3&next=${next+1}&artiNum=${(next+1)*10}">»</a>
 				</c:if></li>
 		</ul>

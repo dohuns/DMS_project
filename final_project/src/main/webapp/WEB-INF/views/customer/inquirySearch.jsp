@@ -12,16 +12,13 @@
 		.mt-60 {
 			margin-top: 60px;
 		}
-
 		.pt-40 {
 			padding-top: 40px;
 		}
-
 		.section-block-grey {
 			padding: 90px 0px 90px 0px;
 			background-color: #f9f9f9;
 		}
-
 		.serv-section-2 {
 			position: relative;
 			border: 1px solid #eee;
@@ -31,7 +28,6 @@
 			overflow: hidden;
 			padding: 30px;
 		}
-
 		.serv-section-2:before {
 			position: absolute;
 			top: 0;
@@ -45,7 +41,6 @@
 			transition: all 0.4s ease-in-out;
 			-webkit-transition: all 0.4s ease-in-out;
 		}
-
 		.serv-section-2-icon {
 			position: absolute;
 			top: 18px;
@@ -54,7 +49,6 @@
 			z-index: 1;
 			text-align: center;
 		}
-
 		.serv-section-2-icon i {
 			color: #5BC0DE;
 			font-size: 48px;
@@ -62,18 +56,15 @@
 			transition: all 0.4s ease-in-out;
 			-webkit-transition: all 0.4s ease-in-out;
 		}
-
 		.serv-section-desc {
 			position: relative;
 		}
-
 		.serv-section-2 h4 {
 			color: #333;
 			font-size: 20px;
 			font-weight: 500;
 			line-height: 1.5;
 		}
-
 		.serv-section-2 h5 {
 			color: #333;
 			font-size: 17px;
@@ -81,7 +72,6 @@
 			line-height: 1;
 			margin-top: 5px;
 		}
-
 		.section-heading-line-left {
 			content: '';
 			display: block;
@@ -92,41 +82,32 @@
 			margin-top: 15px;
 			margin-bottom: 5px;
 		}
-
 		.serv-section-2 p {
 			margin-top: 25px;
 			padding-right: 50px;
 		}
-
 		.serv-section-2:hover .serv-section-2-icon i {
 			color: #FFFFFF;
 		}
-
 		.serv-section-2:hover:before {
 			background: #5BC0DE;
 		}
-
 		.h5 {
 			font-size: 3;
 		}
-
 		.h4-s {
 			margin-top: 11px;
 		}
-
 		.is-color {
 			background-color: #FFFFFF;
 		}
-
 		tr>th, td {
 			text-align: center;
 		}
-
 		.tdClass {
 			text-indent: 10px;
 			text-align: left;
 		}
-
 		.pagination>.active>a.b, 
 		.pagination>.active>span, 
 		.pagination>.active>a.b:hover, 
@@ -136,24 +117,20 @@
 			background-color: #5BC0DE;
 			border-color: #5BC0DE;
 		}
-
 		.inq-c, .inq-c>a, .inq-c>a:hover, .inq-c>a:focus {
 			padding-right: 5px;
 			padding-top: 20px;
 			text-decoration: none;
 			color: black;
 		}
-
 		td.tdClass>a, td.tdClass>a:focus, td.tdClass>a:visited {
 			color: black;
 			text-decoration: none;
 		}
-
 		.tdClass > a:hover {
 			text-decoration: underline;
 			font-weight: 600;
 		}
-
 		.search-s {
 			width: 35%;
 			margin-bottom: 56px;
@@ -242,7 +219,7 @@
 	</style>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 
 	<!-- PAGING -->
 	<c:choose>
@@ -332,28 +309,37 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="list" items="${searchList}">
-														<tr>
-															<td><small>${list.cus_num}</small></td>
-															<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
-															<td>${list.cus_nick}</td>
-															<td><small>${list.cus_category}</small></td>
-															<td><small>${list.cus_date}</small></td>
-															<td>
-																<c:choose>
-																	<c:when test="${list.cus_reNum == 0}">
-																		<span class="btn btn-xs btn-success">답변 대기</span>
-																	</c:when>
-																	<c:when test="${list.cus_reNum == 1}">
-																		<span class="btn btn-xs btn-danger">답변 완료</span>
-																	</c:when>
-																	<c:otherwise>
-																		<span class="btn btn-xs btn-default">답변 보류</span>
-																	</c:otherwise>
-																</c:choose>
-															</td>
-														</tr>
-													</c:forEach>
+													<c:choose>
+														<c:when test="${not empty searchList}">
+															<c:forEach var="list" items="${searchList}">
+																<tr>
+																	<td><small>${list.cus_num}</small></td>
+																	<td class="tdClass"><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+																	<td>${list.cus_nick}</td>
+																	<td><small>${list.cus_category}</small></td>
+																	<td><small>${list.cus_date}</small></td>
+																	<td>
+																		<c:choose>
+																			<c:when test="${list.cus_reNum == 0}">
+																				<span class="btn btn-xs btn-success">답변 대기</span>
+																			</c:when>
+																			<c:when test="${list.cus_reNum == 1}">
+																				<span class="btn btn-xs btn-danger">답변 완료</span>
+																			</c:when>
+																			<c:otherwise>
+																				<span class="btn btn-xs btn-default">답변 보류</span>
+																			</c:otherwise>
+																		</c:choose>
+																	</td>
+																</tr>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td colspan="6">해당 닉네임의 문의글이 존재하지 않습니다.</td>
+															</tr>
+														</c:otherwise>
+													</c:choose>
 												</tbody>
 											</table>
 										</div>

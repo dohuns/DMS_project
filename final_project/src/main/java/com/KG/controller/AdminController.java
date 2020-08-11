@@ -2,6 +2,8 @@ package com.KG.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,20 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.KG.dto.CustomerDTO;
 import com.KG.dto.MemberDTO;
-import com.KG.service.admin.member.AdminChkListServImpl;
-import com.KG.service.admin.member.AdminDelAllServImpl;
-import com.KG.service.admin.member.AdminDelServImpl;
-import com.KG.service.admin.member.AdminInsertServImpl;
-import com.KG.service.admin.member.AdminRankServImpl;
-import com.KG.service.admin.member.AdminRankUpdServImpl;
-import com.KG.service.admin.member.AdminSearchServImpl;
-import com.KG.service.admin.member.AdminSelectServImpl;
+import com.KG.service.admin.member.AdminDelRankServImpl;
+import com.KG.service.admin.member.AdminInquiryAnswerServImpl;
+import com.KG.service.admin.member.AdminInquiryHoldServImpl;
+import com.KG.service.admin.member.AdminInquiryListServImpl;
+import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
-import com.KG.service.admin.member.AdminUpdServImpl;
+import com.KG.service.admin.member.AdminUpdRankServImpl;
+import com.KG.service.board.BoaAdminListServImpl;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
+import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
-import com.KG.service.customer.CustomerAdminListServImpl;
+import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerService;
 
 @Controller
@@ -32,136 +33,114 @@ public class AdminController {
 	CustomerService customerServ;
 	BoardSidebarService boaSideServ;
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	// 관리자 페이지 : 목록 출력
 	@RequestMapping("admin")
-	public String adminPage(Model model) {
-		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
-		adminServ.execute(model);
+	public String admin(Model model) {
+		boardServ = (BoaAdminListServImpl) AC.ac.getBean("boaAdminListServImpl");
+		boardServ.execute_Boo(model);
 		return "admin/adminMain";
 	}
 
-	// 전체 목록 출력
-	@RequestMapping("adminSelectList")
-	public String adminSelectList(Model model) {
-		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
-		adminServ.execute(model);
-		return "admin/adminSelectList";
-	}
-
-	// 등급별 목록 출력
-	@RequestMapping("adminRankList")
-	public String adminRankList(Model model, MemberDTO dto) {
+	// 회원 관리 : 회원 목록 출력
+	@RequestMapping("adminMemberList")
+	public String adminMemberList(Model model, MemberDTO dto) {
 		model.addAttribute("dto", dto);
-		adminServ = (AdminRankServImpl) AC.ac.getBean("adminRankServImpl");
+		adminServ = (AdminMemberListServImpl) AC.ac.getBean("adminMemberListServImpl");
 		adminServ.execute(model);
-		return "admin/adminRankList";
+		return "admin/adminMemberList";
 	}
 
-	// 회원 정보 검색
-	@RequestMapping("adminSearchList")
-	public String adminSearchList(Model model, MemberDTO dto,
-				@RequestParam(defaultValue = "m_id") String searchOption,
-				@RequestParam(defaultValue = "") String keyword) {
-		model.addAttribute("dto", dto);
-		model.addAttribute("searchOption", searchOption);
-		model.addAttribute("keyword", keyword);
-		adminServ = (AdminSearchServImpl) AC.ac.getBean("adminSearchServImpl");
-		adminServ.execute(model);
-		return "admin/adminSearchList";
-	}
-
-	// 회원 등급 변경 출력
+	// 회원 관리 : 회원 목록 출력 > 등급 변경
 	@RequestMapping("adminUpdRank")
-	public String adminUpdRank(Model model) {
-		adminServ = (AdminChkListServImpl) AC.ac.getBean("adminChkListServImpl");
-		adminServ.execute(model);
-		return "admin/adminUpdRank";
-	}
-
-	// 회원 등급 변경
-	@RequestMapping("updChkRank")
-	public String updChkRank(Model model, @RequestParam("m_idChk") List<String> m_idChk, int m_rankNum) {
+	public String adminUpdRank(Model model, MemberDTO dto,
+			@RequestParam("m_idChk") List<String> m_idChk) {
 		model.addAttribute("m_idChk", m_idChk);
-		model.addAttribute("m_rankNum", m_rankNum);
-		adminServ = (AdminRankUpdServImpl) AC.ac.getBean("adminRankUpdServImpl");
+		model.addAttribute("m_rankNum", dto.getM_rankNum());
+		adminServ = (AdminUpdRankServImpl) AC.ac.getBean("adminUpdRankServImpl");
 		adminServ.execute(model);
-		return "redirect:adminUpdRank";
+		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
 	}
 
-	// 회원 정보 추가
-	@RequestMapping("insChkMember")
-	public String insChkMember(Model model, MemberDTO dto) {
-		model.addAttribute("dto", dto);
-		adminServ = (AdminInsertServImpl) AC.ac.getBean("adminInsertServImpl");
-		adminServ.execute(model);
-		return "redirect:admin";
-	}
-
-	// 회원 정보 출력 : 수정
-	@RequestMapping("updMember")
-	public String updMember(Model model, String m_id) {
-		model.addAttribute("m_id", m_id);
-		adminServ = (AdminSelectServImpl) AC.ac.getBean("adminSelectServImpl");
-		adminServ.execute(model);
-		return "admin/updMember";
-	}
-
-	// 회원 정보 수정
-	@RequestMapping("updChkMember")
-	public String updChkMember(Model model, MemberDTO dto) {
-		model.addAttribute("dto", dto);
-		adminServ = (AdminUpdServImpl) AC.ac.getBean("adminUpdServImpl");
-		adminServ.execute(model);
-		return "redirect:admin";
-	}
-
-	// 회원 정보 삭제
-	@RequestMapping("delMember")
-	public String delMember(Model model, String m_id, int m_rankNum) {
-		model.addAttribute("m_id", m_id);
-		adminServ = (AdminDelServImpl) AC.ac.getBean("adminDelServImpl");
-		adminServ.execute(model);
-		if(m_rankNum > 0) {
-			return "redirect:adminRankList?pageNum=0&m_rankNum=" + m_rankNum;
-		} else {
-			return "redirect:adminSelectList";
-		}
-	}
-
-	// 회원 정보 선택 삭제
-	@RequestMapping("delAllMember")
-	public String delAllMember(Model model, @RequestParam("m_idChk") List<String> m_idChk) {
+	// 회원 관리 : 회원 목록 출력 > 삭제
+	@RequestMapping("adminDelRank")
+	public String adminDelList(Model model, MemberDTO dto,
+			@RequestParam("m_idChk") List<String> m_idChk) {
 		model.addAttribute("m_idChk", m_idChk);
-		adminServ = (AdminDelAllServImpl) AC.ac.getBean("adminDelAllServImpl");
+		adminServ = (AdminDelRankServImpl) AC.ac.getBean("adminDelRankServImpl");
 		adminServ.execute(model);
-		return "redirect:adminUpdRank";
+		return "redirect:adminMemberList?m_rankNum=" + dto.getM_rankNum();
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////
+	// 회원 관리 : 회원 목록 출력 > 회원 정보 출력
+	@RequestMapping("adminMemberInfo")
+	public String adminMemberList(Model model, String cus_id) {
+		model.addAttribute("id", cus_id);
+		boaSideServ = (BoaUserInfoServImpl) AC.ac.getBean("boaUserInfoServImpl");
+		boaSideServ.execute_Boo(model);
+		return "admin/adminMemberInfo";
+	}
 
-	// 게시글 관리 > 고객센터
-	@RequestMapping("adminCustomerMain")
-	public String adminCustomerMain(Model model, CustomerDTO dto) {
+	// 회원 관리 추가 예정 : 아이디 선택 시 해당 회원의 정보 출력 : 버튼 클릭 시 수정 가능
+
+	// 서비스 관리 : 문의 내역 출력
+	@RequestMapping("adminInquiryList")
+	public String adminInquiryList(Model model, CustomerDTO dto) {
 		model.addAttribute("dto", dto);
-		customerServ = (CustomerAdminListServImpl) AC.ac.getBean("customerAdminListServImpl");
+		adminServ = (AdminInquiryListServImpl) AC.ac.getBean("adminInquiryListServImpl");
+		adminServ.execute(model);
+		return "admin/adminInquiryList";
+	}
+
+	// 서비스 관리 : 문의글 확인
+	@RequestMapping("adminInquiryContent")
+	public String adminInquiryContent(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
 		customerServ.execute(model);
-		return "admin/adminCustomerMain";
+		return "admin/adminInquiryContent";
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	// 관리자페이지 > 게시판 목록
+	// 서비스 관리 : 문의글 확인 > 답글 보류 선택
+	@RequestMapping("adminInquiryHold")
+	public String adminInquiryHold(Model model, int cus_num) {
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (AdminInquiryHoldServImpl) AC.ac.getBean("adminInquiryHoldServImpl");
+		customerServ.execute(model);
+		return "redirect:adminInquiryContent?cus_num=" + cus_num;
+	}
+
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 화면
+	@RequestMapping("adminInquiryAnswer")
+	public String adminInquiryAnswer(Model model, CustomerDTO dto) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_num", dto.getCus_num());
+		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
+		customerServ.execute(model);
+		return "admin/adminInquiryAnswer";
+	}
+
+	// 서비스 관리 : 문의글 확인 > 답글 등록 선택 > 답글 저장
+	@RequestMapping("adminInquiryAnswerChk")
+	public String adminInquiryAnswerChk(Model model, CustomerDTO dto, HttpSession session) {
+		model.addAttribute("dto", dto);
+		model.addAttribute("cus_nick", session.getAttribute("m_nick"));
+		customerServ = (AdminInquiryAnswerServImpl) AC.ac.getBean("adminInquiryAnswerServImpl");
+		customerServ.execute(model);
+		System.out.println("controller: " + dto.getCus_categoryNum());
+		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
+	}
+
+	// 서비스 관리 : 사이트 설정 > 카테고리 항목 추가
 	@RequestMapping("boardList")
 	public String boardList(Model model) {
 		return "admin/boardList";
 	}
-	
-	// 관리자페이지 > 게시판 위치 수정
+
+	// 서비스 관리 : 사이트 설정 > 카테고리 위치 변경
 	@RequestMapping("boardChange")
 	public String boardChange(Model model) {
 		boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
 		model.addAttribute("category",boaSideServ.execute_Str(model));
 		return "admin/boardChange";
 	}
-	
+
 }

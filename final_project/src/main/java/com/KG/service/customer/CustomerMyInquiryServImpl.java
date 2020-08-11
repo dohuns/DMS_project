@@ -25,7 +25,7 @@ public class CustomerMyInquiryServImpl implements CustomerService {
 
 		String cus_id = (String) session.getAttribute("m_id");
 		int pageNum = customerDTO.getPageNum();
-		int pageCount = customerDAO.getInquiryCount(cus_id);
+		int pageCount = customerDAO.selectInquiryCount(cus_id);
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 		hash.put("start", pageNum * 15 + 1);

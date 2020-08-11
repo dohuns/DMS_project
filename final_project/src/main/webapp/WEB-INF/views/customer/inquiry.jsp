@@ -17,28 +17,46 @@
 			background-color: #5BC0DE;
 			color: white;
 		}
-
 		.mt-60 {
 			margin-top: 60px;
 		}
-
 		.pt-40 {
 			padding-top: 40px;
 			text-align: center;
 		}
-
 		.bt-a {
-			text-align: right;
+			float: right;
+		}
+		.bt-b {
+			text-align: center;
 		}
 	</style>
 	<script>
+		// 내용 기본 값
 		$(function() {
-			$("textarea[name=cus_content]").text(" - 문제 발생 일시 : \n - 문의 내용 : \n");
+			// 일반 문의
+			if ("${param.cus_categoryNum}" == 0) {
+				$("textarea[name=cus_content]").text("");
+			// 신고 접수
+			} else if ("${param.cus_categoryNum}" == 1) {
+				$("textarea[name=cus_content]").text("* 신고할 대상의 아이디 또는 닉네임을 제대로 기입해주시지 않으면 정확한 답변을 드리기 어렵습니다.\n\n1.신고대상 아이디/닉네임: \n2.신고 사유(상세히): ");
+			// 계정 문의
+			} else {
+				$("textarea[name=cus_content]").text("* 아이디/닉네임/이메일 주소를 제대로 기입해주시지 않으면 정확한 답변을 드리기 어렵습니다.\n\n1.아이디: \n2.닉네임: \n3.이메일: \n4.문의 내용(상세히): ");
+			}
 		});
+
+		// 줄 개행
+		function inquiryBtn() {
+			var data = $("#cus_content").val();
+			data = data.replace(/(?:\r\n|\r|\n)/g , '<br/>');
+			$("#cus_content").val(data);
+			$("#inquiryForm").submit();
+		}
 	</script>
 </head>
 <body>
-	<c:import url="../default/header.jsp" />
+	<c:import url="../default/customerHeader.jsp" />
 	<!--  -->
 	<div class="container">
 		<h1 class="pt-40"><b>문의하기</b></h1>
@@ -47,7 +65,7 @@
 				<div class="main-box-container">
 					<div class="box">
 						<div class="col-md-8 col-md-offset-2">
-							<form action="inquiryChk" method="GET">
+							<form action="inquiryChk" id="inquiryForm" method="GET">
 								<div class="form-group has-error">
 									<small> * <b>계정 문의</b>의 경우, <b>문의하려는 계정의 이메일 주소</b>를 제대로 기입해주세요.</small><p>
 									<small> * <b>신고 접수</b>의 경우, 신고회원의 <b>닉네임 혹은 아이디</b>를 제대로 기입해주세요.</small><p>
@@ -83,7 +101,7 @@
 
 								<div class="form-group">
 									<label for="content">내 용 <span class="require">*</span></label>
-									<textarea rows="5" class="form-control" name="cus_content"></textarea>
+									<textarea rows="5" class="form-control" name="cus_content" id="cus_content"></textarea>
 								</div>
 
 								<div class="form-group">
@@ -99,7 +117,10 @@
 								</div>
 
 								<div class="form-group bt-a">
-									<button type="submit" class="btn bBtn">문의 접수</button>
+									<button type="button" class="btn"
+										onclick="location.href='customerMain'">목록</button>
+									<button type="button" class="btn bBtn"
+										onclick="inquiryBtn()">작성</button>
 								</div>
 
 							</form>

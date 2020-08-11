@@ -26,11 +26,16 @@ th, td {
 	border-top: 1px solid black;
 	border-bottom: 1px solid #eee;
 }
+
+.pagination>.active>a.b, .pagination>.active>span, .pagination>.active>a.b:hover,
+	.pagination>.active>span:hover, .pagination>.active>a.b:focus,
+	.pagination>.active>span:focus {
+	background-color: #5BC0DE;
+	border-color: #5BC0DE;
+}
 </style>
 </head>
 <body>
-
-
 	<!-- 로그인 확인 -->
 	<c:if test="${sessionScope.m_id == null}">
 		<script type="text/javascript">
@@ -85,7 +90,7 @@ th, td {
 					</div>
 					<hr>
 					<c:choose>
-						<c:when test="${sessionScope.m_id eq param.id }">
+						<c:when test="${sessionScope.m_id eq param.id || sessionScope.m_rankNum == 1 }">
 							<div style="font-size: 15px; color: black;">
 								<a href="myList?id=${param.id }&page=1" id="myWrite"
 									style="color: black;">작성글</a><span style="color: #eee;">
@@ -110,6 +115,16 @@ th, td {
 							<c:when test="${param.page == 1 }">
 								<c:import url="/myWrite" />
 							</c:when>
+							<c:when test="${param.page == 2 && sessionScope.m_rankNum == 1}">
+								<c:import url="/myReply" />
+							</c:when>
+							<c:when
+								test="${param.page == 2 && sessionScope.m_id ne param.id}">
+								<script type="text/javascript">
+									alert("정상적인 경로를 이용해주세요")
+									history.go(-1);
+								</script>
+							</c:when>
 							<c:when test="${param.page == 2 }">
 								<c:import url="/myReply" />
 							</c:when>
@@ -120,6 +135,9 @@ th, td {
 					</div>
 				</div>
 			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
 		</div>
 	</div>
 </body>

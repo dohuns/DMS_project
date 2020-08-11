@@ -1,13 +1,11 @@
 package com.KG.controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.KG.dto.BoardDTO;
-import com.KG.dto.MemberDTO;
 import com.KG.service.admin.board.AdminBoardArtChkServImpl;
 import com.KG.service.admin.board.AdminBoardArtDelServImpl;
 import com.KG.service.admin.board.AdminBoardArtInsServImpl;
@@ -19,7 +17,6 @@ import com.KG.service.admin.board.AdminBoardCatInsServImpl;
 import com.KG.service.admin.board.AdminBoardCatOrdServImpl;
 import com.KG.service.admin.board.AdminBoardCatUpdServImpl;
 import com.KG.service.admin.board.AdminBoardService;
-import com.KG.service.admin.member.AdminSelectServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.board.BoardService;
 import com.KG.service.board.sidebar.BoaArtListServImpl;
@@ -36,16 +33,6 @@ public class AdminRestController {
 	BoardService boaServ;
 	BoardSidebarService boaSideServ;
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	// 회원 관리 > 수정
-	@GetMapping(value = "updateMember", produces = "application/json; charset=UTF-8")
-	public MemberDTO updateMember(Model model, String m_id) {
-		model.addAttribute("m_id", m_id);
-		adminServ = (AdminSelectServImpl) AC.ac.getBean("adminSelectServImpl");
-		return adminServ.memberList(model);
-	}
-	/////////////////////////////////////////////////////////////////////////////////////
-	
 //	boardList 출력
 	@RequestMapping(value = "cateList", produces = "application/json;charset=utf-8")
 	@ResponseBody
