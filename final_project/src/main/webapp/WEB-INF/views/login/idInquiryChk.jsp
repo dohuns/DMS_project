@@ -16,18 +16,41 @@
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
-	<div align="center">
-		<div style="width: 500px;" align="left">
-			<div style="height: 70px; display: flex;" align="center">
-				<div style="width: 250px; border-bottom: solid 5px #5bc0de; padding-top: 20px; font-size: 20px;"><b style="color: #5bc0de;">아이디 찾기</b></div>
-				<a href="pwInquiry"><div style="width: 250px; padding-top: 20px; font-size: 20px;"><b>비밀번호 찾기</b></div></a>
+
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center">
+				<div style="width: 500px;" align="left">
+					<div style="height: 70px; display: flex;" align="center">
+						<div
+							style="width: 250px; border-bottom: solid 5px #5bc0de; padding-top: 20px; font-size: 20px;">
+							<b style="color: #5bc0de;">아이디 찾기</b>
+						</div>
+						<a href="pwInquiry"><div
+								style="width: 250px; padding-top: 20px; font-size: 20px;">
+								<b>비밀번호 찾기</b>
+							</div></a>
+					</div>
+					<div style="margin-top: 20px; margin-bottom: 30px;">고객님의 정보와
+						일치하는 아이디 입니다.</div>
+					<div
+						style="border: solid 1px #eee; padding-top: 40px; padding-bottom: 40px;"
+						align="center">
+						회원님의 아이디 : <b>${m_id }</b>
+					</div>
+					<div style="margin-top: 20px;" align="center">
+						<button onclick="location.href='login'" class="btn btn-info">로그인
+							하기</button>
+						<button onclick="location.href='pwInquiry'" class="btn btn-info"
+							style="background-color: white; color: #000; border: solid 1px #d8d8d8;">비밀번호
+							찾기</button>
+					</div>
+				</div>
 			</div>
-			<div style="margin-top: 20px; margin-bottom: 30px;">고객님의 정보와 일치하는 아이디 입니다.</div>
-			<div style="border: solid 1px #eee; padding-top: 40px; padding-bottom: 40px;" align="center">회원님의 아이디 : <b>${m_id }</b></div>
-			<div style="margin-top: 20px;" align="center">
-			<button onclick="location.href='login'" class="btn btn-info">로그인 하기</button> <button onclick="location.href='pwInquiry'" class="btn btn-info" style="background-color: white; color: #000; border: solid 1px #d8d8d8;">비밀번호 찾기</button>
-			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
 		</div>
 	</div>
 </body>

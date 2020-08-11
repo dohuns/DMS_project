@@ -134,6 +134,13 @@ $(function(){
 </head>
 <body>
 
+	<div class="container">
+		<c:import url="../default/header.jsp" />
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
 	<div class="container" style="width:800px;">
 		<div align="center">
 			<h1> 수정 페이지 </h1>
@@ -197,6 +204,10 @@ $(function(){
 					<input type="hidden" name="b_num" value="${param.c_boardNum}">
 				</form>
 			</div>
+		</div>
+	</div></div></div>
+	<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
 		</div>
 	</div>
 </body>

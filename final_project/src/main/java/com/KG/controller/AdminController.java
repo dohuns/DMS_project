@@ -2,7 +2,6 @@ package com.KG.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +20,7 @@ import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdRankServImpl;
 import com.KG.service.board.BoaAdminListServImpl;
 import com.KG.service.board.BoardService;
+import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoaUserInfoServImpl;
 import com.KG.service.board.sidebar.BoardSidebarService;
 import com.KG.service.customer.CustomerContentServImpl;
@@ -129,7 +129,18 @@ public class AdminController {
 		return "redirect:adminInquiryList?cus_categoryNum=" + dto.getCus_categoryNum();
 	}
 
+	// 서비스 관리 : 사이트 설정 > 카테고리 항목 추가
+	@RequestMapping("boardList")
+	public String boardList(Model model) {
+		return "admin/boardList";
+	}
 
-
+	// 서비스 관리 : 사이트 설정 > 카테고리 위치 변경
+	@RequestMapping("boardChange")
+	public String boardChange(Model model) {
+		boaSideServ = (BoaCatListServImpl) AC.ac.getBean("boaCatListServImpl");
+		model.addAttribute("category",boaSideServ.execute_Str(model));
+		return "admin/boardChange";
+	}
 
 }

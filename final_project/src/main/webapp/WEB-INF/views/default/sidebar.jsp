@@ -54,8 +54,9 @@ hr#main {
 hr#sub {
 	border: solid 1px #f0f0f0;
 }
-ul#myInfo{
+#myInfo{
 padding-inline-start : 30px;
+padding-bottom: 10px;
 }
 ul#myInfoWrite{
 padding-inline-start : 20px;
@@ -65,18 +66,23 @@ padding-inline-start : 20px;
 <body>
 	<div style="margin-right: 20px;">
 		<div
-			style="background-color: white; width: 250px; border-top: solid 0px #000000;">
+			style="background-color: white; width: 250px; border-top: solid 0px #000;">
 			<c:choose>
 				<c:when test="${sessionScope.m_nick != null}">
 					<div>
+					<hr style="border: solid 2px #e2e2e2; margin: 0px;">
 						<div align="center" style="padding-top: 5px;">
-							<h4 class="d-none">나의 활동</h4>
+							<h4 class="d-none">나의 활동</h4><div align="center">
+								<div style="width: 220px;">
+									<hr style="border: solid 1px #f7f7f7; margin: 0px;">
+								</div>
+							</div>
 						</div>
 						<div>
-							<div>
-								<ul id="myInfo">
-									<li>
-										<div>
+							<div style="display: flex;">
+<!-- 								<ul id="myInfo"> -->
+<!-- 									<li> -->
+										<div id="myInfo" style="margin-right: 20px; margin-top: 5px;">
 											<c:choose>
 												<c:when test="${myInfo.m_picture != null}">
 												<img
@@ -90,39 +96,39 @@ padding-inline-start : 20px;
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<div>
-											<strong>${myInfo.m_nick }</strong>
+										<div style="margin-top: 15px; margin-left: 10px;">
+											<strong>${myInfo.m_nick }</strong><br>
+											${myInfo.m_rank}
 										</div>
-									</li>
-									<li>${myInfo.m_rank}</li>
-								</ul>
+<!-- 									</li> -->
+<!-- 								</ul> -->
 							</div>
 							<div>
+							<div align="center">
+								<div style="width: 220px;">
+									<hr style="border: solid 1px #f7f7f7; margin: 0px;">
+								</div>
+							</div>
 								<ul id="myInfoWrite">
-									<li><b><a href="myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
-									<li><b><a href="myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
+									<li style="margin-top: 10px; margin-bottom: 5px;"><b><a href="/movie/myList?id=${m_id }&page=1">내가 쓴 글 보기</a></b> ${myBoardcount} 개</li>
+									<li><b><a href="/movie/myList?id=${m_id }page=2">내가 쓴 댓글보기</a></b> ${myReplycount} 개</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div align="center" style="background-color: green; padding: 5px 0; margin: 0px 0;">
-						<a href="login">
+						<a href="/movie/login">
+					<div align="center" style="background-color: #447294; padding: 5px 0; margin: 0px 0; color: white;">
 								로그인하기
-						</a>
 					</div>
+						</a>
 				</c:otherwise>
 			</c:choose>
-				<a href="#">
-			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0;">
+				<a href="/movie/board/writeAll">
+			<div align="center" style="background-color: #5bc0de; padding: 5px 0; margin: 5px 0; color: white;">
 					게시글글쓰기
 			</div> 
-				</a>
-				<a href="#">
-			<div align="center" style="background-color: #f0f0f0; padding: 5px 0; margin: 5px 0; border: solid 1px #f0f0f0;">		
-					채팅하기
-			</div>
 				</a>
 			<div>
 				<form action="/movie/board/search_list">
@@ -140,7 +146,7 @@ padding-inline-start : 20px;
 				</form>
 			</div>
 			<div id="menu" style="margin-top: 20px;">
-				<a href="board/list?b_category=&b_article=전체">전체글 보기</a>
+				<a href="/movie/board/list?b_category=&b_article=전체">전체글 보기</a>
 			</div>
 			<div>
 				<c:forEach items="${boardCate}" var="boardCate">
@@ -157,7 +163,7 @@ padding-inline-start : 20px;
 						<c:if test="${boardCate.b_category == boardArt.b_category}">
 							<div id="menu" class="${boardCate.b_category}Close">
 								<a
-									href="board/list?b_category=${boardArt.b_category}&b_article=${boardArt.b_article}">${boardArt.b_article}</a><br>
+									href="/movie/board/list?b_category=${boardArt.b_category}&b_article=${boardArt.b_article}">${boardArt.b_article}</a><br>
 							</div>
 						</c:if>
 					</c:forEach>

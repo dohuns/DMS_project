@@ -40,7 +40,6 @@ public class MemberController {
 //	메인페이지
 	@RequestMapping("/")
 	public String Home() {
-		System.out.println("gkdl");
 		return "home";
 	}
 
@@ -48,6 +47,12 @@ public class MemberController {
 	@RequestMapping("header")
 	public String header() {
 		return "default/header";
+	}
+
+	//	헤더
+	@RequestMapping("footer")
+	public String footer() {
+		return "default/footer";
 	}
 
 	// 로그아웃

@@ -71,6 +71,15 @@
 			)A
 	)B WHERE rn BETWEEN #{start} and #{end}
 	</select>
+	
+	<!-- 글 목록(메인페이지) -->
+	<select id="listMainAll" parameterType="hashMap" resultType="boardDTO">
+		SELECT rownum rn, A.* FROM (
+		SELECT * FROM board 
+			WHERE b_title is not null
+			ORDER BY b_group DESC , b_sortnum ASC
+		)A
+	</select>
 	<!-- 글 목록 개수(전체) -->
 	<select id="getCountAll" resultType="int"> 
 		SELECT count(*) FROM board 
@@ -85,7 +94,12 @@
 	
 	<!-- 게시판 가져오기(카테고리 분류) -->
 	<select id="cateList" resultType="boardDTO">
-		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLENUM is not null
+		SELECT * FROM board WHERE b_category=#{b_category} and b_num is null and B_ARTICLE is not null
+	</select>
+
+	<!-- 게시판 가져오기(카테고리 분류X) -->
+	<select id="cateListAll" resultType="boardDTO">
+		SELECT * FROM board WHERE b_num is null and B_ARTICLE is not null
 	</select>
 	
 	<!-- 글 쓰기(저장) -->
@@ -223,7 +237,7 @@
 	<!-- 게시판 전부 가져오기 -->
 	<select id="getArticle" resultType="boardDTO">
 		SELECT * FROM board 
-			WHERE b_articleNum IS NOT NULL
+			WHERE b_articleNum IS NOT NULL and b_catenum is null
 	</select>
 	
 	<!-- 게시글 수정 -->
@@ -246,11 +260,14 @@
 	
 	
 	<!-- 답글 쓰기 저장 -->
-	<insert id="replySave">
+	<insert id="replySave" useGeneratedKeys="true" keyProperty="b_num">
+		<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+			SELECT b_numSQ.nextval FROM dual
+		</selectKey>
 		INSERT INTO board 
 			(b_category, b_article, b_num, b_title, b_content, b_nick, b_date, b_hit, b_reNum, b_sortNum, b_group, b_id, b_comCount)
 		values
-			(#{b_category}, #{b_article}, b_numSQ.nextval, #{b_title}, #{b_content}, #{b_nick}, sysdate, 0, #{b_reNum}, #{b_sortNum}, #{b_group}, #{b_id}, 0)
+			(#{b_category}, #{b_article}, #{b_num}, #{b_title}, #{b_content}, #{b_nick}, sysdate, 0, #{b_reNum}, #{b_sortNum}, #{b_group}, #{b_id}, 0)
 	</insert>
 	
 	<!-- 나보다 큰 sortNum +1 해주기 -->
@@ -297,13 +314,64 @@
 			WHERE f_boardNum = #{b_num}
 	</delete>
 	<!-- /////////////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- 추천(따봉) 추가 -->
+	<insert id="addLike">
+		INSERT INTO likeData VALUES (#{l_id} , #{l_boardNum} , 'L')
+	</insert>
+	
+	<!-- 추천(따봉) 개수 -->
+	<select id="likeCount" resultType="int">
+		SELECT count(*) FROM likeData 
+			WHERE l_boardNum = #{boardNum} and l_divLike = 'L'
+	</select>
+	
+	<!-- 비추천(역따봉) 추가 -->
+	<insert id="addUnlike">
+		INSERT INTO likeData VALUES (#{l_id} , #{l_boardNum} , 'U')
+	</insert>
+	
+	<!-- 비추천(역따봉) 개수 -->
+	<select id="unlikeCount" resultType="int">
+		SELECT count(*) FROM likeData 
+			WHERE l_boardNum = #{boardNum} and l_divLike = 'U'
+	</select>
+	
+	<!-- 추천(따봉) 취소 -->
+	<delete id="deleteLike">
+		DELETE FROM likeData 
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum} and l_divLike = 'L'
+	</delete>
+	
+	<!-- 비추천(역따봉) 취소 -->
+	<delete id="deleteUnlike">
+		DELETE FROM likeData 
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum} and l_divLike = 'U'
+	</delete>
+	
+	<!-- 추천 비추천 누른지 구분 -->
+	<select id="getLike" resultType="String">
+		SELECT l_divLike FROM likeData
+			WHERE l_id = #{l_id} and l_boardNum = #{l_boardNum}
+	</select>
+	
+	<!-- 추천 비추천 누른 멤버 리스트 -->
+	<select id="likeMemberList" resultType="hashMap">
+		SELECT * FROM likeData JOIN member ON likeData.l_id = member.m_id 
+        	WHERE l_boardNum = #{boardNum}
+	</select>
+
+	<!-- /////////////////////////////////////////////////////////////////////////////// -->
 	<!-- 관리자페이지 공지사항 출력 -->
-	   <!-- 글 목록(메인페이지) -->
-   <select id="adminMainNotice" parameterType="hashMap" resultType="boardDTO">
+	<!-- 글 목록(메인페이지) -->
+	<select id="adminMainNotice" parameterType="hashMap"
+		resultType="boardDTO">
 		SELECT ROWNUM rn, A.* FROM (
 		SELECT * FROM board
-		WHERE b_title is not null and b_category = '공지사항'
-		ORDER BY b_group DESC , b_sortnum ASC
+		WHERE
+		b_title is not null and b_category = '공지사항'
+		ORDER BY b_group DESC ,
+		b_sortnum ASC
 		)A
-   </select>
+	</select>
 </mapper>

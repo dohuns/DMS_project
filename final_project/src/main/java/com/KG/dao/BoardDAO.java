@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.KG.dto.BoardDTO;
+import com.KG.dto.LikeDTO;
 import com.KG.dto.MemberDTO;
 
 @Repository
@@ -18,14 +19,14 @@ public class BoardDAO {
 	@Qualifier("sqlSessionBoard")
 	private SqlSession sqlSession;
 	public static final String namespace = "com.KG.mybatis.myMapper";
+	/////////////////////////// 사이드바 /////////////////////////////////
 
 	// 관리자페이지
 	// 메인 화면 : 공지사항 출력
 	public List<BoardDTO> adminMainNotice() {
 		return sqlSession.selectList(namespace + ".adminMainNotice");
 	}
-	/////////////////////////// 사이드바 /////////////////////////////////
-	
+
 	// 사이드바 리스트
 	public List<BoardDTO> sidebarlist(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".sidebarlist" , boardDTO);
@@ -87,6 +88,10 @@ public class BoardDAO {
 	public List<BoardDTO> listAll(HashMap<String, Object> hash) {
 		return sqlSession.selectList(namespace + ".listAll" , hash);
 	}
+	// 게시물 목록(전체 글)
+	public List<BoardDTO> listMainAll() {
+		return sqlSession.selectList(namespace + ".listMainAll");
+	}
 	// 게시물 목록 개수(전체 글)
 	public int getCountAll() {
 		return sqlSession.selectOne(namespace+".getCountAll");
@@ -99,6 +104,10 @@ public class BoardDAO {
 	// 게시판 목록(카테고리로 분류)
 	public List<BoardDTO> cateList(BoardDTO boardDTO) {
 		return sqlSession.selectList(namespace + ".cateList", boardDTO);
+	}
+	// 게시판 목록(카테고리로 분류X)
+	public List<BoardDTO> cateListAll() {
+		return sqlSession.selectList(namespace + ".cateListAll");
 	}
 	// 게시글 쓰기(저장)
 	public int boardWrite(BoardDTO boardDTO) {
@@ -243,4 +252,46 @@ public class BoardDAO {
 	}
 	///////////////////////////////////////////////////////////////
 
+	
+	
+	// 추천(따봉) 추가
+	public int addLike(LikeDTO dto) {
+		return sqlSession.insert(namespace + ".addLike" , dto);
+	}
+	
+	// 추천(따봉) 개수 
+	public int likeCount(int boardNum) { 
+		return sqlSession.selectOne(namespace + ".likeCount" , boardNum);
+	}
+	
+	// 비추천(역따봉) 추가
+	public int addUnlike(LikeDTO dto) {
+		return sqlSession.insert(namespace + ".addUnlike" , dto);
+	}
+	
+	// 비추천(역따봉) 개수
+	public int unlikeCount(int boardNum) {
+		return sqlSession.selectOne(namespace + ".unlikeCount" , boardNum);
+	}
+	
+	// 추천(따봉) 취소
+	public int deleteLike(LikeDTO dto) {
+		return sqlSession.delete(namespace + ".deleteLike" , dto);
+	}
+	
+	// 비추천(역따봉) 취소
+	public int deleteUnlike(LikeDTO dto) {
+		return sqlSession.delete(namespace + ".deleteUnlike" , dto);
+	}
+	
+	// 추천 비추천 누른지 구분
+	public String getLike(LikeDTO dto) {
+		return sqlSession.selectOne(namespace + ".getLike" , dto);
+	}
+
+	// 추천 비추천 누른 멤버 확인(글번호)
+	public List<Map<String, Object>> likeMemberList(int boardNum) {
+		return sqlSession.selectList(namespace + ".likeMemberList" , boardNum);
+	}
+	
 }

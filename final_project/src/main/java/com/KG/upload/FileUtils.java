@@ -165,10 +165,58 @@ public class FileUtils {
 		}
 	}
 	
+	// 프로필 사진 수정
+		public List<Map<String, Object>> parseUpdateImageMember(MemberDTO memberDTO, 
+				MultipartHttpServletRequest mpRequest) throws Exception{
+			
+			String filePath = "C:\\spring\\DMS_project\\final_project\\src\\main\\webapp\\resources\\memberImage\\"; // 파일이 저장될 위치
+			
+			new File(filePath + memberDTO.getM_picture()).delete();
+			
+			Iterator<String> iterator = mpRequest.getFileNames();
+			
+			MultipartFile multipartFile = null;
+			String originalFileName = null;
+			String originalFileExtension = null;
+			String storedFileName = null;
+			
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			Map<String, Object> listMap = null;
+			
+			String id = memberDTO.getM_id();
+			
+			File file = new File(filePath);
+			if(file.exists() == false) {
+				file.mkdirs();
+			}
+			
+			while(iterator.hasNext()) {
+				multipartFile = mpRequest.getFile(iterator.next());
+				if(multipartFile.isEmpty() == false) {
+					originalFileName = multipartFile.getOriginalFilename();
+					originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+					storedFileName = getRandomString() + originalFileExtension;
+					
+					file = new File(filePath + storedFileName);
+					multipartFile.transferTo(file);
+					listMap = new HashMap<String, Object>();
+					listMap.put("f_memberId", id);
+					listMap.put("f_oriName", originalFileName);
+					listMap.put("f_modiName", storedFileName);
+					listMap.put("f_size", multipartFile.getSize());
+					listMap.put("f_mark", 3);
+					list.add(listMap);
+				}
+			}
+			return list;
+		}
+	
+	
 	
 	public static String getRandomString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("YYMMddHHmmss");
 
+		
 		String today = formatter.format(new Date());
 		
 		return today + "-" + UUID.randomUUID().toString();

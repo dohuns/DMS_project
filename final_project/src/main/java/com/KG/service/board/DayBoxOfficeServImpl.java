@@ -24,6 +24,7 @@ public class DayBoxOfficeServImpl implements BoardService{
 			
 			Date bdate = new Date(new Date().getTime() - (1000*60*60*24-1));
 			String today = new SimpleDateFormat("yyyyMMdd").format(bdate);
+			System.out.println("어제 : " + today);
 			URL url = new URL(
 					"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
 					+ "searchDailyBoxOfficeList.json" 
@@ -61,6 +62,7 @@ public class DayBoxOfficeServImpl implements BoardService{
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String strJson = mapper.writeValueAsString(array);
+			System.out.println(strJson);
 			return strJson;
 			
 		} catch (Exception e) {

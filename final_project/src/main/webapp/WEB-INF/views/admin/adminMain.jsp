@@ -69,6 +69,13 @@
 	</style>
 </head>
 <body>
+	<c:if test="${sessionScope.m_rankNum ne 1}">
+		<script type="text/javascript">
+			alert("잘못된 접근 방식입니다.");
+			history.go(-1);
+		</script>
+	</c:if>
+
 	<div>
 		<c:import url="../default/adminHeader.jsp" />
 		<div id="mainContent">

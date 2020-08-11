@@ -107,9 +107,15 @@ $(function(){
 </head>
 <body>
 <input type="hidden" id="papering" value="0">
+
+	<div class="container">
 	<!-- header -->
 	<c:import url="../default/header.jsp" />
-	
+		<div style="display: flex;">
+			<div>
+				<c:import url="/sidebar" />
+			</div>
+			<div>
 	<!-- body -->
 	<c:forEach var="test" items="${list}">
 		${test}
@@ -175,6 +181,10 @@ $(function(){
 			</script>
 		</c:otherwise>
 	</c:choose>
-	
+	</div></div>
+	<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
+		</div>
+	</div>
 </body>
 </html>

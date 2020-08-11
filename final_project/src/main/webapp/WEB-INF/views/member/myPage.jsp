@@ -180,147 +180,151 @@ a:link, a:visited, a:active, a:hover {
 			location.href = "/movie"
 		</script>
 	</c:if>
-	<c:import url="/header" />
-	<div align="center" style="padding-top: 50px;">
-		<div style="display: flex; width: 900px;">
-			<div style="width: 150px; margin-right: 50px;">
-				<h3>
-					<b>내정보관리</b>
-				</h3>
-				<hr>
-				<div style="margin-top: 20px; color: #5bc0de">
-					<h4>
-						<b>개인정보변경</b>
-					</h4>
-				</div>
-				<a href="myPagePwChang"><div style="margin-top: 20px;">
-						<h4>비밀번호변경</h4>
-					</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
-						<h4>회원탈퇴</h4>
-					</div></a>
-			</div>
-			<div style="width: 600px; padding-bottom: 100px;">
-				<div align="left" style="margin-bottom: 30px;">
-					<h1>개인정보변경</h1>
-					<hr style="border: solid 1px #ddd;">
-				</div>
-				<form action="myPageChangCk" method="post"
-					enctype="multipart/form-data">
-					<div align="center">
-						<table style="width: 550px; padding: 20px; border-width: 500px;">
-							<!-- 아이디 -->
-							<tr>
-								<td><strong>아이디</strong></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="m_id" value="${m_id }"
-									class="form-control" readonly></td>
-							</tr>
-							<!-- 이름 -->
-							<tr>
-								<td><strong>이름</strong></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="m_name" id="m_name"
-									placeholder="이름을 입력해주세요" class="form-control"
-									onblur="chkName()" value="${m_name }"></td>
-							</tr>
-							<tr>
-								<td><label id="label_name"></label></td>
-							</tr>
-							<!-- 닉네임 -->
-							<tr>
-								<td><strong>닉네임</strong></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="m_nick" id="m_nick"
-									placeholder="닉네임을 입력해주세요" class="form-control"
-									onblur="chkNick()" value="${m_nick }"></td>
-								<td style="padding-left: 10px;">
-									<button type="button" onclick="chk_nick()" id="btn_chk_nick"
-										class="btn btn-info">중복확인</button>
-								</td>
-							</tr>
-							<tr>
-								<td><label id="label_nick"></label></td>
-							</tr>
-							<!-- 생년월일 -->
-							<tr>
-								<td><strong>생년월일</strong></td>
-							</tr>
-							<tr>
-								<td><input type="date" name="m_birth" id="m_date"
-									class="form-control" onblur="chkDate()" value="${m_birth }">
-								</td>
-							</tr>
-							<tr>
-								<td><label id="label_date"></label></td>
-							</tr>
-							<!-- 프사 -->
 
-							<tr>
-								<td><strong>프로필 사진</strong></td>
-							</tr>
-							<tr>
-								<td>
-
-
-
-
-
-
-									<div>
-										<input type="file" id="fileInput"
-											data-class-button="btn btn-default"
-											data-class-input="form-control" data-icon-name="fa fa-upload"
-											class="form-control" tabindex="-1"
-											style="position: absolute; clip: rect(0px, 0px, 0px, 0px); width: 500px;"
-											onchange="inputName()" name="picture">
-										<div class="bootstrap-filestyle input-group">
-											<input type="text" id="userfile" class="form-control"
-												name="userfile" disabled=""> <span
-												class="group-span-filestyle input-group-btn" tabindex="0">
-												<label for="fileInput" class="btn btn-default"
-												style="padding: 0 0 0 0; width: 50px; height: 34px;">
-													<span class="glyphicon fa fa-upload"> <img
-														src="/img/upload.png" width="45px" height="30px">
-												</span>
-											</label>
-											</span>
-										</div>
-										<c:choose>
-											<c:when test="${m_picture != null}">
-												<img id="foo" width="58" height="58" class="upImg"
-													src="/img/memberImage/${m_picture}" />
-											</c:when>
-											<c:otherwise>
-												<img id="foo" width="58" height="58" class="upImg"
-													src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" />
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</td>
-							</tr>
-
-
-							<!-- 이메일 -->
-							<tr>
-								<td><strong>이메일</strong></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="m_email" value="${m_email }"
-									readonly class="form-control"></td>
-							</tr>
-							<tr>
-								<td style="padding-top: 10px;">
-									<button type="submit" id="btn-regist" class="btn btn-info"
-										disabled>수정하기</button>
-								</td>
-							</tr>
-						</table>
+	<div class="container">
+		<c:import url="/header" />
+		<div style="width: 1080px;">
+			<div align="center" style="padding-top: 50px;">
+				<div style="display: flex; width: 900px;">
+					<div style="width: 150px; margin-right: 50px;">
+						<h3>
+							<b>내정보관리</b>
+						</h3>
+						<hr>
+						<div style="margin-top: 20px; color: #5bc0de">
+							<h4>
+								<b>개인정보변경</b>
+							</h4>
+						</div>
+						<a href="myPagePwChang"><div style="margin-top: 20px;">
+								<h4>비밀번호변경</h4>
+							</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
+								<h4>회원탈퇴</h4>
+							</div></a>
 					</div>
-				</form>
+					<div style="width: 600px; padding-bottom: 100px;">
+						<div align="left" style="margin-bottom: 30px;">
+							<h1>개인정보변경</h1>
+							<hr style="border: solid 1px #ddd;">
+						</div>
+						<form action="myPageChangCk" method="post"
+							enctype="multipart/form-data">
+							<div align="center">
+								<table style="width: 550px; padding: 20px; border-width: 500px;">
+									<!-- 아이디 -->
+									<tr>
+										<td><strong>아이디</strong></td>
+									</tr>
+									<tr>
+										<td><input type="text" name="m_id" value="${m_id }"
+											class="form-control" readonly></td>
+									</tr>
+									<!-- 이름 -->
+									<tr>
+										<td><strong>이름</strong></td>
+									</tr>
+									<tr>
+										<td><input type="text" name="m_name" id="m_name"
+											placeholder="이름을 입력해주세요" class="form-control"
+											onblur="chkName()" value="${m_name }"></td>
+									</tr>
+									<tr>
+										<td><label id="label_name"></label></td>
+									</tr>
+									<!-- 닉네임 -->
+									<tr>
+										<td><strong>닉네임</strong></td>
+									</tr>
+									<tr>
+										<td><input type="text" name="m_nick" id="m_nick"
+											placeholder="닉네임을 입력해주세요" class="form-control"
+											onblur="chkNick()" value="${m_nick }"></td>
+										<td style="padding-left: 10px;">
+											<button type="button" onclick="chk_nick()" id="btn_chk_nick"
+												class="btn btn-info">중복확인</button>
+										</td>
+									</tr>
+									<tr>
+										<td><label id="label_nick"></label></td>
+									</tr>
+									<!-- 생년월일 -->
+									<tr>
+										<td><strong>생년월일</strong></td>
+									</tr>
+									<tr>
+										<td><input type="date" name="m_birth" id="m_date"
+											class="form-control" onblur="chkDate()" value="${m_birth }">
+										</td>
+									</tr>
+									<tr>
+										<td><label id="label_date"></label></td>
+									</tr>
+									<!-- 프사 -->
+
+									<tr>
+										<td><strong>프로필 사진</strong></td>
+									</tr>
+									<tr>
+										<td>
+
+											<div>
+												<input type="file" id="fileInput"
+													data-class-button="btn btn-default"
+													data-class-input="form-control"
+													data-icon-name="fa fa-upload" class="form-control"
+													tabindex="-1"
+													style="position: absolute; clip: rect(0px, 0px, 0px, 0px); width: 500px;"
+													onchange="inputName()" name="picture">
+												<div class="bootstrap-filestyle input-group">
+													<input type="text" id="userfile" class="form-control"
+														name="userfile" disabled=""> <span
+														class="group-span-filestyle input-group-btn" tabindex="0">
+														<label for="fileInput" class="btn btn-default"
+														style="padding: 0 0 0 0; width: 50px; height: 34px;">
+															<span class="glyphicon fa fa-upload"> <img
+																src="/img/upload.png" width="45px" height="30px">
+														</span>
+													</label>
+													</span>
+												</div>
+												<c:choose>
+													<c:when test="${m_picture != null}">
+														<img id="foo" width="58" height="58" class="upImg"
+															src="/img/memberImage/${m_picture}" />
+													</c:when>
+													<c:otherwise>
+														<img id="foo" width="58" height="58" class="upImg"
+															src="https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_70.png" />
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</td>
+									</tr>
+
+
+									<!-- 이메일 -->
+									<tr>
+										<td><strong>이메일</strong></td>
+									</tr>
+									<tr>
+										<td><input type="text" name="m_email" value="${m_email }"
+											readonly class="form-control"></td>
+									</tr>
+									<tr>
+										<td style="padding-top: 10px;">
+											<button type="submit" id="btn-regist" class="btn btn-info"
+												disabled>수정하기</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<c:import url="../default/footer.jsp" />
 		</div>
 	</div>
 </body>

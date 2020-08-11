@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.KG.dto.BoardDTO;
 import com.KG.service.board.BoaListServImpl;
+import com.KG.service.board.BoaMainListServImpl;
+import com.KG.service.board.BoardCateListAllServImpl;
 import com.KG.service.board.BoardCateListServImpl;
 import com.KG.service.board.BoardDeleteServImpl;
 import com.KG.service.board.BoardFileDownServImpl;
@@ -28,6 +30,7 @@ import com.KG.service.board.BoardService;
 import com.KG.service.board.BoardShowHitServImpl;
 import com.KG.service.board.BoardShowServImpl;
 import com.KG.service.board.BoardWriteServImpl;
+import com.KG.service.board.LikeMemberListServImpl;
 import com.KG.service.board.sidebar.BoaCatListServImpl;
 import com.KG.service.board.sidebar.BoaMyInfoServImpl;
 import com.KG.service.board.sidebar.BoaUserBoardListServImpl;
@@ -47,6 +50,12 @@ public class BoardController {
 	@RequestMapping("movie")
 	public String movie() {
 		return "default/movieMain";
+	}
+	@RequestMapping("movieMainList")
+	public String movieMainList(Model model) {
+		boaServ = (BoaMainListServImpl) AC.ac.getBean("boaMainListServImpl");
+		boaServ.execute_Boo(model);
+		return "default/movieMainList";
 	}
 
 	// 사이드바 출력
@@ -148,26 +157,33 @@ public class BoardController {
 		boaServ.execute_Boo(model);
 		return "board/write";
 	}
-	// 글쓰기 저장
-	@RequestMapping("/board/write_save")
-	public String board_wrtieSave(Model model, BoardDTO dto,
-			HttpSession session , MultipartHttpServletRequest mpRequest,
-			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-
-		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
-		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
-
+	
+	// 글쓰기 페이지
+	@RequestMapping("/board/writeAll")
+	public String board_writeAll(Model model, BoardDTO dto) {
 		model.addAttribute("dto", dto);
-		model.addAttribute("session", session);
-		model.addAttribute("mpRequest" , mpRequest);
-		model.addAttribute("request" , request); 
-		model.addAttribute("response" , response);
-		
-		boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
+		boaServ = (BoardCateListAllServImpl) AC.ac.getBean("boardCateListAllServImpl");
 		boaServ.execute_Boo(model);
-
-		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+		return "board/writeAll";
 	}
+	// 글쓰기 저장
+		@RequestMapping("/board/write_save")
+		public String board_wrtieSave(Model model, BoardDTO dto,
+				HttpSession session , MultipartHttpServletRequest mpRequest,
+				HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+
+			String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
+
+			model.addAttribute("dto", dto);
+			model.addAttribute("session", session);
+			model.addAttribute("mpRequest" , mpRequest);
+			
+			boaServ = (BoardWriteServImpl) AC.ac.getBean("boardWriteServImpl");
+			boaServ.execute_Boo(model);
+
+			return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+		}
 
 	// 게시글 검색
 	@RequestMapping("/board/search_list")
@@ -277,20 +293,23 @@ public class BoardController {
 	}
 
 	// 답글 쓰기 저장
-	@RequestMapping("/board/reply_save")
-	public String reply_save(Model model, BoardDTO dto, HttpSession session) throws UnsupportedEncodingException {
+		@RequestMapping("/board/reply_save")
+		public String reply_save(Model model, BoardDTO dto,
+				HttpSession session , MultipartHttpServletRequest mpRequest,
+				HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		model.addAttribute("dto", dto);
-		model.addAttribute("session", session);
+			String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
+			String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
 
-		boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
-		boaServ.execute_Boo(model);
+			model.addAttribute("dto", dto);
+			model.addAttribute("session", session);
+			model.addAttribute("mpRequest" , mpRequest);
 
-		String category = URLEncoder.encode(dto.getB_category(), "UTF-8");
-		String article = URLEncoder.encode(dto.getB_article(), "UTF-8");
-
-		return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
-	}
+			boaServ = (BoardReplySaveServImpl) AC.ac.getBean("boardReplySaveServImpl");
+			boaServ.execute_Boo(model);
+			
+			return "redirect:/board/list?b_category=" + category + "&b_article=" + article;
+		}
 	
 	// 첨부파일 다운로드
 	@RequestMapping("/board/file_down")
@@ -306,4 +325,5 @@ public class BoardController {
 		boaServ.execute_Boo(model);
 		
 	}
+	
 }

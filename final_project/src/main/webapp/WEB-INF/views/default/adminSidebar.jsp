@@ -125,8 +125,8 @@
 				</li>
 				<li class="sidebar-menu"><a href="#">사이트 설정</a>
 					<ul class="sidebar-menu-list">
-						<li><a href="#">카테고리 항목 추가</a></li>
-						<li><a href="#">카테고리 위치 변경</a></li>
+						<li><a href="boardList">카테고리 항목 추가</a></li>
+						<li><a href="boardChange">카테고리 위치 변경</a></li>
 					</ul>
 				</li>
 			</ul>
