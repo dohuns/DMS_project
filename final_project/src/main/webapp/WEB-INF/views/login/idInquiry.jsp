@@ -70,6 +70,29 @@ a:link, a:visited, a:active, a:hover {
 	text-decoration: none !important;
 	color: black;
 }
+
+
+.idfind{
+	width: 250px;
+	border-bottom: solid 5px #5bc0de;
+	padding-top: 20px;
+	font-size: 20px;
+}
+
+.pwfind{
+	width: 250px;
+	padding-top: 20px;
+	font-size: 20px;"
+}
+
+.divpadding{
+	padding-top: 20px;
+}
+
+.mainHead{
+height: 70px;
+display: flex;
+}
 </style>
 </head>
 <body>
@@ -85,33 +108,31 @@ a:link, a:visited, a:active, a:hover {
 		<div style="width: 1080px;">
 			<div align="center">
 				<div style="width: 500px;" align="left">
-					<div style="height: 70px; display: flex;" align="center">
-						<div
-							style="width: 250px; border-bottom: solid 5px #5bc0de; padding-top: 20px; font-size: 20px;">
+					<div class="mainHead" align="center">
+						<div class="idfind">
 							<b style="color: #5bc0de;">아이디 찾기</b>
 						</div>
-						<a href="pwInquiry"><div
-								style="width: 250px; padding-top: 20px; font-size: 20px;">
+						<a href="pwInquiry"><div class="pwfind">
 								<b>비밀번호 찾기</b>
 							</div></a>
 					</div>
-					<div style="padding-top: 20px;">
+					<div class="divpadding">
 						<input type="text" id="m_name" class="form-control"
 							placeholder="이름">
 					</div>
-					<div style="padding-top: 20px;">
+					<div class="divpadding">
 						<input type="text" id="m_email" class="form-control"
 							placeholder="가입 이메일 주소">
 						<button onclick="send()" style="margin-top: 5px;"
 							class="btn btn-info">인증번호 전송</button>
 					</div>
-					<div style="padding-top: 20px;">
+					<div class="divpadding">
 						<input type="text" id="number" class="form-control"
 							placeholder="인증번호">
 						<button onclick="user_ck()" style="margin-top: 5px;"
 							class="btn btn-info">인증번호 확인</button>
 					</div>
-					<div style="padding-top: 20px;" align="center">
+					<div class="divpadding" align="center">
 						<button onclick="next()" class="btn btn-info">아이디 찾기</button>
 					</div>
 				</div>

@@ -152,6 +152,42 @@ body #main {
 	width: 100%;
 	padding: 35px;
 }
+
+.mainDiv{
+	width: 80%;
+	margin: 50px 0 0 300px;
+	min-width: 600px;
+}
+
+.titlediv{
+	display: flex;
+	width: 80%;
+	min-width: 550px;
+	height: 57px;
+}
+
+.btnDiv{
+	width: 35%;
+	height: 57px;
+	margin-top: 15px;
+}
+
+#btnReturn{
+	background-color: #eee;
+	color: black;
+	border-color: #eee;
+}
+
+#btnSave{
+	background-color: #5bc0de;
+	border-color: #5bc0de;
+}
+
+.mainList{
+	border-top: 3px solid #000;
+	width: 80%;
+	min-width: 550px;
+}
 </style>
 </head>
 <body>
@@ -169,23 +205,17 @@ body #main {
 				<c:import url="../default/adminSidebar.jsp" />
 
 				<div class="divContent">
-					<div align="center"
-						style="width: 80%; margin: 50px 0 0 300px; min-width: 600px;">
-						<div
-							style="display: flex; width: 80%; min-width: 550px; height: 57px;">
+					<div align="center" class="mainDiv">
+						<div class="titlediv">
 							<div align="left" style="width: 65%; height: 57px;">
 								<h3>게시글 순서 변경하기</h3>
 							</div>
-							<div align="right"
-								style="width: 35%; height: 57px; margin-top: 15px;">
-								<button class="btn btn-success" onclick="location.reload()"
-									style="background-color: #eee; color: black; border-color: #eee;">되돌리기</button>
-								<button class="btn btn-success" onclick="listSave()"
-									style="background-color: #5bc0de; border-color: #5bc0de;">저장하기</button>
+							<div align="right" class="btnDiv">
+								<button class="btn btn-success" onclick="location.reload()" id="btnReturn">되돌리기</button>
+								<button class="btn btn-success" onclick="listSave()" id="btnSave">저장하기</button>
 							</div>
 						</div>
-						<div
-							style="border-top: 3px solid #000; width: 80%; min-width: 550px;">
+						<div class="mainList">
 							<div id="move">
 								<c:forEach items="${boardCate}" var="boardCate">
 									<div onclick="article('${boardCate.b_category}')" class="main"

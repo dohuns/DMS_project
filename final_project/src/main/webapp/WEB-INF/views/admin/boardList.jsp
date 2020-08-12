@@ -414,6 +414,28 @@ body #main {
 	width: 100%;
 	padding: 35px;
 }
+
+.mainDiv{
+	margin: 40px 0 0 240px;
+	min-width: 450px;
+}
+
+.mainDiv{
+	background-color: #eee;
+	padding-bottom: 20px;
+	height: auto;
+}
+
+.mainCate{
+	display: flex;
+	padding: 20px 20px 0 20px;
+	height: 40px;
+}
+
+.btnCateInsert{
+	width: 50%;
+	color: #5bc0de;
+}
 </style>
 </head>
 <body onload="AllList()">
@@ -431,15 +453,13 @@ body #main {
 				<c:import url="../default/adminSidebar.jsp" />
 
 				<div class="divContent">
-					<div style="margin: 40px 0 0 240px; min-width: 450px;">
-						<div
-							style="background-color: #eee; padding-bottom: 20px; height: auto;">
-							<div
-								style="display: flex; padding: 20px 20px 0 20px; height: 40px;">
+					<div class="mainDiv">
+						<div class="mainDivDiv">
+							<div class="mainCate">
 								<div align="left" style="width: 50%;">
 									<b>Category</b>
 								</div>
-								<div align="right" style="width: 50%; color: #5bc0de;">
+								<div align="right" class="btnCateInsert">
 									<a onclick="insModCate()"><b>추가</b></a>
 								</div>
 							</div>

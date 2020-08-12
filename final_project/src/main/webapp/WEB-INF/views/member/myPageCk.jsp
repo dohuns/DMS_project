@@ -21,6 +21,23 @@ a:link, a:visited, a:active, a:hover {
 	text-decoration: none !important;
 	color: black;
 }
+.mainAll{
+	display: flex;
+	width: 900px;
+}
+.myPageSidebar{
+	width: 150px;
+	margin-right: 50px;
+}
+
+.myPageSidebarSelect{
+	color: #5bc0de;
+}
+
+.sidebarMargin{
+	margin-top: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -35,20 +52,20 @@ a:link, a:visited, a:active, a:hover {
 		<c:import url="/header" />
 		<div style="width: 1080px;">
 			<div align="center" style="padding-top: 50px;">
-				<div style="display: flex; width: 900px;">
-					<div style="width: 150px; margin-right: 50px;">
+				<div class="mainAll">
+					<div class="myPageSidebar">
 						<h3>
 							<b>내정보관리</b>
 						</h3>
 						<hr>
-						<div style="margin-top: 20px; color: #5bc0de">
+						<div class="sidebarMargin myPageSidebarSelect">
 							<h4>
 								<b>개인정보변경</b>
 							</h4>
 						</div>
-						<a href="myPagePwChang"><div style="margin-top: 20px;">
+						<a href="myPagePwChang"><div class="sidebarMargin">
 								<h4>비밀번호변경</h4>
-							</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
+							</div></a> <a href="myPageSecessionCk"><div class="sidebarMargin">
 								<h4>회원탈퇴</h4>
 							</div></a>
 					</div>

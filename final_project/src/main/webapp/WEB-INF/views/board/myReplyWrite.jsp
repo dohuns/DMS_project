@@ -14,6 +14,14 @@
 		$("#myReplyWrite").attr("style", "color:#5bc0de;");
 	});
 </script>
+<style type="text/css">
+.tableTd{
+	display: flex;
+	font-size: 15px;
+	height: 35px;
+	align-items: center;
+}
+</style>
 </head>
 <body>
 
@@ -48,8 +56,7 @@
 				<c:when test="${myComBoardList != '[]'}">
 					<c:forEach var="list" items="${myComBoardList}">
 						<tr>
-							<td colspan="1" align="left"><div
-									style="display: flex; font-size: 15px; height: 35px; align-items: center;">
+							<td colspan="1" align="left"><div class="tableTd">
 									<div style="width: 70px;">${list.b_num }</div>
 									<div>
 										<a href="/movie/board/show?b_num=${list.b_num }">${list.b_title }

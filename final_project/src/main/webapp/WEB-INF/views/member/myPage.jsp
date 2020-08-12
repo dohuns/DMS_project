@@ -171,6 +171,31 @@ a:link, a:visited, a:active, a:hover {
 	text-decoration: none !important;
 	color: black;
 }
+
+.myPageSidebar{
+	width: 150px;
+	margin-right: 50px;
+}
+
+.myPageSidebarSelect{
+	color: #5bc0de;
+}
+
+.sidebarMargin{
+	margin-top: 20px;
+}
+
+.table-st{
+	width: 550px;
+	padding: 20px;
+	border-width: 500px;
+}
+
+.myPageHead{
+	width: 600px;
+	padding-bottom: 100px;
+}
+
 </style>
 </head>
 <body onload="buttonAble()">
@@ -186,23 +211,23 @@ a:link, a:visited, a:active, a:hover {
 		<div style="width: 1080px;">
 			<div align="center" style="padding-top: 50px;">
 				<div style="display: flex; width: 900px;">
-					<div style="width: 150px; margin-right: 50px;">
+					<div class="myPageSidebar">
 						<h3>
 							<b>내정보관리</b>
 						</h3>
 						<hr>
-						<div style="margin-top: 20px; color: #5bc0de">
+						<div class="sidebarMargin myPageSidebarSelect">
 							<h4>
 								<b>개인정보변경</b>
 							</h4>
 						</div>
-						<a href="myPagePwChang"><div style="margin-top: 20px;">
+						<a href="myPagePwChang"><div class="sidebarMargin">
 								<h4>비밀번호변경</h4>
-							</div></a> <a href="myPageSecessionCk"><div style="margin-top: 20px;">
+							</div></a> <a href="myPageSecessionCk"><div class="sidebarMargin">
 								<h4>회원탈퇴</h4>
 							</div></a>
 					</div>
-					<div style="width: 600px; padding-bottom: 100px;">
+					<div class="myPageHead">
 						<div align="left" style="margin-bottom: 30px;">
 							<h1>개인정보변경</h1>
 							<hr style="border: solid 1px #ddd;">
@@ -210,7 +235,7 @@ a:link, a:visited, a:active, a:hover {
 						<form action="myPageChangCk" method="post"
 							enctype="multipart/form-data">
 							<div align="center">
-								<table style="width: 550px; padding: 20px; border-width: 500px;">
+								<table class="table-st">
 									<!-- 아이디 -->
 									<tr>
 										<td><strong>아이디</strong></td>
@@ -280,7 +305,7 @@ a:link, a:visited, a:active, a:hover {
 														name="userfile" disabled=""> <span
 														class="group-span-filestyle input-group-btn" tabindex="0">
 														<label for="fileInput" class="btn btn-default"
-														style="padding: 0 0 0 0; width: 50px; height: 34px;">
+														style="padding: 0; width: 50px; height: 34px;">
 															<span class="glyphicon fa fa-upload"> <img
 																src="/img/upload.png" width="45px" height="30px">
 														</span>

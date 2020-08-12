@@ -59,6 +59,31 @@
 		});
 	})
 </script>
+<style type="text/css">
+.tableTd{
+	display: flex;
+	font-size: 15px;
+	height: 35px;
+	align-items: center;
+}
+
+#btnDel{
+	color: white;
+	background-color: red;
+	border-color: red;"
+}
+
+.tdWrite{
+	border-bottom: 1px solid #fff;
+	padding-top: 10px;
+}
+
+.allchkbox{
+	width: 50%;
+	height: 35px;
+	align-items: center;
+}
+</style>
 </head>
 <body>
 	<c:choose>
@@ -89,8 +114,7 @@
 				<c:when test="${myComList != '[]'}">
 					<c:forEach var="list" items="${myComList}">
 						<tr>
-							<td colspan="1" align="left"><div
-									style="display: flex; font-size: 15px; height: 35px; align-items: center;">
+							<td colspan="1" align="left"><div class="tableTd">
 									<div style="width: 30px;">
 										<input type="checkbox" class="chkBox"
 											value="${list.c_comNum }">
@@ -105,13 +129,11 @@
 					<tr>
 						<td colspan="3">
 							<div style="display: flex; margin-top: 10px;">
-								<div align="left"
-									style="width: 50%; height: 35px; align-items: center;">
+								<div align="left" class="allchkbox">
 									<input id="allCheck" type="checkbox"> &nbsp; 전체선택
 								</div>
 								<div align="right" style="width: 50%">
-									<a onclick="myWriteDelete()" class="btn btn-info btn-sm"
-										style="color: white; background-color: red; border-color: red;">삭제</a>
+									<a onclick="myWriteDelete()" class="btn btn-info btn-sm" id="btnDel">삭제</a>
 									<a href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 										쓰기</a>
 								</div>
@@ -125,8 +147,7 @@
 						<td colspan="3" height="100" align="center">작성하신 댓글이 없습니다.</td>
 					</tr>
 					<tr>
-						<td colspan="3" align="right"
-							style="border-bottom: 1px solid #fff; padding-top: 10px;"><a
+						<td colspan="3" align="right" class="tdWrite"><a
 							href="/movie/board/writeAll" class="btn btn-info btn-sm" style="color: white;">글
 								쓰기</a></td>
 					</tr>
