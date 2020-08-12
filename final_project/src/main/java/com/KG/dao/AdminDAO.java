@@ -15,7 +15,6 @@ import com.KG.dto.MemberDTO;
 
 @Repository
 public class AdminDAO {
-
 	@Autowired
 	@Qualifier("sqlSessionAdmin")
 	private SqlSession sqlSession;
@@ -37,6 +36,7 @@ public class AdminDAO {
 	public int updRank(MemberDTO dto) {
 		return sqlSession.update(namespace + ".updateUpdRank", dto);
 	}
+
 	// 회원 관리 : 회원 목록 출력 > 삭제
 	public int delRank(String m_id) {
 		return sqlSession.update(namespace + ".updateDelRank", m_id);

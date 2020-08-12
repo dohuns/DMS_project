@@ -91,7 +91,7 @@
 						<tbody>
 							<c:forEach var="list" items="${listAdmin}" begin="0" end="4">
 								<tr>
-									<td><a href="#">${list.b_title}</a></td>
+									<td><a href="board/list?b_category=${list.b_category}&b_article=${list.b_article}">${list.b_title}</a></td>
 									<td class="date-st">${list.b_date}</td>
 								</tr>
 							</c:forEach>
