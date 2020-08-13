@@ -39,11 +39,12 @@
 			var data = {inputPw : pw , cus_num : num};
 
 			$.ajax({
-				url : "CusUpdPwChk",
+				url : "inquiryPwChk",
 				type : "GET",
 				data : data,
 				dataType : "text",
 				success : function(result) {
+					console.log(result);
 					if(result == 1) {
 						console.log("성공성공 대성공");
 						$("#updForm").submit();

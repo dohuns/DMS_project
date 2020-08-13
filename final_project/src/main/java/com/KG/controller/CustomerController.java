@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KG.dto.CustomerDTO;
 import com.KG.service.admin.member.AdminMainListServImpl;
@@ -99,6 +100,19 @@ public class CustomerController {
 		customerServ = (CustomerContentServImpl) AC.ac.getBean("customerContentServImpl");
 		customerServ.execute(model);
 		return "customer/inquiryUpdate";
+	}
+
+	@RequestMapping("inquiryPwChk")
+	@ResponseBody
+	public int inquiryPwChk(Model model, int cus_num, String inputPw) {
+		model.addAttribute("inputPw", inputPw);
+		model.addAttribute("cus_num", cus_num);
+		customerServ = (CustomerPwChkServImpl) AC.ac.getBean("customerPwChkServImpl");
+
+		if((customerServ.chkList(model)) == 1) {
+			return 1;
+		}
+			return 0;
 	}
 
 	@RequestMapping("updateChk")
