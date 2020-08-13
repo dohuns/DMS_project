@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.KG.dto.CustomerDTO;
+import com.KG.service.admin.member.AdminMainListServImpl;
 import com.KG.service.customer.CustomerContentServImpl;
 import com.KG.service.customer.CustomerDeleteServImpl;
 import com.KG.service.customer.CustomerInquiryServImpl;
@@ -26,6 +27,8 @@ public class CustomerController {
 	public String customerMain(Model model, CustomerDTO dto) {
 		model.addAttribute("dto", dto);
 		customerServ = (CustomerListServImpl) AC.ac.getBean("customerListServImpl");
+		customerServ.execute(model);
+		customerServ = (AdminMainListServImpl) AC.ac.getBean("adminMainListServImpl");
 		customerServ.execute(model);
 		return "customer/customerMain";
 	}
