@@ -1156,7 +1156,7 @@ textarea:focus {
 </div>
 </div>
 	<div style="margin-top: 20px;">
-		<c:import url="../default/footer.jsp" />
+		<c:import url="/footer" />
 	</div>
 </div>
 
