@@ -21,8 +21,8 @@ public class CustomerDAO {
 
 	// (관리자 페이지)
 	// 메인 화면 : 답변대기/보류글 출력
-	public List<CustomerDTO> adminMainList(int cus_categoryNum) {
-		return sqlSession.selectList(namespace + ".selectAdminMainList", cus_categoryNum);
+	public List<CustomerDTO> adminMainList(int cus_reNum) {
+		return sqlSession.selectList(namespace + ".selectAdminMainList", cus_reNum);
 	}
 
 	// 서비스 관리 : 문의 내역 출력

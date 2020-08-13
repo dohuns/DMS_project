@@ -6,8 +6,8 @@
 	<!-- 관리자 페이지 -->
 
 	<!-- 메인 화면 : 답변대기/보류글 출력 -->
-	<select id="selectAdminMainList" parameterType="int" resultType="customerDTO">
-		SELECT * FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
+	<select id="selectAdminMainList" resultType="customerDTO">
+		SELECT * FROM customer WHERE cus_reNum = #{cus_reNum}
 		ORDER BY cus_date ASC
 	</select>
 

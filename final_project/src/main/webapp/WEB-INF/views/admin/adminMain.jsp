@@ -107,7 +107,7 @@
 						<tbody>
 							<c:forEach var="list" items="${adminWaitList}" begin="0" end="4">
 								<tr>
-									<td><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+									<td><a href="adminInquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
 									<td class="date-st">${list.cus_date}</td>
 								</tr>
 							</c:forEach>
@@ -123,7 +123,7 @@
 						<tbody>
 							<c:forEach var="list" items="${adminHoldList}" begin="0" end="4">
 								<tr>
-									<td><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+									<td><a href="adminInquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
 									<td class="date-st">${list.cus_date}</td>
 								</tr>
 							</c:forEach>
