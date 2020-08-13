@@ -97,6 +97,38 @@
 							</c:forEach>
 						</tbody>
 					</table>
+
+					<table class="table-st">
+						<thead>
+							<tr>
+								<th colspan="2">답변대기<a href="adminInquiryList?cus_categoryNum=0">▼</a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="list" items="${adminWaitList}" begin="0" end="4">
+								<tr>
+									<td><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+									<td class="date-st">${list.cus_date}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+
+					<table class="table-st">
+						<thead>
+							<tr>
+								<th colspan="2">답변보류<a href="adminInquiryList?cus_categoryNum=2">▼</a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="list" items="${adminHoldList}" begin="0" end="4">
+								<tr>
+									<td><a href="inquiryContent?cus_num=${list.cus_num}">${list.cus_title}</a></td>
+									<td class="date-st">${list.cus_date}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

@@ -4,6 +4,13 @@
 <mapper namespace="com.KG.mybatis.myMapper">
 
 	<!-- 관리자 페이지 -->
+
+	<!-- 메인 화면 : 답변대기/보류글 출력 -->
+	<select id="selectAdminMainList" parameterType="int" resultType="customerDTO">
+		SELECT * FROM customer WHERE cus_categoryNum = #{cus_categoryNum}
+		ORDER BY cus_date ASC
+	</select>
+
 	<!-- 서비스 관리 : 문의 내역 출력 -->
 	<select id="selectAdminInquiryList" parameterType="hashmap" resultType="customerDTO">
 		SELECT B.* FROM (

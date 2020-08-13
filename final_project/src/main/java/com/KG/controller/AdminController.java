@@ -15,6 +15,7 @@ import com.KG.service.admin.member.AdminDelRankServImpl;
 import com.KG.service.admin.member.AdminInquiryAnswerServImpl;
 import com.KG.service.admin.member.AdminInquiryHoldServImpl;
 import com.KG.service.admin.member.AdminInquiryListServImpl;
+import com.KG.service.admin.member.AdminMainListServImpl;
 import com.KG.service.admin.member.AdminMemberListServImpl;
 import com.KG.service.admin.member.AdminService;
 import com.KG.service.admin.member.AdminUpdRankServImpl;
@@ -37,6 +38,8 @@ public class AdminController {
 	public String admin(Model model) {
 		boardServ = (BoaAdminListServImpl) AC.ac.getBean("boaAdminListServImpl");
 		boardServ.execute_Boo(model);
+		customerServ = (AdminMainListServImpl) AC.ac.getBean("adminMainListServImpl");
+		customerServ.execute(model);
 		return "admin/adminMain";
 	}
 
