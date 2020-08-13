@@ -181,7 +181,7 @@ ul#myInfoWrite {
 			</c:choose>
 
 			<div id="btn-frame-write" class="writeBtn">
-				<a href="/movie/board/wirteAll">글 작성</a>
+				<a href="/movie/board/writeAll">글 작성</a>
 			</div>
 
 			<div id="searchForm">
