@@ -85,7 +85,7 @@
 					<table class="table-st">
 						<thead>
 							<tr>
-								<th colspan="2">공지사항<a href="#">▼</a></th>
+								<th colspan="2">공지사항<a href="board/list?b_category=공지사항&b_article=공지">▼</a></th>
 							</tr>
 						</thead>
 						<tbody>
